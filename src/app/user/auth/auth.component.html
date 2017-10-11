@@ -1,0 +1,56 @@
+
+<div class="modal fade" #loginmodal='mdbModal' tabindex="-1" mdbModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-flex">
+        <span>LOGIN</span>
+        <div class="ml-auto">
+          <span class="mr-5">Not a member?
+            <a (click) = "showSignup()" class="red-text ml-2">Sign Up</a>
+          </span>
+          <span class="close" (click)="loginmodal.hide()">&times;</span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="md-form ">
+              <input type="email" formControlName="email" id="loginemail" class="form-control" [mdbValidate]= "false"  mdbInputDirective>
+              <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">Please enter a valid email</span>
+              <label for="loginemail">Your Email</label>
+            </div>
+
+            <div class="md-form ">
+              <input type="password" formControlName="password"  id="password" class="form-control " [mdbValidate]= "false" mdbInputDirective >
+              <label for="password">Your Password</label>
+              <span *ngIf="!loginForm.get('password').valid && loginForm.touched">Please enter a valid password</span>
+            </div>
+
+            <div>
+              <div class="d-flex">
+                <a href="#" class=' blue-text mt-3 ml-auto'>Forgot password?</a>
+              </div>
+              <div class="d-flex mt-3">
+
+                <mdb-checkbox [default]="true" formControlName="rememberMe"  class="pt-3">Remember me</mdb-checkbox>
+
+
+                <button type="submit"  mdbBtn class="relative waves-light ml-auto btn-sm red darken-5"  mdbWavesEffect>Log in</button>
+
+              </div>
+
+            </div>
+          </form>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="container d-flex">
+          <span class="small align-self-center">or connect instantly with -</span>
+          <button class="ml-auto waves-light relative btn-sm indigo" (click)="socialSignIn('facebook')" mdbBtn mdbWavesEffect>facebook</button>
+          <button class="waves-light relative red btn-sm" (click)="socialSignIn('google')" mdbBtn mdbWavesEffect>gmail</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

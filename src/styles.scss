@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+$sm: 576px;
+$md: 797px;
+
+@mixin sm {
+    @media (max-width: #{$sm}) {
+        @content;
+    }
+}
+@mixin md {
+    @media (max-width: #{$md}) {
+        @content;
+    }
+}
+h1 {
+    @include sm {
+    font-size: 40px;
+ }
+ @include md {
+     font-size: 30px;
+ }
+}
+h2 {
+    @include sm {
+    font-size: 27px;
+ }
+ @include md {
+     font-size: 25px;
+ }
+}
+
+#startbtn {
+    @include sm {
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+}
+
+
+
+
+#hero {
+    background: url('assets/image/bg-1.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 662px;
+}

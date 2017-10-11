@@ -1,0 +1,65 @@
+<!-- sign up modal -->
+
+<div class="modal fade" #SignUpmodal="mdbModal" tabindex="1" mdbModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-flex">
+        <h6 class="mr-auto">SIGN UP</h6>
+        <h6 class="ml-auto">
+          <span class="mr-5">Already a member?
+            <span class="red-text ml-2">
+              <a (click)="showlogin()" >LOGIN</a>
+            </span>
+          </span>
+          <span class="close" (click)='SignUpmodal.hide()'>&times;</span>
+        </h6>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form class="mt-3">
+            <div class="md-form">
+              <input type="text" class="form-control mb-4"  [mdbValidate]= "false" mdbInputDirective id="firstname">
+              <label for="firstname">First Name</label>
+            </div>
+            <div class="md-form">
+              <input type="text" class="form-control mb-4 mt-4"  [mdbValidate]= "false" mdbInputDirective id="lastname">
+              <label for="lastname">Last Name</label>
+            </div>
+            <div class="md-form">
+              <input type="email" class="form-control mb-4 mt-4"  [mdbValidate]= "false" mdbInputDirective id="emailaddress">
+              <label for="emailaddress">Email Address</label>
+            </div>
+            <div class="md-form">
+              <input type="password" class="form-control mb-4 mt-4"  [mdbValidate]= "false" mdbInputDirective id="regpassword">
+              <label for="regpassword">Password</label>
+            </div>
+            <div class="md-form">
+              <input type="date" class="form-control mb-4 mt-4" mdbInputDirective  id="date" placeholder="">
+              <label for="date">Date</label>
+            </div>
+          </form>
+
+          <div class="d-flex pb-4">
+            <div class="form-check mr-auto align-self-center">
+              <mdb-checkbox for="checkbox" [default]="true">I agree to FANtastic Tech's
+                <a class="text-info">T&amp;C</a>
+              </mdb-checkbox>
+
+            </div>
+            <button class="red px-2 rounded waves-light" size='sm' mdbWavesEffect mdbBtn>
+              START PLAYING
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer"><div class="container d-flex">
+          <span class="small align-self-center">or connect instantly with -</span>
+          <button class="ml-auto waves-light relative btn-sm indigo" mdbBtn mdbWavesEffect>facebook</button>
+          <button class="waves-light relative red btn-sm" mdbBtn mdbWavesEffect>gmail</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
