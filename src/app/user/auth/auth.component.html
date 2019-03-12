@@ -13,7 +13,7 @@
       </div>
       <div class="modal-body">
         <div class="container">
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"  id="logininput">
             <div class="md-form ">
               <input type="email" formControlName="email" id="loginemail" class="form-control" [mdbValidate]= "false"  mdbInputDirective>
               <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">Please enter a valid email</span>
@@ -21,15 +21,20 @@
             </div>
 
             <div class="md-form ">
-              <input type="password" formControlName="password"  id="password" class="form-control " [mdbValidate]= "false" mdbInputDirective >
+              <input  type="password" formControlName="password"  id="password" class="form-control " [mdbValidate]= "false" mdbInputDirective >
               <label for="password">Your Password</label>
               <span *ngIf="!loginForm.get('password').valid && loginForm.touched">Please enter a valid password</span>
             </div>
 
             <div>
+                <div class="spinner" *ngIf="isLoading" style ="top:50%;
+                 left: 45%;"></div>
+                 <div class="" *ngIf="noNetwork" style ="top:50%;
+                 left: 45%;text-emphasis-color: red">...Check your network connection!!</div>
               <div class="d-flex">
                 <a href="#" class=' blue-text mt-3 ml-auto'>Forgot password?</a>
               </div>
+
               <div class="d-flex mt-3">
 
                 <mdb-checkbox [default]="true" formControlName="rememberMe"  class="pt-3">Remember me</mdb-checkbox>
@@ -40,6 +45,7 @@
               </div>
 
             </div>
+
           </form>
 
         </div>

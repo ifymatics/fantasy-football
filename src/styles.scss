@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+body, html {
+  height: 100%;
+}
+
 $sm: 576px;
 $md: 797px;
 
@@ -44,5 +48,6 @@ h2 {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 662px;
+    height: 100%;
 }
+

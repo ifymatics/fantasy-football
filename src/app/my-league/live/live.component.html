@@ -1,0 +1,640 @@
+
+
+<div class="main my-3">
+  <div class="">
+    <div class="col-wrapper">
+      <div class="two-column-layout">
+        <div class='row'>
+          <div class="col-sm-12 col-lg-7">
+              <div>
+                  <!-- Completed section starts -->
+                  <div *ngIf="contestListData.length>0 || isLoading; else No;"
+                  >
+                    <div>
+                      <div class="container">
+                        <mdb-card class="my-3">
+                          <div class="border-bottom pt-2 pb-0">
+                            <div class="d-flex">
+                              <div class="d-flex">
+                                <img
+                                  src="assets/image/Premier_League-Mascot.png"
+                                  alt=""
+                                  width="55px"
+                                  height="40px"
+                                  style="border-radius: 50%;"
+                                />
+                                <div class="contestNameBlock">
+                                  <h5 class="contestTitle mb-0 pb-0 font-weight-bold">
+                                    Premier League
+                                  </h5>
+                                  <span class="small mt-0 pt-0">29/12/18</span>
+                                </div>
+                              </div>
+
+                              <!-- <div mdbDropdown class='ml-auto' style='position:relative;'>
+                                              <span mdbDropdownToggle class="dropdown-toggle small">
+                                              6 Matches
+                                          </span>
+
+                                          <div class="dropdown-menu dropdown-primary dropdown-menu-right">
+                                            <ul class='amountOfMatches'>
+                                              <li>ARS vs SOT</li>
+                                              <li>ARS vs SOT</li>
+                                              <li>ARS vs SOT</li>
+                                              <li>ARS vs SOT</li>
+                                              <li>ARS vs SOT</li>
+                                              <li>ARS vs SOT</li>
+                                            </ul>
+                                          </div>
+                                          </div> -->
+
+                              <select class="ml-auto matchList mr-2" width='50px'>
+                                <option selected>6 Matches</option>
+                                <option>ARS vs SOT</option>
+                                <option>ARS vs SOT</option>
+                                <option>ARS vs SOT</option>
+                                <option>ARS vs SOT</option>
+                                <option>ARS vs SOT</option>
+                                <option>ARS vs SOT</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div
+                            class="contestInfoContainer container border-bottom py-2 pb-3"
+                          >
+                            <table id="contestInfo1" class="">
+                              <thead>
+                                  <tr>
+                                      <th class="small ContestNameTitle" >Contest</th>
+                                      <th class="small text-center">Prize Pool</th>
+                                      <th class="small text-center ">Team</th>
+                                      <th class="small text-center tableItem">Rank</th>
+                                      <th class="small text-center tableItem">Point</th>
+                                    </tr>
+                              </thead>
+
+                              <tbody>
+                                  <tr class=''>
+                                      <td id="contestName" >
+                                          <div class="d-flex align-items-center">
+                                              <button
+                                                class="waves-dark relative dropdown-toggle mobileContestInfoBtn p-0 black-text ml-0"
+                                                mdbBtn
+                                                mdbWavesEffect
+                                                mdbDropdownToggle
+                                              ></button>
+
+                                              <div>
+                                                  <span
+                                                  >Saturday Special
+                                                  <span
+                                                    class="badge badge-pill py-1 amber darken-3 mt-0 contestPill"
+                                                    >P</span
+                                                  ></span
+                                                >
+                                              </div>
+                                            </div>
+
+                                            <!--  DROPDOWN FOR CONTEST INFO ON MOBILE -->
+                              <div
+                              class=" px-2 mt-2"
+                              id="contestinfomobile"
+                              [ngClass]="{ display: showContest }"
+                            >
+                            <div class="d-flex small my-2 align-items-center">
+                                <span>Rank</span>
+                                <span class="ml-auto"><span class="font-weight-bold">24</span>/25</span>
+                              </div>
+
+                              <div class="d-flex small my-2">
+                                <span>Total Points:</span>
+                                <span class="ml-auto">21.1</span>
+                              </div>
+
+                            </div>
+
+                            <!--  END OF DROPDOWN FOR CONTEST INFO ON MOBILE -->
+                                      </td>
+                                      <td class="text-center pt-0">
+                                          <div class="dropdown" mdbDropdown>
+                                            <div mdbDropdownToggle class="dropdown-toggle">
+                                              <span class="d-block"><i class="fas fa-coins ml-2"></i> 5 Coins</span>
+                                              <small>10 winner(s)</small>
+                                            </div>
+
+                                            <div class="dropdown-menu mt-0 pt-0" id="priceDetailsMobile">
+                                                <div class='prizePoolTable'>
+
+                                                    <div class='prizePoolHeader'>
+                                                      <span class="">
+                                                        Rank
+                                                      </span>
+                                                      <span class="">
+                                                        Prize
+                                                      </span>
+                                                    </div>
+
+
+                                                    <div class='prizePoolItem'>
+                                                      <span>1st</span>
+                                                      <span class="text-center">
+                                                        <img
+                                                          src="assets/image/bg-2.jpg"
+                                                          width="70px"
+                                                          height="40px"
+                                                          alt=""
+                                                        />
+                                                      </span>
+                                                    </div>
+                                                    <div class='prizePoolItem'>
+                                                      <span>2nd</span>
+                                                      <span class="text-center">
+                                                        <img
+                                                          src="assets/image/bg-2.jpg"
+                                                          width="70px"
+                                                          height="40px"
+                                                          alt=""
+                                                        />
+                                                      </span>
+                                                    </div>
+                                                    <div class='prizePoolItem'>
+                                                      <span>3rd</span>
+                                                      <span class="text-center">
+                                                        <img
+                                                          src="assets/image/bg-2.jpg"
+                                                          width="70px"
+                                                          height="40px"
+                                                          alt=""
+                                                        />
+                                                      </span>
+                                                    </div>
+                                                    <div class='prizePoolItem'>
+                                                      <span>4th</span>
+                                                      <span class="text-center">
+                                                        <img
+                                                          src="assets/image/bg-2.jpg"
+                                                          width="70px"
+                                                          height="40px"
+                                                          alt=""
+                                                        />
+                                                      </span>
+                                                    </div>
+                                                    <div class='prizePoolItem'>
+                                                      <span>5th</span>
+                                                      <span class="text-center">
+                                                        <img
+                                                          src="assets/image/bg-2.jpg"
+                                                          width="70px"
+                                                          height="40px"
+                                                          alt=""
+                                                        />
+                                                      </span>
+                                                    </div>
+
+                                                </div>
+                                              </div>
+                                          </div>
+                                        </td>
+                                      <td class="text-center "><span>Team X</span></td>
+                                      <td class="text-center tableItem"><span> <span class="font-weight-bold">25</span> / 40</span></td>
+
+                                      <td class="tableItem"><span>21.1</span></td>
+                                    </tr>
+                              </tbody>
+
+
+                            </table>
+
+                            <!-- <div class="newTable">
+                              <div class="newTableHeader">
+                                  <span>Contest</span>
+                                  <span>prize Pool</span>
+                                  <span>Team</span>
+                                  <span>Rank</span>
+                              </div>
+
+                              <div>
+
+                              </div>
+
+                            </div> -->
+                          </div>
+                          <div class="text-center pt-2 d-flex justify-content-between justify-content-around">
+                            <a > Show Lineup</a>
+
+                            <a class='font-weight-bold blue-text'>View</a>
+                          </div>
+                        </mdb-card>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  <!-- Completed section ends -->
+                  <ng-template #No>
+                    <h5><p>No live contest available on this league</p></h5>
+                  </ng-template>
+                  <div class="spinner" *ngIf="isLoading" style ="top:50%;
+                  left: 45%;"></div>
+                </div>
+          </div>
+
+
+          <div class="col-sm-12 col-lg-5">
+            <!-- Pitch starts -->
+              <div id="mobilePitch">
+                  <div class="pitchadscontainer ">
+                    <div class="d-flex pt-0">
+                      <div class="d-flex" id="leftAd">
+                        <div id="leftAdShadow"></div>
+                        <div id="leftAdBox">
+                          <img src="assets/image/bg-1.jpg" alt="" />
+                        </div>
+                      </div>
+
+                      <div class="d-flex " id="rightAd">
+                        <div id="rightAdBox">
+                          <img src="assets/image/bg-1.jpg" alt="" />
+                        </div>
+                        <div id="rightAdShadow"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 4-4-2 formation -->
+                  <div class=" pr-0 mr-0">
+                    <div
+                      id="pitchBorder"
+                      class="col-lg-12 px-0 mx-0"
+                      style="background: url('assets/image/formation_images/mainPitch.png');background-repeat: no-repeat; background-size: 100% 100%; width: 100%; margin-right: 0; padding-right: 0;"
+                    >
+                      <!-- Formation 4-4-2 Forward -->
+                      <div id="FW">
+                        <ul class="FW-4-4-2">
+                          <li>
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+
+                              <span hidden class="white-text small">FW</span>
+                            </a>
+                          </li>
+                          <li>
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+
+                              <span hidden class="white-text small">FW</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /Formation 4-4-2 Forward -->
+
+                      <!-- Formation 4-4-2 Midfield -->
+                      <div id="Mid">
+                        <ul class="Mid-4-4-2">
+                          <li class="">
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+
+                              <span hidden class="white-text small">MID</span>
+                            </a>
+                          </li>
+                          <li>
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+
+                              <span hidden class="white-text small">MID</span>
+                            </a>
+                          </li>
+                          <li>
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+
+                              <span hidden class="white-text small">MID</span>
+                            </a>
+                          </li>
+                          <li>
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+
+                              <span hidden class="white-text small">MID</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <img
+                        src="assets/image/logo/logo_F.png"
+                        alt="Sponsor's Logo"
+                        width="80%"
+                        height="60%"
+                        style="position:absolute; top: 0; left: 10%; transform: rotateX(75deg); opacity: 0.7;"
+                      />
+                      <!-- /Formation 4-4-2 Midfield -->
+
+                      <!-- Formation 4-4-2 Defence -->
+                      <div id="Def">
+                        <ul class="Def-4-4-2">
+                          <li>
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+
+                              <span hidden class="white-text small">DEF</span>
+                            </a>
+                          </li>
+                          <li>
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+
+                              <span hidden class="white-text small">DEF</span>
+                            </a>
+                          </li>
+                          <li>
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+
+                              <span hidden class="white-text small">DEF</span>
+                            </a>
+                          </li>
+                          <li>
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+
+                              <span hidden class="white-text small">DEF</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /Formation 4-4-2 Defence -->
+
+                      <!-- Formation 4-4-2 Goalie -->
+                      <div id="goalie">
+                        <ul class="goalie">
+                          <li>
+                            <div class="captainBadge">C</div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                                class=" my-0 py-0"
+                              >
+                                <img
+                                  src="assets/image/jersey_mockup.png"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  >M. Sallah</span
+                                >
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  >Salary</span
+                                >
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /Formation 4-4-2 Goalie -->
+                    </div>
+                  </div>
+                </div>
+                <!-- Pitch end -->
+          </div>
+
+
+
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
+

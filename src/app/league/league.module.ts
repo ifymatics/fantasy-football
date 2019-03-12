@@ -15,7 +15,7 @@ import { LeagueComponent } from './league/league.component';
   declarations:
    [
      LeagueComponent,
-    // HeaderComponent
+
     ]
 })
 export class LeagueModule { }

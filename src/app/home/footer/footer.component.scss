@@ -1,0 +1,183 @@
+// Media query size for most of the Smartphones Mobiles (Portrait)
+@mixin for-portrait-phone-only {
+  @media (min-width: 320px) and (max-width: 480px) {
+    @content;
+  }
+}
+
+// Media query size for low Resolution Tablets, Mobiles (Landscape)
+@mixin for-landscape-phone-only {
+  @media (min-width: 481px) and (max-width: 767px) {
+    @content;
+  }
+}
+
+//Media query for Tablets, Ipads (portraits)
+@mixin for-portrait-tablet-and-ipad-only {
+  @media (min-width: 768px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+//Media query for medium screens
+@mixin for-md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+//Media query for large screens
+@mixin for-lg {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
+//Media query for Tablets, Ipads (landscape)
+@mixin for-landscape-tablet-and-ipads-only {
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+//Media query Laptops, Desktops
+@mixin for-laptop-and-desktop-only {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+//******************FOOTER STARTS*********************
+//Social media icons at footer starts
+footer {
+
+    position: relative;
+    background: #4f4f4f;
+    z-index: 1000;
+
+
+
+  .footer-nav {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style: none;
+      color: #9c9c9c;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 5px 8px;
+    }
+
+    li a {
+        color: #fff;
+    }
+    li a:hover {
+        color: #419BF9;
+    }
+  }
+
+  .visible-sm,
+  .visible-xs {
+    display: none;
+
+    @include for-portrait-phone-only {
+      display: block;
+    }
+  }
+}
+
+.footer-section {
+    clear: both;
+    background-color: #4F4F4F;
+    padding-top: 20px;
+    color: #fff;
+    font-size: 14px;
+    width: 100%;
+}
+
+
+
+
+.footer-bottom {
+  background-color: #474747;
+  padding: 5px;
+  margin-top: 15px;
+  color: #9c9c9c;
+  padding-top: 15px;
+
+  .list-inline {
+    margin-bottom: 0;
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: middle;
+
+    li {
+        list-style: none;
+        display: inline-block;
+
+        img {
+            vertical-align: middle;
+        }
+      }
+
+    li:first-child {
+        a {
+            img {
+                width: 13px;
+                height: 23px;
+            }
+        }
+    }
+    li:nth-child(2) {
+        a {
+            img {
+                width: 20px;
+                height: 17px;
+            }
+        }
+    }
+    li:nth-child(3) {
+        a {
+            img {
+                width: 19px;
+                height: 19px;
+            }
+        }
+    }
+    li:last-child {
+        a {
+            img {
+                width: 19px;
+                height: 19px;
+            }
+        }
+    }
+}
+
+
+}
+
+
+  a {
+    img {
+      vertical-align: middle;
+    }
+    img:first-child {
+      width: 13px;
+      height: 23px;
+    }
+    img:nth-child(2) {
+      width: 20px;
+      height: 17px;
+    }
+    img:nth-child(3) {
+      width: 19px;
+      height: 19px;
+    }
+    img:nth-child(4) {
+        width: 19px;
+        height: 19px;
+    }
+  }
+
+
+// Social media icons at footer ends

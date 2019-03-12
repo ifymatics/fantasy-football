@@ -1,0 +1,1168 @@
+// Media query size for most of the Smartphones Mobiles (Portrait)
+@mixin for-portrait-phone-only {
+  @media (min-width: 320px) and (max-width: 480px) {
+    @content;
+  }
+}
+
+// Media query size for low Resolution Tablets, Mobiles (Landscape)
+@mixin for-landscape-phone-only {
+  @media (min-width: 481px) and (max-width: 767px) {
+    @content;
+  }
+}
+
+//Media query for Tablets, Ipads (portraits)
+@mixin for-portrait-tablet-and-ipad-only {
+  @media (min-width: 768px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+//Media query for medium screens
+@mixin for-md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+//Media query for large screens
+@mixin for-lg {
+  @media (min-width: 992px) {
+    @content;
+    body.modal-open {visibility: hidden;}
+  }
+}
+
+//Media query for Tablets, Ipads (landscape)
+@mixin for-landscape-tablet-and-ipads-only {
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+//Media query Laptops, Desktops
+@mixin for-laptop-and-desktop-only {
+  @media (min-width: 1200px) {
+    @content;
+    body.modal-open {visibility: hidden;}
+  }
+}
+
+////=======BODY STARTS=======/////
+
+
+
+.layer {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.midwayBtns {
+  display: flex;
+  // @include for-portrait-phone-only {
+  //   display: block;
+  //   > div:first-child {
+  //     display: block;
+  //   }
+  // }
+}
+
+#earnCoinsBtn {
+  width: 89px;
+  height: 36px;
+  @include for-portrait-phone-only {
+    width: 100px;
+    height: 38px;
+  }
+}
+
+///===== BLUE SECTION
+
+//==PICTURES FOR CAROUSEL
+/* #pix1 {
+  background: url("src/assets/images/bg-5.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+}
+
+#pix2 {
+  background: url("src/assets/images/bg-2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+}
+
+#pix3 {
+  background: url("src/assets/images/bg-3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+} */
+
+#main_pix {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 15px;
+  @include for-portrait-phone-only {
+    display: none;
+  }
+  @include for-landscape-phone-only {
+    display: none;
+  }
+}
+
+#carousel {
+  display: none;
+  @include for-portrait-phone-only {
+    display: block;
+  }
+  @include for-landscape-phone-only {
+    display: block;
+  }
+}
+//==/PICTURES FOR CAROUSEL
+
+#blueSection {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+///===== /BLUE SECTION
+
+///===== RED SECTION
+
+#redSection {
+  height: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+}
+
+////======== TABLE SECTION //////
+
+// DESKTOP CONTEST TABLE
+.table-container {
+  height: 700px;
+
+  @include for-portrait-phone-only {
+    height: 500px;
+    overflow: scroll;
+  }
+  @include for-landscape-phone-only {
+    height: 330px;
+    overflow: scroll;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    height: 750px;
+    overflow: scroll;
+  }
+  @include for-landscape-tablet-and-ipads-only {
+    height: 650px;
+    overflow: scroll;
+  }
+}
+
+#table {
+  th {
+    color: #9e9e9e;
+    font-size: 12px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    font-weight: normal;
+  }
+
+  td {
+    color: #666;
+    font-size: 14px;
+
+    small {
+      color: #9e9e9e;
+    }
+  }
+  td:first-child {
+    color: #333;
+    font-size: 14px;
+  }
+
+  @include for-portrait-phone-only {
+    /* display: none;
+    height: 210px; */
+
+    overflow-y: scroll;
+    max-height: 200px;
+
+    thead {
+      position: sticky;
+      bottom: 0;
+    }
+
+    tr {
+      th:nth-child(2),
+      th:nth-child(3),
+      th:nth-child(4),
+      th:nth-child(5) {
+        display: none;
+      }
+      td:nth-child(2),
+      td:nth-child(3),
+      td:nth-child(4),
+      td:nth-child(5) {
+        display: none;
+      }
+
+      table {
+        tr {
+          th {
+            display: inline-block;
+          }
+
+          td {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+
+  @include for-landscape-phone-only {
+    overflow-y: scroll;
+    max-height: 200px;
+
+    thead {
+      position: sticky;
+      bottom: 0;
+    }
+
+    tr {
+      th:nth-child(2),
+      th:nth-child(3),
+      th:nth-child(4),
+      th:nth-child(5) {
+        display: none;
+      }
+      td:nth-child(2),
+      td:nth-child(3),
+      td:nth-child(4),
+      td:nth-child(5) {
+        display: none;
+      }
+
+
+    }
+  }
+}
+
+#priceDetailsMobile table {
+  tr {
+
+    th {
+      display: inline-block;
+      border-bottom: none;
+    }
+
+    td {
+      display: inline-block;
+    }
+  }
+}
+
+// /DESKTOP CONTEST TABLE
+
+#contest_name_desktop {
+  cursor: pointer;
+
+  small {
+    font-style: italic;
+    color: #9e9e9e;
+    font-size: 12px;
+  }
+
+  /* @include for-portrait-phone-only {
+    width: 50px;
+  } */
+}
+
+// jOIN BTN
+
+.tableBtn {
+  @include for-portrait-phone-only {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+// jOIN BTN
+
+// DESKTOP ADS
+
+#table1 {
+  height: 210px;
+  @include for-portrait-phone-only {
+    display: none;
+  }
+  @include for-landscape-phone-only {
+    display: none;
+  }
+}
+#adsContainer1 {
+  @include for-portrait-tablet-and-ipad-only {
+    display: none;
+  }
+
+  @include for-landscape-tablet-and-ipads-only {
+    display: block;
+  }
+  @include for-md {
+    display: none;
+  }
+  @include for-lg {
+    display: block;
+  }
+  .Desktop_sideAd2 {
+    margin-top: 20px;
+  }
+}
+
+#adsContainer2 {
+  display: none;
+  @include for-portrait-tablet-and-ipad-only {
+    display: flex;
+  }
+  @include for-landscape-tablet-and-ipads-only {
+    display: none;
+  }
+  @include for-md {
+    display: flex;
+  }
+  @include for-lg {
+    display: none;
+  }
+  .Desktop_sideAd2 {
+  }
+}
+.Desktop_sideAd1 {
+  // @include for-portrait-phone-only {
+  //     display: none;
+  // }
+}
+
+//Join contest modal
+#joinContestModal {
+  color: #333;
+
+  i {
+    width: 40px;
+    height: 40px;
+    border-right: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-top: 11px;
+    display: inline-block;
+    vertical-align: middle;
+
+    @include for-portrait-phone-only {
+      margin-right: 30px;
+      margin-top: 31px;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .modal-title {
+    margin: 0;
+    line-height: 1.428571429;
+    font-size: 16px;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+// /Join contest modal
+
+// /DESKTOP ADS
+
+// CONTAINER FOR MOBILE ADS
+#table2 {
+  display: none;
+
+  @include for-portrait-phone-only {
+    display: block;
+    height: 60px;
+    left: 17%;
+    position: relative;
+  }
+
+  @include for-landscape-phone-only {
+    display: block;
+    height: 70px;
+    left: 13%;
+    position: relative;
+  }
+}
+// /CONTAINER FOR MOBILE ADS
+
+// LEAGUE LOGO FOR CONTEST TABLE
+#EPL_Mascot {
+  height: 42px;
+  width: 62px;
+}
+// /LEAGUE LOGO FOR CONTEST TABLE
+
+// FOR ENSURING ITEMS ON DESKTOP NAV ALIGN WITH 'JOIN' BUTTON
+.table-item {
+  padding-top: 25px;
+
+  @include for-portrait-phone-only {
+    padding-top: 17px;
+  }
+}
+// /FOR ENSURING ITEMS ON DESKTOP NAV ALIGN WITH 'JOIN' BUTTON
+
+#filter-dropdown {
+  overflow-y: scroll;
+  height: 200px;
+  width: 300px;
+}
+
+.contest_date {
+  font-style: italic;
+  color: #9e9e9e;
+  font-size: 12px;
+}
+
+.prizeImg:hover {
+  transform: scale(1.2);
+  transition: 0.1s;
+}
+
+// PREMIUM & MULTIPLE ENTRY BADGES FOR DESKTOP
+#desktop_buttons {
+  @include for-portrait-phone-only {
+    margin-left: auto;
+  }
+  /*@include for-landscape-phone-only {
+    display: none;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    display: none;
+  } */
+}
+
+.filterBtnContainer {
+  @include for-portrait-phone-only {
+    display: inline-block;
+  }
+}
+
+#firstBadge {
+  @include for-portrait-phone-only {
+    display: block;
+  }
+}
+// /PREMIUM & MULTIPLE ENTRY BADGES FOR DESKTOP
+
+// PREMIUM & MULTIPLE ENTRY BADGES FOR MOBILE
+
+#mobile_buttons {
+  display: none;
+  @include for-portrait-phone-only {
+    display: block;
+  }
+  @include for-landscape-phone-only {
+    display: block;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    display: block;
+  }
+}
+
+// /PREMIUM & MULTIPLE ENTRY BADGES FOR MOBILE
+
+/* .contest {
+  padding-left: 27px;
+} */
+
+//progress bar
+.remaining-progress .progress-alt {
+  display: inline-block;
+  vertical-align: middle;
+  width: 60px;
+  height: 3px;
+  background-color: #d8d8d8;
+  border-radius: 100px;
+  overflow: visible;
+  position: relative;
+}
+
+.crossed {
+  background: #00a900;
+}
+.progress-bar {
+  float: left;
+  width: 0%;
+  height: 100%;
+  font-size: 12px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #419BF9;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  transition: width 0.6s ease;
+}
+.remaining-progress .progress-alt .threshold-value {
+  position: absolute;
+  font-size: 12px;
+  color: #b8b8b8;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+// progress bar ends
+
+///mobileContestInfoBtn
+.mobileContestInfoBtn {
+  width: 15px;
+  height: 15px;
+  display: none;
+  @include for-portrait-phone-only {
+    display: block;
+  }
+  @include for-landscape-phone-only {
+    display: block;
+  }
+}
+
+#mobileContestInfodropdown {
+  position: relative;
+
+  @include for-portrait-phone-only {
+    position: static;
+  }
+
+  ul {
+    li {
+      list-style: none;
+    }
+  }
+}
+
+#priceDetails {
+  height: 200px;
+  overflow-y: scroll;
+  width: auto;
+}
+#priceDetailsMobile {
+  height: 200px;
+  overflow-y: scroll;
+  width: auto;
+}
+#contestinfomobile {
+  display: none;
+  height: 0px;
+  width: 200px;
+  border: 1px solid #000000;
+  margin: 0;
+  position: relative;
+  top: -90px;
+  right: 0px;
+  z-index: -1;
+  transition: 0.3s;
+}
+
+#contestinfomobile.display {
+  top: 0px;
+  z-index: 1;
+  height: auto;
+  @include for-portrait-phone-only {
+    display: block;
+  }
+  @include for-landscape-phone-only {
+    display: block;
+  }
+}
+
+/* CUSTOMISED SPINNER*/
+.spinner {
+  border: 16px solid silver;
+  border-top: 16px solid #387ab7;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 700ms linear infinite;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin: -40px 0 0 -40px;
+
+  @include for-portrait-phone-only {
+    border-width: 8px;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+  }
+  @include for-landscape-phone-only {
+    border-width: 8px;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    border-width: 8px;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/*@media screen and (max-width: 480px) {
+
+   .spinner{
+  border: 16px solid silver;
+  border-top: 16px solid #387AB7;
+  border-radius: 50%;
+  width:50px;
+  height: 50px;
+  animation: spin 700ms linear infinite;
+  top:120%;
+  left: 50%;
+  position:absolute;
+  }
+  @keyframes spin {
+  0% {transform: rotate(0deg)}
+  100% {transform: rotate(360deg)}
+  }
+  } */
+/* END OF CUSTOMISED SPINNER*/
+
+///mobileContestInfoBtn
+
+/// CONTEST INFO MODAL
+
+.content-detail-tabs {
+  display: block;
+
+  > .active {
+    display: block;
+  }
+}
+//== contest_modal_nav
+#contest_modal {
+  @include for-laptop-and-desktop-only {
+    width: 1500px;
+  }
+}
+
+#contest_modal_nav {
+  ul {
+    li {
+      @include for-portrait-phone-only {
+        font-size: 12px;
+      }
+      a {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+
+        @include for-portrait-phone-only {
+          text-align: center;
+        }
+
+        @include for-portrait-phone-only {
+          padding: 10px 7px;
+        }
+        .contest_modal_icons {
+          font-size: 21px;
+
+          @include for-portrait-phone-only {
+            text-align: center;
+            display: block;
+            padding-bottom: 5px;
+          }
+
+          @include for-laptop-and-desktop-only {
+            margin-right: 20px;
+          }
+        }
+      }
+    }
+    @include for-landscape-phone-only {
+      font-size: 12px;
+    }
+    a {
+      position: relative;
+      display: block;
+      padding: 10px 15px;
+
+      @include for-landscape-phone-only {
+        text-align: center;
+      }
+
+      @include for-landscape-phone-only {
+        padding: 10px 7px;
+      }
+      .contest_modal_icons {
+        font-size: 21px;
+
+        @include for-landscape-phone-only {
+          text-align: center;
+          display: block;
+          padding-bottom: 5px;
+        }
+
+        @include for-laptop-and-desktop-only {
+          margin-right: 20px;
+        }
+      }
+    }
+    @include for-portrait-tablet-and-ipad-only {
+      font-size: 12px;
+    }
+    a {
+      position: relative;
+      display: block;
+      padding: 10px 15px;
+
+      @include for-portrait-tablet-and-ipad-only {
+        text-align: center;
+      }
+
+      @include for-portrait-tablet-and-ipad-only {
+        padding: 10px 7px;
+      }
+      .contest_modal_icons {
+        font-size: 21px;
+
+        @include for-portrait-tablet-and-ipad-only {
+          text-align: center;
+          display: block;
+          padding-bottom: 5px;
+        }
+
+        @include for-laptop-and-desktop-only {
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+}
+//== /contest_modal_nav
+
+// INFO SECTION
+
+.tab-content {
+  background-color: #282828;
+  height: calc(100vh - 126px);
+  overflow: auto;
+  position: relative;
+  float: left;
+  width: 100%;
+}
+
+.pick-11-players-from {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 21px;
+}
+
+.league-detail-info ul li {
+  display: inline-block;
+  width: 29%;
+  text-align: center;
+  margin: 0px;
+
+  @include for-portrait-phone-only {
+    width: 100%;
+    margin-top: 20px;
+  }
+  @include for-landscape-phone-only {
+    width: 100%;
+    margin-top: 20px;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+.gray-bg-box {
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0px 15px;
+  min-height: 120px;
+  display: inline-block;
+  width: 100%;
+}
+.mT20 {
+  margin-top: 20px;
+}
+
+.horizontal_scroll_list {
+  white-space: nowrap;
+  overflow-x: auto;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.tab-content li {
+  width: 22%;
+  text-align: left;
+  list-style: none;
+  display: inline-block;
+
+  @include for-portrait-phone-only {
+    width: 45%;
+  }
+  @include for-landscape-phone-only {
+    width: 45%;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    width: 45%;
+  }
+}
+
+.content-team-detail {
+  margin: 30px 0px 20px 0px;
+  text-align: center;
+  white-space: normal;
+  .team {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px 1px;
+  }
+  .timer {
+    color: #aaaaaa;
+    font-size: 12px;
+    line-height: 16px;
+    display: block;
+    margin-top: 5px;
+  }
+}
+
+[class^="timer"] {
+  font-family: "digital-7";
+  font-weight: normal;
+  font-style: italic;
+}
+
+.league-details-info {
+  position: relative;
+}
+
+.league-details-info ul li {
+  display: inline-block;
+  width: 29%;
+  text-align: center;
+  margin: 0px;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.font-18 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+//Scoring guideline
+.salary-cap-scoring {
+  .title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+}
+.salary-cap {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+}
+.salary-cap-scoring ul li {
+  list-style: none;
+  color: #b5b5b5;
+  font-size: 14px;
+  line-height: 28px;
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.mR10 {
+  margin-right: 10px;
+}
+.p35 {
+  padding: 35px;
+}
+.salary-cap-list-title {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 24px;
+  display: inline-block;
+}
+.the-contest-is-guara {
+  padding-top: 40px;
+  padding-bottom: 70px;
+  margin-top: 20px;
+  color: #999999;
+  font-size: 14px;
+  line-height: 26px;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+//Scoring guideline ends
+
+// PRIZE SECTION OF MODAL
+
+.price-type-cont {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.price-type {
+  max-width: 382px;
+  margin: 0 auto;
+}
+
+.price-type-cont:after {
+  margin-top: 20px;
+  position: relative;
+  display: block;
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.price-type .price-box {
+  display: inline-block;
+  padding: 10px;
+  width: 39%;
+  text-align: right;
+}
+
+.price-type .price-box .price {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.prize-distribution {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 30px;
+}
+.price-list-distribution {
+  max-height: 360px;
+  max-width: 350px;
+  padding: 0px 20px;
+  margin: 20px auto;
+  overflow: auto;
+  display: block;
+
+  @include for-portrait-phone-only {
+    padding: 0 auto;
+  }
+  @include for-landscape-phone-only {
+    padding: 0 auto;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    padding: 0 auto;
+  }
+}
+.price-list-distribution li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: list-item;
+}
+.price-distribute-position-cont {
+  padding: 0px 10px;
+  margin: 0px;
+  display: block;
+}
+.price-distribute-position-cont .price-distribute-position {
+  height: 30px;
+  width: 38px;
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+  border-radius: 100%;
+  line-height: 28px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 3px;
+  color: #9c9c9c;
+  margin: 0px;
+}
+.tab-content .price-distribute-position-cont .price-amount {
+  /* min-width: 115px; */
+  margin: 0px;
+  padding: 0px;
+}
+
+.price-distribute-position-cont .price-amount {
+  color: #fff;
+  font-size: 14px;
+  line-height: 28px;
+  display: inline-block;
+  margin-left: 15px;
+  float: right;
+}
+
+// /PRIZE SECTION OF MODAL
+
+// PARTICIPANTS SECTION OF MODAL
+
+.participants-detail-cont {
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.total-participants {
+  color: #8a8a8a;
+  font-size: 14px;
+  line-height: 30px;
+  text-align: left;
+  margin-left: 19px;
+}
+
+.participants-detail {
+  margin: 10px 0px;
+  text-align: left;
+
+  @include for-portrait-phone-only {
+    display: inline-block;
+    text-align: center;
+  }
+  @include for-landscape-phone-only {
+    display: inline-block;
+    text-align: center;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    display: inline-block;
+    text-align: center;
+  }
+}
+
+.participants-pic {
+  display: inline-block;
+  vertical-align: middle;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  position: relative;
+  -webkit-border-radius: 1000px;
+  -khtml-border-radius: 1000px;
+  -moz-border-radius: 1000px;
+  border-radius: 1000px;
+  z-index: 1;
+  background: #f6f6f6;
+
+  @include for-portrait-phone-only {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+  }
+  @include for-landscape-phone-only {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+.participants-name {
+  color: #fff;
+  font-size: 14px;
+  line-height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+  margin-left: 20px;
+
+  @include for-portrait-phone-only {
+    margin-left: 0;
+  }
+  @include for-landscape-phone-only {
+    margin-left: 0;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    margin-left: 0;
+  }
+}
+
+.participants-pic > img {
+  min-width: 100%;
+  position: absolute;
+  top: 50%;
+  min-height: 100%;
+  left: 50%;
+  border-radius: 100%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 100%;
+}
+
+.clearfix {
+  display: block;
+  @include for-portrait-phone-only {
+    display: none;
+  }
+  @include for-landscape-phone-only {
+    display: none;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    display: none;
+  }
+}
+// /Participants modal section
+
+.modal-body {
+  position: relative;
+  padding: 15px;
+}
+
+/// /CONTEST INFO MODAL
+
+////=======BODY ENDS=======/////

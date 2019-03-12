@@ -1,0 +1,1680 @@
+@mixin for-portrait-phone-only {
+  @media (min-width: 320px) and (max-width: 480px) {
+    @content;
+  }
+}
+
+// Media query size for low Resolution Tablets, Mobiles (Landscape)
+@mixin for-landscape-phone-only {
+  @media (min-width: 481px) and (max-width: 767px) {
+    @content;
+  }
+}
+
+//Media query for Tablets, Ipads (portraits)
+@mixin for-portrait-tablet-and-ipad-only {
+  @media (min-width: 768px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+//Media query for extra-small screens
+@mixin for-xs {
+  @media (min-width: 0px) and (max-width: 359px) {
+    @content;
+  }
+}
+//Media query for small screens
+@mixin for-sm {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
+//Media query for medium screens
+@mixin for-md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+//Media query for large screens
+@mixin for-lg {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
+//Media query for Tablets, Ipads (landscape)
+@mixin for-landscape-tablet-and-ipads-only {
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+//Media query Laptops, Desktops
+@mixin for-laptop-and-desktop-only {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}
+@mixin for-xs {
+    @media (min-width: 0px) {
+        @content;
+    }
+}
+@mixin for-sm {
+    @media (min-width: 576px) {
+        @content;
+    }
+}
+@mixin for-md {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+@mixin for-lg {
+    @media (min-width: 992px) {
+        @content;
+    }
+}
+@mixin for-xl {
+    @media (min-width: 1200px) {
+        @content;
+    }
+}
+
+/* Player Positions */
+
+/* Forward */
+$forwardPosition-portrait-phone: -10.5%;
+$forwardPosition-landscape-phone: -6.5%;
+$forwardPosition-portrait-tablet-and-ipad: -4.5%;
+$forwardPosition-lg: -5.5%;
+
+/* Midfield */
+$midfieldPosition-xs-phone: 20.5%;
+$midfieldPosition-portrait-phone: 18.5%;
+$midfieldPosition-landscape-phone: 18.5%;
+$midfieldPosition-portrait-tablet-and-ipad: 22.5%;
+$midfieldPosition-lg: 17%;
+$midfieldPosition-laptop-and-desktop: 165px;
+
+/* Defence */
+$defencePosition-xs-phone: 45%;
+$defencePosition-portrait-phone: 43%;
+$defencePosition-landscape-phone: 45%;
+$defencePosition-portrait-tablet-and-ipad: 47%;
+$defencePosition-lg: 42%;
+$defencePosition-laptop-and-desktop: 375px;
+
+/* Goalie */
+$goaliePosition-xs-phone: 67%;
+$goaliePosition-portrait-phone: 67.5%;
+$goaliePosition-landscape-phone: 66%;
+$goaliePosition-portrait-tablet-and-ipad: 69%;
+$goaliePosition-lg: 64%;
+$goaliePosition-laptop-and-desktop: 69%;
+/* /Player Positions */
+
+/* Pitch colors */
+
+$lightGreen: #01a611;
+
+$darkGreen: #007b0c;
+/* /Pitch colors */
+
+
+.main {
+  min-height: 600px;
+}
+
+.two-column-layout {
+    @include for-lg {
+         display: table;
+        width: 100%;
+        /* table-layout: fixed; */
+    }
+}
+
+.layout-1, .layout-2 {
+
+    @include for-lg {
+    display: table-cell;
+    vertical-align: top;
+}
+}
+
+#mobilePitch {
+  @include for-lg {
+    display: none;
+  }
+}
+
+#desktopPitch {
+  display: none;
+
+  @include for-lg {
+    display: block;
+  }
+}
+.layout-2 {
+  display: none;
+  @include for-lg {
+    display: table-cell;
+    width: 40%;
+  }
+}
+
+.secondary-tab {
+    margin-bottom: 10px;
+
+    .nav-tabs {
+        padding-left: 2px;
+        padding-right: 2px;
+        background-color: #fff;
+        margin-bottom: 0;
+        border-bottom: none;
+        border-radius: 5px;
+        color: #333;
+        -webkit-box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);
+        -moz-box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);
+        -ms-box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);
+        -o-box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);
+        box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);
+
+    }
+}
+
+.active{
+    color: #1081f7;
+    -webkit-box-shadow: inset 0 -3px #1081f7;
+    -moz-box-shadow: inset 0 -3px #1081f7;
+    -ms-box-shadow: inset 0 -3px #1081f7;
+    -o-box-shadow: inset 0 -3px #1081f7;
+    box-shadow: inset 0 -3px #1081f7;
+    background-color: transparent;
+    border: none;
+    cursor: default;
+}
+.secondary-tab .nav-tabs>li>a {
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    color: #333;
+    line-height: 1;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    cursor: default;
+}
+.nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.428571429;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+a {
+    cursor: pointer;
+}
+a {
+    color: #419BF9;
+    text-decoration: none;
+    cursor: pointer;
+}
+a {
+    background-color: transparent;
+}
+.nav-tabs>li {
+    float: right;
+    margin-bottom: -1px;
+}
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.nav-tabs ul {
+    list-style: none;
+}
+
+.contestNameBlock, .scoreBlock, .teamBlock, .rankBlock, .contestInfo {
+    span {
+        font-size: 0.618em;
+    }
+
+    h5 {
+        font-size: 1em;
+        margin-bottom: 0;
+    }
+}
+.contestNameBlock {
+    ul {
+        padding-left: 0;
+        li {
+        display: inline-block;
+        padding-right: 15px;
+        }
+        /* li:first-child {
+            list-style: none;
+        } */
+    }
+}
+.contestInfoContainer {
+    max-width: 100%;
+    overflow-x: scroll;
+
+    @include for-lg {
+        overflow-x: auto;
+    }
+}
+table#contestInfo {
+    white-space: nowrap;
+    @include for-xs {
+    width: 230%;
+    }
+    @include for-sm {
+    width: 230%;
+    }
+    @include for-lg {
+        width: 100%;
+    }
+}
+
+#contestLeague {
+
+}
+
+table#contestInfo td {
+    @include for-xs {
+    width: 500px;
+    }
+}
+
+.contestPill {
+    position: relative;
+    top: -3px;
+}
+
+//progress bar
+.remaining-progress .progress-alt {
+    display: inline-block;
+    vertical-align: middle;
+    width: 60px;
+    height: 3px;
+    background-color: #d8d8d8;
+    border-radius: 100px;
+    overflow: visible;
+    position: relative;
+  }
+
+  .remaining-progress .progress-bar-danger.crossed {
+    background: #00a900;
+  }
+
+  .remaining-progress .progress-alt .threshold-value {
+    position: absolute;
+    font-size: 12px;
+    color: #b8b8b8;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  // progress bar ends
+
+
+  #pitchBorder {
+    /* background-color: white; */
+
+
+
+    height: 601px;
+
+    width: 100%;
+
+    @include for-xs {
+      height: 450px;
+    }
+
+    @include for-portrait-phone-only {
+      /* background-size: cover; */
+      margin-left: 0;
+      padding-left: 0;
+      width: 100%;
+      max-height: 500px;
+    }
+    @include for-landscape-phone-only {
+      /* background-size: cover; */
+      margin-left: 0;
+      padding-left: 0;
+      width: 100%;
+      height: 870px;
+    }
+
+
+
+    @include for-portrait-tablet-and-ipad-only {
+      /* background-size: cover; */
+      margin-left: 0;
+      padding-left: 0;
+      width: 100%;
+      height: 840px;
+
+    }
+
+    @include for-landscape-tablet-and-ipads-only {
+      width: 100%;
+      height: 700px;
+
+    }
+
+    @include for-md {
+      height: 900px;
+    }
+    @include for-lg {
+      width: 100%;
+      height: 601px;
+
+    }
+    @include for-laptop-and-desktop-only {
+      width: 100%;
+      height: 801px;
+    }
+
+
+  }
+
+  .pitchadscontainer {
+    background: $lightGreen;
+    width: 100%;
+    height: 50px;
+  }
+  #leftAd {
+    position: relative;
+    left: 60px;
+    top: 7px;
+    @include for-portrait-phone-only {
+      left: 0;
+      top: 20px;
+    }
+    @include for-landscape-phone-only {
+      left: 0px;
+      top: 10px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+      left: 0px;
+    }
+
+    @include for-landscape-tablet-and-ipads-only {
+      left: 0px;
+      top: 10px;
+    }
+
+    @include for-md {
+      left: 0px;
+      top: 10px;
+    }
+    @include for-lg {
+      right: 0px;
+      top: 10px;
+    }
+
+    @include for-laptop-and-desktop-only {
+      right: 0px;
+      top: 10px;
+    }
+
+  }
+  #leftAdBox {
+    background: white;
+    width: 100px;
+    height: 40px;
+    @include for-portrait-phone-only {
+      height: 30px;
+      width: 100%;
+    }
+    @include for-landscape-phone-only {
+      height: 40px;
+      width: 100%;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+      height: 40px;
+      width: 100%;
+    }
+    @include for-lg {
+      height: 40px;
+      width: 100%;
+    }
+    @include for-landscape-tablet-and-ipads-only {
+      height: 40px;
+      width: 100%;
+    }
+    @include for-laptop-and-desktop-only {
+      height: 40px;
+      width: 100%px;
+    }
+    img {
+      width: 100px;
+      height: 40px;
+      @include for-portrait-phone-only {
+        height: 30px;
+        width: 100%;
+      }
+      @include for-landscape-phone-only {
+        height: 40px;
+        width: 100%;
+      }
+      @include for-portrait-tablet-and-ipad-only {
+        height: 40px;
+        width: 100%;
+      }
+      @include for-lg {
+        height: 40px;
+        width: 100%;
+      }
+      @include for-landscape-tablet-and-ipads-only {
+        height: 40px;
+        width: 100%;
+      }
+      @include for-laptop-and-desktop-only {
+        height: 40px;
+        width: 100%;
+      }
+    }
+  }
+
+  #leftAdShadow {
+    background: #fff;
+    width: 10px;
+    height: 60px;
+
+    /*transform: rotatez(-30deg);
+     transform: rotatex(60deg); */
+
+    z-index: 1;
+    /* border-top: 20px solid rgba(0, 0, 0, 0.418);
+    border-left: 7px solid transparent; */
+    position: relative;
+    /* background: #000; */
+    top: 0px;
+    @include for-portrait-phone-only {
+      -webkit-clip-path: polygon(100% -5%, 100% 46%, 0% 88%, 0% 23%);
+  clip-path: polygon(100% -5%, 100% 46%, 0% 88%, 0% 23%);
+
+    }
+
+    @include for-landscape-phone-only {
+      -webkit-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
+  clip-path: polygon(100% -5%, 100% 66%, 0% 100%, 0% 28%);
+    }
+    @include for-portrait-tablet-and-ipad-only {
+      -webkit-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
+  clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
+    }
+    @include for-landscape-tablet-and-ipads-only {
+      -webkit-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
+  clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
+    }
+    @include for-laptop-and-desktop-only {
+      -webkit-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
+  clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
+    }
+
+  }
+  #rightAd {
+    position: relative;
+    right: 60px;
+    top: 7px;
+
+
+    @include for-portrait-phone-only {
+      /* right: 35px; */
+      right: 0;
+      top: 20px;
+    }
+    @include for-landscape-phone-only {
+      right: 0px;
+      top: 10px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+      right: 0;
+      top: 10px;
+    }
+
+    @include for-landscape-tablet-and-ipads-only {
+      right: 0;
+      top: 10px;
+    }
+
+    @include for-md {
+      right: 0px;
+    }
+
+    @include for-lg {
+      right: 0;
+    }
+
+    @include for-laptop-and-desktop-only {
+      right: 0px;
+      top: 10px;
+    }
+
+  }
+  #rightAdBox {
+    background: white;
+    width: 100px;
+      height: 40px;
+      @include for-portrait-phone-only {
+        height: 30px;
+        /* width: 100px; */
+        width: 100%;
+      }
+      @include for-landscape-phone-only {
+        height: 40px;
+        width: 100%;
+      }
+
+      @include for-portrait-tablet-and-ipad-only {
+        height: 40px;
+        width: 100%;
+      }
+      @include for-lg {
+        height: 40px;
+        width: 100%;
+      }
+      @include for-landscape-tablet-and-ipads-only {
+        height: 40px;
+        width: 100%;
+      }
+      @include for-laptop-and-desktop-only {
+        height: 40px;
+        width: 100%;
+      }
+
+    img {
+      width: 100px;
+      height: 40px;
+      @include for-portrait-phone-only {
+        height: 30px;
+        /* width: 100px; */
+        width: 100%;
+      }
+      @include for-landscape-phone-only {
+        height: 40px;
+        width: 100%;
+      }
+
+      @include for-portrait-tablet-and-ipad-only {
+        height: 40px;
+        width: 100%;
+      }
+      @include for-lg {
+        height: 40px;
+        width: 100%;
+      }
+      @include for-landscape-tablet-and-ipads-only {
+        height: 40px;
+        width: 100%;
+      }
+      @include for-laptop-and-desktop-only {
+        height: 40px;
+        width: 100%;
+      }
+    }
+  }
+
+  #rightAdShadow {
+    width: 10px;
+    height: 60px;
+    background: #fff;
+
+    transform: rotateZ(180deg);
+    transform: rotateY(180deg);
+
+    /*transform: rotatez(-30deg);
+     transform: rotatex(60deg); */
+
+    z-index: 1;
+    /* border-top: 20px solid rgba(0, 0, 0, 0.418);
+    border-left: 7px solid transparent; */
+    position: relative;
+    /* background: #000; */
+    top: 0;
+    @include for-portrait-phone-only {
+      -webkit-clip-path: polygon(100% 46%, 100% -5%, 0% 23%, 0% 88%);
+  clip-path: polygon(100% 46%, 100% -5%, 0% 23%, 0% 88%);
+
+    }
+
+    @include for-landscape-phone-only {
+      -webkit-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+  clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+
+
+
+    }
+    @include for-portrait-tablet-and-ipad-only {
+      -webkit-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+  clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+
+
+
+    }
+    @include for-landscape-tablet-and-ipads-only {
+      -webkit-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+  clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+    }
+    @include for-laptop-and-desktop-only {
+      -webkit-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+  clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+    }
+    @include for-laptop-and-desktop-only {
+      -webkit-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+  clip-path: polygon(100% 65%, 100% -5%, 0% 28%, 5% 98%);
+    }
+
+  }
+
+  #lineupBody {
+    min-height: 500px;
+  @include for-md {
+    min-height: 900px;
+  }
+  @include for-lg {
+    min-height: 900px;
+  }
+    @include for-laptop-and-desktop-only {
+      min-height: 700px;
+    }
+  }
+  .body-container {
+
+    @include for-portrait-tablet-and-ipad-only {
+      padding-left: 0;
+    }
+
+    @include for-landscape-tablet-and-ipads-only {
+      padding-left: 40px;
+    }
+    @include for-md {
+      padding-left: 0;
+    }
+
+    @include for-lg {
+      padding-left: 40px;
+    }
+    @include for-laptop-and-desktop-only {
+      padding-left: 15px;
+    }
+
+
+  }
+
+  ul.goalie {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 auto;
+    padding-right: 40px;
+    justify-items: center;
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 40px;
+    }
+
+    li {
+      display: inline-block;
+      padding: 0 5px;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  #player-body {
+    /* height: 42px;
+    width: 47px; */
+    margin-bottom: 2px;
+
+
+    img {
+      width: 60px;
+      height: 50px;
+      z-index: 1;
+      position: relative;
+
+      @include for-landscape-phone-only {
+        width: 90px;
+      height: 80px;
+      }
+
+      @include for-portrait-tablet-and-ipad-only {
+        width: 80px;
+        height: 70px;
+      }
+      @include for-laptop-and-desktop-only {
+        width: 80px;
+        height: 70px;
+      }
+      /* right: 2px;
+      top: -20px; */
+      /* transform: rotateY(-60deg); *//*
+    transform: rotateY(60deg); */
+    /* transform: perspective(400deg) ;*/
+    }
+  }
+  #player-name,
+  #player-value {
+    max-width: 50px;
+    display: none;
+  }
+  #goalie {
+    position: absolute;
+    z-index: 1;
+    margin: 0 auto 43px;
+    top: $goaliePosition-portrait-phone;
+    width: 100%;
+
+    @include for-xs {
+      top: $goaliePosition-xs-phone;
+    }
+
+    @include for-landscape-phone-only {
+      top: $goaliePosition-landscape-phone;
+    }
+
+    @include for-portrait-tablet-and-ipad-only {
+      top: $goaliePosition-portrait-tablet-and-ipad;
+    }
+    @include for-lg {
+      top: $goaliePosition-lg;
+    }
+    @include for-laptop-and-desktop-only {
+      top: $goaliePosition-laptop-and-desktop;
+    }
+  }
+  #Def {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    margin: 0 auto 43px;
+
+    @include for-portrait-phone-only {
+      top: $defencePosition-portrait-phone;
+    }
+    @include for-xs{
+      top: $defencePosition-xs-phone;
+        }
+
+    @include for-landscape-phone-only {
+      top: $defencePosition-landscape-phone;
+    }
+
+    @include for-portrait-tablet-and-ipad-only {
+      top: $defencePosition-portrait-tablet-and-ipad;
+    }
+    @include for-lg {
+      top: $defencePosition-lg;
+    }
+    @include for-laptop-and-desktop-only {
+      top: $defencePosition-laptop-and-desktop;
+    }
+  }
+  #Mid {
+    position: absolute;
+    top: $midfieldPosition-portrait-phone;
+    z-index: 1;
+    width: 100%;
+    margin: 0 auto 43px;
+
+    @include for-landscape-phone-only {
+      top: $midfieldPosition-landscape-phone;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+      top: $midfieldPosition-portrait-tablet-and-ipad;
+    }
+    @include for-lg {
+      top: $midfieldPosition-lg;
+    }
+    @include for-laptop-and-desktop-only {
+      top: $midfieldPosition-laptop-and-desktop;
+    }
+  }
+  span {
+    margin-right: 3px;
+  }
+
+  #FW {
+    position: absolute;
+    z-index: 1;
+    margin: 0 auto 43px;
+    top: $forwardPosition-portrait-phone;
+    width: 100%;
+    margin-top: 30px;
+
+    @include for-landscape-phone-only {
+      top: $forwardPosition-landscape-phone;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+      top: $forwardPosition-portrait-tablet-and-ipad;
+    }
+    @include for-lg {
+      top: $forwardPosition-lg;
+    }
+  }
+
+  /******************* 5-4-1 formation ****************/
+
+  ul.FW-5-4-1 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 auto;
+    padding-right: 45px;
+    justify-items: center;
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 40px;
+    }
+
+    li {
+      display: inline-block;
+      padding: 0 25px;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  ul.Mid-5-4-1 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    justify-items: center;
+    margin-right: 45px;
+     /*margin-left: -15px; */
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  ul.Def-5-4-1 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    /* justify-items: center;
+    margin-right: 55px;
+    margin-left: -30px;
+    padding: 0 27px; */
+    padding: 0 0 27px 0;
+
+    @include for-xs {
+      margin-right: 00px;
+      padding: 0 0 27px 0;
+      margin-left: 0px;
+    }
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 0px;
+      margin-right: 0px;
+    }
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  /************* 5-3-2 formation **********/
+  ul.FW-5-3-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    margin: 0 auto 43px;
+    justify-items: center;
+    margin-right: 40px;
+
+    li {
+      display: inline-block;
+      padding: 0 35px;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  ul.Mid-5-3-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-gap: 5px;
+    margin-right: 45px;
+    margin-left: 5px;
+
+    li {
+      display: inline-block;
+      padding: 0 5px;
+      vertical-align: center;
+      text-align: center;
+      z-index: 1;
+    }
+  }
+  ul.Def-5-3-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    /* justify-items: center;
+    margin-right: 55px;
+    margin-left: -30px;
+    padding: 0 27px; */
+    padding: 0 0 27px 0;
+
+    @include for-xs {
+      margin-right: 00px;
+      padding: 0 0 27px 0;
+      margin-left: 0px;
+    }
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 30px;
+    }
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  /************* 5-2-3 formation **********/
+
+  ul.FW-5-2-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-gap: 5px;
+    margin-right: 45px;
+    margin-left: 5px;
+
+    li {
+      display: inline-block;
+      padding: 0 5px;
+      vertical-align: center;
+      text-align: center;
+      z-index: 1;
+    }
+  }
+  ul.Mid-5-2-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    margin: 0 auto 43px;
+    justify-items: center;
+    margin-right: 40px;
+
+    li {
+      display: inline-block;
+      padding: 0 35px;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  ul.Def-5-2-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    /* justify-items: center;
+    margin-right: 55px;
+    margin-left: -30px;
+    padding: 0 27px; */
+    padding: 0 0 27px 0;
+
+    @include for-xs {
+      margin-right: 00px;
+      padding: 0 0 27px 0;
+      margin-left: 0px;
+    }
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 30px;
+    }
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  /************* 4-4-2 formation **********/
+
+  ul.FW-5-4-1 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 auto;
+    padding-right: 45px;
+    justify-items: center;
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 75px;
+    }
+
+    li {
+      display: inline-block;
+      padding: 0 25px;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  ul.Mid-5-4-1 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    justify-items: center;
+    margin-right: 25px;
+    margin-left: -15px;
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  ul.Def-5-4-1 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    /* justify-items: center;
+    margin-right: 55px;
+    margin-left: -30px;
+    padding: 0 27px; */
+    padding: 0 0 27px 0;
+
+    @include for-xs {
+      margin-right: 00px;
+      padding: 0 0 27px 0;
+      margin-left: 0px;
+    }
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 30px;
+    }
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  /************* 5-3-2 formation **********/
+  ul.FW-5-3-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    margin: 0 auto 43px;
+    justify-items: center;
+    margin-right: 20px;
+    margin-left: -20px;
+
+    @include for-lg {
+      margin-right: 70px;
+      margin-left: 30px;
+    }
+
+    li {
+      display: inline-block;
+      padding: 0 35px;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  ul.Mid-5-3-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-gap: 5px;
+    margin-right: 45px;
+    margin-left: 5px;
+
+    li {
+      display: inline-block;
+      padding: 0 5px;
+      vertical-align: center;
+      text-align: center;
+      z-index: 1;
+    }
+  }
+  ul.Def-5-3-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    /* justify-items: center;
+    margin-right: 55px;
+    margin-left: -30px;
+    padding: 0 27px; */
+    padding: 0 0 27px 0;
+
+    @include for-xs {
+      margin-right: 00px;
+      padding: 0 0 27px 0;
+      margin-left: 0px;
+    }
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 30px;
+    }
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  /************* 5-2-3 formation **********/
+
+  ul.FW-5-2-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-gap: 5px;
+    margin-right: 45px;
+    margin-left: 5px;
+
+    li {
+      display: inline-block;
+      padding: 0 5px;
+      vertical-align: center;
+      text-align: center;
+      z-index: 1;
+    }
+  }
+  ul.Mid-5-2-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    margin: 0 auto 43px;
+    justify-items: center;
+    margin-right: 40px;
+
+    @include for-lg {
+      margin-right: 70px;
+      margin-left: 30px;
+    }
+
+    li {
+      display: inline-block;
+      padding: 0 35px;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  ul.Def-5-2-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    /* justify-items: center;
+    margin-right: 55px;
+    margin-left: -30px;
+    padding: 0 27px; */
+    padding: 0 0 27px 0;
+
+    @include for-xs {
+      margin-right: 00px;
+      padding: 0 0 27px 0;
+      margin-left: 0px;
+    }
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 30px;
+    }
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  /************* 4-4-2 formation **********/
+
+  ul.FW-4-4-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    margin: 0 auto 43px;
+    justify-items: center;
+    margin-right: 20px;
+    margin-left: -20px;
+
+    @include for-lg {
+      margin-right: 70px;
+      margin-left: 30px;
+    }
+
+
+
+    li {
+      display: inline-block;
+      padding: 0 35px;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  ul.Mid-4-4-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    justify-items: center;
+    margin-right: 25px;
+    margin-left: -20px;
+
+    li {
+      display: inline-block;
+      position: relative;
+      text-align: center;
+    }
+  }
+  ul.Def-4-4-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    justify-items: center;
+    margin-right: 25px;
+    margin-left: -20px;
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+
+  /************* 4-3-3 formation **********/
+  ul.FW-4-3-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-gap: 5px;
+    margin-right: 45px;
+    margin-left: 5px;
+
+    li {
+      display: inline-block;
+      padding: 0 5px;
+      vertical-align: center;
+      text-align: center;
+      z-index: 1;
+    }
+  }
+  ul.Mid-4-3-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-gap: 5px;
+    margin-right: 45px;
+    margin-left: 5px;
+
+    li {
+      display: inline-block;
+      padding: 0 5px;
+      vertical-align: center;
+      text-align: center;
+      z-index: 1;
+    }
+  }
+  ul.Def-4-3-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    justify-items: center;
+    margin-right: 25px;
+    margin-left: -20px;
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  /*
+
+  /************* 3-4-3 formation **********/
+  ul.FW-3-4-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-gap: 5px;
+    margin-right: 45px;
+    margin-left: 5px;
+
+    li {
+      display: inline-block;
+      padding: 0 5px;
+      vertical-align: center;
+      text-align: center;
+      z-index: 1;
+    }
+  }
+  ul.Mid-3-4-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    justify-items: center;
+    margin-right: 25px;
+    margin-left: -20px;
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  ul.Def-3-4-3 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-gap: 5px;
+    margin-right: 45px;
+    margin-left: 5px;
+
+    li {
+      display: inline-block;
+      padding: 0 5px;
+      vertical-align: center;
+      text-align: center;
+      z-index: 1;
+    }
+  }
+
+  /************* 3-5-2 formation **********/
+  ul.FW-3-5-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    margin: 0 auto 43px;
+    justify-items: center;
+    margin-right: 20px;
+    margin-left: -20px;
+
+    @include for-lg {
+      margin-right: 70px;
+      margin-left: 30px;
+    }
+
+    li {
+      display: inline-block;
+      padding: 0 35px;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  ul.Mid-3-5-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    /* justify-items: center;
+    margin-right: 55px;
+    margin-left: -30px;
+    padding: 0 27px; */
+    padding: 0 0 27px 0;
+
+
+    @include for-xs {
+      margin-right: 00px;
+      padding: 0 0 27px 0;
+      margin-left: 0px;
+    }
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 30px;
+    }
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  ul.Def-3-5-2 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-gap: 5px;
+    margin-right: 45px;
+    margin-left: 5px;
+
+    li {
+      display: inline-block;
+      padding: 0 5px;
+      vertical-align: center;
+      text-align: center;
+      z-index: 1;
+    }
+  }
+  /*
+
+  /************* 4-5-1 formation **********/
+  ul.FW-4-5-1 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 auto;
+    padding-right: 40px;
+    justify-items: center;
+
+    li {
+      display: inline-block;
+      padding: 0 25px;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  ul.Mid-4-5-1 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    /* justify-items: center;
+    margin-right: 55px;
+    margin-left: -30px;
+    padding: 0 27px; */
+    padding: 0 0 27px 0;
+
+    @include for-xs {
+      margin-right: 00px;
+      padding: 0 0 27px 0;
+      margin-left: 0px;
+    }
+
+    @include for-laptop-and-desktop-only {
+      padding-right: 30px;
+    }
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  ul.Def-4-5-1 {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    justify-items: center;
+    margin-right: 25px;
+    margin-left: -20px;
+
+    li {
+      display: inline-block;
+      position: relative;
+      vertical-align: center;
+      text-align: center;
+    }
+  }
+  .playerDetails {
+    width: 100%;
+    position: relative;
+    top: -15px;
+  }
+
+  .playerName, .playerSalary {
+    height: 20px;
+    margin: 0 auto;
+
+    @include for-xs {
+      height: 15px;
+      font-size: 11px;
+    }
+  }
+  .playerName {
+    width: 100%;
+    background-color: #8c4000;
+    color: white;
+  }
+  .playerSalary {
+    width: 70%;
+    margin: 0 auto;
+    background-color: #b65200;
+    color: white;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+  .playerShadow {
+    width: 50px;
+    height: 25px;
+    border-radius: 25px/12.5px;
+    margin: 0 auto;
+
+    @include for-xs {
+      width: 40px;
+      height: 20px;
+      border-radius: 20px/10px;
+    }
+    @include for-portrait-phone-only {
+      width: 43px;
+      height: 21.5px;
+      border-radius: 21.5px/10.75px;
+    }
+     /* Old browsers */
+     background: radial-gradient(ellipse at center, rgb(31, 31, 31), rgba(31, 30, 30, 0.568), rgba(129, 129, 129, 0.192))
+  }
+  .captainBadge {
+    width: 15px;
+    height: 15px;
+    font-size: 11px;
+    background: #000;
+    color: #fff;
+    z-index: 2;
+    position: absolute;
+    top: 20px;
+    display: inline;
+
+    @include for-portrait-phone-only {
+      margin-left: 10px;
+      top: 15px;
+    }
+    /* CUSTOMISED SPINNER*/
+.spinner{
+  border: 16px solid silver;
+  border-top: 16px solid #387AB7;
+  border-radius: 50%;
+  width:60px;
+  height: 60px;
+  animation: spin 1000ms linear infinite;
+  top:120%;
+  left: 50%;
+  position:absolute;
+}
+@keyframes spin {
+  0% {transform: rotate(0deg)}
+  100% {transform: rotate(360deg)}
+}
+@media screen and (max-width: 480px) {
+
+.spinner{
+  border: 16px solid silver;
+  border-top: 16px solid #387AB7;
+  border-radius: 50%;
+  width:50px;
+  height: 50px;
+  animation: spin 1000ms linear infinite;
+  top:120%;
+  left: 50%;
+  position:absolute;
+}
+@keyframes spin {
+  0% {transform: rotate(0deg)}
+  100% {transform: rotate(360deg)}
+}
+}
+/* END OF CUSTOMISED SPINNER*/
+
+    @include for-landscape-phone-only  {
+      margin-left: 15px;
+    }
+
+    @include for-portrait-tablet-and-ipad-only  {
+      margin-left: 15px;
+      top: 25px;
+    }
+
+    @include for-laptop-and-desktop-only  {
+      margin-left: 20px;
+      top: 30px;
+    }
+  }

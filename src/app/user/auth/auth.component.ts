@@ -1,6 +1,6 @@
+// import { AuthloginService } from './../authlogin.service';
 import { UtilityService } from './../../utility.service';
 import { ModalService } from './../../modal.service';
-import { EventEmitter } from 'events';
 import { Router } from '@angular/router';
 import { md5 } from './../md5';
 import { Component, OnInit, ViewChild, ElementRef, Output } from '@angular/core';
@@ -14,6 +14,7 @@ import {
   LinkedinLoginProvider
 } from 'angular-6-social-login-v2';
 import { ModalDirective } from 'angular-bootstrap-md';
+import { timeout } from 'q';
 
 
 @Component({
@@ -24,6 +25,9 @@ import { ModalDirective } from 'angular-bootstrap-md';
 export class AuthComponent implements OnInit {
  @ViewChild('loginmodal') loginmodal: ModalDirective;
   loginForm;
+  session;
+  isLoading = false;
+  noNetwork;
   /*form: {email: string, password: string, device_type: number} = {
     email: null,
     password: null,
@@ -34,6 +38,7 @@ export class AuthComponent implements OnInit {
      password: null,
      device_type: 3
    };
+   user;
   constructor(private service: AuthloginService, private socialAuthService: AuthService,
     private _modalservice: ModalService, private router: Router,
     private utilityservice: UtilityService ) { }
@@ -47,26 +52,20 @@ export class AuthComponent implements OnInit {
     });
   }
   onSubmit() {
-  console.warn(this.loginForm.value.rememberMe);
+    this.isLoading = true;
+    setTimeout(() => {
+      this.noNetwork = false;
+      // this.utilityservice.clearLocalStorage('user');
+      this.isLoading = false;
+      this.noNetwork = true;
+    }, 12000);
+  // console.warn(this.loginForm.value.rememberMe);
+  this.utilityservice.clearLocalStorage('user');
     this.hashing.password = md5(this.loginForm.value.password);
     this.hashing.email = this.loginForm.value.email;
-    console.log( this.hashing.password);
-   this.service.api('user/auth/login', this.hashing, 'POST')
-   .subscribe(
-     data => {
-        {
-           if (data['response_code'] === 200) {
-           if (this.loginForm.value.rememberMe === true) {
-           // this.utilityservice.setLocalStorage('user', this.hashing);
-             this.utilityservice.setSession('remember', this.loginForm);
-            // console.warn( this.utilityservice.getLocalStorage('user'));
-           }
-            this.router.navigate(['/league']);
-           }
-       }
-    },
-     error => console.log(error)
-   );
+    // console.log( this.hashing.password);
+   const globalSport = this.utilityservice.getLocalStorage('globalSport');
+   this.service.login(this.hashing, globalSport, this.loginForm);
    // tslint:disable-next-line:no-trailing-whitespace*/
    }
    showSignup() {
@@ -90,5 +89,8 @@ export class AuthComponent implements OnInit {
         // Now sign-in with userData
       }
     );
+  }
+  logout() {
+    this.service.logout();
   }
 }

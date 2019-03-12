@@ -1,82 +1,194 @@
-<!--HEADER HTML-->
-<nav>
-    <mdb-navbar SideClass="navbar navbar-expand-sm navbar-light py-3 d-flex">
-      <mdb-navbar-brand>
-        <a href="#" class="navbar-brand">
-          <img src="logo-main-inner.png" alt="">
-        </a>
-      </mdb-navbar-brand>
-      <links>
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a href="#" class="nav-link waves-light" mdbWavesEffect>HOME</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link waves-light" mdbWavesEffect>LOBBY</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link waves-light" mdbWavesEffect>LEADERBOARD</a>
-          </li>
-        </ul>
 
-        <div class="dropdown  ml-auto align-self-center" dropdown>
 
-          <div class="d-flex" dropdownToggle>
-            <div>
-              <div class="d-block">
-                <span class="font-weight-bold">Arinze Okorji</span>
-              </div>
-              <div>
-                <span>
-                  <i class="fas fa-coins pr-3"></i>60/
-                </span>
-                <span class="green-text">N200</span>
-              </div>
-            </div>
-            <div class="align-self-center">
-              <i class="fas fa-user pl-3" id="user-icon"></i>
-            </div>
-          </div>
 
-          <div class="dropdown dropdown-menu dropdown-primary" *dropdownMenu>
-            <section class="dropdown-menu-top grey lighten-4">
-              <div class="d-flex">
-                <div class="pr-3 mr-2 ml-3">
-                  <span class="d-block small">Balance</span>
-                  <span class="green-text">N200</span>
+
+<!-- Header starts -->
+
+<nav class="navbars">
+    <div class="containers">
+
+      <div>
+          <div class='menu-logo-navlinks-container'>
+              <div class="menu-label-container">
+                <span class="fas fa-bars" (click)="showMenu()"></span>
+                <div class="nav-logo">
+                  <a  >
+                    <img
+                    [routerLink]="['/'+id+'/league']" routerLinkActive="router-active"
+                      src="assets/image/logo/logo.png"
+
+                      alt="Fantastic.ng logo"
+                    />
+                  </a>
                 </div>
-                <button class="green mb-4 ml-5 mr-3 mt-2 py-0" size="sm" mdbBtn>ADD FUNDS</button>
               </div>
 
-              <div class="d-flex mt-3">
-                <div class="pr-1 mr-2 ml-3">
-                  <span class="d-block small">Buy Coins</span>
+              <ul class="navbar-navs {{menuHeader}} ">
+                  <li  routerLinkActive="active" >
+                      <a  [routerLink]="['/'+ id + '/' +  league_id + '/lobby']"   routerLinkActive="active"  class="nav-link" id="nav-links">LOBBY</a>
+                    </li>
+                    <li  routerLinkActive="active" >
+                        <a [routerLink]="['/'+ id + '/'+ league_id+'/my-league']" routerLinkActive="active"  class="nav-link" id="nav-links"n routerLinkActive="active">MY CONTEST</a>
+                    </li>
+                    <li  routerLinkActive="active">
+                        <a class="nav-link " id="nav-links"  routerLinkActive="active">LEADERBOARD</a>
+                    </li>
+                    <li  routerLinkActive="active">
+                        <a  class="nav-link" id="nav-links">EARN COINS</a>
+                    </li>
+                    <li  routerLinkActive="active">
+                        <a class="nav-link" id="nav-links">HOW TO PLAY</a>
+                    </li>
+                    <li  routerLinkActive="active">
+                        <a  class="nav-link" id="nav-links">CONTACT</a>
+                    </li>
 
-                  <i class="fas fa-coins mr-2"></i>
-                  <span class="font-weight-bold green-text">53</span>
-                </div>
-
-                <button class="green mb-4 ml-5 mr-3 mt-2 p-2" size="sm" mdbBtn>COIN DETAILS</button>
-              </div>
-
-            </section>
-            <div class="divider dropdown-divider"></div>
-            <section class="dropdown-menu-bottom">
-              <ul class="list-group list-group-flush ">
-                <li class="list-group-item">My Account</li>
-                <li class="list-group-item">Profile</li>
-                <li class="list-group-item d-flex justify-content-between">Notification <span class="badge badge-success badge-pill align-self-center">1</span></li>
-                <li class="list-group-item">Logout</li>
               </ul>
-            </section>
+            </div>
+      </div>
+
+
+<!-- notification starts -->
+
+          <div class='column-2'>
+            <ul id="notfication-friends-list">
+              <li mdbDropdown class='notificationBell'>
+                <i class="far fa-bell" [ngClass]='{makeBlue : blue}' mdbDropdownToggle></i>
+
+                <div class="dropdown-menu dropdown-menu-right dropdown-primary"  style="max-width: 800px; z-index: 2000">
+                    <a class="dropdown-item">
+                      <h5 class='font-weight-bold'>Action lorem</h5>
+                      <p>Lorem ipsum dolor sit amet khgjgf jhfuy tudu6du kigif mhv hjvjh  </p>
+                    </a>
+                    <a class="dropdown-item" >
+                      <h5 class='font-weight-bold'>Action lorem</h5>
+                      <p>Lorem ipsum dolor sit amet </p>
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      <h5 class='font-weight-bold'>Action lorem</h5>
+                      <p>Lorem ipsum dolor sit amet </p>
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      <h5 class='font-weight-bold'>Action lorem</h5>
+                      <p>Lorem ipsum dolor sit amet </p>
+                    </a>
+
+                  </div>
+              </li>
+
+              <!-- notification ends -->
+              <li><a id='blueBorderBottom'><i class="fas fa-user-friends"></i></a></li>
+            </ul>
+            <!-- Dropdown for navbar in mobile view starts -->
+            <div class="dropdown  ml-auto" id="Mobiledropdown" dropdown>
+                <div class="d-flex" dropdownToggle id="dropdownBtn">
+                  <div class="user-info">
+                    <div class="d-block">
+                      <span class="font-weight-bold">Arinze Okorji</span>
+                    </div>
+                    <div>
+                      <span> <i class="fas fa-coins pr-3"></i>60/ </span>
+                      <span class="green-text">N200</span>
+                    </div>
+                  </div>
+                  <div
+                    class="align-self-center ml-2 justify-content-center"
+                    id="user-icon-border"
+                  >
+                    <!-- <i class="fas fa-user" id="user-icon"></i> -->
+                    <img  src="assets/image/default_user.png" alt="" id="user-icon" />
+                  </div>
+                </div>
+
+                <!-- menu dropdown starts -->
+                <div
+                  class="dropdown dropdown-menu dropdown-primary"
+                  id="dropdown-menu"
+                  *dropdownMenu
+                  style="z-index: 2000;"
+                >
+                <section class="dropdown-menu-top grey lighten-4">
+                    <div class="d-flex">
+                      <div class="pr-3 mr-2 ml-3">
+                        <span class="d-block small">Balance</span>
+                        <span class="green-text">N200</span>
+                      </div>
+                      <button
+                        class="green mb-4 ml-5 mr-3 mt-2 p-2 px-3 btn-in-user-dropdown"
+                        size="sm"
+                        mdbBtn
+                      >
+                        ADD FUNDS
+                      </button>
+                    </div>
+
+                    <div class="d-flex mt-3">
+                      <div class="pr-1 mr-2 ml-3">
+                        <span class="d-block small">Buy Coins</span>
+
+                        <i class="fas fa-coins mr-2"></i>
+                        <span class="font-weight-bold green-text">53</span>
+                      </div>
+
+                      <button routerLink='../how-to-earn-coins'
+                        class="green mb-4 ml-5 mr-3 mt-2 p-2 px-3 btn-in-user-dropdown"
+                        size="sm"
+                        mdbBtn
+                      >
+                        COIN DETAILS
+                      </button>
+                    </div>
+                  </section>
+                  <div class="dropdown-divider"></div>
+                  <section class="dropdown-menu-bottom">
+                    <div class="list-group list-group-flush ">
+                      <a href="" class="list-group-item py-1" id="dropdownlink">
+                        Request Withdrawal</a
+                      >
+                      <a routerLink='../myaccount' class="list-group-item py-1" id="dropdownlink"
+                        >My Account</a
+                      >
+                      <a routerLink='../profile' class="list-group-item py-1" id="dropdownlink">Profile</a>
+                      <a
+                        href=""
+                        class="list-group-item py-1 d-flex justify-content-between"
+                        id="dropdownlink"
+                        >Notification
+                        <span class="badge badge-success badge-pill align-self-center"
+                          >1</span
+                        >
+                      </a>
+                      <a (click)="logout()" class="list-group-item py-1" id="dropdownlink">Logout</a>
+                    </div>
+                  </section>
+                </div>
+                <!-- menu dropdown ends -->
+              </div>
+            <!-- Dropdown for navbar in mobile view ends -->
           </div>
-        </div>
-      </links>
+
+    </div>
 
 
-    </mdb-navbar>
   </nav>
-  <!--<app-newlobby></app-newlobby>-->
+  <!-- Header ends -->
 
 
-  <!--END OF HEADER HTML-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
