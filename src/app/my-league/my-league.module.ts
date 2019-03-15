@@ -9,6 +9,7 @@ import { UpcomingComponent } from './upcoming/upcoming.component';
 import { LiveComponent } from './live/live.component';
 import { CompletedComponent } from './completed/completed.component';
 import { DefaultComponent } from './default/default.component';
+import { ContestViewComponent } from './contest-view/contest-view.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { DefaultComponent } from './default/default.component';
     FormsModule,
     MomentModule
   ],
-  declarations: [LeaguesComponent, UpcomingComponent, LiveComponent, CompletedComponent, DefaultComponent]
+  declarations: [LeaguesComponent, UpcomingComponent, LiveComponent, CompletedComponent, DefaultComponent, ContestViewComponent]
 })
 export class MyLeagueModule { }

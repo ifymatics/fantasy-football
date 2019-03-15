@@ -1,0 +1,952 @@
+<app-header></app-header>
+<div class="main">
+  <!-- Black section starts -->
+  <div class="black-section black white-text">
+    <div class="text-center">
+      <span class="yellow small black-text font-weight-bold showdownLabel"
+        >SHOWDOWN</span
+      >
+    </div>
+
+    <div class="topInfo container align-items-end">
+      <div>
+        <span class="d-block blue-text my-2">Back</span>
+        <div class="d-flex ">
+          <div class="white playerAvatar text-center">
+            <img
+              src="assets/image/logo/logo_F.png"
+              class="white text-center"
+              alt=""
+              style="position: relative; top: 50%; margin-top: -25px"
+            />
+          </div>
+
+          <div class="ml-2">
+            <h4 class="mb-0">Admin Use Only</h4>
+            <span class="small blue-text">View Contest Detail</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ml-auto">
+        <div class="contest-details">
+          <div class="contest-details-block">
+            <span class="contest-detail-title">Prize</span>
+            <span class="contest-detail-title">Rank</span>
+            <span class="contest-detail-title">Points</span>
+            <span class="contest-detail-title">Start In</span>
+          </div>
+          <div class="contest-details-block">
+            <span class="contest-detail-body"> Skill Game</span>
+            <span class="contest-detail-body">
+              <span class="font-weight-bold">24</span>/25</span
+            >
+            <span class="contest-detail-body"> 21.1</span>
+            <span class="contest-detail-body"> Completed</span>
+          </div>
+          <div class="contest-details-block"></div>
+          <div class="contest-details-block"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop fixtures table starts -->
+    <div class="container mt-3">
+      <section class="fixturesTable">
+        <!-- Fixtures Label starts -->
+        <div class="fixtureLabel">
+          Fixtures
+        </div>
+        <!-- Fixtures Label ends -->
+
+        <div>
+          <div class="match-slidder-navigation">
+            <a (click)="showMoreFixtures()">
+              <i class="fas fa-angle-right"></i>
+            </a>
+            <a (click)="showLessFixtures()">
+              <i class="fas fa-angle-left"></i>
+            </a>
+          </div>
+
+          <div class="match-fixture-container">
+            <div class="match-slider match-slider-onload">
+              <div class="match-slider-outer">
+                <div
+                  #owlStage
+                  class="owl-stage"
+                  style="transform: translate3d(0px, 0px, 0px); transition: all 0.3s ease 0s; width: 1318px;"
+                >
+                  <!-- Match fixture item starts-->
+                  <div #owlItem class="owl-item">
+                    <div class="match-slide pointer">
+                      <div class="fixture">
+                        <div class="participants-name">
+                          <span
+                            class="participant participant-one font-weight-bold"
+                            >RBL</span
+                          >
+                          <span class="vs">vs</span>
+                          <span class="participant participant-two">TSG</span>
+                        </div>
+
+                        <div class="font-weight-bold small">
+                          Mon, Feb 25-08:30 pm
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Match fixture item ends-->
+                  <!-- Match fixture item starts-->
+                  <div class="owl-item">
+                    <div class="match-slide pointer">
+                      <div class="fixture">
+                        <div class="participants-name">
+                          <span
+                            class="participant participant-one font-weight-bold"
+                            >RBL</span
+                          >
+                          <span class="vs">vs</span>
+                          <span class="participant participant-two">TSG</span>
+                        </div>
+
+                        <div class="font-weight-bold small">
+                          Mon, Feb 25-08:30 pm
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Match fixture item ends-->
+                  <!-- Match fixture item starts-->
+                  <div class="owl-item">
+                    <div class="match-slide pointer">
+                      <div class="fixture">
+                        <div class="participants-name">
+                          <span
+                            class="participant participant-one font-weight-bold"
+                            >RBL</span
+                          >
+                          <span class="vs">vs</span>
+                          <span class="participant participant-two">TSG</span>
+                        </div>
+
+                        <div class="font-weight-bold small">
+                          Mon, Feb 25-08:30 pm
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Match fixture item ends-->
+                  <!-- Match fixture item starts-->
+                  <div class="owl-item">
+                    <div class="match-slide pointer">
+                      <div class="fixture">
+                        <div class="participants-name">
+                          <span
+                            class="participant participant-one font-weight-bold"
+                            >RBL</span
+                          >
+                          <span class="vs">vs</span>
+                          <span class="participant participant-two">TSG</span>
+                        </div>
+
+                        <div class="font-weight-bold small">
+                          Mon, Feb 25-08:30 pm
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Match fixture item ends-->
+                  <!-- Match fixture item starts-->
+                  <div class="owl-item">
+                    <div class="match-slide pointer">
+                      <div class="fixture">
+                        <div class="participants-name">
+                          <span
+                            class="participant participant-one font-weight-bold"
+                            >RBL</span
+                          >
+                          <span class="vs">vs</span>
+                          <span class="participant participant-two">TSG</span>
+                        </div>
+
+                        <div class="font-weight-bold small">
+                          Mon, Feb 25-08:30 pm
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Match fixture item ends-->
+                  <!-- Match fixture item starts-->
+                  <div class="owl-item">
+                    <div class="match-slide pointer">
+                      <div class="fixture">
+                        <div class="participants-name">
+                          <span
+                            class="participant participant-one font-weight-bold"
+                            >RBL</span
+                          >
+                          <span class="vs">vs</span>
+                          <span class="participant participant-two">TSG</span>
+                        </div>
+
+                        <div class="font-weight-bold small">
+                          Mon, Feb 25-08:30 pm
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Match fixture item ends-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Desktop fixtures table ends -->
+  </div>
+  <!-- Black section ends -->
+
+  <!-- white section starts -->
+  <div class="whiteSection mt-5">
+    <div class="row">
+      <div class="col-sm-12 col-lg-7 ">
+        <div class="container">
+          <!-- player list table starts-->
+          <div class="card">
+            <table class="theTable" width="100%">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="font-weight-bold">Rank</th>
+                  <th class="font-weight-bold">Username</th>
+                  <th class="font-weight-bold">Points</th>
+                  <th *ngIf= "contest.status > 1" class="font-weight-bold">Won</th>
+                  <th class="font-weight-bold"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr id="{{selected}}" *ngFor="let userDetail of userRank; first as isFirst">
+                  <td></td>
+                  <td>
+                    <span class="rankTag">{{((userDetail.current_rank) ? userDetail.current_rank : '--')}}</span>
+                  </td>
+                  <td>
+                    <span
+                      ><div class="d-flex" *ngIf="isFirst ? getTeamLineup(userDetail, selectedContest) : null">
+                        <div
+                          class="player-image"
+                          width="50px"
+                          height="50px"
+                          style="border-radius: 50%"
+                        >
+                          <img
+                            src="{{userDetail.image ? userDetail.image : 'assets/img/default_user.png'}}"
+                            alt="Player's avatar"
+                            width="50px"
+                            height="50px"
+                          />
+                        </div>
+                        <div class="player-details">
+                          <a >
+                          <span class="userName font-weight-bold d-block"
+                            >Arinze Okorji</span
+                          >
+                          <span class="teamName"> arinzeokorji Team 1</span>
+                        </a>
+                        </div>
+                      </div></span
+                    >
+                  </td>
+                  <td><span>53.27</span></td>
+                  <td><span>--</span></td>
+
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <span class="rankTag">2</span>
+                  </td>
+                  <td>
+                    <span
+                      ><div class="d-flex">
+                        <div
+                          class="player-image"
+                          width="50px"
+                          height="50px"
+                          style="border-radius: 50%"
+                        >
+                          <img
+                            src="assets/image/default_user.png"
+                            alt="Player's avatar"
+                            width="50px"
+                            height="50px"
+                          />
+                        </div>
+                        <div class="player-details">
+                          <a>
+                          <span class="userName font-weight-bold d-block"
+                            >Arinze Okorji</span
+                          >
+                          <span class="teamName"> arinzeokorji Team 1</span>
+                        </a>
+                        </div>
+                      </div></span
+                    >
+                  </td>
+                  <td><span>53.27</span></td>
+                  <td><span>--</span></td>
+
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <span class="rankTag">2</span>
+                  </td>
+                  <td>
+                    <span
+                      ><div class="d-flex">
+                        <div
+                          class="player-image"
+                          width="50px"
+                          height="50px"
+                          style="border-radius: 50%"
+                        >
+                          <img
+                            src="assets/image/default_user.png"
+                            alt="Player's avatar"
+                            width="50px"
+                            height="50px"
+                          />
+                        </div>
+                        <div class="player-details">
+                          <a>
+                          <span class="userName font-weight-bold d-block"
+                            >Arinze Okorji</span
+                          >
+                          <span class="teamName"> arinzeokorji Team 1</span>
+                        </a>
+                        </div>
+                      </div></span
+                    >
+                  </td>
+                  <td><span>53.27</span></td>
+                  <td><span>--</span></td>
+
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <span class="rankTag">2</span>
+                  </td>
+                  <td>
+                    <span
+                      ><div class="d-flex">
+                        <div
+                          class="player-image"
+                          width="50px"
+                          height="50px"
+                          style="border-radius: 50%"
+                        >
+                          <img
+                            src="assets/image/default_user.png"
+                            alt="Player's avatar"
+                            width="50px"
+                            height="50px"
+                          />
+                        </div>
+                        <div class="player-details">
+                          <a>
+                          <span class="userName font-weight-bold d-block"
+                            >Arinze Okorji</span
+                          >
+                          <span class="teamName"> arinzeokorji Team 1</span>
+                        </a>
+                        </div>
+                      </div></span
+                    >
+                  </td>
+                  <td><span>53.27</span></td>
+                  <td><span>--</span></td>
+
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <span class="rankTag">2</span>
+                  </td>
+                  <td>
+                    <span
+                      ><div class="d-flex">
+                        <div
+                          class="player-image"
+                          width="50px"
+                          height="50px"
+                          style="border-radius: 50%"
+                        >
+                          <img
+                            src="assets/image/default_user.png"
+                            alt="Player's avatar"
+                            width="50px"
+                            height="50px"
+                          />
+                        </div>
+                        <div class="player-details">
+                          <a>
+                          <span class="userName font-weight-bold d-block"
+                            >Arinze Okorji</span
+                          >
+                          <span class="teamName"> arinzeokorji Team 1</span>
+                        </a>
+                        </div>
+                      </div></span
+                    >
+                  </td>
+                  <td><span>53.27</span></td>
+                  <td><span>--</span></td>
+
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <span class="rankTag">2</span>
+                  </td>
+                  <td>
+                    <span
+                      ><div class="d-flex">
+                        <div
+                          class="player-image"
+                          width="50px"
+                          height="50px"
+                          style="border-radius: 50%"
+                        >
+                          <img
+                            src="assets/image/default_user.png"
+                            alt="Player's avatar"
+                            width="50px"
+                            height="50px"
+                          />
+                        </div>
+                        <div class="player-details">
+                          <a>
+                          <span class="userName font-weight-bold d-block"
+                            >Arinze Okorji</span
+                          >
+                          <span class="teamName"> arinzeokorji Team 1</span>
+                        </a>
+                        </div>
+                      </div></span
+                    >
+                  </td>
+                  <td><span>53.27</span></td>
+                  <td><span>--</span></td>
+
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <span class="rankTag">2</span>
+                  </td>
+                  <td>
+                    <span
+                      ><div class="d-flex">
+                        <div
+                          class="player-image"
+                          width="50px"
+                          height="50px"
+                          style="border-radius: 50%"
+                        >
+                          <img
+                            src="assets/image/default_user.png"
+                            alt="Player's avatar"
+                            width="50px"
+                            height="50px"
+                          />
+                        </div>
+                        <div class="player-details">
+                          <a>
+                          <span class="userName font-weight-bold d-block"
+                            >Arinze Okorji</span
+                          >
+                          <span class="teamName"> arinzeokorji Team 1</span>
+                        </a>
+                        </div>
+                      </div></span
+                    >
+                  </td>
+                  <td><span>53.27</span></td>
+                  <td><span>--</span></td>
+
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- player list table ends-->
+        </div>
+      </div>
+      <div class="col-sm-12 col-lg-5">
+        <div class="customContainer">
+          <!-- Pitch starts -->
+          <div >
+            <div class="pitchadscontainer ">
+              <div class="" id="teamName">
+                <div
+                  class="border-bottom teamName px-2"
+                  style="display: grid; grid-template-columns: 0.5fr 1fr;"
+                >
+                  <div style="display: inline-block;">
+                    <a class="white-text font-weight-bold"
+                      ><i class="fas fa-arrow-left mr-2 "></i> Back</a
+                    >
+                  </div>
+                  <span class="text-right">Team X</span>
+                </div>
+                <div class="row rank">
+                  <div class="ml-auto mr-3">Rank</div>
+                  <div class="mr-4">2/3</div>
+                </div>
+              </div>
+
+              <div>
+                <div class="px-3 mt-1">
+                  <span class="d-flex align-items-center completed white-text">
+                    Completed
+                  </span>
+                </div>
+              </div>
+              <div class="d-flex pt-0">
+                <div class="d-flex" id="leftAd">
+                  <div id="leftAdShadow"></div>
+                  <div id="leftAdBox">
+                    <img src="assets/image/bg-1.jpg" alt="" />
+                  </div>
+                </div>
+
+                <div class="d-flex " id="rightAd">
+                  <div id="rightAdBox">
+                    <img src="assets/image/bg-1.jpg" alt="" />
+                  </div>
+                  <div id="rightAdShadow"></div>
+                </div>
+              </div>
+            </div>
+            <!-- 4-4-2 formation -->
+            <div class=" pr-0 mr-0">
+              <div
+                id="pitchBorder"
+                class="col-lg-12 px-0 mx-0 pitch 4-4-2"
+                style="background: url('assets/image/formation_images/mainPitch.png');background-repeat: no-repeat; background-size: 100% 100%; width: 100%; margin-right: 0; padding-right: 0;"
+              >
+                <!-- Formation 4-4-2 Forward -->
+                <div id="FW">
+                  <ul class="FW-4-4-2">
+                    <li>
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+
+                        <span hidden class="white-text small">FW</span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+
+                        <span hidden class="white-text small">FW</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- /Formation 4-4-2 Forward -->
+
+                <!-- Formation 4-4-2 Midfield -->
+                <div id="Mid">
+                  <ul class="Mid-4-4-2">
+                    <li class="">
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+
+                        <span hidden class="white-text small">MID</span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+
+                        <span hidden class="white-text small">MID</span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+
+                        <span hidden class="white-text small">MID</span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+
+                        <span hidden class="white-text small">MID</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <img
+                  src="assets/image/logo/logo_F.png"
+                  alt="Sponsor's Logo"
+                  width="80%"
+                  height="60%"
+                  style="position:absolute; top: 0; left: 10%; transform: rotateX(75deg); opacity: 0.7;"
+                />
+                <!-- /Formation 4-4-2 Midfield -->
+
+                <!-- Formation 4-4-2 Defence -->
+                <div id="Def">
+                  <ul class="Def-4-4-2">
+                    <li>
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+
+                        <span hidden class="white-text small">DEF</span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+
+                        <span hidden class="white-text small">DEF</span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+
+                        <span hidden class="white-text small">DEF</span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+
+                        <span hidden class="white-text small">DEF</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- /Formation 4-4-2 Defence -->
+
+                <!-- Formation 4-4-2 Goalie -->
+                <div id="goalie">
+                  <ul class="goalie">
+                    <li>
+                      <div class="captainBadge">C</div>
+                      <a>
+                        <div
+                          id="player-body"
+                          mdbTooltip="M. Sallah"
+                          placement="bottom"
+                          class=" my-0 py-0"
+                        >
+                          <img src="assets/image/jersey_mockup.png" alt="" />
+                        </div>
+                        <div class="playerShadow"></div>
+                        <div class="my-0 py-0 playerDetails">
+                          <span class="white-text small d-block playerName"
+                            >M. Sallah</span
+                          >
+                          <span class="white-text small d-block playerSalary"
+                            >Salary</span
+                          >
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- /Formation 4-4-2 Goalie -->
+              </div>
+            </div>
+          </div>
+          <!-- Pitch ends -->
+        </div>
+      </div>
+    </div>
+  <!--Chat module-->
+  <div>
+    <a class="chat-btn" (click)='showChatbox()'><i class="fas fa-users"></i></a>
+
+    <div id="firechat-wrapper" [hidden]= chatbox class="firechat-wrapper">
+      <div id="firechat">
+        <div id="firechat-header">
+          <div class="clearfix">
+            <div class="half firechat-dropdown all-rooms-dropdown" style="">
+              <a
+                id="firechat-btn-rooms"
+                class="dropdown-toggle"
+                data-toggle="firechat-dropdown"
+              >
+                <span class="icon user-chat"></span>
+                Chat Rooms
+                <span class="arw"></span>
+              </a>
+              <div class="dropdown-menu full" role="menu">
+                <ul id="firechat-room-list"></ul>
+                <div class="firechat-dropdown-footer">
+                  <button
+                    type="button"
+                    class="btn twothird center"
+                    id="firechat-btn-create-room-prompt"
+                  >
+                    Create Room
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="firechat-tabs">
+          <ul id="firechat-tab-list" class="nav nav-tabs">
+            <li class="active" style="width: 300px;">
+
+              <!-- Close chat box starts -->
+              <a title="Admin Use  Only"
+                >Admin Use Only<span class="close right" (click)='showChatbox()' title="Leave Room"
+                  ><i class="fas fa-close"></i></span
+              ></a>
+              <!-- Close chat box ends -->
+
+            </li>
+          </ul>
+        </div>
+
+        <div class="firechat-tab-content">
+          <div class="tab-pane">
+            <div class="tab-pane-menu"></div>
+            <div class="clearfix">
+              <div id="firechat-messages-L_MA7LdznNNFQCvuVwy" class="chat">
+                <div
+                  class="message message-default  message-self "
+                  data-message-id="-L_MAGPgj7tcVDxsSpDR"
+                  data-user-id="rYlK3yyTB8ZeEp8cFg2lL0pWwB92"
+                  data-user-name="arinzeokorji"
+                  data-class="firechat-message"
+                >
+                  <div class="user-info">
+                    <span
+                      class="name"
+                      title="arinzeokorji"
+                      data-part="a"
+                    ></span>
+                  </div>
+                  <div class="message-content">
+                    <span class="name">arinzeokorji</span
+                    ><span class="option"></span
+                    ><span class="message-text">Testing 1,2,3</span
+                    ><span class="time">9:02am</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix">
+              <label></label>
+
+              <textarea
+                id="textarea-L_MA7LdznNNFQCvuVwy"
+                class="form-control"
+                placeholder="Type your message here..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div id="firechat-footer" class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <!--Chat module-->
+</div>
+  <!-- white section ends -->
+
+
+</div>
+<app-footer></app-footer>

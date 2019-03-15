@@ -167,6 +167,7 @@ console.log(status);
         //  this.leagueservice.getContestData( response.collections);
          this.contestListData = response.collections;
         // console.warn(this.contestListData);
+        this.fistItemInArray(this.contestListData);
     }, error => {
       this.isLoading = false;
        // console.log(error);
@@ -445,6 +446,28 @@ mobileContestInfo(contestId) {
   } else {
     this.toggledContest = contestId;
     this.mobileToggle = !this.mobileToggle;
+  }
+}
+fistItemInArray(contestListData) {
+  let collections = { contests: []};
+  let leagues = {teams: []};
+  let leaguesteam = {};
+  for (let i = 0; i <= contestListData.length; i++) {
+    if (i === 0) {
+      collections = contestListData[i];
+      for (let j = 0; j <= collections.contests.length; j++) {
+        if (i === 0) {
+        leagues = collections.contests[i];
+        for (let k = 0; k <= leagues.teams.length; k++ ) {
+            if (i === 0) {
+                leaguesteam = leagues.teams[i];
+            }
+        }
+        }
+        console.log(collections, leagues, leaguesteam);
+        this.getTeamLineup(leaguesteam, leagues, collections);
+      }
+     }
   }
 }
 }

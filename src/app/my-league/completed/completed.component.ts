@@ -1,7 +1,7 @@
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { LobbyService } from './../../lobby/lobby.service';
 import { LeagueService } from './../league.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { UtilityService } from './../../utility.service';
 import { AuthloginService } from 'src/app/user/authlogin.service';
 import { Component, OnInit } from '@angular/core';
@@ -40,6 +40,7 @@ export class CompletedComponent implements OnInit {
  selected_collection_start  = 0;
  playerActive      = {};
  playersArr        = [];
+ league_id;
  // lineupDetails     = [];
  contestListData   = [];
  contestListRank   = [];
@@ -68,7 +69,7 @@ export class CompletedComponent implements OnInit {
  device = '';
  lineupDetails = [];
  teamInfo: {is_turbo_lineup: number, collection_master_id: number, league_id: number,
-             lineup_master_id: number, rank: '' };
+             lineup_master_id: number, rank: '', team_name: '' };
  viewLiveRank                = false;
  viewCompletedRank           = false;
    currentUser;
@@ -92,9 +93,15 @@ export class CompletedComponent implements OnInit {
      private deviceService: DeviceDetectorService ) { }
 
   ngOnInit() {
+    this.route.params.subscribe(
+      (params: ParamMap) => {
+         this.league_id = params['league_id'];
+         console.log(params);
+      }
+    );
     if (this.deviceService.isMobile()) {
       this.device = 'mobilePitch';
-    } else if(this.deviceService.isDesktop) {
+    } else if (this.deviceService.isDesktop) {
       this.device = 'desktopPitch';
        // this.showNoPitch = false;
     }
@@ -102,7 +109,7 @@ export class CompletedComponent implements OnInit {
       const user = this.utilityservice.getLocalStorage('user');
     this.currentUser      = user.user_profile;
     this.session = user.data.session_key;
-    this.selectLeagueType(2);
+    this.selectLeagueType(0);
     }
     this.defaultEndPosition = this.utilityservice.playersDefaultEndPosotion('soccer');
   }
@@ -137,6 +144,7 @@ export class CompletedComponent implements OnInit {
             //  this.leagueservice.getContestData( response.collections);
              this.contestListData = response.collections;
             // console.warn(this.contestListData);
+            this.fistItemInArray(this.contestListData);
         }, error => {
           this.isLoading = false;
            // console.log(error);
@@ -220,6 +228,11 @@ export class CompletedComponent implements OnInit {
           this.btn = false;
        });
      }
+     onView(lineup_master_id, contest_id, collection_master_id) {
+      console.log(lineup_master_id, contest_id, collection_master_id);
+     // this.router.navigate(['/contest-info', {relativeTo: this.route}]);
+     this.router.navigate([this.sports_id + '/' + '111' + '/my-league/contest-info',lineup_master_id, contest_id, collection_master_id]);
+    }
      fillPlayGround(lineupDetails) {
       this.defPlayers = [];
       this.midPlayers = [];
@@ -370,6 +383,28 @@ setDefendersPosition() {
   }
    // console.warn( this.playersArr);
 }
+fistItemInArray(contestListData) {
+  let collections = { contests: []};
+  let leagues = {teams: []};
+  let leaguesteam = {};
+  for (let i = 0; i <= contestListData.length; i++) {
+    if (i === 0) {
+      collections = contestListData[i];
+      for (let j = 0; j <= collections.contests.length; j++) {
+        if (i === 0) {
+        leagues = collections.contests[i];
+        for (let k = 0; k <= leagues.teams.length; k++ ) {
+            if (i === 0) {
+                leaguesteam = leagues.teams[i];
+            }
+        }
+        }
+        console.log(collections, leagues, leaguesteam);
+        this.getTeamLineup(leaguesteam, leagues, collections);
+      }
+     }
+  }
+}
     showMenu() {
       this.menu = !this.menu;
     }
@@ -383,6 +418,11 @@ setDefendersPosition() {
         this.mobileToggle = !this.mobileToggle;
       }
     }
+    backToDetails() {
+      this.btn = false;
+       this.isDisabled = false;
+       this.isPopulated = false;
+    }s
 
     getContestDetail(contest) {
     /* this.selectedCollection  = {};

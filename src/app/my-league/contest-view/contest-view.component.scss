@@ -20,7 +20,7 @@
 
 //Media query for extra-small screens
 @mixin for-xs {
-  @media (min-width: 0px) and (max-width: 359px) {
+  @media (min-width: 0px) {
     @content;
   }
 }
@@ -146,6 +146,228 @@ $darkGreen: #007b0c;
   @media (min-width: 1025px) {
     @content;
   }
+} /* fixtures border color */
+$fixturesBorder: 1px solid rgba(178, 178, 178, 0.2);
+/* /fixtures border color */
+.contest-details {
+  display: table;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  @include for-lg {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
+.contest-details-block {
+  display: table-row;
+}
+.contest-detail-title {
+  display: table-cell;
+  color: #9c9c9c;
+  width: 39%;
+  font-size: 14px;
+
+  @include for-lg {
+    width: 100px;
+  }
+}
+.contest-detail-body {
+  display: table-cell;
+  width: 100px;
+  font-size: 14px;
+}
+
+.fixturesTable {
+  background: transparent;
+  border-radius: 0;
+  border: $fixturesBorder;
+  border-bottom: none;
+  height: 60px;
+  margin: 0;
+}
+
+.fixtureLabel {
+  height: 60px;
+  width: 111px;
+  line-height: 60px;
+  float: left;
+  text-transform: uppercase;
+  text-align: center;
+  border-bottom: none;
+  margin: 0;
+  background-color: transparent;
+  border: $fixturesBorder;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+
+  @include for-sm {
+    width: 132px;
+  }
+}
+.fixture {
+  position: relative;
+  height: 100%;
+  padding: 10px 8px 0;
+}
+
+/* Match slider  */
+.match-slidder-navigation {
+  width: 29px;
+  border-left: $fixturesBorder;
+  float: right;
+  text-align: center;
+  position: relative;
+  height: 100%;
+
+  /* Match slider buttons */
+  a {
+    height: 29px;
+    width: 29px;
+    color: #fff;
+    line-height: 34px;
+    display: block;
+    font-size: 14px;
+  }
+
+  a:first-child {
+    border-bottom: $fixturesBorder;
+  }
+  /* /Match slider buttons */
+}
+/* /Match slider  */
+
+/* Container for match slider */
+.match-fixture-container {
+  overflow: hidden;
+  display: block;
+}
+.match-slider {
+  display: block;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 1;
+
+  .owl-stage {
+    position: relative;
+    -ms-touch-action: pan-Y;
+
+    @include for-xs {
+      width: 548px;
+    }
+
+    @include for-xs-landscape {
+      width: 770px;
+    }
+
+    @include for-portrait-phone-only {
+      width: 708px;
+    }
+
+    @include for-sm {
+      width: 610px;
+    }
+  }
+
+  .owl-item {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    border-right: $fixturesBorder;
+    border-top: $fixturesBorder;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+
+    @include for-xs-landscape {
+      width: 192.5px;
+    }
+    @include for-portrait-phone-only {
+      width: 177px;
+    }
+    @include for-xs {
+      width: 149px;
+    }
+    @include for-sm {
+      width: 152.333px;
+    }
+    @include for-lg {
+      width: 206.75px;
+    }
+  }
+}
+/* /Container for match slider */
+
+.match-slider-outer {
+  position: relative;
+  overflow: hidden;
+  -webkit-transform: translate3d(0px, 0px, 0px);
+  -moz-transform: translate3d(0px, 0px, 0px);
+  -ms-transform: translate3d(0px, 0px, 0px);
+  -o-transform: translate3d(0px, 0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.match-slide {
+  height: 60px;
+  padding-bottom: 0;
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+.match:last-child {
+  border-right: none;
+}
+.pointer {
+  cursor: pointer;
+}
+
+/* Participant name */
+.participants-name {
+  color: #fff;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    white-space: nowrap;
+    text-transform: capitalize;
+    font-family: "RobotoBold";
+    font-weight: normal;
+
+    .vs {
+      color: #666;
+      margin-left: 2px;
+      margin-right: 2px;
+      display: inline-block !important;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  }
+}
+/* /Participant name */
+
+/* Individual participant */
+.participant {
+  font-size: 14px;
+  display: inline-block !important;
+  vertical-align: middle;
+  line-height: 1;
+}
+/* /Individual participant */
+
+.rankTag {
+  padding: 5px 15px;
+  border-radius: 4px;
+  color: #fff;
+  background: #419bf9;
 }
 
 //////Header Section
@@ -621,10 +843,6 @@ a#dropdownlink {
 }
  */
 
-
-
-
-
 /* Black Section  ends */
 
 /*********************************************************
@@ -638,18 +856,17 @@ a#dropdownlink {
 
 #lineupBody {
   min-height: 500px;
-@include for-md {
-  min-height: 900px;
-}
-@include for-lg {
-  min-height: 900px;
-}
+  @include for-md {
+    min-height: 900px;
+  }
+  @include for-lg {
+    min-height: 900px;
+  }
   @include for-laptop-and-desktop-only {
     min-height: 700px;
   }
 }
 .body-container {
-
   @include for-portrait-tablet-and-ipad-only {
     padding-left: 0;
   }
@@ -667,8 +884,6 @@ a#dropdownlink {
   @include for-laptop-and-desktop-only {
     padding-left: 70px;
   }
-
-
 }
 
 /* Fixtures on mobile starts*/
@@ -680,7 +895,7 @@ a#dropdownlink {
   box-shadow: 2px 2.5px 5px rgba(0, 0, 0, 0.404);
 }
 
-.participants-names>span {
+.participants-names > span {
   display: block;
   max-width: 100%;
   text-transform: capitalize;
@@ -706,12 +921,14 @@ a#dropdownlink {
   font-size: 12px;
 }
 
-.participant, .participant>span, .participant>img, .participants-names>.vs {
+.participant,
+.participant > span,
+.participant > img,
+.participants-names > .vs {
   display: inline-block !important;
   vertical-align: middle;
   line-height: 1;
 }
-
 
 .participants-wrapper .small {
   font-size: 12px;
@@ -808,8 +1025,6 @@ a#dropdownlink {
 #pitchBorder {
   /* background-color: white; */
 
-
-
   height: 601px;
 
   width: 100%;
@@ -824,7 +1039,6 @@ a#dropdownlink {
     padding-left: 0;
     width: 100%;
     max-height: 500px;
-
   }
   @include for-landscape-phone-only {
     /* background-size: cover; */
@@ -834,21 +1048,17 @@ a#dropdownlink {
     height: 870px;
   }
 
-
-
   @include for-portrait-tablet-and-ipad-only {
     /* background-size: cover; */
     margin-left: 0;
     padding-left: 0;
     width: 100%;
     height: 840px;
-
   }
 
   @include for-landscape-tablet-and-ipads-only {
     width: 100%;
     height: 700px;
-
   }
 
   @include for-md {
@@ -856,28 +1066,9 @@ a#dropdownlink {
   }
   @include for-lg {
     width: 100%;
-    height: 601px;
-
+    height: 501px;
   }
-  @include for-laptop-and-desktop-only {
-    width: 100%;
-    height: 701px;
-  }
-   /*transform: rotateX(30deg);
-  -webkit-clip-path: polygon(9.5% 0, 90.5% 0, 96% 100%, 4% 100%);
-  clip-path: polygon(9.5% 0, 90.5% 0, 96% 100%, 4% 100%);
-  @include for-portrait-phone-only {
-    clip-path: polygon(11% 0, 89% 0, 140% 100%, -40% 100%);
-    -webkit-clip-path: polygon(11% 0, 89% 0, 140% 100%, -40% 100%);
-    -moz-clip-path: polygon(11% 0, 89% 0, 140% 100%, -40% 100%);
-    height: 395px;
-  } */
-
-
 }
-
-
-
 
 /* Top penaltybox arc */
 
@@ -890,12 +1081,10 @@ a#dropdownlink {
   height: 15px;
 }
 
-
-
 .pitchadscontainer {
   background: $lightGreen;
   width: 100%;
-  height: 70px;
+  height: 170px;
 
   @include for-xs {
     height: 70px;
@@ -907,7 +1096,7 @@ a#dropdownlink {
 
   > div:nth-child(2) {
     position: relative;
-    top: -15%;
+    /* top: -15%; */
   }
 }
 #leftAd {
@@ -944,13 +1133,11 @@ a#dropdownlink {
     right: 0px;
     top: 10px;
   }
-
 }
 #leftAdBox {
   background: white;
   width: 100%;
   height: 40px;
-
 
   @include for-portrait-phone-only {
     height: 30px;
@@ -1022,33 +1209,30 @@ a#dropdownlink {
   top: 0px;
   @include for-portrait-phone-only {
     -webkit-clip-path: polygon(100% -5%, 100% 46%, 0% 88%, 0% 23%);
-clip-path: polygon(100% -5%, 100% 46%, 0% 88%, 0% 23%);
-
+    clip-path: polygon(100% -5%, 100% 46%, 0% 88%, 0% 23%);
   }
 
   @include for-landscape-phone-only {
     -webkit-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
-clip-path: polygon(100% -5%, 100% 66%, 0% 100%, 0% 28%);
+    clip-path: polygon(100% -5%, 100% 66%, 0% 100%, 0% 28%);
   }
   @include for-portrait-tablet-and-ipad-only {
     -webkit-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
+    clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
   }
   @include for-landscape-tablet-and-ipads-only {
     -webkit-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
+    clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
   }
   @include for-laptop-and-desktop-only {
     -webkit-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
-clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
+    clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
   }
-
 }
 #rightAd {
   position: relative;
   right: 60px;
   top: 7px;
-
 
   @include for-portrait-phone-only {
     /* right: 35px; */
@@ -1081,38 +1265,37 @@ clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
     right: 0px;
     top: 10px;
   }
-
 }
 #rightAdBox {
   background: white;
   width: 100px;
+  height: 40px;
+  @include for-portrait-phone-only {
+    height: 30px;
+    /* width: 100px; */
+    width: 100%;
+  }
+  @include for-landscape-phone-only {
     height: 40px;
-    @include for-portrait-phone-only {
-      height: 30px;
-      /* width: 100px; */
-      width: 100%;
-    }
-    @include for-landscape-phone-only {
-      height: 40px;
-      width: 100%;
-    }
+    width: 100%;
+  }
 
-    @include for-portrait-tablet-and-ipad-only {
-      height: 40px;
-      width: 100%;
-    }
-    @include for-lg {
-      height: 40px;
-      width: 100%;
-    }
-    @include for-landscape-tablet-and-ipads-only {
-      height: 40px;
-      width: 100%;
-    }
-    @include for-laptop-and-desktop-only {
-      height: 40px;
-      width: 100%;
-    }
+  @include for-portrait-tablet-and-ipad-only {
+    height: 40px;
+    width: 100%;
+  }
+  @include for-lg {
+    height: 40px;
+    width: 100%;
+  }
+  @include for-landscape-tablet-and-ipads-only {
+    height: 40px;
+    width: 100%;
+  }
+  @include for-laptop-and-desktop-only {
+    height: 40px;
+    width: 100%;
+  }
 
   img {
     width: 100px;
@@ -1165,37 +1348,29 @@ clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
   top: 0;
   @include for-portrait-phone-only {
     -webkit-clip-path: polygon(100% 46%, 100% -5%, 0% 23%, 0% 88%);
-clip-path: polygon(100% 46%, 100% -5%, 0% 23%, 0% 88%);
-
+    clip-path: polygon(100% 46%, 100% -5%, 0% 23%, 0% 88%);
   }
 
   @include for-landscape-phone-only {
     -webkit-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
-
-
-
+    clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
   }
   @include for-portrait-tablet-and-ipad-only {
     -webkit-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
-
-
-
+    clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
   }
   @include for-landscape-tablet-and-ipads-only {
     -webkit-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+    clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
   }
   @include for-laptop-and-desktop-only {
     -webkit-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
+    clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
   }
   @include for-laptop-and-desktop-only {
     -webkit-clip-path: polygon(100% 66%, 100% -5%, 0% 28%, 0% 98%);
-clip-path: polygon(100% 65%, 100% -5%, 0% 28%, 5% 98%);
+    clip-path: polygon(100% 65%, 100% -5%, 0% 28%, 5% 98%);
   }
-
 }
 
 /*********************************************************
@@ -1256,7 +1431,7 @@ ul.goalie {
     width: auto;
   }
 
-   select {
+  select {
     width: auto;
   }
 
@@ -1267,7 +1442,7 @@ ul.goalie {
 .selectCaptain {
   font-size: 16px;
   font-weight: bold;
-  padding-bottom: -20px;;
+  padding-bottom: -20px;
   color: #fff;
 
   @include for-xs {
@@ -1297,18 +1472,18 @@ ul.goalie {
     top: 15px;
   }
 
-  @include for-landscape-phone-only  {
+  @include for-landscape-phone-only {
     margin-left: 15px;
   }
 
-  @include for-portrait-tablet-and-ipad-only  {
+  @include for-portrait-tablet-and-ipad-only {
     margin-left: 15px;
     top: 25px;
   }
 
-  @include for-laptop-and-desktop-only  {
-    margin-left: 20px;
-    top: 30px;
+  @include for-laptop-and-desktop-only {
+    margin-left: 10px;
+    top: 20px;
   }
 }
 
@@ -1316,7 +1491,6 @@ ul.goalie {
   /* height: 42px;
   width: 47px; */
   margin-bottom: 2px;
-
 
   img {
     width: 50px;
@@ -1331,22 +1505,22 @@ ul.goalie {
 
     @include for-landscape-phone-only {
       width: 70px;
-    height: 60px;
+      height: 60px;
     }
 
     @include for-portrait-tablet-and-ipad-only {
-      width: 80px;
-      height: 70px;
+      width: 60px;
+      height: 50px;
     }
     @include for-laptop-and-desktop-only {
-      width: 80px;
-      height: 70px;
+      width: 60px;
+      height: 50px;
     }
     /* right: 2px;
     top: -20px; */
-    /* transform: rotateY(-60deg); *//*
+    /* transform: rotateY(-60deg); */ /*
   transform: rotateY(60deg); */
-  /* transform: perspective(400deg) ;*/
+    /* transform: perspective(400deg) ;*/
   }
 }
 #player-name,
@@ -1385,9 +1559,9 @@ ul.goalie {
   @include for-portrait-phone-only {
     top: $defencePosition-portrait-phone;
   }
-  @include for-xs{
+  @include for-xs {
     top: $defencePosition-xs-phone;
-      }
+  }
 
   @include for-landscape-phone-only {
     top: $defencePosition-landscape-phone;
@@ -1510,8 +1684,6 @@ ul.FW-5-3-2 {
   margin-left: -20px; */
   padding-left: 0;
 
-
-
   li {
     display: inline-block;
     padding: 0 35px;
@@ -1588,8 +1760,6 @@ ul.Mid-5-2-3 {
     margin-left: 30px;
   } */
 
-
-
   li {
     display: inline-block;
     padding: 0 35px;
@@ -1631,8 +1801,6 @@ ul.FW-4-4-2 {
     margin-right: 70px;
     margin-left: 30px;
   } */
-
-
 
   li {
     display: inline-block;
@@ -1688,7 +1856,7 @@ ul.FW-4-3-3 {
   /* margin-right: 45px;
   margin-left: 5px;
  */
- padding-left: 0;
+  padding-left: 0;
   li {
     display: inline-block;
     padding: 0 5px;
@@ -1702,7 +1870,7 @@ ul.Mid-4-3-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
-  grid-gap: 5px;/*
+  grid-gap: 5px; /*
   margin-right: 45px;
   margin-left: 5px; */
   padding-left: 0;
@@ -1720,10 +1888,10 @@ ul.Def-4-3-3 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 5px;
-  justify-items: center;
-  padding-left: 0;
-  /* margin-right: 25px;
+  /* justify-items: center;
+  margin-right: 25px;
   margin-left: -20px; */
+  padding-left: 0;
 
   li {
     display: inline-block;
@@ -1806,8 +1974,6 @@ ul.FW-3-5-2 {
     margin-left: 30px;
   } */
 
-
-
   li {
     display: inline-block;
     padding: 0 35px;
@@ -1857,9 +2023,10 @@ ul.FW-4-5-1 {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   justify-items: center;
-  /* margin: 0 auto;
-  padding-right: 40px;
-  justify-items: center; */
+
+  /* @include for-laptop-and-desktop-only {
+    padding-right: 75px;
+  } */
   padding-left: 0;
 
   li {
@@ -1972,7 +2139,6 @@ ul.Def-4-5-1 {
     padding: 5px 8px;
   }
 
-
   @include for-landscape-tablet-and-ipads-only {
     padding: 5px 8px;
   }
@@ -1997,7 +2163,8 @@ ul.Def-4-5-1 {
   box-shadow: none;
 }
 
-.playerAmount, .salaryLeft {
+.playerAmount,
+.salaryLeft {
   @include for-xs {
     font-size: 20px;
   }
@@ -2076,16 +2243,13 @@ tbody {
 
 // Player Menu on Desktop
 
-
-
-
- /* .modal, .fade, .in, .show, .modal-backdrop, .modal-open {
+/* .modal, .fade, .in, .show, .modal-backdrop, .modal-open {
    @include for-laptop-and-desktop-only {
      display: none !important;
    }
  } */
 
- .modal-backdrop {
+.modal-backdrop {
   display: none !important;
 }
 #playerMenu {
@@ -2129,8 +2293,6 @@ tbody {
   @include for-portrait-tablet-and-ipad-only {
     display: none;
   } */
-
-
 }
 
 #playerInfo {
@@ -2193,7 +2355,6 @@ form#searchBox.search {
   @include for-portrait-tablet-and-ipad-only {
     display: none;
   }
-
 }
 #mobileLeagueInfo {
   display: none;
@@ -2311,6 +2472,12 @@ ul li .block .jersy .player-remove:after {
   background-color: green;
 } */
 
+.whiteSection {
+  @include for-lg {
+    min-height: 800px
+  }
+}
+
 .playerDetails {
   width: 100%;
   position: relative;
@@ -2321,7 +2488,8 @@ ul li .block .jersy .player-remove:after {
   }
 }
 
-.playerName, .playerSalary {
+.playerName,
+.playerSalary {
   height: 15px;
   margin: 0 auto;
 
@@ -2380,15 +2548,20 @@ ul li .block .jersy .player-remove:after {
     width: 40px;
     height: 20px;
     border-radius: 20px/10px;
-    top:-3px;
+    top: -3px;
   }
   @include for-portrait-phone-only {
     width: 43px;
     height: 21.5px;
     border-radius: 21.5px/10.75px;
   }
-   /* Old browsers */
-   background: radial-gradient(ellipse at center, rgb(31, 31, 31), rgba(31, 30, 30, 0.568), rgba(129, 129, 129, 0.192))
+  /* Old browsers */
+  background: radial-gradient(
+    ellipse at center,
+    rgb(31, 31, 31),
+    rgba(31, 30, 30, 0.568),
+    rgba(129, 129, 129, 0.192)
+  );
 }
 .btn1 {
   text-align: center;
@@ -2403,7 +2576,7 @@ ul li .block .jersy .player-remove:after {
   }
 }
 #formationDropdown {
-   position: absolute;
+  position: absolute;
   left: 50px;
   z-index: 1;
 }
@@ -2451,7 +2624,8 @@ ul li .block .jersy .player-remove:after {
   }
 }
 
-.form-control .select2-choice, .customized-multiselect .btn .select2-choice {
+.form-control .select2-choice,
+.customized-multiselect .btn .select2-choice {
   height: 100%;
   border: none;
 }
@@ -2491,10 +2665,15 @@ ul li .block .jersy .player-remove:after {
 a {
   cursor: pointer;
 }
-.select-captain .form-container .form-group .select2-container .select2-choice>.select2-chosen {
+.select-captain
+  .form-container
+  .form-group
+  .select2-container
+  .select2-choice
+  > .select2-chosen {
   margin-right: 40px;
 }
-.select2-choice>.select2-chosen {
+.select2-choice > .select2-chosen {
   margin-right: 20px;
   display: block;
   overflow: hidden;
@@ -2518,7 +2697,12 @@ a {
   outline: 0;
 }
 
-.select-captain .form-container .form-group .select2-container .select2-choice>.select2-arrow {
+.select-captain
+  .form-container
+  .form-group
+  .select2-container
+  .select2-choice
+  > .select2-arrow {
   right: 25px;
 }
 .select2-container .select2-choice .select2-arrow {
@@ -2535,8 +2719,8 @@ a {
   text-align: center;
 }
 
-.select2-offscreen, .select2-offscreen:focus {
-  color: #858585;
+.select2-offscreen,
+.select2-offscreen:focus {
   clip: rect(0 0 0 0) !important;
   /* width: 1px !important; */
   height: 1px !important;
@@ -2548,6 +2732,12 @@ a {
   outline: 0 !important;
   left: 0px !important;
   top: 0px !important;
+}
+
+.player-details {
+  @include for-lg {
+    margin-left: 10px;
+  }
 }
 
 label {
@@ -2580,17 +2770,16 @@ label {
   z-index: 2;
   display: block;
 
-  @include for-landscape-phone-only{
+  @include for-landscape-phone-only {
     margin-left: 28px;
   }
-  @include for-md{
+  @include for-md {
     margin-left: 40px;
   }
-  @include for-laptop-and-desktop-only{
+  @include for-laptop-and-desktop-only {
     margin-left: 31px;
     padding: 1px 5px;
     top: -15px;
-
   }
 }
 #removePlayerBtn1 {
@@ -2615,8 +2804,6 @@ label {
   color: #fff;
 }
 
-
-
 #playerImg {
   height: 70px;
   width: 70px;
@@ -2638,9 +2825,9 @@ label {
 
 @media (min-width: 576px) {
   .statsTableContainer {
-  width: auto;
-  height: auto;
-}
+    width: auto;
+    height: auto;
+  }
 }
 
 .modalBody {
@@ -2672,48 +2859,560 @@ label {
     height: 80%;
   }
 }
+#teamName {
+  /* padding-top: 10px;
+  padding-bottom: 5px; */
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+}
 
-/* @media only screen and (max-width: 990px) {
-  .modal .modal-body {
-      max-height: 420px;
-      overflow-y: auto;
+.completed {
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding: 5px 10px;
+  float: right;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.teamName,
+.rank {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+
+
+/* player Avatar starts*/
+.playerAvatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+
+  img {
+    width: 26px;
+    height: 20px;
   }
+}
+/* player Avatar ends*/
+
+/* Container holding the top info in the black section starts */
+.topInfo {
+  @include for-lg {
+    display: flex;
+  }
+}
+/* Container holding the top info in the black section ends */
+
+/* showdown yellow label starts */
+.showdownLabel {
+  clip-path: polygon(0% 0, 100% 0, 85% 100%, 15% 100%);
+  padding: 5px 60px;
+  padding-bottom: 2px;
+  margin: 0 auto;
+}
+/* showdown yellow label ends */
+
+/* chat button starts */
+.chat-btn {
+  background: #419bf9;
+  color: #fff;
+  padding: 10px;
+  vertical-align: middle;
+  line-height: 32px;
+  font-size: 22px;
+  width: 50px;
+  border-radius: 100%;
+  height: 50px;
+  position: fixed;
+  right: 20px;
+  z-index: 100;
+  bottom: 20px;
+  text-align: center;
+  -webkit-transition: background 300ms ease-in;
+  -moz-transition: background 300ms ease-in;
+  -ms-transition: background 300ms ease-in;
+  -o-transition: background 300ms ease-in;
+  transition: background 300ms ease-in;
+  display: inline-block;
+
+  /* @include for-landscape-tablet-and-ipads-only{
+    position: absolute;
+    bottom: 288px;
   } */
 
+  @include for-laptop-and-desktop-only {
+    position: fixed;
+    bottom: 20px;
+  }
 
-/* CUSTOMISED SPINNER*/
-.spinner{
-  border: 16px solid silver;
-  border-top: 16px solid #387AB7;
+  i {
+    color: #fff;
+  }
+}
+
+/* chat button ends */
+
+.theTable {
+  th:nth-child(4),
+  th:nth-child(5),
+  td:nth-child(4),
+  td:nth-child(5) {
+    text-align: right;
+  }
+
+  th:first-child,
+  td:last-child,
+  td:first-child,
+  td:last-child {
+    padding: 2px 7px;
+  }
+}
+
+.player-image {
+  display: none;
   border-radius: 50%;
-  width:60px;
-  height: 60px;
-  animation: spin 1000ms linear infinite;
-  top:120%;
-  left: 50%;
-  position:absolute;
-}
-@keyframes spin {
-  0% {transform: rotate(0deg)}
-  100% {transform: rotate(360deg)}
-}
-@media screen and (max-width: 480px) {
 
-.spinner{
-  border: 16px solid silver;
-  border-top: 16px solid #387AB7;
-  border-radius: 50%;
-  width:50px;
-  height: 50px;
-  animation: spin 1000ms linear infinite;
-  top:120%;
-  left: 50%;
-  position:absolute;
-}
-@keyframes spin {
-  0% {transform: rotate(0deg)}
-  100% {transform: rotate(360deg)}
-}
+  @include for-md {
+    display: block;
+  }
+
+  img {
+    border-radius: 50%;
+  }
 }
 
-/* END OF CUSTOMISED SPINNER*/
+#userRankRow {
+  background-color: #beddfd;
+
+  td {
+    border-left-color: #beddfd;
+    border-right-color: #beddfd;
+  }
+}
+
+div.card {
+  height: 550px;
+  overflow-y: scroll;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+  @include for-sm {
+    height: 350px;
+  }
+  @include for-md {
+    height: 750px;
+  }
+  @include for-lg {
+    height: 669px;
+  }
+}
+
+.main {
+  margin-bottom: 20px;
+}
+
+.customContainer {
+  @include for-md {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+/* Chat box starts */
+.firechat-wrapper {
+  position: fixed;
+  right: 21px;
+  max-width: 300px;
+  background-color: #fff;
+  bottom: 0;
+  z-index: 99999;
+  min-width: 300px;
+  -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  -ms-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+#firechat {
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  color: #333;
+  text-align: left;
+
+  .icon.user-chat {
+    background-position: -138px 0;
+    width: 17px;
+    height: 13px;
+    margin-right: 3px;
+  }
+
+  .icon {
+    display: inline-block;
+    *margin-right: 0.3em;
+    line-height: 20px;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    padding: 0;
+    /* background: url(../img/chat.png) no-repeat top left; */
+    opacity: 0.3;
+    font-size: 22px;
+    font-family: Arial;
+    font-weight: bold;
+    overflow: hidden;
+  }
+
+  .icon.user-group {
+    background-position: -18px 0;
+    width: 17px;
+    height: 13px;
+  }
+
+  #firechat-header {
+    padding: 6px 0 0 0;
+    height: 40px;
+  }
+
+  #firechat-tab-content {
+    width: 100%;
+    background-color: #fff;
+  }
+
+  .tab-content {
+    overflow: auto;
+    position: relative;
+    float: left;
+    width: 100%;
+
+    .active {
+      display: block;
+      background-color: #fff;
+  }
+  }
+
+  #firechat-tab-list {
+    background-color: #fff;
+  }
+
+  .nav-tabs {
+    border-bottom: 1px solid #ddd;
+    clear: both;
+
+    li {
+      float: left;
+      margin-bottom: -1px;
+      max-width: 45%;
+
+      a {
+        display: block;
+        background-color: #eee;
+        text-decoration: none;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+  }
+
+
+
+  .nav {
+    list-style: none;
+  }
+}
+
+#firechat-tabs #firechat-tab-list li.active a {
+  color: #fff;
+  padding: 4px 18px 4px 8px;
+  background: #419bf9;
+}
+
+#firechat-tabs #firechat-tab-list li a {
+  padding: 4px 8px;
+  margin-right: 0px;
+  line-height: 20px;
+  border: none;
+  border-right: 1px solid #ccc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  position: relative;
+  border-radius: 0;
+}
+
+.firechat-wrapper #firechat-tabs #firechat-tab-list li.active a span.close {
+  display: inline-block;
+  position: absolute;
+  right: 7px;
+  top: 10px;
+  font-size: 10px;
+  opacity: 0.7;
+  color: #fff;
+}
+
+#firechat .right {
+  float: right !important;
+}
+
+.firechat-wrapper #firechat-tabs #firechat-tab-content .tab-pane .tab-pane-menu {
+  display: table;
+  width: 100%;
+}
+
+.firechat-wrapper #firechat-tabs #firechat-tab-content .tab-pane .tab-pane-menu .firechat-dropdown:first-child {
+  border-right: 1px solid #ddd;
+}
+.firechat-wrapper #firechat-tabs #firechat-tab-content .tab-pane .tab-pane-menu .firechat-dropdown {
+  vertical-align: middle;
+  display: table-cell;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+#firechat .fifth:first-child, #firechat .fivesixth:first-child, #firechat .fourfifth:first-child, #firechat .half:first-child, #firechat .ninetenth:first-child, #firechat .quarter:first-child, #firechat .sevententh:first-child, #firechat .sixth:first-child, #firechat .tenth:first-child, #firechat .third:first-child, #firechat .threefifth:first-child, #firechat .threequarter:first-child, #firechat .threetenth:first-child, #firechat .twofifth:first-child, #firechat .twothird:first-child, #firechat .full:first-child {
+  margin-left: 0;
+}
+#firechat .firechat-dropdown {
+  position: relative;
+}
+.all-users-in-room {
+  display: none !important;
+}
+
+.firechat-wrapper #firechat-tabs #firechat-tab-content .tab-pane .tab-pane-menu .firechat-dropdown .dropdown-toggle {
+  width: 100%;
+  display: block;
+}
+
+.firechat-wrapper #firechat-tabs #firechat-tab-content .tab-pane .tab-pane-menu .firechat-dropdown .dropdown-menu {
+  padding: 0;
+  border-radius: 0;
+  -webkit-box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+  -moz-box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+  -ms-box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+  -o-box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #fff;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
+  box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
+  background-clip: padding-box;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 300ms ease, visibility 300ms ease;
+  -moz-transition: opacity 300ms ease, visibility 300ms ease;
+  -ms-transition: opacity 300ms ease, visibility 300ms ease;
+  -o-transition: opacity 300ms ease, visibility 300ms ease;
+  transition: opacity 300ms ease, visibility 300ms ease;
+}
+
+#firechat .full {
+  width: 100%;
+}
+
+#firechat .fifth, #firechat .fivesixth, #firechat .fourfifth, #firechat .half, #firechat .ninetenth, #firechat .quarter, #firechat .sevententh, #firechat .sixth, #firechat .tenth, #firechat .third, #firechat .threefifth, #firechat .threequarter, #firechat .threetenth, #firechat .twothird, #firechat .full {
+  margin-left: 2.127659574468085%;
+  float: left;
+  min-height: 1px;
+}
+
+#firechat .chat {
+  overflow: auto;
+  -ms-overflow-x: hidden;
+  overflow-x: hidden;
+  height: 290px;
+  position: relative;
+  margin-bottom: 5px;
+  border-top: 0;
+  overflow-y: scroll;
+  background-color: #fff;
+
+  @include for-sm {
+    height: 240px;
+  }
+}
+
+ .message.message-default.message-self {
+  text-align: left;
+}
+
+ .message.message-default {
+  padding: 5px 8px;
+  margin-bottom: 5px;
+}
+
+ .message.message-default.message-self .user-info {
+  float: right;
+  padding-top: 8px;
+}
+ .message.message-default .user-info {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 13px;
+}
+ .message.message-default .user-info span {
+  background: #419BF9;
+  border-radius: 100%;
+  width: 36px;
+  height: 36px;
+  display: block;
+  position: relative;
+}
+
+#firechat .message .name {
+  overflow-x: hidden;
+}
+
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.clearfix:before, .clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:before, .clearfix:after {
+  content: " ";
+  display: table;
+}
+
+ .message.message-default .user-info span:after {
+  content: attr(data-part);
+  font-size: 22px;
+  text-transform: uppercase;
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  line-height: 36px;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff;
+}
+
+ .message.message-default.message-self .message-content {
+  margin-left: initial;
+  padding-left: initial;
+  margin-right: -36px;
+  padding-right: 45px;
+}
+ .message.message-default .message-content {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+  min-width: 80%;
+  margin-left: -36px;
+  padding-left: 45px;
+}
+
+ .message.message-default.message-self .message-content .name {
+  float: left;
+  width: 100%;
+  display: block;
+  margin-bottom: 2px;
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+  -o-transform: translateY(0px);
+  transform: translateY(0px);
+}
+
+ .message.message-default .message-content .name {
+  font-size: 10px;
+  text-transform: capitalize;
+  line-height: 10px;
+  -webkit-transform: translateY(4px);
+  -moz-transform: translateY(4px);
+  -ms-transform: translateY(4px);
+  -o-transform: translateY(4px);
+  transform: translateY(4px);
+  display: inline-block;
+}
+
+ .message.message-default .message-content .option {
+  float: right;
+}
+
+ .message-text {
+  display: block;
+  word-break: break-all;
+  background: #419BF9;
+  padding: 5px 8px;
+  border-radius: 4px;
+  clear: both;
+  position: relative;
+  color: #fff;
+}
+
+ .message.message-default.message-self .message-content .message-text:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: -5px;
+  top: 8px;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-color: transparent transparent transparent #d5e9fe;
+}
+
+ .message.message-default .message-content .time {
+  font-size: 10px;
+  text-transform: capitalize;
+  line-height: 10px;
+  display: block;
+  margin-top: 2px;
+}
+
+#firechat label {
+  display: block;
+}
+
+#firechat textarea {
+  resize: none;
+  height: 40px;
+}
+#firechat textarea {
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  padding: 2px 5px;
+  border: none;
+  border-top: 1px solid #ccc;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.firechat-wrapper #firechat-header, .firechat-wrapper #firechat-footer {
+  display: none;
+}
+
+/* Chat box ends */

@@ -221,7 +221,7 @@
                             </div> -->
                           </div>
                           <div class="text-center pt-2 d-flex justify-content-between justify-content-around">
-                            <a > Show Lineup</a>
+                            <a  class = "font-weight-bold blue-text"> Show Lineup</a>
 
                             <a class='font-weight-bold blue-text'>View</a>
                           </div>
@@ -233,7 +233,10 @@
                   </div>
                   <!-- Completed section ends -->
                   <ng-template #No>
-                    <h5><p>No live contest available on this league</p></h5>
+                    <div class="container text-center">
+                        <h5><p>No live contest available on this league</p></h5>
+                    </div>
+
                   </ng-template>
                   <div class="spinner" *ngIf="isLoading" style ="top:50%;
                   left: 45%;"></div>
@@ -241,9 +244,9 @@
           </div>
 
 
-          <div class="col-sm-12 col-lg-5">
+          <div class="col-sm-12 col-lg-5" *ngIf="!deviceService.isMobile()">
             <!-- Pitch starts -->
-              <div id="mobilePitch">
+              <div id="{{device}}">
                   <div class="pitchadscontainer ">
                     <div class="d-flex pt-0">
                       <div class="d-flex" id="leftAd">
@@ -636,5 +639,5 @@
   </div>
 </div>
 
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->
 

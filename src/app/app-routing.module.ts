@@ -25,7 +25,8 @@ const fantRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-  RouterModule.forRoot(fantRoutes , /*{useHash: true}*/ {preloadingStrategy: PreloadAllModules})
+  RouterModule.forRoot(fantRoutes , /* { enableTracing: true }*/
+    /*{useHash: true}*/ /*{preloadingStrategy: PreloadAllModules} */)
   ],
   exports: [RouterModule],
   declarations: []

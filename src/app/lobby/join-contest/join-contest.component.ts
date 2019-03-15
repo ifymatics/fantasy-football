@@ -72,7 +72,7 @@ onCreateTeamAnimate = false;
      ) {
    // this.service.isLoggedIn = this.utilityService.checkLocalStorageStatus('user');
     // console.log(this.league.league_id);
-   this.isLoading = true;
+
    this.league = this.utilityService.getLocalStorage('league');
    this.session =
     (this.utilityService.getLocalStorage('user'))
@@ -104,8 +104,7 @@ onCreateTeamAnimate = false;
     },
    error => error
  );*/
- this.getContestSeason({}, 0);
- this.LobbyMasterData();
+
    }
   ngOnInit() {
     this.route.params.subscribe(
@@ -122,7 +121,10 @@ onCreateTeamAnimate = false;
    if (this.utilityService.checkLocalStorageStatus('user')) {
     this.currentUser = this.utilityService.getLocalStorage('user').data.user_profile;
     console.log(this.currentUser);
+    this.getContestSeason({}, 0);
+ this.LobbyMasterData();
    }
+   this.isLoading = true;
    }
 LobbyMasterData() {
   const league_filter = [];
@@ -152,6 +154,7 @@ LobbyMasterData() {
   // this.getContestSeason({}, 0);
      },
     error => {
+      console.log(this.data);
       if (error['error']['global_error'] === 'Session key has expired') {
         this.message = error['error']['global_error'];
         this.router.navigate(['/']);

@@ -15,7 +15,7 @@ import { ConditionalExpr } from '@angular/compiler';
 import { TouchSequence } from 'selenium-webdriver';
 import { pipe, empty } from 'rxjs';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { isEmpty } from 'rxjs/Operators';
+import { isEmpty, timeout } from 'rxjs/Operators';
 
 
 @Component({
@@ -750,7 +750,6 @@ validateTeam(playerType, playerId) {
           this.selectedPlayerData.splice(selectedPlayerIndex, 1);
           this.playersArr[playerIndex] = {};
           this.removeItemFromArray(playerId, selectedPlayerIndex);
-           alert(this.forwardsArray.length);
           this.playerActive[playerIndex] = false;
           this.btnRemoveRoster[playerId] = false;
           this.btnAddRoster[playerId] = false;
@@ -1348,8 +1347,10 @@ fillKeeper(player,playerIndex?, playerPosition?, playerType?, maxPlayers?) {
           this.gkLi = '';
     }  else if (!this.goalkeepersArray.includes
       (player.player_id) ) {
-        this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
+        console.log('still working heeree');
+       // this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
         this.playerObj.fourThreeThree.gk.gk1 = player;
+        this.goalkeepersArray.push(player.player_id);
       }
   } else if (this.formationSelected === '5-4-1') {
     if (this.gkLi === 'gk') {
@@ -1360,7 +1361,7 @@ fillKeeper(player,playerIndex?, playerPosition?, playerType?, maxPlayers?) {
           this.gkLi = '';
       } else if (!this.goalkeepersArray.includes
         (player.player_id) ) {
-          this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
+          //this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
           this.playerObj.fiveFourOne.gk.gk1 = player;
         }
    } else if (this.formationSelected === '4-4-2') {
@@ -1372,7 +1373,7 @@ fillKeeper(player,playerIndex?, playerPosition?, playerType?, maxPlayers?) {
           this.gkLi = '';
       } else if (!this.goalkeepersArray.includes
         (player.player_id) ) {
-          this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
+         // this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
           this.playerObj.fourFourTwo.gk.gk1 = player;
         }
    } else if (this.formationSelected === '4-5-1') {
@@ -1384,7 +1385,7 @@ fillKeeper(player,playerIndex?, playerPosition?, playerType?, maxPlayers?) {
           this.gkLi = '';
       } else if (!this.goalkeepersArray.includes
         (player.player_id) ) {
-          this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
+         // this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
           this.playerObj.fourFiveOne.gk.gk1 = player;
         }
    } else if (this.formationSelected === '5-3-2') {
@@ -1396,7 +1397,7 @@ fillKeeper(player,playerIndex?, playerPosition?, playerType?, maxPlayers?) {
           this.gkLi = '';
       } else if (!this.goalkeepersArray.includes
         (player.player_id) ) {
-          this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
+         // this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
           this.playerObj.fourFiveOne.gk.gk1 = player;
         }
    } else if (this.formationSelected === '3-5-2') {
@@ -1408,7 +1409,7 @@ fillKeeper(player,playerIndex?, playerPosition?, playerType?, maxPlayers?) {
           this.gkLi = '';
       } else if (!this.goalkeepersArray.includes
         (player.player_id) ) {
-          this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
+         // this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
           this.playerObj.fourFiveOne.gk.gk1 = player;
         }
    } else if (this.formationSelected === '5-2-3') {
@@ -1420,7 +1421,7 @@ fillKeeper(player,playerIndex?, playerPosition?, playerType?, maxPlayers?) {
           this.gkLi = '';
       } else if (!this.goalkeepersArray.includes
         (player.player_id) ) {
-          this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
+         // this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
           this.playerObj.fourFiveOne.gk.gk1 = player;
         }
    } else if (this.formationSelected === '3-4-3') {
@@ -1432,7 +1433,7 @@ fillKeeper(player,playerIndex?, playerPosition?, playerType?, maxPlayers?) {
           this.gkLi = '';
       } else if (!this.goalkeepersArray.includes
         (player.player_id) ) {
-          this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
+         // this.onPlayerListSelectFirst(player, playerIndex, playerPosition, playerType, maxPlayers);
           this.playerObj.fourFiveOne.gk.gk1 = player;
         }
    }
@@ -1487,14 +1488,7 @@ console.log(this.lineupDetails);
   // let count = 0;
        const maxPlayers = this.playersMinMaxData[player.position]['max_player_per_position'];
        player.player_role_in_team = (player.player_role ==='1') ? 'captain' : ((player.player_role === '2') ? 'vice-captain' : '');
-       /*if (player.player_role === 1) {
-         this.captainObj.captain = player.full_name;
-        player.player_role_in_team = 'captain';
-        console.log(this.captainObj.captain)
-       } else if (player.player_role === 2) {
-         this.captainObj.viceCaptain = player.full_name;
-        player.player_role_in_team = 'vice-captain';
-       } else {  player.player_role_in_team = '';} */
+
       // Condition for set players position in map for soccer
       if (this.sports_id === 5) {
         // console.log(this.datas.sports_id);
@@ -2478,16 +2472,18 @@ console.log(playersData);
     const index = this.defendersArray.indexOf(playerId);
     this.defendersArray.splice(index, 1);
     // this.defendersArray[index] = '';
-    alert( 'from removeItem' + this.defendersArray.length);
+    // alert( 'from removeItem' + this.defendersArray.length);
   } else if (this.midfieldersArray.includes(playerId)){
     const index = this.midfieldersArray.indexOf(playerId);
     this.midfieldersArray.splice(index, 1);
     // this.midfieldersArray[index] = '';
-    alert( 'from removeItem' + this.midfieldersArray.length);
+   // alert( 'from removeItem' + this.midfieldersArray.length);
   } else if (this.forwardsArray.includes(playerId)){
-    return this.forwardsArray.filter((ele) => {
+   /* return this.forwardsArray.filter((ele) => {
       return ele !== playerId;
-  });
+  });*/
+  const index = this.forwardsArray.indexOf(playerId);
+    this.forwardsArray.splice(index, 1);
 
 } else {
     const index = this.goalkeepersArray.indexOf(playerId);
@@ -2505,23 +2501,24 @@ console.log(playersData);
                  if (Object.entries(this.playerObj[formation][position][def]).length === 0){
                     // console.log('inside 00000000000');
                   if ( this.defendersArray.length < 4) {
-                    console.log(this.defendersArray);
-                    console.log(this.forwardsArray);
                     this.playerStatusCheck (player.player_id, playerIndex, playerPosition, playerType, maxPlayers) ;
                   this.playerObj[formation][position][def] = player;
                   this.defendersArray.push(player.player_id);
+                  console.log(this.defendersArray);
                    if (this.deviceService.isMobile()){
-                    if (this.midfieldersArray.length === 3) {
+                    if (this.defendersArray.length === 4) {
                       this.playerList.hide();
                      }
                       break;
                      } else {
-                       alert(this.defendersArray.length);
                        break;
                      }
                   } else {
-                    alert('click a player position in the pitch first');
-                    alert(this.defendersArray.length);
+                    if (!this.deviceService.isDesktop()) {
+                      if (this.defendersArray.length === 4) {
+                        alert('Maximum number of defenders has been reached');
+                         }
+                    }
                     break;
                   }
 
@@ -2537,22 +2534,25 @@ console.log(playersData);
               if (typeof this.playerObj[formation][position][mid] === 'object') {
                 // this.playerObj[formation][position][mid] = player;
                 if (Object.entries(this.playerObj[formation][position][mid]).length===0){
-                  if (this.midfieldersArray.length < 3) {
+                  if ( this.midfieldersArray.length < 3) {
                     this.playerStatusCheck (player.player_id, playerIndex, playerPosition, playerType, maxPlayers) ;
                   this.playerObj[formation][position][mid] = player;
                   this.midfieldersArray.push(player.player_id);
                   console.log(this.midfieldersArray);
-                   if (this.deviceService.isMobile()) {
-                     if (this.midfieldersArray.length === 3) {
+                   if (this.deviceService.isMobile()){
+                    if (this.midfieldersArray.length === 3) {
                       this.playerList.hide();
                      }
                       break;
                      } else {
-                      alert('click a player position in the pitch first');
                        break;
                      }
                   } else {
-                    alert(this.midfieldersArray.length);
+                    if (!this.deviceService.isDesktop()) {
+                      if (this.midfieldersArray.length === 3) {
+                        alert('Maximum number of midfielders has been reached');
+                         }
+                    }
                     break;
                   }
                 }
@@ -2566,23 +2566,25 @@ console.log(playersData);
               if (typeof this.playerObj[formation][position][fwd] === 'object') {
                 // this.playerObj[formation][position][fwd] = player;
                 if (Object.entries(this.playerObj[formation][position][fwd]).length===0){
-                  if (this.forwardsArray.length < 3) {
+                  if ( this.forwardsArray.length < 3) {
                     this.playerStatusCheck (player.player_id, playerIndex, playerPosition, playerType, maxPlayers) ;
                   this.playerObj[formation][position][fwd] = player;
                   this.forwardsArray.push(player.player_id);
                   console.log(this.forwardsArray);
                    if (this.deviceService.isMobile()){
-                    if (this.midfieldersArray.length === 3) {
+                    if (this.forwardsArray.length === 3) {
                       this.playerList.hide();
                      }
                       break;
                      } else {
-                      alert('click a player position in the pitch first');
-                       alert(this.forwardsArray.length);
                        break;
                      }
-                  } else  {
-                    alert(this.forwardsArray);
+                  } else {
+                    if (!this.deviceService.isDesktop()) {
+                      if (this.forwardsArray.length === 3) {
+                        alert('Maximum number of midfielders has been reached');
+                         }
+                    }
                     break;
                   }
                 }

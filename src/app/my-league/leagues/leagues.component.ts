@@ -88,7 +88,7 @@ myLeagueArray = [];
       (params: ParamMap) => {
          this.league_id = params['league_id'];
          console.log(this.league_id);
-         this.router.navigate([this.sports_id + '/' + this.league_id +'/my-league/live']);
+        //  this.router.navigate([this.sports_id + '/' + this.league_id +'/my-league/live']);
       }
     );
 

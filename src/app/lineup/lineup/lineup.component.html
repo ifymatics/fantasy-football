@@ -435,13 +435,14 @@
 
 
                                 <div class=" ">
+                                    <label
+                                    for="s2id_autogen14"
+                                    class="select2-offscreen  custom-select small" *ngIf="captainObj.viceCaptain"
+                                  >Captain gets 2.0x the points</label>
                                   <div class="newGrid align-items-center select2-container">
 
-                                    <label
-                                      for="s2id_autogen14"
-                                      class="select2-offscreen custom-select"
-                                    >Selelct Captain</label>
-                                    <small  class="select2-offscreen custom-select" *ngIf="captainObj.viceCaptain">Vice Captain gets 1.5x the points</small>
+
+                                   <!--  <small  class="select2-offscreen custom-select" *ngIf="captainObj.viceCaptain">Vice Captain gets 1.5x the points</small> -->
                                     <select
                                     required
                                       [(ngModel)] = "captainObj.captain"
@@ -453,7 +454,7 @@
                                     id="s2id_autogen14"
                                     onfocus='this.size=5' onblur='this.size=1' onchange='this.size=1, this.blur();'
                                    #captain>
-                                    <option selected>Select Captain</option>
+                                    <option value = "" selected>Select Captain</option>
                                     <ng-container *ngFor="let player of finalSelectedPlayersArr.slice()" >
                                     <option *ngIf="((captainObj.viceCaptain==player.player_id) && captainObj.captain) ? false : true"  [value]="player.player_id" >
                                       {{player.nick_name?player.nick_name:player.full_name }} - {{player.position}}
@@ -473,14 +474,14 @@
                                   <span class="help-block"><span></span></span>
                                 </div>
                                 <div class=" ">
-                                  <div class="newGrid align-items-center select2-container">
-
-
                                     <label
-                                      for="s2id_autogen14"
-                                      class="select2-offscreen"
-                                    >Selelct Vice captain</label>
-                                    <small  class="select2-offscreen custom-select" *ngIf="captainObj.viceCaptain">Vice Captain gets 1.5x the points</small>
+                                    for="s2id_autogen14"
+                                    class="select2-offscreen small"
+                                    *ngIf="captainObj.viceCaptain"
+                                  >Vice Captain gets 1.5x the points</label>
+
+                                  <div class="newGrid align-items-center select2-container">
+                                    <!-- <small  class="select2-offscreen custom-select" >Vice Captain gets 1.5x the points</small> -->
                                     <select
                                     required
                                     [(ngModel)] = "captainObj.viceCaptain"
@@ -492,7 +493,7 @@
                                     id="s2id_autogen14"  mdbTooltip='Vice captain gets 1.5x the points' #pop='mdb-tooltip'
                                     onfocus='this.size=5' onblur='this.size=1' onchange='this.size=1, this.blur();'
                                     #viceCaptain>
-                                    <option selected>Select Vice captain</option>
+                                    <option value = ""  selected>Select Vice captain</option>
                                      <ng-container  *ngFor="let viceplayer of finalSelectedPlayersArr.slice()" >
                                     <option *ngIf="((captainObj.captain==viceplayer.player_id)&& captainObj.captain) ? false : true" value="{{viceplayer.player_id}}"  >
                                         {{viceplayer.nick_name?viceplayer.nick_name:viceplayer.full_name}} - {{viceplayer.position}}
