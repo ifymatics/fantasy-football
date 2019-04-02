@@ -1,11 +1,11 @@
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { UtilityService } from './../utility.service';
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { resolve, reject } from 'q';
-import {map} from 'rxjs/Operators';
+import {map, catchError} from 'rxjs/Operators';
 
 @Injectable({
    providedIn: 'root'
@@ -31,13 +31,14 @@ export class AuthloginService {
     if (verbLang === 'post') {
       // this.fetchSession();
       this.url = this.url1.concat(url2);
+      console.log(this.url, data, {headers});
         return this._http.post(this.url, data, {headers});
-    } else if (verbLang === 'login' ) {
+    } else if (verbLang === 'login' || verbLang === 'signup' ) {
       this.url = this.url1.concat(url2);
         return this._http.post(this.url, data)
         .pipe(
-          // catchError(this.handleError)
-        );
+           catchError(this.handleError)
+         );
     } else if (verbLang === 'logout' ) {
       this.url = this.url1.concat(url2);
         return this._http.post(this.url, data);
@@ -129,13 +130,18 @@ login(hashing, globalSport, loginForm) {
                }
               }
             },
-            (error: Error) => {console.log(error['error']); alert(error['error']); this.isLoading = false; }
+            (error) => {
+              console.log(error['error']); alert(error['error']);
+               this.isLoading = false; }
           );
            // this.router.navigate(['/league']);
           }
    },
-    (error: Error) => {  console.log(error); alert(error['error']);
-    this.isLoading = false; }
+    (error) => {
+      this.isLoading = false;
+       console.log(error.error);
+   // this.isLoading = false;
+    }
   );
 }
 logout() {
@@ -165,12 +171,14 @@ private handleError(error: HttpErrorResponse) {
   } else {
     // The backend returned an unsuccessful response code.
     // The response body may contain clues as to what went wrong,
-    console.error(
-      `Backend returned code ${error.status}, ` +
-      `body was: ${error.error}`);
+
+    /*console.log(
+      `Backend returned code ${JSON.stringify(error.error.error)}, ` +
+      `body was: ${JSON.stringify(error.status)}`);*/
   }
   // return an observable with a user-facing error message
- // return throwError(
+  return throwError(error);
+  // return Observable.throw(error);
    // 'Something bad happened; please try again later.');
 }
 }

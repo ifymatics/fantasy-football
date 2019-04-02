@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-12 col-lg-7">
     <div>
-      <div *ngIf="contestListData.length > 0 || isLoading; else No">
+      <div *ngIf="contestListData.length > 0 || isLoading; ">
         <div class="container" *ngIf = "!isDisabled">
           <!-- Card starts -->
           <mdb-card class="my-3" *ngFor="let collections of contestListData">
@@ -17,9 +17,9 @@
                   />
                   <div class="contestNameBlock">
                     <h5 class="contestTitle mb-0 pb-0 font-weight-bold">
-                      Premier League
+                    {{collections.collection_name}}
                     </h5>
-                    <span class="small mt-0 pt-0">29/12/18</span>
+                   <!-- <span class="small mt-0 pt-0">29/12/18</span>-->
                   </div>
                 </div>
 
@@ -369,7 +369,7 @@
                     onView(
                       leaguesteam.lineup_master_id,
                       leagues.contest_id,
-                      collections.collection_master_id
+                      collections
                     )
                   "
                   class="font-weight-bold blue-text"
@@ -739,7 +739,7 @@
       </div>
     </div>
     <!-- Empty Pitch starts -->
-    <div id="{{ device }}" *ngIf="!deviceService.isMobile() && !isPopulated">
+    <div id="{{ device }}" *ngIf="!mobileDevice && !isPopulated">
       <div class="pitchadscontainer ">
         <div class="d-flex pt-0">
           <div class="d-flex" id="leftAd">

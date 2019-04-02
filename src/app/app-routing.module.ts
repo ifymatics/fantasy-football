@@ -17,6 +17,7 @@ const fantRoutes: Routes = [
  {path: ':id/:league_id/lobby', canActivateChild: [AuthGuard], loadChildren: './lobby/lobby.module#LobbyModule'},
  {path: ':id/:league_id/my-league', canActivateChild: [AuthGuard], loadChildren: './my-league/my-league.module#MyLeagueModule'},
  {path: ':sports_id/lineup/:league_id/:contest_id',  canActivateChild: [AuthGuard], loadChildren: './lineup/lineup.module#LineupModule'},
+ {path: ':sports_id/leaderboard',  canActivateChild: [AuthGuard], loadChildren: './leaderboard/leaderboard.module#LeaderboardModule'},
 
   // {path: '', redirectTo: '/', pathMatch: 'full'},
 
@@ -26,7 +27,7 @@ const fantRoutes: Routes = [
   imports: [
     CommonModule,
   RouterModule.forRoot(fantRoutes , /* { enableTracing: true }*/
-    /*{useHash: true}*/ /*{preloadingStrategy: PreloadAllModules} */)
+    {useHash: true} /*{preloadingStrategy: PreloadAllModules} */)
   ],
   exports: [RouterModule],
   declarations: []

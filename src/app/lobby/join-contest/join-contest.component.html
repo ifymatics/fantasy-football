@@ -13,10 +13,10 @@
         <div class="dropdown ml-auto" dropdown id="leaguesDropdown">
           <div dropdownToggle>
             <span class="white-text"
-              >English Premier League<i
+            ><i
                 class="fas fa-chevron-down white-text align-self-center ml-4"
               ></i
-            ></span>
+            >{{selectedFilterObj.league.league_name || 'ALL'}}</span>
           </div>
 
           <div
@@ -24,15 +24,17 @@
             *dropdownMenu
             id="leaguesDropdownMenu"
           >
-            <div class="text-center ">
+           <!--<div class="text-center ">
               <h5 class="font-weight-bold">Switch Leagues</h5>
-            </div>
+            </div>-->
             <div class="list-group">
-              <a class="list-group-item active d-flex" href=""
-                >English Premier League
+              <a class="list-group-item active d-flex"
+                *ngFor="let list of leagueListFilter"
+                (click) = "setFilterLabel(list, 'league');getLobbyMatches(list);"
+                >{{list.league_name}}
                 <i class="fas fa-chevron-right align-self-center ml-auto"></i
               ></a>
-              <a class="list-group-item d-flex" href=""
+             <!-- <a class="list-group-item d-flex" href=""
                 >La Liga
                 <i class="fas fa-chevron-right align-self-center ml-auto"></i
               ></a>
@@ -47,7 +49,7 @@
               <a class="list-group-item d-flex" href=""
                 >Serie A
                 <i class="fas fa-chevron-right align-self-center ml-auto"></i
-              ></a>
+              ></a>-->
             </div>
           </div>
         </div>
@@ -118,7 +120,7 @@
             alt="bg-3"
             class="rounded carousel_pix d-block w-75 mx-auto"
           />
-        </mdb-carousel-item>
+        </mdb-carousel-item>-->
       </mdb-carousel>
     </div>
   </div>
@@ -219,8 +221,8 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor="let contest of contestList; let i = index">
+            <tbody *ngIf="contestList.length > 0 ">
+              <tr *ngFor="let contest of contestList; let i = index;">
                 <td
                   class="font-weight-bold contest table-item"
                   id="contest_name_desktop"
@@ -654,9 +656,9 @@
                       contest.contest_access_type == 0
                     "
                     mdbBtn
-                    [ngClass]="{'animated bounceIn': onAnimate}"
+                    [ngClass]="{'animated bounceIn': onAnimate && i}"
                     class="blue white-text mdbWavesEffect waves-light relative btn-sm"
-                    (click)="checkUserSubscription(contest, '', '')"
+                    (click)="checkUserSubscription(contest, '', 'normal_contest')"
                   >
                     {{ contest.user_join_count > 0 ? "REJOIN" : "JOIN" }}
                   </button>
@@ -666,10 +668,10 @@
                         contest.user_joined_count == 0) &&
                       contest.contest_access_type == 2
                     "
-                    [ngClass]="{'animated bounceIn': onAnimate}"
+                    [ngClass]="{'animated bounceIn': onAnimate && i}"
                     mdbBtn
                     class="blue white-text mdbWavesEffect waves-light relative btn-sm"
-                    (click)="checkUserSubscription(contest, '', '')"
+                    (click)="checkUserSubscription(contest, '', 'normal_contest')"
                   >
                     {{ contest.user_join_count > 0 ? "REJOIN" : "JOIN" }}
                   </button>
@@ -679,23 +681,29 @@
                       contest.user_joined_count > 0 &&
                       contest.is_quick_contest == 0
                     "
-                    [ngClass]="{'animated bounceIn': onAnimate}"
+                    [ngClass]="{'animated bounceIn': onAnimate && i}"
                     mdbBtn
                     class="blue white-text mdbWavesEffect waves-light relative btn-sm"
-                    (click)="checkUserSubscription(contest, '', '')"
+                    (click)="checkUserSubscription(contest, '', 'normal_contest')"
                   >
                     +
                   </button>
                   <button
-                  [ngClass]="{'animated bounceIn': onAnimate}"
+                  [ngClass]="{'animated bounceIn': onAnimate && i}"
                     *ngIf="contest.is_quick_contest == 1"
-                    (click)="checkUserSubscription(contest, '', '')"
+                    (click)="checkUserSubscription(contest, '', 'normal_contest')"
                   >
                     {{ "JOIN" }}
                   </button>
                 </td>
               </tr>
+
             </tbody>
+            <!--<ng-template #Nab *ngIf="">-->
+              <tbody  *ngIf="!isLoading && contestList.length === 0" >
+                <h5 class="container text-center">There is no available contest on this league yet</h5>
+              </tbody>
+           <!--</ng-template>-->
           </table>
 
           <div class="spinner" *ngIf="isLoading"></div>
@@ -1690,4 +1698,111 @@
     </div>
   </footer>
   <!-- ************* Footer ends **************** -->
+  <!-- Confirmation modal starts -->
+  <div
+  class="modal fade"
+  tabindex="-1"
+  #joinGameConfirmModal="mdbModal"
+  mdbModal
+  role="dialog"
+  aria-labelledby="confirmationModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-flex" style="background: #f4f4f4">
+        <span>CONFIRM AND YOU'RE IN!</span>
+        <span class="close" (click)='joinGameConfirmModal.hide()'>&times;</span>
+      </div>
+
+      <div class="modal-body" >
+        <div class='container'>
+          <div>
+            <div
+            *ngIf="joinGameInitObj?.contest?.prize_type==0 || joinGameInitObj?.contest?.prize_type==1"
+            class="confirmation-not-enough-cash"
+            >
+              <span class="confirmationCoinBalance">Coins Balance</span>
+              <span class="coinAmount"
+                ><i class="fas fa-coins"></i> {{joinGameInitObj?.currentbalance}}</span
+              >
+
+            </div>
+            <div class="confirmation-not-enough-cash"
+            *ngIf="joinGameInitObj?.contest?.prize_type==2 || joinGameInitObj?.contest?.prize_type==3"
+           >
+              <span class="confirmationCoinBalance">Coins Balance</span>
+              <span class="coinAmount"
+
+                ><i class="fas fa-coins"></i> {{joinGameInitObj?.userbalance?.point_balance}}</span
+              >
+
+            </div>
+            <div class='clearfix mt-2'></div>
+
+
+            <div class='mt-2 clearfix'></div>
+            <div class="confirmation-not-enough-cash"
+            *ngIf="joinGameInitObj?.contest?.prize_type==0 || joinGameInitObj?.contest?.prize_type==1"
+            >
+              <span class="confirmationCoinBalance">Entry Fee</span>
+              <span class="coinAmount"
+
+                > {{joinGameInitObj?.contest?.entry_fee}}</span
+              >
+
+            </div>
+            <div class="confirmation-not-enough-cash"
+            *ngIf="joinGameInitObj?.contest?.prize_type==2 || joinGameInitObj?.contest?.prize_type==3"
+            >
+              <span class="confirmationCoinBalance">Entry Fee</span>
+              <span class="coinAmount"
+
+                > {{joinGameInitObj?.contest?.entry_fee}}</span
+              >
+
+            </div>
+
+          <!--  <div class='mt-2 clearfix'></div>
+
+            <div class="confirmation-not-enough-cash">
+                <span class="confirmationCoinBalance">Edit Fee</span>
+                <span class="coinAmount"
+                  ><i class="fas fa-coins"></i> 0</span>
+
+              </div>-->
+          </div>
+
+          <form [formGroup]="confirmJoinForm" (ngSubmit)="confirmJoinContest()">
+            <div class='md-form'>
+              <select class='form-control confirm-selection'
+              formControlName = "lineup"
+              >
+                <option [ngValue] = "" selected>Select or Create team</option>
+                    <option *ngFor="let lineup of joinGameInitObj?.lineuplist" [ngValue] ="lineup">{{lineup.team_name}}</option>
+              </select>
+            </div>
+
+            <div class='d-flex'>
+              <button
+              (click)='joinGameConfirmModal.hide()'
+               class='waves-light relative btn-sm ml-auto'
+                style='background: linear-gradient(to bottom, #f8f8f8 0%, #e9e9e9 100%); color:black;'
+                 mdbBtn mdbWavesEffect>Cancel</button>
+              <button [disabled]="!confirmJoinForm.valid"
+              class='waves-light relative btn-sm '
+              [style.background-color]= "confirmJoinForm.value.lineup?'#2196f3': 'grey'" mdbBtn mdbWavesEffect
+
+              >CONFIRM</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Red section ends -->
+  </div>
+</div>
+  <!-- Confirmation modal ends -->
 </div>

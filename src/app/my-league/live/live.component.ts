@@ -22,6 +22,7 @@ export class LiveComponent implements OnInit {
   viewLiveRank                = false;
   viewCompletedRank ;
   isSelected = {};
+  mobileDevice;
   constructor(private deviceService: DeviceDetectorService,
               private utilityservice: UtilityService,
               private service: AuthloginService,
@@ -29,6 +30,7 @@ export class LiveComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.mobileDevice = this.deviceService.isMobile();
     if (this.deviceService.isMobile()) {
       this.device = 'mobilePitch';
       console.log(this.device);

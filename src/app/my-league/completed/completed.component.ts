@@ -68,6 +68,7 @@ export class CompletedComponent implements OnInit {
  sports_id         = 5;
  device = '';
  lineupDetails = [];
+ mobileDevice;
  teamInfo: {is_turbo_lineup: number, collection_master_id: number, league_id: number,
              lineup_master_id: number, rank: '', team_name: '' };
  viewLiveRank                = false;
@@ -90,10 +91,12 @@ export class CompletedComponent implements OnInit {
      private router: Router, private route: ActivatedRoute,
      private Leagueservice: LeagueService,
      private lobbyservice: LobbyService,
-     private deviceService: DeviceDetectorService ) { }
+     private deviceService: DeviceDetectorService,
+     ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(
+    this.mobileDevice = this.deviceService.isMobile();
+    this.route.parent.params.subscribe(
       (params: ParamMap) => {
          this.league_id = params['league_id'];
          console.log(params);
@@ -228,10 +231,16 @@ export class CompletedComponent implements OnInit {
           this.btn = false;
        });
      }
-     onView(lineup_master_id, contest_id, collection_master_id) {
-      console.log(lineup_master_id, contest_id, collection_master_id);
+     onView(lineup_master_id, contest_id, collection) {
+      // this.Leagueservice.getContestDataOnviewNavigate(collection);
+      this.utilityservice.checkLocalStorageStatus('collection') ?
+      this.utilityservice.clearLocalStorage('collection') :
+      this.utilityservice.setLocalStorage('collection', collection);
+      console.log(collection);
+      // console.log(lineup_master_id, contest_id, collection.collection_master_id);
      // this.router.navigate(['/contest-info', {relativeTo: this.route}]);
-     this.router.navigate([this.sports_id + '/' + '111' + '/my-league/contest-info',lineup_master_id, contest_id, collection_master_id]);
+     this.router.navigate([this.sports_id + '/' + this.league_id + '/my-league/contest-info', lineup_master_id, contest_id,
+     collection.collection_master_id]);
     }
      fillPlayGround(lineupDetails) {
       this.defPlayers = [];

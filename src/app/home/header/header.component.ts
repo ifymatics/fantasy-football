@@ -16,6 +16,8 @@ toggle = false;
 mobile = false;
 menuHeader = '';
 menuHeaderArrray = [];
+navbars = '';
+deactivate = 'deactivate';
 
   constructor(private utilityservice: UtilityService,
      private service: AuthloginService, private router: Router, private route: ActivatedRoute) { }
@@ -31,11 +33,18 @@ menuHeaderArrray = [];
     );
   }
   showMenu() {
+    if (this.navbars === 'active') {
+      this.navbars = '';
+      this.deactivate = 'deactivate';
+    } else {
+      this.navbars = 'active';
+      this.deactivate = '';
+    }
     // this.menuHeader = '';
-    if (this.menuHeader === 'open') {
+    if (this.menuHeader === 'active') {
       this.menuHeader = '';
     } else {
-      this.menuHeader = 'open';
+      this.menuHeader = 'active';
     }
   //  this.menuHeaderArrray.push(this.menuHeader);
    console.warn(this.menuHeader);

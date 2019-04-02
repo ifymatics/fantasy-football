@@ -1,3 +1,4 @@
+import { SignupComponent } from './../user/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthComponent } from './../user/auth/auth.component';
@@ -30,6 +31,7 @@ import { FooterComponent } from './footer/footer.component';
   declarations: [HomeComponent,
    // JoinContestComponent,
     AuthComponent,
+    SignupComponent
 
   ],
 })

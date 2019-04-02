@@ -223,7 +223,7 @@ export let md5 = (string) => {
     d = AddUnsigned(d, DD);
   }
 
-  var temp = WordToHex(a) + WordToHex(b) + WordToHex(c) + WordToHex(d);
+  const temp = WordToHex(a) + WordToHex(b) + WordToHex(c) + WordToHex(d);
 
   return temp.toLowerCase();
 };

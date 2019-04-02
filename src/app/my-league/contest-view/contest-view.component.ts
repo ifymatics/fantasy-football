@@ -1,3 +1,4 @@
+import { LeagueService } from './../league.service';
 import { UtilityService } from './../../utility.service';
 import { AuthloginService } from 'src/app/user/authlogin.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -27,6 +28,7 @@ owlItems = document.getElementsByClassName('owl-item');
   loadMorePosting = false;
   stateParams = { sports_id: 5, league_id: '', contest_id: '', lineup_master_id: '', collection_master_id: ''};
   userRank;
+  contestData;
   contestListRank = [];
   contestListOffset = 0;
   collection_detail;
@@ -71,22 +73,26 @@ owlItems = document.getElementsByClassName('owl-item');
      private router: Router,
      private route: ActivatedRoute,
      private utilityservice: UtilityService,
-     private deviceService: DeviceDetectorService) { }
+     private deviceService: DeviceDetectorService,
+     private leagueservice: LeagueService) { }
 
   ngOnInit() {
-    console.log(this.route.routeConfig);
+   // console.log(this.route.routeConfig);
     this.route.params.subscribe(
       (params: ParamMap) => {
          this.stateParams.contest_id = params['contest_id'];
          this.stateParams.lineup_master_id = params['lineup_master_id'];
          this.stateParams.collection_master_id = params['collection_master_id'];
          console.log( this.stateParams.contest_id);
+         this.contestData = this.utilityservice.getLocalStorage('collection');
+         console.log(this.contestData);
       }
     );
     if (this.utilityservice.checkLocalStorageStatus('user')) {
       const user = this.utilityservice.getLocalStorage('user');
     this.currentUser      = user.user_profile;
     this.session = user.data.session_key;
+
     this.getContestRank();
     }
     for (let i = 0; i <= this.owlItems.length; i++) {
@@ -127,6 +133,7 @@ owlItems = document.getElementsByClassName('owl-item');
         this.isLoadMore                   = response.data.is_load_more;
         this.posting = false;
         this.loadMorePosting = false;
+        this.fistItemInArray(this.userRank );
         if (!offset) {
            this.loadFireChat();
         }
@@ -222,6 +229,9 @@ loadFireChat(){
      }
       this.btn = false;
    });
+ }
+ getContestDetail(contest) {
+   console.log(contest);
  }
   showChatbox() {
    this.chatbox = !this.chatbox;
@@ -389,5 +399,27 @@ setPlayersPosition() {
       this.playersArr.push({});
   }
    // console.warn( this.playersArr);
+}
+fistItemInArray(contestListData) {
+  let collections = { contests: []};
+  let leagues = {teams: []};
+  let leaguesteam = {};
+  for (let i = 0; i <= contestListData.length; i++) {
+    if (i === 0) {
+      collections = contestListData[i];
+      for (let j = 0; j <= collections.contests.length; j++) {
+        if (i === 0) {
+        leagues = collections.contests[i];
+        for (let k = 0; k <= leagues.teams.length; k++ ) {
+            if (i === 0) {
+                leaguesteam = leagues.teams[i];
+            }
+        }
+        }
+        console.log(collections, leagues, leaguesteam);
+        this.getTeamLineup(leaguesteam, leagues, collections);
+      }
+     }
+  }
 }
 }

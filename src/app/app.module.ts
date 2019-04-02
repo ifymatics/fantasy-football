@@ -4,7 +4,6 @@ import { HomeComponent } from './home/home/home.component';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './home/header/header.component';
 import { LeagueModule } from './league/league.module';
-import { Ng2Webstorage } from 'ngx-webstorage';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,6 +13,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     HomeModule,
     // UserModule,
     ReactiveFormsModule,
-    Ng2Webstorage,
+    NgxWebstorageModule.forRoot(),
     DeviceDetectorModule.forRoot(),
     MomentModule.forRoot({
       relativeTimeThresholdOptions: {
@@ -38,7 +38,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
    // LeagueModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [ Ng2Webstorage],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

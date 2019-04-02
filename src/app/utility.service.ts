@@ -1,4 +1,4 @@
-import { Ng2Webstorage, SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { Injectable } from '@angular/core';
 
 @Injectable({

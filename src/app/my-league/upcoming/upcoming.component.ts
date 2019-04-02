@@ -81,6 +81,7 @@ export class UpcomingComponent implements OnInit, AfterViewInit {
    league_id = '';
    teamName = '';
    isMobile;
+   mobileDevice;
   constructor(private service: AuthloginService,
                private playerservice: PlayersUtilityService,
                 private utilityservice: UtilityService,
@@ -127,7 +128,7 @@ export class UpcomingComponent implements OnInit, AfterViewInit {
       console.log(this.lineupDetails);
     }
     console.log(this.lineupDetails);*/
-
+  this.mobileDevice = this.deviceService.isMobile();
   }
   ngAfterViewInit() {
     this.cd.detectChanges();

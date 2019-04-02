@@ -39,7 +39,7 @@
             <button
             class="relative waves-light btn-primary"
              mdbBtn mdbWavesEffect
-             [ngClass]="{'animated bounceIn': onaAnimate}"
+             [ngClass]="{'animated bounceIn': onaAnimate && i}"
               (click)="playNow(league,i)">Play Now</button>
           </mdb-card-text>
         </mdb-card-body>

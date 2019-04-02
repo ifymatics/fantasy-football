@@ -1,3 +1,180 @@
-<p>
-  leaderboard works!
-</p>
+<app-header></app-header>
+<div class="main" style="background: url(http://34.239.195.56/upload/league_sponsor/1517632616.jpg) 0px 0px fixed; ">
+  <div >
+    <div class="container">
+      <div class="row">
+
+          <div class="col-12">
+            <div class="top-banner leaderboard ">
+              <img src="assets/image/soccer_banner.png" class="leaderboardBanner" alt="" style="vertical-align:'middle';">
+            </div>
+          </div>
+
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="tableContainer">
+            <div id="leagueName">
+              <ul class="nav">
+                <li class="active" (click) = "  class =!class" [ngClass]="{ active: class}"><a>EPL</a></li>
+                <li class="active" (click) = " classa = !classa" [ngClass]="{ active:classa}"><a>Laliga</a></li>
+
+              </ul>
+            </div>
+            <div id="leaderboardTableContainer">
+              <div>
+                <div id="tableWrapper">
+              <table id="leaderboardTable">
+                <thead>
+                  <tr>
+                    <th class="px-3"><span>Position</span></th>
+
+                    <th  class="px-3">
+                      <span >Username</span>
+                    </th>
+
+                    <th class="px-3"><span>Fantasy Points</span></th>
+
+                    <th class="px-3"><span>Winnings</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr id="userRankRow" >
+                    <td class="pl-3 py-2"><span class='rankTag'>3</span></td>
+
+                    <td width="50%" class="pr-3 py-2">
+                      <div class="d-flex align-items-center">
+                          <button
+                          class="waves-dark relative dropdown-toggle mobileContestInfoBtn p-0 black-text"
+                          mdbBtn
+                          mdbWavesEffect
+                          mdbDropdownToggle
+                          (click)="toggleContestInfo()"
+                        ></button>
+                        <div class="username">
+                            <div
+                              class="player-image"
+                              width="40px"
+                              height="40px"
+                              style="border-radius: 50%"
+                            >
+                              <img
+                                src="assets/image/default_user.png"
+                                alt="Player's avatar"
+                              />
+                            </div>
+                            <div class="font-weight-bold">
+                                <span>Josh Doe of the village</span>
+                            </div>
+
+                        </div>
+                      </div>
+
+                      <!--  DROPDOWN FOR leaderboard info ON MOBILE -->
+                    <div
+                    class=" ml-3 px-2 mt-2"
+                    id="contestinfomobile"
+                    [ngClass]="{ display: mobile }"
+                  >
+                    <div class="d-flex small my-2">
+                      <span>Fantasy Points:</span>
+                      <span class="ml-auto">1M</span>
+                    </div>
+                    <div class="d-flex small my-2">
+                      <span>Winnings:</span>
+                      <span class="ml-auto">1 coin</span>
+                    </div>
+
+                  </div>
+
+                  <!--  END OF DROPDOWN FOR leaderboard info ON MOBILE -->
+
+                    </td>
+
+                    <td class="px-3 py-2"><span>250000</span></td>
+
+                    <td class="px-3 py-2"><span>250 coins</span></td>
+                  </tr>
+                  <tr id="" >
+                    <td class="pl-3 py-2"><span class='rankTag'>3</span></td>
+
+                    <td width="50%" class="pr-3 py-2">
+                      <div class="d-flex align-items-center">
+                          <button
+                          class="waves-dark relative dropdown-toggle mobileContestInfoBtn p-0 black-text"
+                          mdbBtn
+                          mdbWavesEffect
+                          mdbDropdownToggle
+                          (click)="toggleContestInfo()"
+                        ></button>
+                        <div class="username">
+                            <div
+                              class="player-image"
+                              width="40px"
+                              height="40px"
+                              style="border-radius: 50%"
+                            >
+                              <img
+                                src="assets/image/default_user.png"
+                                alt="Player's avatar"
+                              />
+                            </div>
+                            <div class="font-weight-bold">
+                                <span>Josh Doe of the village</span>
+                            </div>
+
+                        </div>
+                      </div>
+
+                      <!--  DROPDOWN FOR leaderboard info ON MOBILE -->
+                    <div
+                    class=" ml-3 px-2 mt-2"
+                    id="contestinfomobile"
+                    [ngClass]="{ display: mobile }"
+                  >
+                    <div class="d-flex small my-2">
+                      <span>Fantasy Points:</span>
+                      <span class="ml-auto">1M</span>
+                    </div>
+                    <div class="d-flex small my-2">
+                      <span>Winnings:</span>
+                      <span class="ml-auto">1 coin</span>
+                    </div>
+
+                  </div>
+
+                  <!--  END OF DROPDOWN FOR leaderboard info ON MOBILE -->
+
+                    </td>
+
+                    <td class="px-3 py-2"><span>250000</span></td>
+
+                    <td class="px-3 py-2"><span>250 coins</span></td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div  class="">
+      <div class="col-sm-12 text-center advbanner" >
+        <div class="bottom-add-banner" >
+
+            <a >
+              <img>
+            </a>
+        </div>
+    </div>
+    </div>
+  </div>
+
+
+
+  <app-footer></app-footer>

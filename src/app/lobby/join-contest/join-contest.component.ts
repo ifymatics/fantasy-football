@@ -1,3 +1,4 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LobbyService } from './../lobby.service';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { UtilityService } from './../../utility.service';
@@ -13,7 +14,9 @@ import { forEach } from '@angular/router/src/utils/collection';
 })
 export class JoinContestComponent implements OnInit {
   @ViewChild('firstThingsModal') firstThingsModal: ModalDirective;
+  @ViewChild('joinGameConfirmModal') joinGameConfirmModal: ModalDirective;
   toJoinContest;
+  confirmJoinForm;
   message;
   // collectionMasterId;
   mobile;
@@ -21,7 +24,7 @@ export class JoinContestComponent implements OnInit {
   isLoading = false;
   showReload = false;
   session;
-  league = null;
+  league = {league_id: ''};
   data: {};
   masterData: any;
   posting           = false;
@@ -48,6 +51,19 @@ export class JoinContestComponent implements OnInit {
   sports_id = 5;
   sports;
   currentUser;
+  league_selected;
+  joinGameInitObj;
+  /* sponsor"s image starts*/
+   rightBtmSponList      = [];
+  rightTopSponList    = [];
+  HeaderCenterSponList = [];
+  HeaderSliderSponList = [];
+  lsObjPosting = false;
+  lsObj = {'header_center': {}, 'right_top': {}, 'right_bottom': {}, 'header_slider': {}};
+  league_detail;
+  sponsorIntervals = [];
+
+  /* sponsor"s image ends*/
   // Sorting Methods
   sort = {
     sort_order: 'ASC',
@@ -58,7 +74,7 @@ export class JoinContestComponent implements OnInit {
     winner : {min: '', max: ''},
     entry_fee : {min: '', max: ''},
     participants : {min: '', max: ''},
-    league : ''
+    league : {league_name: ''}
 };
 selectedLeague = '';
 onAnimate = false;
@@ -73,14 +89,14 @@ onCreateTeamAnimate = false;
    // this.service.isLoggedIn = this.utilityService.checkLocalStorageStatus('user');
     // console.log(this.league.league_id);
 
-   this.league = this.utilityService.getLocalStorage('league');
+   /*this.league = this.utilityService.getLocalStorage('league');
    this.session =
     (this.utilityService.getLocalStorage('user'))
     ? this.utilityService.getLocalStorage('user').data.session_key
     : '' ;
    // (!this.league) ? this.router.navigate(['/league']) : console.log('Redirecting to league');
 
- /* this.service.api('fantasy/lobby/get_lobby_master_data', this.data, 'post', this.session)
+  this.service.api('fantasy/lobby/get_lobby_master_data', this.data, 'post', this.session)
  .subscribe(
    data => {
       console.log(data);
@@ -104,15 +120,20 @@ onCreateTeamAnimate = false;
     },
    error => error
  );*/
-
+ // this.getContestSeason({}, 0);
    }
   ngOnInit() {
     this.route.params.subscribe(
       (params: ParamMap) => {
-        console.log(params['id']);
         this.league.league_id = params['league_id'];
+        this.sports_id = params['id'];
+        console.log( this.league.league_id);
+        console.log(params['league_id']);
       }
     );
+    this.confirmJoinForm = new FormGroup({
+      'lineup': new FormControl(null, [Validators.required]),
+    });
     const league_filter = [];
     /* this.data = {
        'sports_id' : 5,
@@ -120,7 +141,14 @@ onCreateTeamAnimate = false;
    // this.service.isLoggedIn = this.utilityService.checkLocalStorageStatus('user');
    if (this.utilityService.checkLocalStorageStatus('user')) {
     this.currentUser = this.utilityService.getLocalStorage('user').data.user_profile;
+    this.league = this.utilityService.getLocalStorage('league');
+   this.session =
+    (this.utilityService.getLocalStorage('user'))
+    ? this.utilityService.getLocalStorage('user').data.session_key
+    : '' ;
+    this.league_selected = this.utilityService.getLocalStorage('league');
     console.log(this.currentUser);
+    this.setFilterLabel(this.league_selected, 'league', true);
     this.getContestSeason({}, 0);
  this.LobbyMasterData();
    }
@@ -155,6 +183,7 @@ LobbyMasterData() {
      },
     error => {
       console.log(this.data);
+      console.log(error);
       if (error['error']['global_error'] === 'Session key has expired') {
         this.message = error['error']['global_error'];
         this.router.navigate(['/']);
@@ -162,7 +191,7 @@ LobbyMasterData() {
     }
   );
 }
-getContestSeason(collection, offset) {
+getContestSeason(collection, offset?) {
   this.isLoading = true;
   if (offset) {
     this.loadMorePosting = true;
@@ -174,7 +203,7 @@ getContestSeason(collection, offset) {
 const param = {
     'sports_id': 5,
     'collection_master_id': (collection.collection_master_id) ? collection.collection_master_id : '',
-    // 'entry_fee_from': this.selectedFilterObj.entry_fee.min,
+     // 'entry_fee_from': this.selectedFilterObj.entry_fee.min,
     // 'entry_fee_to': this.selectedFilterObj.entry_fee.max,
    // 'prizepool_from': this.selectedFilterObj.winner.min,
     // 'prizepool_to': this.selectedFilterObj.winner.max,
@@ -187,14 +216,15 @@ const param = {
     // 'is_quick_contest' : 0,
     // "is_referral": 1,// This condition only for refer a frind banner add (Only for new lobby)
     'offset': offset || '0',
-    'league_id': this.league.league_id,
+    'league_id': (collection.league_id) ? collection.league_id : this.league.league_id,
 };
 /*if (this.isTurbo !== 0) {
     param.is_turbo_lineup = (this.isTurbo === 1) ? 1 : 0;
     param.contest_access_type = (this.isTurbo === 2) ? 1 : 0;
     param.is_quick_contest = (this.isTurbo === 3) ? 1 : 0;
 }*/
-
+console.log(collection);
+// if(collection) {param.league_id =  }
 this.service.api('fantasy/lobby/get_contests_of_collection', param, 'post', this.session)
 .subscribe((result) => {
   this.isLoading = false;
@@ -222,6 +252,7 @@ this.service.api('fantasy/lobby/get_contests_of_collection', param, 'post', this
     this.loadMorePosting = false;
     this.showReload = true;
     console.log(error);
+    console.log(param);
     if (error['error']['global_error'] === 'Session key has expired') {
       this.message = error['error']['global_error'];
       this.router.navigate(['/']);
@@ -229,6 +260,130 @@ this.service.api('fantasy/lobby/get_contests_of_collection', param, 'post', this
 });
 
 }
+setFilterLabel(item, type, init) {
+
+  if (type === 'league') {
+      this.utilityService.setLocalStorage('league', item);
+      this.league_selected = item;
+  }
+
+  if (item) {
+      this.selectedFilterObj[type] = item;
+  }
+  if (!init) {
+      // this.getContestSeason(this.selectedCollection);
+      this.getContestSeason( this.league_selected);
+  }
+}
+getFirstContest(collection) {
+  this.selectedCollection = collection;
+}
+getLobbyMatches(league) {
+  this.posting = true;
+  this.selectedLeague = league;
+  this.league_selected = league;
+  this.contestList = [];
+  this.collection_list = [];
+  this.selectedCollection = {};
+  // this.overlayDiv = false;
+  this.lineupList = [];
+  const param = {
+      'sports_id': this.sports_id,
+      'league_id': ''
+  };
+
+  if (league) {
+      param.league_id = league.league_id;
+  }
+
+  this.service.api('fantasy/lobby/get_lobby_matches', param, 'POST', this.session)
+  .subscribe(
+    (response) => {
+      response = response.data;
+      if (response.collection_list.length) {
+         this.collection_list = response.collection_list;
+          this.getContestSeason(league, 0);
+      } else {
+         this.posting = false;
+      }
+      this.getFeatureContest(league.league_id);
+     this.get_sponsor_images();
+  }, (error) => {
+     this.posting = false;
+      console.log(error);
+  });
+}
+getFeatureContest(league_id) {
+  this.featuredContestList = [];
+  const sports_id = this.sports_id,
+  reqParams = {
+      'sports_id' : sports_id,
+      'league_id' : league_id
+  };
+  this.service.api('fantasy/lobby/get_lobby_feature_contest', reqParams, 'POST', this.session)
+ .subscribe((response) => {
+      this.featuredContestList = response.data;
+  }, (error) => {
+  });
+}
+get_sponsor_images() {
+
+  const league_selected = this.utilityService.getLocalStorage('league_data');
+
+  if (!league_selected.league_id){
+      return true;
+  }
+ this.clearAllIntervals();
+  const reqParams = {type: '1,2,3,4', league_id: league_selected.league_id};  // 1 for right_bottom, 2 for  right_top, 3 for header Center
+  this.service.api('fantasy/league_sponsor/league_sponsor_list', reqParams, 'POST', this.session)
+  .subscribe((response) => {
+      if (response.response_code === 200) {
+     this.rightBtmSponList = this.utilityService.filterArr(response.data.advertisements, 'ls_position_id', 1);
+     this.rightTopSponList = this.utilityService.filterArr(response.data.advertisements, 'ls_position_id', 2);
+     this.HeaderCenterSponList = this.utilityService.filterArr(response.data.advertisements, 'ls_position_id', 3);
+     this.HeaderSliderSponList = this.utilityService.filterArr(response.data.advertisements, 'ls_position_id', 4);
+     this.league_detail = {'background_image': league_selected.background_image};
+
+
+      // if(stopTime)
+     // {
+          // $interval.cancel(stopTime);
+     // }
+    this.clearAllIntervals();
+
+      this.updateSponsorBanner();
+         this.sponsorIntervals.push(setInterval(this.updateSponsorBanner, 5000));
+      }
+
+     // console.log("stopTime",stopTime);
+      this.lsObjPosting = true;
+  }, (error) => {
+  });
+}
+clearAllIntervals () {
+
+  this.sponsorIntervals.forEach((interval) => {
+                const is_cancel = clearInterval(interval);
+            });
+           // $rootScope.sponsorIntervals.length = 0; //clear the array
+            this.sponsorIntervals = [];
+  }
+  updateSponsorBanner = () => {
+    const user = this.utilityService.getLocalStorage('user');
+
+      if (user) {
+       const rightBtmSponList      = this.rightBtmSponList[Math.floor(Math.random() * this.rightBtmSponList.length)],
+           rightTopSponList      = this.rightTopSponList[Math.floor(Math.random() * this.rightTopSponList.length)],
+           HeaderCenterSponList  = this.HeaderCenterSponList[Math.floor(Math.random() * this.HeaderCenterSponList.length)];
+
+        this.lsObj.right_bottom   = rightBtmSponList;
+        this.lsObj.right_top      = rightTopSponList;
+        this.lsObj.header_center  = HeaderCenterSponList;
+      } else {
+         this.clearAllIntervals();
+      }
+   }
+
 // check if the user has a completed profile
 checkProfileComplete() {
   const userDetail = this.utilityService.getLocalStorage('user');
@@ -245,13 +400,40 @@ checkProfileComplete() {
 
 checkUserSubscription(contest, string, contestType) {
   this.onAnimate = true;
-  console.log(this.onAnimate);
-  console.log(contest, string, contestType);
+ // console.log(this.onAnimate);
+  // console.log(contest, string, contestType);
   this.toJoinContest = contest;
-  /*
-  check if the user has enough cash to join OR if he paid the subscription
-   */
-  this.joinContest(contest);
+  /*----------*/
+  // check if the user has enough cash to join OR if he paid the subscription
+  const param = {
+    'user_id': this.currentUser.user_id
+   };
+
+this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
+.subscribe(
+  (response) => {
+ if (response.response_code === 200) {
+   console.log(response);
+   const user_balance =  response.data.user_balance,
+      point_balance = parseFloat(user_balance.point_balance),
+      etry_free     = parseFloat(contest.entry_fee);
+    if (!this.utilityService.isAbleToJoinContest(user_balance, contest.entry_fee) &&
+    (contest.prize_type === 0 || contest.prize_type === 1)) {
+      alert('You dont have enough cash');
+         // this.notEnoughCashInit(contest.entry_fee, user_balance, contest);
+    } else if ((etry_free > point_balance) &&
+    (contest.prize_type === 2 || contest.prize_type === 3)) {
+      alert('You dont have enough cash');
+         // this.notEnoughCashInit(contest.entry_fee, user_balance, contest);
+    } else if (contestType === 'normal_contest') {
+          this.joinContest(contest);
+       } else if (contestType === 'featured_contest') {
+         //  this.joinFeaturedGame(contest, lineupList);
+       }
+ }
+});
+  /*-----------*/
+ //  this.joinContest(contest);
 }
 joinContest(contestData) {
   if (this.checkProfileComplete()) {
@@ -268,7 +450,7 @@ subscribe((response) => {
        this.lineupList = response['data'];
        console.log(this.lineupList);
         if (this.lineupList.length === 0) {
-            // firstThingsModal(vm.selectedCollection, false, contest)
+            // firstThingsModal(this.selectedCollection, false, contest)
             this.firstThingsModal.show();
         } else {
             this.joinGame(contestData, this.selectedLineup, this.lineupList);
@@ -364,8 +546,8 @@ joinGameModals(contest, lineup, lineupList, isTurbo) {
          // show notEnoughCashModal \\
           // this.notEnoughCashInit(entryFee, user_balance, contest);
       } else {
-              console.log('you ARE ALLOWED');
-         // this.joinGameInit(contest, lineup, currentBalance, lineupList, user_balance);
+              // console.log('you ARE ALLOWED');
+          this.joinGameInit(contest, lineup, currentBalance, lineupList, user_balance);
       }
   },
   error => {
@@ -376,5 +558,59 @@ joinGameModals(contest, lineup, lineupList, isTurbo) {
   }
   );
  }
+  joinGameInit(_CONTEST, _LINEUP, _CURRENTBALANCE, _LINEUPLIST, _USERBALANCE) {
+  this.joinGameInitObj = {
+     contest: _CONTEST,
+     lineup: _LINEUP,
+     currentbalance: _CURRENTBALANCE,
+     lineuplist: _LINEUPLIST,
+     userbalance: _USERBALANCE
+   };
+   console.log(this.joinGameInitObj);
+   this.joinGameConfirmModal.show();
+}
 
+confirmJoinContest(lineup?) {
+  const param = {
+  'contest_id': this.joinGameInitObj.contest.contest_id,
+  'lineup_master_id': this.confirmJoinForm.value.lineup.lineup_master_id,
+  'promo_code': this.confirmJoinForm.value.lineup.promo_code
+  };
+console.log(this.confirmJoinForm.value, param);
+
+this.service.api('fantasy/contest/join_game', param, 'POST', this.session)
+.subscribe((response) => {
+  console.warn(response);
+  const idx = this.contestList.indexOf(this.joinGameInitObj.contest);
+  this.joinGameInitObj.contest.total_user_joined = Number(this.joinGameInitObj.contest.total_user_joined) + 1;
+  this.joinGameInitObj.contest.user_joined_count = Number(this.joinGameInitObj.contest.user_joined_count) + 1;
+  if (idx > -1 && (this.joinGameInitObj.contest.multiple_lineup === 0)) {
+      this.contestList.splice(idx, 1);
+      this.joinGameInitObj.contest.isJoind = true;
+  }
+
+  if (idx > -1 && (this.joinGameInitObj.contest.multiple_lineup > 0)
+  && this.joinGameInitObj.contest.size === this.joinGameInitObj.contest.total_user_joined) {
+      this.contestList.splice(idx, 1);
+  }
+  // Increase user join count for button change
+  if (this.contestList[idx]) {
+      this.contestList[idx].user_joined_count++;
+  }
+ // $rootScope.$emit('user:balance', this.currentUser.user_id);
+
+  // Condition for featured game plus button show
+  if (this.joinGameInitObj.contest.is_feature === 1) {
+      const featuredConIndex = this.featuredContestList.indexOf(this.joinGameInitObj.contest);
+      this.featuredContestList[featuredConIndex].user_joined_count++;
+      this.featuredContestList[featuredConIndex].total_user_joined+1;
+  }
+  alert(response.message);
+ //  $rootScope.joinContestSuccessModalInit(response.message); //Success modal init
+
+}, (error) => {
+ // emitAlert.on(error.global_error, 'danger');
+  console.log(error);
+});
+}
 }

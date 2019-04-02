@@ -9,8 +9,8 @@ import { LeagueComponent } from './league/league.component';
   imports: [
     CommonModule,
     MDBBootstrapModule,
+    SharedModule,
     LeagueRoutingModule,
-    SharedModule
   ],
   declarations:
    [

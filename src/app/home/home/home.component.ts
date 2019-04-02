@@ -1,5 +1,4 @@
 import { ModalService } from './../../modal.service';
-import { FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'angular-6-social-login';
 import { md5 } from './../../user/md5';
 import { Component, OnInit, Output , EventEmitter} from '@angular/core';
 import { AuthloginService } from '../../user/authlogin.service';

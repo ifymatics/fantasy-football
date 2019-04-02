@@ -4,7 +4,7 @@
   <div class="black-section black white-text">
     <div class="text-center">
       <span class="yellow small black-text font-weight-bold showdownLabel"
-        >SHOWDOWN</span
+        >{{contestData.collection_name}}</span
       >
     </div>
 
@@ -22,8 +22,8 @@
           </div>
 
           <div class="ml-2">
-            <h4 class="mb-0">Admin Use Only</h4>
-            <span class="small blue-text">View Contest Detail</span>
+            <h4 class="mb-0">{{contestData.contest_name}}</h4>
+            <span class="small blue-text" (click)="getContestDetail(contest)">View Contest Detail</span>
           </div>
         </div>
       </div>
@@ -37,7 +37,8 @@
             <span class="contest-detail-title">Start In</span>
           </div>
           <div class="contest-details-block">
-            <span class="contest-detail-body"> Skill Game</span>
+            <span class="contest-detail-body" *ngIf="contestData.prize_type==2">
+              <i class="fas fa-coins ml-2"></i>{{userRank[0].prize_pool == 0 ? 'Skill Game' : (userRank[0].prize_pool)}}</span>
             <span class="contest-detail-body">
               <span class="font-weight-bold">24</span>/25</span
             >
@@ -223,13 +224,13 @@
                   <th class="font-weight-bold">Rank</th>
                   <th class="font-weight-bold">Username</th>
                   <th class="font-weight-bold">Points</th>
-                  <th *ngIf= "contest.status > 1" class="font-weight-bold">Won</th>
+                  <th  class="font-weight-bold">Won</th>
                   <th class="font-weight-bold"></th>
                 </tr>
               </thead>
 
-              <tbody>
-                <tr id="{{selected}}" *ngFor="let userDetail of userRank; first as isFirst">
+              <tbody >
+                <tr *ngFor="let userDetail of userRank; first as isFirst" >
                   <td></td>
                   <td>
                     <span class="rankTag">{{((userDetail.current_rank) ? userDetail.current_rank : '--')}}</span>
@@ -253,26 +254,28 @@
                         <div class="player-details">
                           <a >
                           <span class="userName font-weight-bold d-block"
-                            >Arinze Okorji</span
+                            >YOU</span
                           >
-                          <span class="teamName"> arinzeokorji Team 1</span>
+                          <span class="teamName"> {{userDetail.team_name}}</span>
                         </a>
                         </div>
                       </div></span
                     >
                   </td>
-                  <td><span>53.27</span></td>
-                  <td><span>--</span></td>
+                  <td><span>{{((userDetail.total_score) ? userDetail.total_score : '--')}}</span></td>
+                  <td *ngIf="contest.status > 1">
+                    <span *ngIf="userDetail.won_prize ">{{userDetail.won_prize }}</span>
+                    <span *ngIf="!userDetail.won_prize">--</span></td>
 
                   <td></td>
                 </tr>
-                <tr>
+                <tr class="{{selected}}" *ngFor = "let contestRankList of contestListRank">
                   <td></td>
                   <td>
-                    <span class="rankTag">2</span>
+                    <span class="rankTag">{{((contestRankList.current_rank) ? contestRankList.current_rank : '--')}}</span>
                   </td>
                   <td>
-                    <span
+                    <span (click) = "getTeamLineup(contestRankList)"
                       ><div class="d-flex">
                         <div
                           class="player-image"
@@ -281,7 +284,7 @@
                           style="border-radius: 50%"
                         >
                           <img
-                            src="assets/image/default_user.png"
+                            [src]="contestRankList.image ? contestRankList.image : 'assets/image/default_user.png'"
                             alt="Player's avatar"
                             width="50px"
                             height="50px"
@@ -290,164 +293,19 @@
                         <div class="player-details">
                           <a>
                           <span class="userName font-weight-bold d-block"
-                            >Arinze Okorji</span
+                            >{{(contestRankList.first_name && contestRankList.last_name) ?  contestRankList.first_name  + ' ' +  contestRankList.last_name : contestRankList.user_name}}</span
                           >
-                          <span class="teamName"> arinzeokorji Team 1</span>
+                          <span class="teamName"> {{contestRankList.team_name}}</span>
                         </a>
                         </div>
                       </div></span
                     >
                   </td>
-                  <td><span>53.27</span></td>
-                  <td><span>--</span></td>
-
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <span class="rankTag">2</span>
+                  <td><span>{{((contestRankList.total_score) ? contestRankList.total_score : '--')}}</span></td>
+                  <td *ngIf="contest.status > 1">
+                    <span *ngIf="!contestRankList.won_priz">--</span>
+                    <span *ngIf="contestRankList.won_prize">{{contestRankList.won_prize}}</span>
                   </td>
-                  <td>
-                    <span
-                      ><div class="d-flex">
-                        <div
-                          class="player-image"
-                          width="50px"
-                          height="50px"
-                          style="border-radius: 50%"
-                        >
-                          <img
-                            src="assets/image/default_user.png"
-                            alt="Player's avatar"
-                            width="50px"
-                            height="50px"
-                          />
-                        </div>
-                        <div class="player-details">
-                          <a>
-                          <span class="userName font-weight-bold d-block"
-                            >Arinze Okorji</span
-                          >
-                          <span class="teamName"> arinzeokorji Team 1</span>
-                        </a>
-                        </div>
-                      </div></span
-                    >
-                  </td>
-                  <td><span>53.27</span></td>
-                  <td><span>--</span></td>
-
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <span class="rankTag">2</span>
-                  </td>
-                  <td>
-                    <span
-                      ><div class="d-flex">
-                        <div
-                          class="player-image"
-                          width="50px"
-                          height="50px"
-                          style="border-radius: 50%"
-                        >
-                          <img
-                            src="assets/image/default_user.png"
-                            alt="Player's avatar"
-                            width="50px"
-                            height="50px"
-                          />
-                        </div>
-                        <div class="player-details">
-                          <a>
-                          <span class="userName font-weight-bold d-block"
-                            >Arinze Okorji</span
-                          >
-                          <span class="teamName"> arinzeokorji Team 1</span>
-                        </a>
-                        </div>
-                      </div></span
-                    >
-                  </td>
-                  <td><span>53.27</span></td>
-                  <td><span>--</span></td>
-
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <span class="rankTag">2</span>
-                  </td>
-                  <td>
-                    <span
-                      ><div class="d-flex">
-                        <div
-                          class="player-image"
-                          width="50px"
-                          height="50px"
-                          style="border-radius: 50%"
-                        >
-                          <img
-                            src="assets/image/default_user.png"
-                            alt="Player's avatar"
-                            width="50px"
-                            height="50px"
-                          />
-                        </div>
-                        <div class="player-details">
-                          <a>
-                          <span class="userName font-weight-bold d-block"
-                            >Arinze Okorji</span
-                          >
-                          <span class="teamName"> arinzeokorji Team 1</span>
-                        </a>
-                        </div>
-                      </div></span
-                    >
-                  </td>
-                  <td><span>53.27</span></td>
-                  <td><span>--</span></td>
-
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <span class="rankTag">2</span>
-                  </td>
-                  <td>
-                    <span
-                      ><div class="d-flex">
-                        <div
-                          class="player-image"
-                          width="50px"
-                          height="50px"
-                          style="border-radius: 50%"
-                        >
-                          <img
-                            src="assets/image/default_user.png"
-                            alt="Player's avatar"
-                            width="50px"
-                            height="50px"
-                          />
-                        </div>
-                        <div class="player-details">
-                          <a>
-                          <span class="userName font-weight-bold d-block"
-                            >Arinze Okorji</span
-                          >
-                          <span class="teamName"> arinzeokorji Team 1</span>
-                        </a>
-                        </div>
-                      </div></span
-                    >
-                  </td>
-                  <td><span>53.27</span></td>
-                  <td><span>--</span></td>
 
                   <td></td>
                 </tr>
@@ -859,7 +717,7 @@
       <div id="firechat">
         <div id="firechat-header">
           <div class="clearfix">
-            <div class="half firechat-dropdown all-rooms-dropdown" style="">
+            <div class="half firechat-dropdown all-rooms-dropdown" >
               <a
                 id="firechat-btn-rooms"
                 class="dropdown-toggle"

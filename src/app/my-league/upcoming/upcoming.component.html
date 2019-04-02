@@ -26,7 +26,7 @@
                         <h5 class="contestTitle mb-0 pb-0 font-weight-bold">
                           {{collections.collection_name}}
                         </h5>
-                        <span class="small mt-0 pt-0">29/12/18</span>
+                        <!--<span class="small mt-0 pt-0">29/12/18</span>-->
                       </div>
                     </div>
 
@@ -85,7 +85,7 @@
                             </div>
                           </div>
 
-                          <!--  DROPDOWN FOR CONTEST INFO ON MOBILE -->
+            <!--  DROPDOWN FOR CONTEST INFO ON MOBILE -->
               <div
               class=" px-2 mt-2"
               id="contestinfomobile"
@@ -93,29 +93,43 @@
             >
             <div class="d-flex small my-2 align-items-center">
                 <span>Entry</span>
-                <span class="ml-auto"><span class="font-weight-bold">Free</span>/25</span>
+               <!-- <span class="ml-auto"><span class="font-weight-bold">Free</span>/25</span>-->
+                <span *ngIf= "leagues.prize_type==0 || leagues.prize_type==1" >{{leagues.entry_fee }}</span>
+                <span *ngIf= "leagues.prize_type==2 || leagues.prize_type==3" ><i class="fas fa-coins ml-2"></i>
+                  {{leagues.entry_fee }}</span>
+
               </div>
               <div class="d-flex small my-2">
                 <span>Participants:</span>
                 <span class="ml-auto">
                     <div
                     class="remaining-progress justify-content-center d-flex align-items-center"
-                    mdbTooltip="19 users joined"
+                    mdbTooltip="{{leagues.total_user_joined}} user joined"
                     placement="top"
                   >
                     <div class="small min-amount">0</div>
                     <div class=" progress-alt mx-2">
-                      <div
+                      <!--<div
                         class="progress-bar progress-bar-danger  crossed"
                         role="progressbar"
                         style="width: 38%;"
+                      ></div>-->
+                      <div [ngClass]="{'crossed':((+leagues.total_user_joined )>=leagues.minimum_size)}"
+                        class="progress-bar progress-bar-danger "
+                        role="progressbar"
+                        [style.width.%]="(leagues.total_user_joined/leagues.size)*100"
                       ></div>
-                      <span class="threshold-value" style="left: 10%;">
+                      <!--<span class="threshold-value" style="left: 10%;">
                         <span class="">5</span>
+                      </span>-->
+                      <span class="threshold-value" [style.left.%] = "(leagues.minimum_size/leagues.size)*100">
+                        <span class="">{{leagues.minimum_size}}</span>
                       </span>
                     </div>
 
-                    <div class="small">50</div>
+                    <!--<div class="small">50</div>-->
+                    <div class="small" *ngIf="leagues.is_uncapped!=1">{{(leagues.size<10) ? ('0'+leagues.size) : leagues.size}}</div>
+                            <div class="small" *ngIf="leagues.is_uncapped==1">∞</div>
                   </div>
                 </span>
               </div>
@@ -513,7 +527,7 @@
 
             <!-- pitch ends -->
              <!--Empty Pitch starts -->
-      <div id="{{ device }}" *ngIf="!deviceService.isMobile() && !isPopulated">
+      <div id="{{ device }}" *ngIf="!mobileDevice && !isPopulated">
         <div class="pitchadscontainer ">
           <div class="d-flex pt-0">
             <div class="d-flex" id="leftAd">

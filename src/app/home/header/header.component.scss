@@ -300,6 +300,10 @@ a#dropdownlink {
   transition: 0.3s;
 }
 
+.dropdown-menu-top {
+  height: 107px;
+}
+
 //USER MENU ENDS
 
 /////======HEADER ENDS=======/////
@@ -310,9 +314,9 @@ a#dropdownlink {
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: 2000;
+  z-index: 999;
   padding: 0 10px;
-  padding-top: 15px;
+  padding-top: 8px;
   padding-bottom: 0.5rem;
 
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -320,18 +324,48 @@ a#dropdownlink {
   @include for-md {
     padding-top: 5px;
   }
+}
 
+@-webkit-keyframes navbars {
+  /* 50% {
+   height: 175px;
+  } */
+  0% {
+    height: 70px;
+  }
+  /* 50% {
+    height: 175px;
+   } */
 
+  100% {
+    height: 350px;
+  }
+}
+@-webkit-keyframes navbars-pull-up {
+  50% {
+    height: 175px;
+   }
+   100% {
+     height: auto;
+   }
+}
+.navbars.active {
+  /* height: 20em; */
 
+  animation: navbars 0.5s forwards;
+}
+.navbars.deactivate {
+  height: 175px;
+  animation: navbars-pull-up 0.5s forwards;
 }
 
 .containers {
   display: grid;
-  grid-template-columns: 2.3fr 1fr;
+  grid-template-columns: 2.9fr 1fr;
 
 
   @include for-sm {
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 1.9fr 1fr;
   }
   @include for-md {
     grid-template-columns: 1.5fr 1fr;
@@ -341,7 +375,7 @@ a#dropdownlink {
   @include for-lg {
     padding-left: 10px;
     padding-right: 10px;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 4fr 1fr;
     align-items: end;
   }
 }
@@ -356,8 +390,8 @@ a#dropdownlink {
     }
 
     img {
-      width: 140px;
-      height: 20px;
+      width: 190px;
+      height: 32px;
 
       @include for-md {
         width: 180px;
@@ -365,36 +399,46 @@ a#dropdownlink {
       }
     }
 }
-
 .navbar-navs {
-
   list-style: none;
   display: none;
+  position: relative;
   padding-left: 0;
- //  max-height: 0;
   @include for-lg {
     display: inline-block;
     padding-left: 15px;
   }
 
   li {
-    /* margin-top: 20px;
-    margin-bottom: 20px; */
+    margin-top: 20px;
+    margin-bottom: 20px;
     @include for-lg {
       margin: auto;
       display: inline-block;
-
     }
   }
 }
-.navbar-navs.open {
+.navbar-navs.active {
   display: block;
-   max-height: 18.5em;
+  height: auto;
 
+
+  animation: navbar-navs 1s forwards;
+}
+
+@keyframes navbar-navs {
+  0% {
+    display: none;
+  }
+  100% {
+    display: block;
+    height: auto;
+  }
 }
 
 .menu-label-container {
   display: flex;
+  align-items: center;
 
   @include for-lg {
     display: inline-block;
@@ -420,7 +464,7 @@ span.fa-bars {
     position: relative;
     height: 15px;
     padding-top: 0px;
-    padding-bottom: 24px;
+    padding-bottom: 19px;
   }
   /* @include for-laptop-and-desktop-only {
     position: relative;
@@ -467,7 +511,7 @@ span.fa-bars {
   display: none;
   margin-bottom: 0;
   align-self: center;
-  @include for-lg {
+  @include for-xl {
     display: grid;
     grid-template-columns: 1fr 1fr;
   list-style: none;
@@ -486,14 +530,17 @@ span.fa-bars {
 
 .column-2 {
   align-items: end;
-  @include for-lg {
+  /* @include for-lg {
     display: grid;
     grid-template-columns: 0.5fr 1fr;
     align-items: center;
 
-  }
+  } */
   @include for-xl {
-    grid-template-columns: 0.5fr 0.6fr;
+    display: grid;
+    grid-template-columns: 0.6fr 0.8fr;
+    align-items: center;
+    width: 269px;
   }
 
   @include for-landscape-tablet-and-ipads-only
@@ -577,8 +624,9 @@ span.fa-bars {
 // Desktop navbar user dropdown menu on the right side of navbar starts
 #dropdown-menu {
   position: absolute;
-  left: -230px;
+  left: -200px;
   z-index: 999;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   @include for-sm {
     left: -200px;
   }
