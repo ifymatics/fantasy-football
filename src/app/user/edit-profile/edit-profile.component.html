@@ -1,0 +1,138 @@
+<app-header></app-header>
+<div class="main my-3">
+  <div class="container">
+    <mdb-card class="holder">
+      <div class="holder-header">
+        <ul class="nav">
+          <li class="active">
+            <a >Basic Info </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="holder-body">
+        <div class="text-center">
+          <img [src]="(profileDetail.image) ? profileDetail.image : 'assets/image/default_user.png'" alt="">
+          <a  class="relative waves-dark btn-sm px-2 py-2 blue white-text addPictureIcon" mdbBtn mdbWavesEffect><i class="fas fa-plus"></i></a>
+        </div>
+
+        <div class="container" id="container">
+
+          <form  class="md-form" [formGroup]="editForm" (ngSubmit) = "updateProfile()">
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="md-form">
+
+                          <label for="firstname">First Name<span  style="color:red;" >*</span></label>
+                        <input formControlName="first_name" type="text" name="" id="firstname" class="form-control font-weight-bold" [mdbValidate]= "false" mdbInputDirective>
+                        <span   style="color:red; border-color: rgb(112, 5, 5);" class="small" *ngIf="!editForm.get('first_name').valid && editForm.touched">Please enter a valid first name</span>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="md-form">
+                          <label for="lastname">Last Name<span  style="color:red;" >*</span></label>
+                        <input formControlName="first_name" type="text" name="" id="lastname" class="form-control font-weight-bold" [mdbValidate]= "false" mdbInputDirective>
+                        <span   style="color:red; border-color: black;" class="small" *ngIf="!editForm.get('last_name').valid && editForm.touched">Please enter a valid last name</span>
+                      </div>
+                  </div>
+                </div>
+
+            <div class="md-form">
+                <label for="email">Email<span  style="color:red;" >*</span></label>
+              <input formControlName="email" type="email" name="" id="email" class="form-control font-weight-bold" mdbInputDirective  [mdbValidate]= "false">
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="md-form">
+                        <label for="username">Username<span  style="color:red;" >*</span></label>
+                      <input formControlName="user_name" type="text" name="" id="username" class="form-control font-weight-bold" [mdbValidate]= "false" mdbInputDirective >
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="md-form">
+                        <label for="dob">Date of Birth <span  style="color:red;" >*</span></label>
+                      <input formControlName="dob"  type="date" name="" id="dob" class=" form-control font-weight-bold" mdbInputDirective placeholder="Oct 21, 1988" >
+                      <span   style="color:red; border-color: black;" class="small" *ngIf="!editForm.get('dob').valid && editForm.touched">Please enter a valid date</span>
+                    </div>
+                </div>
+              </div>
+
+
+            <div class="md-form">
+                <label for="address">Address</label>
+              <input formControlName="address" type="text" name="" id="address" class="form-control font-weight-bold" [mdbValidate]= "false" mdbInputDirective>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                  <div class="md-form">
+                      <select name="" id="gender" class="form-control font-weight-bold" formControlName="gender">
+                        <option value="null" selected >Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </select>
+                    </div>
+              </div>
+              <div class="col-md-6"><div class="md-form">
+                  <label for="mobilenumber">Mobile Number <span  style="color:red;" >*</span></label>
+                  <input formControlName="phone_no" type="number" name="" id="mobilenumber" class="form-control font-weight-bold" [mdbValidate]= "false" mdbInputDirective>
+                  <span   style="color:red; border-color: black;" class="small" *ngIf="!editForm.get('phone_no').valid && editForm.touched">Please enter a valid mobile number</span>
+                </div></div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6">
+                  <div class="md-form">
+                      <select #country
+                       (change) ="getStatesByCounty(country.value)"
+                      name="" id="country" class="form-control font-weight-bold" formControlName="master_country_id">
+                        <option value='null' selected>Country</option>
+                        <option *ngFor=" let country of  countryList" value="{{country.master_country_id}}">{{country.country_name}}</option>
+                      </select>
+                    </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="md-form">
+                      <select name="" id="state" class="form-control font-weight-bold" formControlName="master_state_id">
+                        <option value="null" selected><label>State</label></option>
+                        <option  *ngFor="let state of stateList" value="{{state.master_state_id}}">{{state.state_name}}</option>
+                      </select>
+                    </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                  <div class="md-form">
+                      <label for="city">City</label>
+                    <input  formControlName="city" type="text" name="" id="city" class="form-control font-weight-bold"  [mdbValidate]= "false" mdbInputDirective>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="md-form">
+                      <label for="accountNumber">Account number/Bank name</label>
+                    <input formControlName="zip_code" type="text" name="" id="accountNumber"
+                    [mdbValidate]= "false" class="form-control font-weight-bold" mdbInputDirective>
+                  </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="d-flex">
+              <a [routerLink]="['/profile']" routerLinkActive="router-link-active"  class="ml-auto waves-dark relative btn-sm black-text" mdbBtn mdbWavesEfect>CANCEL</a>
+            <button  [disabled]="!editForm.valid" type = "submit" class="waves-dark relative btn-sm blue" mdbBtn mdbWavesEfect>UPDATE</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </mdb-card>
+  </div>
+</div>
+
+<div style="margin-top:10px; "><app-footer></app-footer></div>

@@ -6,6 +6,7 @@ import { ModalDirective } from 'angular-bootstrap-md';
 export class ModalService {
 LoginModal: ModalDirective;
 SignupModal: ModalDirective;
+joinGameConfirmModal: ModalDirective;
   constructor() { }
   setLogin(modal: ModalDirective) {
     this.LoginModal = modal;
@@ -25,6 +26,14 @@ SignupModal: ModalDirective;
 
       this.SignupModal.show();
       }
+      showJoinConfirm(param?) {
+        if (param === 'hide') {
+          this.joinGameConfirmModal.hide();
+        } else {
+          this.joinGameConfirmModal.show();
+        }
+
+        }
       hideSignup() {
 
         this.SignupModal.hide();

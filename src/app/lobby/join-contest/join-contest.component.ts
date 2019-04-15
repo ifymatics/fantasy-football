@@ -1,3 +1,6 @@
+import { ContestJoinService } from './../../contest-join.service';
+import { ModalService } from './../../modal.service';
+import { LeagueService } from './../../my-league/league.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LobbyService } from './../lobby.service';
 import { ModalDirective } from 'angular-bootstrap-md';
@@ -6,6 +9,7 @@ import { AuthloginService } from './../../user/authlogin.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { forEach } from '@angular/router/src/utils/collection';
+import { LeagueRoutingModule } from 'src/app/league/league-routing.module';
 
 @Component({
   selector: 'app-join-contest',
@@ -18,6 +22,7 @@ export class JoinContestComponent implements OnInit {
   toJoinContest;
   confirmJoinForm;
   message;
+
   // collectionMasterId;
   mobile;
   clickedIndex: number;
@@ -43,7 +48,7 @@ export class JoinContestComponent implements OnInit {
   collection_list     = [];
   selectedCollection  = {};
   league_list         = [];
-  selectedLineup      = '';
+  selectedLineup      = {};
   filters;
   leagueList;
   leagueListFilter;
@@ -84,55 +89,23 @@ onCreateTeamAnimate = false;
     private utilityService: UtilityService,
      private router: Router,
      private lobbyservice: LobbyService,
-     private route: ActivatedRoute
-     ) {
-   // this.service.isLoggedIn = this.utilityService.checkLocalStorageStatus('user');
-    // console.log(this.league.league_id);
-
-   /*this.league = this.utilityService.getLocalStorage('league');
-   this.session =
-    (this.utilityService.getLocalStorage('user'))
-    ? this.utilityService.getLocalStorage('user').data.session_key
-    : '' ;
-   // (!this.league) ? this.router.navigate(['/league']) : console.log('Redirecting to league');
-
-  this.service.api('fantasy/lobby/get_lobby_master_data', this.data, 'post', this.session)
- .subscribe(
-   data => {
-      console.log(data);
-     this.masterData = data['data'];
-     this.featuredContestList = this.masterData.featured_contest_list;
-     this.filters = this.masterData.filters;
-     this.leagueList = this.masterData.league_list;
-
-      this.leagueList.forEach( function(obj) {
-       league_filter.push(obj);
-       // console.log(obj);
-  });
-
-  this.leagueListFilter = league_filter;
-  this.leagueList = this.masterData.league_list;
-  this.sports = this.masterData.sports;
-  this.collection_list = this.masterData.collection_list;
-
-  this.ref_ps_detail = this.masterData.ref_ps_detail;
-  this.getContestSeason({}, 0);
-    },
-   error => error
- );*/
- // this.getContestSeason({}, 0);
-   }
+     private route: ActivatedRoute,
+     private leagueservice: LeagueService,
+     private modalservice: ModalService
+     ) {}
   ngOnInit() {
     this.route.params.subscribe(
       (params: ParamMap) => {
         this.league.league_id = params['league_id'];
         this.sports_id = params['id'];
-        console.log( this.league.league_id);
-        console.log(params['league_id']);
+      //  console.log( this.league.league_id);
+       // console.log(params['league_id']);
       }
     );
+
     this.confirmJoinForm = new FormGroup({
       'lineup': new FormControl(null, [Validators.required]),
+     // 'create': new FormControl(null, [Validators.required]),
     });
     const league_filter = [];
     /* this.data = {
@@ -147,7 +120,7 @@ onCreateTeamAnimate = false;
     ? this.utilityService.getLocalStorage('user').data.session_key
     : '' ;
     this.league_selected = this.utilityService.getLocalStorage('league');
-    console.log(this.currentUser);
+   // console.log(this.currentUser);
     this.setFilterLabel(this.league_selected, 'league', true);
     this.getContestSeason({}, 0);
  this.LobbyMasterData();
@@ -162,7 +135,7 @@ LobbyMasterData() {
   this.service.api('fantasy/lobby/get_lobby_master_data', this.data, 'post', this.session)
   .subscribe(
     data => {
-       console.log(this.data);
+      // console.log(this.data);
       this.masterData = data['data'];
       this.featuredContestList = this.masterData.featured_contest_list;
       this.filters = this.masterData.filters;
@@ -223,7 +196,7 @@ const param = {
     param.contest_access_type = (this.isTurbo === 2) ? 1 : 0;
     param.is_quick_contest = (this.isTurbo === 3) ? 1 : 0;
 }*/
-console.log(collection);
+// console.log(collection);
 // if(collection) {param.league_id =  }
 this.service.api('fantasy/lobby/get_contests_of_collection', param, 'post', this.session)
 .subscribe((result) => {
@@ -236,13 +209,18 @@ this.service.api('fantasy/lobby/get_contests_of_collection', param, 'post', this
   }
     this.contestListOffset = result['data'].offset;
     this.isLoadMore = result['data'].is_load_more;
-
-    if (!offset) {
+    if (this.utilityService.checkLocalStorageStatus('contestList')) {
+      this.utilityService.clearLocalStorage('contestList');
+      this.utilityService.setLocalStorage('contestList', this.contestList);
+    } else {
+      this.utilityService.setLocalStorage('contestList', this.contestList);
+    }
+    /*if (!offset) {
         this.contestList = result['data'].contest_list;
     } else {
         this.contestList = this.contestList.concat(result['data'].contest_list);
 
-    }
+    }*/
     this.posting = false;
     this.loadMorePosting = false;
     this.emptyScreen = (this.contestList.length === 0) ? true : false;
@@ -330,7 +308,7 @@ get_sponsor_images() {
 
   const league_selected = this.utilityService.getLocalStorage('league_data');
 
-  if (!league_selected.league_id){
+  if (!league_selected.league_id) {
       return true;
   }
  this.clearAllIntervals();
@@ -413,7 +391,7 @@ this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
 .subscribe(
   (response) => {
  if (response.response_code === 200) {
-   console.log(response);
+   // console.log(response);
    const user_balance =  response.data.user_balance,
       point_balance = parseFloat(user_balance.point_balance),
       etry_free     = parseFloat(contest.entry_fee);
@@ -448,7 +426,7 @@ this.service.api('fantasy/lobby/get_user_lineup_list', param, 'post', this.sessi
 subscribe((response) => {
     if (response['response_code'] === 200) {
        this.lineupList = response['data'];
-       console.log(this.lineupList);
+      //  console.log(this.lineupList);
         if (this.lineupList.length === 0) {
             // firstThingsModal(this.selectedCollection, false, contest)
             this.firstThingsModal.show();
@@ -468,7 +446,7 @@ subscribe((response) => {
 fromFirstThingsModal() {
   this.onCreateTeamAnimate = true;
     // this.service.interComponetsTalks(this.lineupList, 'lineup');
-    console.log('its working');
+   // console.log('its working');
    /*const contest = [];
     contest['contest'] = this.toJoinContest;
     contest['lineup'] = this.lineupList;
@@ -477,7 +455,7 @@ fromFirstThingsModal() {
             () => {  this.router.navigate([this.sports_id + '/lineup']);
         },
          500);*/
-          this.lobbyservice.toFirstThingFirst(this.toJoinContest, this.lineupList);
+          this.lobbyservice.toFirstThingFirst(this.toJoinContest, this.lineupList, '' );
 }
 toggleContestInfo(i: number) {
   if (i >= 0) {
@@ -526,57 +504,70 @@ getPriceDistributionWinner(price_list) {
   return winner;
 }
 joinGameModals(contest, lineup, lineupList, isTurbo) {
-  const entryFee = Number(contest.entry_fee);
-  const param = {
-          'user_id' : this.currentUser.user_id,
-      };
-  this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
-  .subscribe((response) => {
-         const  user_balance   = response.data.user_balance,
-          etry_free      = parseFloat(contest.entry_fee),
-          point_balance  = parseFloat(user_balance.point_balance);
-          let currentBalance = response.data.user_balance.real_amount;
-          currentBalance = Number(currentBalance);
-        console.log(currentBalance);
-      if (!this.utilityService.isAbleToJoinContest(user_balance, entryFee)
-       && (contest.prize_type === 0 || contest.prize_type === 1)) {  // Condition for entry fee system
-          // show notEnoughCashModal \\
-          // this.notEnoughCashInit(entryFee, user_balance, contest);
-      } else if ((etry_free > point_balance) && (contest.prize_type === 2 || contest.prize_type === 3)) { // Condition for coin system
-         // show notEnoughCashModal \\
-          // this.notEnoughCashInit(entryFee, user_balance, contest);
-      } else {
-              // console.log('you ARE ALLOWED');
-          this.joinGameInit(contest, lineup, currentBalance, lineupList, user_balance);
+  // joinGameModals(contest, lineup, lineupList, isTurbo) {
+    const user = this.utilityService.getLocalStorage('user').data;
+    this.currentUser = user.user_profile;
+    this.session = user.session_key;
+    const entryFee = Number(contest.entry_fee);
+    const param = {
+            'user_id' : this.currentUser.user_id,
+        };
+    this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
+    .subscribe((response) => {
+           const  user_balance   = response.data.user_balance,
+            etry_free      = parseFloat(contest.entry_fee),
+            point_balance  = parseFloat(user_balance.point_balance);
+            let currentBalance = response.data.user_balance.real_amount;
+            currentBalance = Number(currentBalance);
+          console.log(currentBalance);
+        if (!this.utilityService.isAbleToJoinContest(user_balance, entryFee)
+         && (contest.prize_type === 0 || contest.prize_type === 1)) {  // Condition for entry fee system
+            // show notEnoughCashModal \\
+            // this.notEnoughCashInit(entryFee, user_balance, contest);
+        } else if ((etry_free > point_balance) && (contest.prize_type === 2 || contest.prize_type === 3)) { // Condition for coin system
+           // show notEnoughCashModal \\
+            // this.notEnoughCashInit(entryFee, user_balance, contest);
+        } else {
+                // console.log('you ARE ALLOWED');
+            this.joinGameInit(contest, lineup, currentBalance, lineupList, user_balance);
+        }
+    },
+    error => {
+      if (error['error']['global_error'] === 'Session key has expired') {
+        this.message = error['error']['global_error'];
+        this.router.navigate(['/']);
       }
-  },
-  error => {
-    if (error['error']['global_error'] === 'Session key has expired') {
-      this.message = error['error']['global_error'];
-      this.router.navigate(['/']);
     }
-  }
-  );
- }
-  joinGameInit(_CONTEST, _LINEUP, _CURRENTBALANCE, _LINEUPLIST, _USERBALANCE) {
-  this.joinGameInitObj = {
-     contest: _CONTEST,
-     lineup: _LINEUP,
-     currentbalance: _CURRENTBALANCE,
-     lineuplist: _LINEUPLIST,
-     userbalance: _USERBALANCE
-   };
-   console.log(this.joinGameInitObj);
-   this.joinGameConfirmModal.show();
+    );
+   // }
 }
 
+  joinGameInit(_CONTEST, _LINEUP, _CURRENTBALANCE, _LINEUPLIST, _USERBALANCE) {
+      // console.log(joinGameInitObj);
+      // return JoinGameInitObj;
+        this.joinGameInitObj = {
+          contest: _CONTEST,
+          lineup: _LINEUP,
+          currentbalance: _CURRENTBALANCE,
+          lineuplist: _LINEUPLIST,
+          userbalance: _USERBALANCE
+        };
+        this.joinGameConfirmModal.show();
+        // this.modalservice.showJoinConfirm();
+        console.log(this.joinGameInitObj);
+    }
+
+   // this.joinGameConfirmModal.show();
+
 confirmJoinContest(lineup?) {
+   this.joinGameConfirmModal.hide();
+ // this.modalservice.showJoinConfirm('hide');
   const param = {
   'contest_id': this.joinGameInitObj.contest.contest_id,
-  'lineup_master_id': this.confirmJoinForm.value.lineup.lineup_master_id,
+  'lineup_master_id': this.confirmJoinForm.value.lineup,
   'promo_code': this.confirmJoinForm.value.lineup.promo_code
   };
-console.log(this.confirmJoinForm.value, param);
+console.log(this.confirmJoinForm.value.lineup[0], param);
 
 this.service.api('fantasy/contest/join_game', param, 'POST', this.session)
 .subscribe((response) => {
@@ -610,7 +601,22 @@ this.service.api('fantasy/contest/join_game', param, 'POST', this.session)
 
 }, (error) => {
  // emitAlert.on(error.global_error, 'danger');
+ alert(error.error['global_error']);
   console.log(error);
 });
+}
+onSelectOption(event) {
+  console.log(event);
+  console.log(this.confirmJoinForm.value.lineup);
+  if (event === 'create') {
+    if (this.utilityService.checkLocalStorageStatus) {
+      this.utilityService.clearLocalStorage('mylineupList');
+      this.utilityService.setLocalStorage('myLineupList', this.lineupList);
+    }
+   // this.modalservice.showJoinConfirm('hide');
+     this.joinGameConfirmModal.hide();
+    this.lobbyservice.toFirstThingFirst(this.toJoinContest, this.lineupList, '');
+  }
+
 }
 }

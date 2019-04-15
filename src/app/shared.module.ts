@@ -1,4 +1,7 @@
-
+import { CommonModule } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
 import { FooterComponent } from './home/footer/footer.component';
 import { NewlobbyComponent } from './lobby/newlobby/newlobby.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -13,6 +16,7 @@ NewlobbyComponent,
 FooterComponent
   ],
   exports: [
+    CommonModule,
     HeaderComponent,
     NewlobbyComponent,
     MDBBootstrapModule,
@@ -21,6 +25,6 @@ FooterComponent
 
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  imports: [MDBBootstrapModule,  RouterModule]
+  imports: [MDBBootstrapModule,  RouterModule, CommonModule]
 })
 export class SharedModule {}

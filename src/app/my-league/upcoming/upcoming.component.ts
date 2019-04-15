@@ -4,7 +4,7 @@ import { LobbyService } from './../../lobby/lobby.service';
 import { Player } from './../../lineup/lineup/player.model';
 import { Router, ActivatedRoute, RouterState, Params, ParamMap } from '@angular/router';
 import { UtilityService } from './../../utility.service';
-import { Component, OnInit, Output, Input,  ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, Input,  ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ɵConsole } from '@angular/core';
 import { AuthloginService } from 'src/app/user/authlogin.service';
 import { PlayersUtilityService } from 'src/app/players-utility.service';
 import { EventEmitter } from 'events';
@@ -104,12 +104,12 @@ export class UpcomingComponent implements OnInit, AfterViewInit {
   this.route.params.subscribe(
     (params:  ParamMap) => {
       this.league_id = params['league_id'];
-      console.log( this.league_id);
+     // console.log( this.league_id);
     }
   );
   if (this.deviceService.isMobile()) {
     this.device = 'mobilePitch';
-    console.log(this.device);
+    // console.log(this.device);
     this.isMobile = true;
   } else if(this.deviceService.isDesktop) {
     this.device = 'desktopPitch';
@@ -137,7 +137,7 @@ export class UpcomingComponent implements OnInit, AfterViewInit {
 
   selectLeagueType(status) {
 this.isLoading = true;
-console.log(status);
+// console.log(status);
     this.posting                     = true;
     this.groundLoading               = true;
     this.isSelected                  = {};
@@ -156,12 +156,12 @@ console.log(status);
     };
     this.service.api('fantasy/contest/get_collections_by_status', param, 'POST', this.session)
     .subscribe((response) => {
-      console.log(param);
+     // console.log(param);
       this.isLoading = false;
      this.posting       = false;
         this.groundLoading = false;
         response         = response.data;
-         console.log(response);
+        // console.log(response);
          if (!response.collections.length) {
             // this.fillPlayGround([]);
          }
@@ -188,13 +188,14 @@ console.log(status);
      this.isPopulated = false;
   }
   getTeamLineup(lineup, league, collection) {
+    // console.log(lineup, league, collection);
     this.teamName = lineup.team_name;
     this.isLoading = true;
     this.checkContest_id = [];
     this.btn = true;
     this.checkContest_id.push(league.contest_id);
-    console.log(lineup, collection);
-    console.log(this.device);
+    // console.log(lineup, collection);
+    // console.log(this.device);
     this.totalUserJoined = (league) ? league.total_user_joined : 0;
     this.selectedLineupMasterContetId   = lineup.lineup_master_contest_id;
    // this.teamInfo                = {is_turbo_lineup: 0};
@@ -222,7 +223,7 @@ console.log(status);
          if (response.response_code === 200) {
            this.isLoading = false;
          this.lineupDetails                 = response.data.lineup;
-         console.log(this.lineupDetails);
+        // console.log(this.lineupDetails);
          this.teamInfo                      = response.data.team_info;
          this.teamInfo.collection_master_id =  response.data.lineup[0].collection_master_id;
          this.teamInfo.league_id            =  response.data.lineup[0].league_id;
@@ -237,13 +238,13 @@ console.log(status);
          this.substituted_players           = response.data.substituted_players;
          // Set position for turbo linup
          // console.log(this.lineupDetails);
-         console.log(this.playersArr);
+       //  console.log(this.playersArr);
              if (response.data.team_info.is_turbo_lineup === '1') {
                this.player_position = response.data.team_info.turbo_lineup_type;
              }
         this.resetSubsTituteParams(); // Clear all substitution parameters
          this.fillPlayGround(this.lineupDetails);
-          console.log(this.lineupDetails);
+         // console.log(this.lineupDetails);
           if (this.lineupDetails.length > 0) {
             this.isPopulated = true;
             this.deviceService.isMobile() ? this.isDisabled = true : this.isDisabled = false;
@@ -323,9 +324,9 @@ console.log(status);
                 }
 
             }
-            console.log(this.defPlayers.length);
-            console.log(this.midPlayers.length);
-            console.log(this.fwdPlayers.length);
+            // console.log(this.defPlayers.length);
+            // console.log(this.midPlayers.length);
+            // console.log(this.fwdPlayers.length);
             if (this.defPlayers.length === 4 &&
                this.midPlayers.length === 3 &&
                 this.fwdPlayers.length === 3) {
@@ -423,8 +424,8 @@ resetSubsTituteParams() {
    }
   this.utilityservice.setLocalStorage('private_game', this.selectedLeague);
   this.utilityservice.setLocalStorage('lineupDetails', this.lineupDetails);
-  console.log(league);
-  console.log(this.lineupDetails);
+ // console.log(league);
+ // console.log(this.lineupDetails);
   if (this.teamInfo.is_turbo_lineup === 1) {
 
       this.router.navigate(['/turbolineup', {
@@ -436,11 +437,28 @@ resetSubsTituteParams() {
           // contest_id      : league.featured_contest_id ? league.featured_contest_id : 0
       }]);
   } else {
-      this.lobbyservice.toFirstThingFirst(league);
+    const lineup = league;
+      this.lobbyservice.toFirstThingFirst(league, lineup, 'upcoming' );
+  }
+}
+onSelectTeam(myTeam, leagues, collections) {
+// console.log(myTeam.value, leagues);
+// this.getTeamLineup(myTeam, leagues, collections);
+this.selectTeam (myTeam, leagues, collections);
+
+}
+selectTeam (myTeam, leagues, collections) {
+  console.log(myTeam.value, leagues);
+  for (const team of leagues['teams']) {
+    console.log(team.team_name);
+      if (team.team_name === myTeam.value) {
+        console.log(team.team_name);
+        this.getTeamLineup(team, leagues, collections);
+      }
   }
 }
 mobileContestInfo(contestId) {
-  console.log(contestId);
+  // console.log(contestId);
   if ( this.toggledContest === contestId) {
     this.toggledContest = 0;
     this.mobileToggle = !this.mobileToggle;
@@ -465,7 +483,7 @@ fistItemInArray(contestListData) {
             }
         }
         }
-        console.log(collections, leagues, leaguesteam);
+       // console.log(collections, leagues, leaguesteam);
         this.getTeamLineup(leaguesteam, leagues, collections);
       }
      }

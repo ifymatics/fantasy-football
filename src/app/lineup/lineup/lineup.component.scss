@@ -2717,3 +2717,43 @@ label {
 }
 
 /* END OF CUSTOMISED SPINNER*/
+/* Modal for confirm starts */
+.confirmationCoinBalance {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  font-family: "RobotoRegular";
+  font-weight: normal;
+  color: #666;
+}
+
+.coinAmount {
+  font-family: "RobotoMedium";
+  font-weight: normal;
+  display: block;
+  width: 100%;
+  font-size: 30px;
+  max-width: 215px;
+  color: #333;
+}
+.confirmation-not-enough-cash {
+  font-family: "RobotoMedium";
+  font-weight: normal;
+  border: 1px solid #DDDDDD;
+  background: #F4F4F4;
+  line-height: 40px;
+  padding: 10px 0 10px 10px;
+  line-height: 26px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.confirm-selection {
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px solid #ced4da;
+}
+/* Modal for confirm ends */

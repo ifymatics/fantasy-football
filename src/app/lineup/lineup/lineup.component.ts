@@ -1,12 +1,15 @@
+import { ContestJoinService } from './../../contest-join.service';
+import { ModalService } from './../../modal.service';
+import { LeagueService } from './../../my-league/league.service';
 import { PlayerRoles } from './captain.model';
 import { PlayersUtilityService } from './../../players-utility.service';
-import { FormGroup, FormControl, FormControlName, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormControlName, FormBuilder, Validators } from '@angular/forms';
 import { CollectionDetails } from './collection-details.model';
 import { LobbyService } from './../../lobby/lobby.service';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { Router, ActivatedRoute, Params, Data } from '@angular/router';
 import { UtilityService } from './../../utility.service';
-import { Component, OnInit, ViewChild, ElementRef, ɵConsole } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthloginService } from 'src/app/user/authlogin.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Player } from './player.model';
@@ -16,7 +19,11 @@ import { TouchSequence } from 'selenium-webdriver';
 import { pipe, empty } from 'rxjs';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { isEmpty, timeout } from 'rxjs/Operators';
-
+import { LineupRoutingModule } from '../lineup-routing.module';
+class JoinGameInitObj  {
+  contest: Object; lineup: Object;
+ currentbalance: Number; lineuplist: []; userbalance: Object ;
+}
 
 @Component({
   selector: 'app-lineup',
@@ -27,6 +34,7 @@ export class LineupComponent implements OnInit {
   @ViewChild('playerList') playerList: ModalDirective;
   @ViewChild('formationModal') formationModal: ModalDirective;
   @ViewChild('selectCaptain') selectCaptain: ModalDirective;
+  @ViewChild('joinGameConfirmModal') joinGameConfirmModal: ModalDirective;
   @ViewChild('captain') captain: ElementRef;
   @ViewChild('viceCaptain') viceCaptain: ElementRef;
   @ViewChild('team_name') team_name: ElementRef;
@@ -48,6 +56,7 @@ export class LineupComponent implements OnInit {
   @ViewChild('fwd4') fwd4: ElementRef;
   @ViewChild('fwd5') fwd5: ElementRef;
    searchPlayerForm;
+   confirmJoinForm;
    searchBoxForm;
    message;
    inits;
@@ -61,6 +70,7 @@ export class LineupComponent implements OnInit {
   fwLi;
   gkLi;
   currentUser;
+  myLineupList;
   isLoading = false;
   playerObj = {
     fourThreeThree: {
@@ -254,7 +264,8 @@ btnRemoveRoster = {};
 btnAddRoster = {};
 playerActive = {};
 teamFull = {};
-playersMinMaxData = {} /* as {
+playersMinMaxData = {}
+isPosting = true; /* as {
   'GK': {'max_player_per_position': ''},
   'FW': {'max_player_per_position': ''},
   'DF': {'max_player_per_position': ''}
@@ -270,12 +281,16 @@ playerDetail = {};
 selectedCollection = {};
 contest_detail = {};
 selectedPlayerData = [];
+featuredContestList;
 isEditMode = false;
 defaultEndPosition;
+contest;
 allLeaguelist = [];
 lineupSubmitBtn = false;
 is_disable_selection = false;
 onAnimate = false;
+joinGameInitObj;
+contestList;
 resolved = {league_id: '', collection_master_id: '', sports_id: '' };
 playersDefaultLength = {
   'GK': { start: 0, end: 0 }, 'DF': { start: 1, end: 5 }, 'MF': { start: 6, end: 10 }, 'FW': { start: 11, end: 13 }
@@ -284,7 +299,9 @@ filter = { sort_order: 'DESC', sort_field: 'total_point', team_league_id: '', po
   constructor( private utilityService: UtilityService, private service: AuthloginService,
     private lobbyservice: LobbyService, private router: Router,
      private route: ActivatedRoute,  private deviceService: DeviceDetectorService,
-     private playerservice: PlayersUtilityService) {
+     private playerservice: PlayersUtilityService,
+     private leagueservice: ContestJoinService,
+     private modalservice: ModalService) {
        this.epicFunction();
      }
    datas = {
@@ -300,8 +317,13 @@ filter = { sort_order: 'DESC', sort_field: 'total_point', team_league_id: '', po
     // this.datas.collection_master_id = this.utilityService.getLocalStorage('contest').collection_master_id;
       user = this.utilityService.getLocalStorage('user');
      // console.log( user['data']['user_profile'].user_name);
-    this.currentUser =  user;
+    this.currentUser =  user.data.user_profile;
     }
+    this.confirmJoinForm = new FormGroup({
+      'lineup': new FormControl(null, [Validators.required]),
+     // 'create': new FormControl(null, [Validators.required]),
+    });
+    this.myLineupList  = this.utilityService.getLocalStorage('myLineupList');
     // this.service.isLoggedIn = this.utilityService.checkLocalStorageStatus('user');
     this.defaultEndPosition = this.utilityService.playersDefaultEndPosotion('soccer');
     this.setPlayersPosition();
@@ -310,14 +332,15 @@ filter = { sort_order: 'DESC', sort_field: 'total_point', team_league_id: '', po
       (params: Params) => {
         this.datas.sports_id = params.params.sports_id;
         this.datas.league_id = params.params.league_id;
-         console.log(params.params.league_id);
+        // console.log(params.params.league_id);
       }
        );
        this.route.data.subscribe(
 
          (data: Data) => {
-           console.log(data);
+          // console.log(data);
            if (typeof data.contest === 'object') {
+             this.contest = data.contest;
             if (data.contest.lineup_master_id) {
               this.lineup_master_id = data['contest'].lineup_master_id ;
               this.datas.collection_master_id = data.contest.collection_master_id;
@@ -328,12 +351,13 @@ filter = { sort_order: 'DESC', sort_field: 'total_point', team_league_id: '', po
                 this.lineupDetails = this.utilityService.getLocalStorage('lineupdetails');
                 // this.fillPlayGround();
              }
+             // console.log(this.contest);
               console.log(this.lineupDetails);
              } else if (data.contest.collection_master_id){
               this.datas.collection_master_id = data.contest.collection_master_id;
              if (this.utilityService.checkLocalStorageStatus('collection_master_id')) {
                this.utilityService.clearLocalStorage('collection_master_id');
-               this.utilityService.setLocalStorage('collection_master_id',data.contest.collection_master_id);
+               this.utilityService.setLocalStorage('collection_master_id', data.contest.collection_master_id);
              } else {
             // console.log(data.contest.league_id);
             this.utilityService.setLocalStorage('collection_master_id',data.contest.collection_master_id);
@@ -349,11 +373,13 @@ filter = { sort_order: 'DESC', sort_field: 'total_point', team_league_id: '', po
        );
        // this.getCollectionDetail();
        this.lineupPage = (this.lineup_master_id === '' ) ? 'add' : 'edit';
-   console.log( this.route.data);
-   console.log(this.lineupDetails);
+   // console.log( this.route.data);
+  //  console.log(this.lineupDetails);
     // console.log(this.route.data['value'].contest['contest']);
     if (this.session) {
+     this.contestList = this.utilityService.getLocalStorage('contestList');
        this.getLineupMasterData();
+       // console.log(this.contest);
     /* this.service.api('fantasy/cricket_lineup/lineup/get_lineup_master_data', this.datas, 'post', user.data.session_key)
       .subscribe(
         data => {
@@ -548,7 +574,59 @@ captainSelection (arg?) {
     this.selectCaptain.show();
   }
 }
-
+joinGameModals(contest, lineup, lineupList, isTurbo) {
+  console.log(contest);
+  // joinGameModals(contest, lineup, lineupList, isTurbo) {
+   // const user = this.utilityService.getLocalStorage('user').data;
+    // this.currentUser = user.user_profile;
+    // this.session = user.session_key;
+    const entryFee = Number(contest.entry_fee);
+    const param = {
+            'user_id' : this.currentUser.user_id,
+        };
+    this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
+    .subscribe((response) => {
+           const  user_balance   = response.data.user_balance,
+            etry_free      = parseFloat(contest.entry_fee),
+            point_balance  = parseFloat(user_balance.point_balance);
+            let currentBalance = response.data.user_balance.real_amount;
+            currentBalance = Number(currentBalance);
+          console.log(currentBalance);
+        if (!this.utilityService.isAbleToJoinContest(user_balance, entryFee)
+         && (contest.prize_type === 0 || contest.prize_type === 1)) {  // Condition for entry fee system
+            // show notEnoughCashModal \\
+            // this.notEnoughCashInit(entryFee, user_balance, contest);
+        } else if ((etry_free > point_balance) && (contest.prize_type === 2 || contest.prize_type === 3)) { // Condition for coin system
+           // show notEnoughCashModal \\
+            // this.notEnoughCashInit(entryFee, user_balance, contest);
+        } else {
+                // console.log('you ARE ALLOWED');
+            this.joinGameInit(contest, lineup, currentBalance, lineupList, user_balance);
+        }
+    },
+    error => {
+      if (error['error']['global_error'] === 'Session key has expired') {
+        this.message = error['error']['global_error'];
+        this.router.navigate(['/']);
+      }
+    }
+    );
+   // }
+}
+joinGameInit(_CONTEST, _LINEUP, _CURRENTBALANCE, _LINEUPLIST, _USERBALANCE) {
+  // console.log(joinGameInitObj);
+  // return JoinGameInitObj;
+    this.joinGameInitObj = {
+      contest: _CONTEST,
+      lineup: _LINEUP,
+      currentbalance: _CURRENTBALANCE,
+      lineuplist: _LINEUPLIST,
+      userbalance: _USERBALANCE
+    };
+    this.joinGameConfirmModal.show();
+    // this.modalservice.showJoinConfirm();
+    console.log(this.joinGameInitObj);
+}
 setPlayersCount() {
   if (this.sports_id === this.sportsIds.soccer) {
       this.selectedPlayersCount = { 'All': 0, 'GK': 0, 'DF': 0, 'MF': 0, 'FW': 0 };
@@ -2255,8 +2333,9 @@ getAllTeams() {
   });
 }
 captainSelector() {
-  console.log(this.captain.nativeElement.value,
-     this.viceCaptain.nativeElement.value, this.team_name.nativeElement.value);
+  this.lineupSubmitBtn = true;
+  // console.log(this.captain.nativeElement.value,
+     // this.viceCaptain.nativeElement.value, this.team_name.nativeElement.value);
   const captainObj = {
     'captain': this.captain.nativeElement.value,
     'viceCaptain': this.viceCaptain.nativeElement.value,
@@ -2272,9 +2351,9 @@ captainSelector() {
   //  this.lineupPage ;
   // this.selectedCollection = selectedCollection;
   // this.collection_detail = collection_detail;
-  this.currentUser = this.utilityService.getLocalStorage('user');
-  if (!(captainObj.team_name.indexOf(this.currentUser['data']['user_profile'].user_name) >= 0)) {
-      this.captainObj.team_name = this.currentUser['data']['user_profile'].user_name + ' ' + captainObj.team_name;
+  const currentUser = this.utilityService.getLocalStorage('user');
+  if (!(captainObj.team_name.indexOf(currentUser['data']['user_profile'].user_name) >= 0)) {
+      this.captainObj.team_name = currentUser['data']['user_profile'].user_name + ' ' + captainObj.team_name;
     console.log(this.captainObj);
     }
   this.is_disable_selection = false;
@@ -2301,6 +2380,7 @@ submitLineUp(formValidation) {
           alert("Your Captain and vice-captain can't be same");
           return false;
       } else {
+        this.selectCaptain.hide();
           const reqParams = formValidation; // this.filterPlayers();
           reqParams.team_name = this.captainObj.team_name;
           // console.log( reqParams);
@@ -2311,10 +2391,12 @@ submitLineUp(formValidation) {
               this.service.api('fantasy/cricket_lineup/lineup/lineup_proccess', reqParams, 'POST', this.session).
               subscribe( (response) => {
                   if (response.response_code === 200) {
+                    this.isPosting = false;
                       alert(response.message);
+                      this.router.navigate([this.sports_id + '/my-league/upcoming']);
                       // $uibModalInstance.dismiss('cancel');
                       if (typeof response.data.is_joined_contest !== 'undefined' && response.data.is_joined_contest === 1) {
-                         this.router.navigate([this.sports_id + '/my-league/upcoming']);
+                        this.router.navigate([this.sports_id + '/my-league/upcoming']);
                         // $state.go('root.league.init', {sports_id: this.sports_id, 'current_tab': 0 });
                       } else {
                         this.router.navigate( [this.sports_id + '/lobby']);
@@ -2332,14 +2414,19 @@ submitLineUp(formValidation) {
               });
 
           } else {
-              // console.log(reqParams);
+
+              // console.log(teamData);
               // return false;
               this.lineupSubmitBtn = true;
               this.service.api('fantasy/cricket_lineup/lineup/lineup_proccess', reqParams, 'POST', this.session)
               .subscribe((response) => {
+                this.isPosting = false;
 
                   if (response.response_code === 200) {
-                      alert(response.message);
+                      // alert(response.message);
+                      this.joinGameModals(this.contest, 'lineup', this.myLineupList, 'isTurbo');
+                      // this.confirmJoinContest();
+                      // this.router.navigate(['/' + this.datas.sports_id + '/' + this.datas.league_id + '/my-league']);
                   }
                   this.lineupSubmitBtn = false;
               }, (error) => {
@@ -2354,6 +2441,53 @@ submitLineUp(formValidation) {
       }
 
   // }
+}
+confirmJoinContest(lineup?) {
+   this.joinGameConfirmModal.hide();
+  // this.modalservice.showJoinConfirm('hide');
+  const param = {
+  'contest_id': this.contest.contest_id,
+  'lineup_master_id': this.confirmJoinForm.value.lineup,
+  'promo_code': this.confirmJoinForm.value.lineup.promo_code
+  };
+console.log(this.confirmJoinForm.value.lineup[0], param);
+
+this.service.api('fantasy/contest/join_game', param, 'POST', this.session)
+.subscribe((response) => {
+  console.warn(response);
+  const idx = this.contestList.indexOf(this.joinGameInitObj.contest);
+  this.joinGameInitObj.contest.total_user_joined = Number(this.joinGameInitObj.contest.total_user_joined) + 1;
+  this.joinGameInitObj.contest.user_joined_count = Number(this.joinGameInitObj.contest.user_joined_count) + 1;
+  if (idx > -1 && (this.joinGameInitObj.contest.multiple_lineup === 0)) {
+      this.contestList.splice(idx, 1);
+      this.joinGameInitObj.contest.isJoind = true;
+  }
+
+  if (idx > -1 && (this.joinGameInitObj.contest.multiple_lineup > 0)
+  && this.joinGameInitObj.contest.size === this.joinGameInitObj.contest.total_user_joined) {
+      this.contestList.splice(idx, 1);
+  }
+  // Increase user join count for button change
+  if (this.contestList[idx]) {
+      this.contestList[idx].user_joined_count++;
+  }
+ // $rootScope.$emit('user:balance', this.currentUser.user_id);
+
+  // Condition for featured game plus button show
+  if (this.joinGameInitObj.contest.is_feature === 1) {
+      const featuredConIndex = this.featuredContestList.indexOf(this.joinGameInitObj.contest);
+      this.featuredContestList[featuredConIndex].user_joined_count++;
+      this.featuredContestList[featuredConIndex].total_user_joined+1;
+  }
+  alert(response.message);
+  this.router.navigate(['/' + this.datas.sports_id + '/' + this.datas.league_id + '/my-league']);
+ //  $rootScope.joinContestSuccessModalInit(response.message); //Success modal init
+
+}, (error) => {
+ // emitAlert.on(error.global_error, 'danger');
+ alert(error.error['global_error']);
+  console.log(error);
+});
 }
 filterPlayers() {
    this.playersData = [];

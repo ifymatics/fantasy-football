@@ -28,7 +28,8 @@ import { FooterComponent } from './footer/footer.component';
     HomeRoutingModule
 
   ],
-  declarations: [HomeComponent,
+  declarations: [
+    HomeComponent,
    // JoinContestComponent,
     AuthComponent,
     SignupComponent

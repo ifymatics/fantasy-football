@@ -14,6 +14,7 @@ import { InitsDirective } from '../inits.directive';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     LineupRoutingModule,
    // InitsDirective,
     //  ReactiveFormsModule,

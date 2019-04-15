@@ -520,7 +520,7 @@
 
                                   <button mdbBtn mdbWavesEffect
                                   type ="button"
-                                   [disabled] ="selectedPlayersCount.All !== 11"
+                                   [disabled] ="selectedPlayersCount.All !== 11 || !isPosting"
                                   class="float-right waves-effect blue"
                                   (click)="captainSelector()">{{(lineupPage=='add') ? 'CREATE TEAM' : 'UPDATE TEAM'}}</button>
 
@@ -2982,6 +2982,118 @@
       </div>
     </div>
   </div>
+  <!-- Confirmation modal starts -->
+  <div
+  class="modal fade"
+  tabindex="-1"
+  #joinGameConfirmModal="mdbModal"
+  mdbModal
+  role="dialog"
+  aria-labelledby="confirmationModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-flex" style="background: #f4f4f4">
+        <span>CONFIRM AND YOU'RE IN!</span>
+        <span class="close" (click)='joinGameConfirmModal.hide()'>&times;</span>
+      </div>
+
+      <div class="modal-body" >
+        <div class='container'>
+          <div>
+            <div
+            *ngIf="joinGameInitObj?.contest?.prize_type==0 || joinGameInitObj?.contest?.prize_type==1"
+            class="confirmation-not-enough-cash"
+            >
+              <span class="confirmationCoinBalance">Coins Balance</span>
+              <span class="coinAmount"
+                ><i class="fas fa-coins"></i> {{joinGameInitObj?.currentbalance}}</span
+              >
+
+            </div>
+            <div class="confirmation-not-enough-cash"
+            *ngIf="joinGameInitObj?.contest?.prize_type==2 || joinGameInitObj?.contest?.prize_type==3"
+           >
+              <span class="confirmationCoinBalance">Coins Balance</span>
+              <span class="coinAmount"
+
+                ><i class="fas fa-coins"></i> {{joinGameInitObj?.userbalance?.point_balance}}</span
+              >
+
+            </div>
+            <div class='clearfix mt-2'></div>
+
+
+            <div class='mt-2 clearfix'></div>
+            <div class="confirmation-not-enough-cash"
+            *ngIf="joinGameInitObj?.contest?.prize_type==0 || joinGameInitObj?.contest?.prize_type==1"
+            >
+              <span class="confirmationCoinBalance">Entry Fee</span>
+              <span class="coinAmount"
+
+                > {{joinGameInitObj?.contest?.entry_fee}}</span
+              >
+
+            </div>
+            <div class="confirmation-not-enough-cash"
+            *ngIf="joinGameInitObj?.contest?.prize_type==2 || joinGameInitObj?.contest?.prize_type==3"
+            >
+              <span class="confirmationCoinBalance">Entry Fee</span>
+              <span class="coinAmount"
+
+                > {{joinGameInitObj?.contest?.entry_fee}}</span
+              >
+
+            </div>
+
+          <!--  <div class='mt-2 clearfix'></div>
+
+            <div class="confirmation-not-enough-cash">
+                <span class="confirmationCoinBalance">Edit Fee</span>
+                <span class="coinAmount"
+                  ><i class="fas fa-coins"></i> 0</span>
+
+              </div>-->
+          </div>
+
+          <form  [formGroup]="confirmJoinForm" (ngSubmit)="confirmJoinContest()" >
+            <div class='md-form'>
+              <select class='form-control confirm-selection'
+               tabindex="-1"
+              formControlName = "lineup"  #mySelect
+              >
+                <option [value] = "null" selected>Select or Create team</option>
+
+                <!--<option value = "create" selected> Create team</option>-->
+                <ng-container *ngFor="let lineup of joinGameInitObj?.lineuplist">
+                    <option  [value] ="lineup.lineup_master_id">{{lineup.team_name}}</option>
+                  </ng-container>
+              </select>
+            </div>
+
+            <div class='d-flex'>
+              <button
+              (click)='joinGameConfirmModal.hide()'
+               class='waves-light relative btn-sm ml-auto'
+                style='background: linear-gradient(to bottom, #f8f8f8 0%, #e9e9e9 100%); color:black;'
+                 mdbBtn mdbWavesEffect>Cancel</button>
+              <button [disabled]="!confirmJoinForm.valid"
+              class='waves-light relative btn-sm '
+              [style.background-color]= "confirmJoinForm.value.lineup && mySelect.value !=='create'?'#2196f3': 'grey'" mdbBtn mdbWavesEffect
+
+              >CONFIRM</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Red section ends -->
+  </div>
+</div>
+  <!-- Confirmation modal ends -->
   <app-footer></app-footer>
 
   <!-- Body ends -->

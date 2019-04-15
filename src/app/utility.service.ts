@@ -1,5 +1,7 @@
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { Injectable } from '@angular/core';
+// import {Moment} from 'moment';
+// import moment = require('moment');
 
 @Injectable({
   providedIn: 'root'
@@ -102,5 +104,8 @@ findObjPosition(data, key, val) {
       return isAllow;
   }
 
+  convertToDateObject = function(date){
+    return date; // moment(new Date(date)).toDate();
+  };
 
 }

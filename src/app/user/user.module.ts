@@ -1,3 +1,5 @@
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { SharedModule } from './../shared.module';
 import { AuthComponent } from './auth/auth.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgModule } from '@angular/core';
@@ -5,9 +7,10 @@ import { CommonModule } from '@angular/common';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserRoutingModule } from './user-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from 'angularx-social-login';
+
 
 
 // Configs
@@ -33,13 +36,17 @@ export function provideConfig() {
 @NgModule({
   imports: [
     CommonModule,
-    UserRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
     MDBBootstrapModule,
+    UserRoutingModule,
     SocialLoginModule
   ],
   declarations: [
     // SignupComponent,
     ProfileComponent,
+    EditProfileComponent
 
   ],
   exports: [

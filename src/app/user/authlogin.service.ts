@@ -31,7 +31,7 @@ export class AuthloginService {
     if (verbLang === 'post') {
       // this.fetchSession();
       this.url = this.url1.concat(url2);
-      console.log(this.url, data, {headers});
+      // console.log(this.url, data, {headers});
         return this._http.post(this.url, data, {headers});
     } else if (verbLang === 'login' || verbLang === 'signup' ) {
       this.url = this.url1.concat(url2);
@@ -48,6 +48,18 @@ export class AuthloginService {
       return this._http.get(this.url, {headers});
     }
 
+  }
+  multipartApi = function(name, params, apiType) {
+    // var baseUrl = (apiType==='sport') ? getOptions.sportsApiUrl : getOptions.userApiUrl;
+    // const baseUrl = getOptions.baseUrl;
+      const paramsObj = new FormData();
+      Object.keys(params).forEach(function(key){
+         paramsObj.append(key, params[key]);
+      })
+       return this._http.post(this.url1 + name, paramsObj,{
+        // transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
+      });
   }
   /*authStatus(auth) {
   this.isLoggedIn = auth;
@@ -69,7 +81,7 @@ export class AuthloginService {
        this.contest =  data;
      } else if (arg === 'lineup') {
        this.lineup = data;
-       console.log(this.lineup);
+      // console.log(this.lineup);
      } else {
       this.componentData = data;
      }
@@ -98,7 +110,7 @@ login(hashing, globalSport, loginForm) {
            // this.utilityservice.clearLocalStorage('user');
           }
           data.data.login_date =  this.utilityService.currentDateTime();
-           console.warn(data.data);
+           // console.warn(data.data);
           data.data.login_type = 'native';
           this.utilityService.clearLocalStorage('user');
           this.utilityService.setLocalStorage('user', data) ;
@@ -113,11 +125,11 @@ login(hashing, globalSport, loginForm) {
             data1 => {
               data['data'].user_profile.sports = data1['data'].sport;
               // console.warn(data['data']['session_key']);
-               console.warn(this.utilityService.getLocalStorage('user'));
+              // console.warn(this.utilityService.getLocalStorage('user'));
               for (const i of data1['data']['sport']) {
                // console.warn(data1['data'].sport);
                const sportId = (globalSport) ? globalSport : '';
-               console.log( data1['data']['sport'][0].sports_id);
+               // console.log( data1['data']['sport'][0].sports_id);
                const id = data1['data']['sport'][0].sports_id;
                if ( data1['data']['sport'][0].sports_id/*sportId*/) {
                  const selectedSports = data1['data']['sport'];
@@ -131,7 +143,7 @@ login(hashing, globalSport, loginForm) {
               }
             },
             (error) => {
-              console.log(error['error']); alert(error['error']);
+             // console.log(error['error']); alert(error['error']);
                this.isLoading = false; }
           );
            // this.router.navigate(['/league']);

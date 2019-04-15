@@ -1,0 +1,66 @@
+<app-header></app-header>
+<div class="main my-3">
+    <div class="container">
+      <mdb-card>
+        <mdb-card-body class="mdbCard">
+          <div class="row pr-0 align-items-center">
+            <mdb-card-title class="mb-0 col-md-3 col-lg-4 col-12">
+              <h4 class="mb-0">My Account</h4>
+            </mdb-card-title>
+            <div class="col-md-8 col-lg-7 col-12  pr-0 offset-md-1">
+              <div class="row">
+                <div class="col-md-3 col-lg-2 col-6 pr-0 col-sm-3 d-flex offset-lg-4 offset-md-2 balanceInfo mr-4">
+                  <div class="d-flex">
+                    <div>
+                      <span class="d-block small">Coins</span>
+                      <span><i class="fas fa-coins"></i> {{user_balance.point_balance}}</span>
+                    </div>
+                    <div class="ml-3">
+                      <span class="d-block small">Balance</span>
+                      <span>{{user_balance.real_amount| currency: 'NGN': 'symbol-narrow'}}</span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-5 btnRow">
+                  <button mdbBtn mdbWavesEffect class=" btn-sm green waves-light relative px-2">ADD FUNDS</button>
+                  <a mdbBtn mdbWaveEffect class="btn-sm font-weight-bold green-text px-2">Request Withdrawal</a>
+                </div>
+
+                <!-- <div class="col-md-4 offset-md-7 mr-5 mt-3 col-sm-6 col-12 px-0 col-lg-4  d-flex align-items-center">
+
+
+                </div> -->
+              </div>
+
+            </div>
+
+          </div>
+        </mdb-card-body>
+      </mdb-card>
+
+      <!-- Sectiion navigation starts -->
+      <div>
+        <ul class="nav nav-tabs">
+          <li routerLinkActive='active'><a routerLink='./buy-coins'>Buy Coins</a></li>
+          <li routerLinkActive='active'><a routerLink='./deposit'>Deposit</a></li>
+          <li routerLinkActive='active'><a routerLink='./history'>History</a></li>
+        </ul>
+      </div>
+      <!-- Sectiion navigation ends -->
+      <mdb-card>
+        <div class="tab-content">
+
+
+          <router-outlet></router-outlet>
+
+
+
+
+
+        </div>
+
+
+      </mdb-card>
+    </div>
+  </div>

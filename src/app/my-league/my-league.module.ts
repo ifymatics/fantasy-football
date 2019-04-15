@@ -1,3 +1,4 @@
+import { KeyValuePipe } from './../lineup/key-value.pipe';
 import { MomentModule } from 'ngx-moment';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from './../shared.module';
@@ -19,6 +20,7 @@ import { ContestViewComponent } from './contest-view/contest-view.component';
     FormsModule,
     MomentModule
   ],
-  declarations: [LeaguesComponent, UpcomingComponent, LiveComponent, CompletedComponent, DefaultComponent, ContestViewComponent]
+  declarations: [LeaguesComponent, UpcomingComponent, LiveComponent, CompletedComponent,
+     DefaultComponent, ContestViewComponent]
 })
 export class MyLeagueModule { }

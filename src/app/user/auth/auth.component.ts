@@ -92,12 +92,14 @@ export class AuthComponent implements OnInit {
           data.data.login_date =  this.utilityservice.currentDateTime();
            console.warn(data.data);
           data.data.login_type = 'native';
-          this.utilityservice.clearLocalStorage('user');
-          this.utilityservice.setLocalStorage('user', data) ;
-          (this.utilityservice.getLocalStorage('user').data.session_key  !== null) ?
-          this.isLoggedIn = true :
-          this.isLoggedIn = false;
-          this.user = this.utilityservice.getLocalStorage('user');
+          if (this.utilityservice.checkLocalStorageStatus('user')) {
+            this.utilityservice.clearLocalStorage('user');
+            this.utilityservice.setLocalStorage('user', data) ;
+          } else {
+            this.utilityservice.setLocalStorage('user', data) ;
+          }
+          this.isLoggedIn = true ;
+         //  this.user = this.utilityservice.getLocalStorage('user');
            // if (this.user !== false) {
            this.session = data.data.session_key; // this.user.data.session_key;
           this.service.api('user/my_profile/header_detail' , {}, 'post', this.session)
@@ -106,21 +108,23 @@ export class AuthComponent implements OnInit {
               data['data'].user_profile.sports = data1['data'].sport;
               // console.warn(data['data']['session_key']);
                console.warn(this.utilityservice.getLocalStorage('user'));
-              for (const i of data1['data']['sport']) {
+              // for (const i of data1['data']['sport']) {
                // console.warn(data1['data'].sport);
                const sportId = (globalSport) ? globalSport : '';
                console.log( data1['data']['sport'][0].sports_id);
                const id = data1['data']['sport'][0].sports_id;
-               if ( data1['data']['sport'][0].sports_id/*sportId*/) {
-                 const selectedSports = data1['data']['sport'];
+               // if ( data1['data']['sport'][0].sports_id/*sportId*/) {
+                 const selectedSports = data1['data']['sport'][0];
                  selectedSports.format_type = 'daily';
                  selectedSports.selected_sports_id = globalSport;
+                 console.log(selectedSports);
+                 this.utilityservice.setLocalStorage('selectedSport', selectedSports);
                  setTimeout(() => {
                    // this.utilityservice.clearLocalStorage('user');
                       this.router.navigate([id + '/league']);
                  }, 300);
-               }
-              }
+               // }
+              // }
             },
             (error) => {
               console.log(error['error']); alert(error['error']);

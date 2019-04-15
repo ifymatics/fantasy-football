@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LobbyRoutingModule } from './lobby-routing.module';
 import { SharedModule } from './../shared.module';
 
@@ -12,6 +12,7 @@ import { ContestComponent } from './contest/contest.component';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     SharedModule,
     LobbyRoutingModule

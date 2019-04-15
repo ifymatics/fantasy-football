@@ -19,6 +19,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 @NgModule({
   declarations: [
     AppComponent,
+    // HomeComponent
   ],
   imports: [
     BrowserModule,

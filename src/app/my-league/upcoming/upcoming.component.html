@@ -200,13 +200,26 @@
                           </div>
                         </td>
                         <!---<div >-->
-                        <td *ngFor="let leaguesteam of leagues.teams; let teamIndex = index; first as isFirst" (click)="getTeamLineup(leaguesteam, leagues,collections)"
+                        <td
                         class="text-center "
                         [(ngModel)]="teamName"
                         [ngModelOptions]="{standalone: true}"
                         name='teamName'
                         ngDefaultControl
-                        ><span> {{leaguesteam.team_name}}</span>
+                        >
+                        <select class=""  #myTeam
+                        id="" style='border: none;'
+                        (change)="onSelectTeam(myTeam, leagues, collections)" >
+                        <ng-container *ngFor="let leaguesteam of leagues.teams; let teamIndex = index; first as isFirst"
+
+                        (click)="getTeamLineup(leaguesteam, leagues,collections)">
+
+                            <option [ngValue]="leagues.teams[teamIndex]"  selected>{{leaguesteam.team_name}}</option>
+
+                        </ng-container>
+                      </select>
+
+                        <!-- <span> {{leaguesteam.team_name}}</span> -->
                        <!-- <span *ngIf="(collectionIndex==0 && contestIndex==0 && teamIndex==0) ? getTeamLineup(leaguesteam, leagues,collections) : ''"></span>-->
                       </td>
                         <!--</div>-->
@@ -251,11 +264,14 @@
                     class=" text-center pt-2 font-weight-bold blue-text"
                  *ngFor="let leagues of collections.contests" >
                     <span class=" text-center"
-                    *ngFor="let leaguesteam of leagues.teams"
+                    *ngFor="let leaguesteam of leagues.teams; let teamIndex = index; let forFirst = first;">
+
+                   <span class=" text-center"
+                     *ngIf=" forFirst  "
                     (click)="checkDisabled()"
                     (click)="getTeamLineup(leaguesteam, leagues,collections)"
-                    [ngClass]="{'activeShowLineupBtn animated bounceIn': btn && checkContest_id.includes(leagues.contest_id)}" >Show Lineup</span
-                   >
+                    [ngClass]="{'activeShowLineupBtn animated bounceIn': btn && checkContest_id.includes(leagues.contest_id)}" >{{(leaguesteam )?'Show Lineup':''}}</span>
+                    </span>
 
                   </div>
                 </mdb-card>

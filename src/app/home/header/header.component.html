@@ -87,12 +87,12 @@
         <div class="dropdown  ml-auto" id="Mobiledropdown" dropdown>
             <div class="d-flex" dropdownToggle id="dropdownBtn">
               <div class="user-info">
-                <div class="d-block">
-                  <span class="font-weight-bold">Arinze Okorji</span>
+                <div class="d-block" style='width: max-content'>
+                  <span class="font-weight-bold">{{currentUser.first_name && currentUser.last_name ? currentUser.first_name+' '+currentUser.last_name : currentUser.user_name}}</span>
                 </div>
                 <div>
-                  <span class="font-weight-bold"> <i class="fas fa-coins pr-2"></i>60 / </span>
-                  <span class="green-text">N200</span>
+                  <span class="font-weight-bold"> <i class="fas fa-coins pr-2"></i>{{user_balance?.point_balance}} / </span>
+                  <span class="green-text">{{user_balance?.real_amount | currency: 'NGN':'symbol-narrow'}}</span>
                 </div>
               </div>
               <div
@@ -114,10 +114,10 @@
                 <div class="d-flex">
                   <div class="pr-3 mr-2 ml-3">
                     <span class="d-block small">Balance</span>
-                    <span class="green-text">N200</span>
+                    <span class="green-text">{{user_balance?.real_amount | currency: 'NGN':'symbol-narrow' }}</span>
                   </div>
                   <button
-                    class="green mb-3 ml-5 mr-3 mt-2 p-2 px-3 btn-in-user-dropdown"
+                    class="green mb-3 ml-auto mr-3 mt-2 p-2 px-3 btn-in-user-dropdown"
                     size="sm"
                     mdbBtn
                   >
@@ -130,11 +130,11 @@
                     <span class="d-block small">Buy Coins</span>
 
                     <i class="fas fa-coins mr-2"></i>
-                    <span class="font-weight-bold green-text">53</span>
+                    <span class="font-weight-bold green-text">{{user_balance?.point_balance}}</span>
                   </div>
 
                   <button routerLink='../how-to-earn-coins'
-                    class="green mb-4 ml-5 mr-3 mt-2 p-2 px-2 btn-in-user-dropdown"
+                    class="green mb-4 ml-auto mr-3 mt-2 p-2 px-2 btn-in-user-dropdown"
                     size="sm"
                     mdbBtn
                   >
@@ -148,10 +148,10 @@
                   <a href="" class="list-group-item pb-2 pt-0" id="dropdownlink">
                     Request Withdrawal</a
                   >
-                  <a routerLink='../myaccount' class="list-group-item py-2" id="dropdownlink"
+                  <a [routerLink]="['/5/finance']"  class="list-group-item py-2" id="dropdownlink"
                     >My Account</a
                   >
-                  <a routerLink='../profile' class="list-group-item py-2" id="dropdownlink">Profile</a>
+                  <a [routerLink]="['/5/user/profile']" routerLinkActive="router-link-active"  class="list-group-item py-2" id="dropdownlink">Profile</a>
                   <a
                     href=""
                     class="list-group-item py-2 d-flex justify-content-between"
@@ -161,7 +161,7 @@
                       >1</span
                     >
                   </a>
-                  <a href="" class="list-group-item pt-2 pb-0" id="dropdownlink">Logout</a>
+                  <a (click)="logout()" class="list-group-item pt-2 pb-0" id="dropdownlink">Logout</a>
                 </div>
               </section>
             </div>
