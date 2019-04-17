@@ -264,12 +264,12 @@ btnRemoveRoster = {};
 btnAddRoster = {};
 playerActive = {};
 teamFull = {};
-playersMinMaxData = {}
+playersMinMaxData = {};
 isPosting = true; /* as {
   'GK': {'max_player_per_position': ''},
   'FW': {'max_player_per_position': ''},
   'DF': {'max_player_per_position': ''}
-}*/;
+}*/
 salary_cap = 0;
 used_salary_cap = 0;
 remaining_salary_cap = 0;

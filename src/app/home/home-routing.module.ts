@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 
 const homeRoutes: Routes = [
- // {path: '', component: HomeComponent},
+  {path: '', component: HomeComponent},
   // {path: 'lobby', component: HeaderComponent},
 ];
 @NgModule({

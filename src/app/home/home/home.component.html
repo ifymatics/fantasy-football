@@ -1,60 +1,64 @@
 <div id="hero" class="">
+  <div class="layer">
 
-    <mdb-navbar SideClass="navbar navbar-expand-lg  navbar-dark">
+      <mdb-navbar SideClass="navbar navbar-expand-lg  navbar-dark">
 
-     <links>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a href="/" class="nav-link white-text active">HOME</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link white-text">ABOUT US</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link white-text">HOW TO PLAY</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link white-text">KEY FEATURES</a>
-          </li>
-        </ul>
+          <links>
+             <ul class="navbar-nav">
+               <li class="nav-item">
+                 <a href="/" class="nav-link white-text active">HOME</a>
+               </li>
+               <li class="nav-item">
+                 <a href="#" class="nav-link white-text">ABOUT US</a>
+               </li>
+               <li class="nav-item">
+                 <a href="#" class="nav-link white-text">HOW TO PLAY</a>
+               </li>
+               <li class="nav-item">
+                 <a href="#" class="nav-link white-text">KEY FEATURES</a>
+               </li>
+             </ul>
 
-        <!--<form action="" class="form-inline ml-auto">-->
-          <div class="form-inline ml-auto ">
+             <!--<form action="" class="form-inline ml-auto">-->
+               <div class="form-inline ml-auto ">
 
-            <button type="button" (click)="showModal('loginmodal')" class="blue-grey darken-4 m-0 rounded-0 border btn-sm waves-light relative"
-              mdbWavesEffect mdbBtn>LogIn</button>
+                 <button type="button" (click)="showModal('loginmodal')" class="blue-grey darken-4 m-0 rounded-0 border btn-sm waves-light relative"
+                   mdbWavesEffect mdbBtn>LogIn</button>
 
-            <button type="button" class="transparent m-0 border rounded-0 btn-sm relative red"
-            mdbBtn mdbWavesEffect (click)="showModal('signupmodal')">SignUp</button>
-          </div>
-        <!--</form>-->
-      </links>
-    </mdb-navbar>
+                 <button type="button" class="transparent m-0 border rounded-0 btn-sm relative red"
+                 mdbBtn mdbWavesEffect (click)="showModal('signupmodal')">SignUp</button>
+               </div>
+             <!--</form>-->
+           </links>
+         </mdb-navbar>
 
- <!--login modal ends -->
-<app-auth #loginmodal></app-auth>
-     <!--login modal ends -->
-
-
- <!--signup modal ends -->
- <app-signup #SignUpmodal></app-signup>
- <!--signup modal ends -->
+      <!--login modal ends -->
+     <app-auth #loginmodal></app-auth>
+          <!--login modal ends -->
 
 
-    <!-- hero message begin -->
-    <div class="container">
-      <div class="text-center text-light pt-5">
-        <span>
-          <img src="assets/image/logo-main-inner.png" class='' alt="FANtastic log" id="FANtastic_log">
-        </span>
-        <h2 class="py-4 my-3">Play Free</h2>
-        <h1 class="font-weight-bold display-3 pt-2 pb-3 mt-3">Fantasy Football</h1>
-        <h2>Sign up | Join Contest | Select Team | Win Prizes!
-        </h2>
-        <button class="btn text-light red accent-4" id="startbtn" (click)="showModal('loginmodal')" >START!</button>
-      </div>
-    </div>
+      <!--signup modal ends -->
+      <app-signup #SignUpmodal></app-signup>
+      <!--signup modal ends -->
+
+
+         <!-- hero message begin -->
+         <div class="container">
+           <div class="text-center text-light pt-5">
+             <span>
+               <img src="assets/image/logo-main-inner.png" class='' alt="FANtastic log" id="FANtastic_log">
+             </span>
+             <h2 class="pt-2 my-3">Play Free</h2>
+             <h1 class="font-weight-bold pb-3">Fantasy Football</h1>
+             <h2>Sign up | Join Contest | Select Team | Win Prizes!
+             </h2>
+             <button class="btn text-light red accent-4" id="startbtn" (click)="showModal('loginmodal')" >START!</button>
+           </div>
+         </div>
+       </div>
+
+       <div>
+
   </div>
 
-  <div>
   </div>

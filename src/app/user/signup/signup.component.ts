@@ -69,7 +69,7 @@ export class SignupComponent implements OnInit {
         this.signupError = {} as SignupError;
         this.signupForm.reset();
         this.signupSuccessModal.show();
-        console.log(response);
+        // console.log(response);
       }
     }, (error) => {
        console.error(error.error.error);

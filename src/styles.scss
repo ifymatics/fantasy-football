@@ -49,6 +49,15 @@ h2 {
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
+
+    .layer {
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+
+      h1 {
+        font-size: 48.83px;
+      }
+    }
 }
 
 body {

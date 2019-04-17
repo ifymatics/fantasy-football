@@ -519,7 +519,7 @@ span.fa-bars {
 
   li {
     display: inline-block;
-    padding: 0 5px;
+    padding: 0 7px;
 
     i {
       font-size: 24px;
@@ -538,7 +538,7 @@ span.fa-bars {
   } */
   @include for-xl {
     display: grid;
-    grid-template-columns: 0.6fr 0.9fr;
+    grid-template-columns: auto auto;
     align-items: center;
     width: 269px;
   }
@@ -573,6 +573,7 @@ span.fa-bars {
 
 //USer info for user dropdown button
 .user-info {
+  width: max-content;
   @include for-portrait-phone-only {
     display: none;
   }

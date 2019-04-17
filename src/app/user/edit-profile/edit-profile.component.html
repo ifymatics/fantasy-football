@@ -79,6 +79,7 @@
                   <label for="mobilenumber">Mobile Number <span  style="color:red;" >*</span></label>
                   <input formControlName="phone_no" type="number" name="" id="mobilenumber" class="form-control font-weight-bold" [mdbValidate]= "false" mdbInputDirective>
                   <span   style="color:red; border-color: black;" class="small" *ngIf="!editForm.get('phone_no').valid && editForm.touched">Please enter a valid mobile number</span>
+                  <span   style="color:red; border-color: black;" class="small" *ngIf="editError?.phone_no">{{editError?.phone_no }}</span>
                 </div></div>
             </div>
 

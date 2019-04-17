@@ -18,6 +18,7 @@ export class EditProfileComponent implements OnInit {
   editForm;
   stateList = [];
   countryList = [];
+  editError;
   updateProfileBtn = false;
   constructor(private service: AuthloginService,
      private utilityservice: UtilityService,
@@ -71,7 +72,8 @@ getStatesByCounty(country_id) {
           response     = response.data;
           this.stateList = response.state_list;
       }
-  }, function(error) {
+  }, (error) => {
+
     console.log(error);
     console.log(reqParams);
       // emitAlert.on(error.global_error, 'danger');
@@ -99,13 +101,13 @@ updateProfile() {
     this.updateProfileBtn = false;
      return false;
   }
-  console.log(this.editForm);
+  // console.log(this.editForm);
      this.updateProfileBtn = true;
 
       this.service.api('user/my_profile/update_profile', this.editForm.value, 'post', this.session)
       .subscribe( (response) => {
           if (response.response_code === 200) {
-            console.log(response);
+           // console.log(response);
               const responseData = response.data.user_profile;
              // emitAlert.on(response.message, 'success');
              this.updateLocalStorage(responseData); // Update local storage
@@ -117,6 +119,7 @@ updateProfile() {
           }
          this.updateProfileBtn = false;
       }, (error) => {
+        this.editError = error.error.error ;
          console.log(error);
          this.updateProfileBtn = false;
       });

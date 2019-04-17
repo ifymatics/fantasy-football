@@ -121,13 +121,21 @@
             </td>
             <td class="hiddenOnMobile" style="color: #333333;" >
                 <span class="ml-auto" *ngIf="userAccHistory.status == 0">
-                    Pending
+
+                <i class='fas fa-ellipsis-h p-1 pendingBadge' >
+                </i>
+                Pending
                    </span>
                    <span class="ml-auto" *ngIf="userAccHistory.status == 1">
-                     Completed
+                    <i class='fas fa-check completedBadge'>
+                    </i>
+                    Completed
                    </span>
                    <span class="ml-auto" *ngIf="userAccHistory.status == 2">
-                     Cancelled
+                    <span class='cancelBadge' >
+                      <i class='fas fa-times'></i>
+                  </span>
+                    Cancelled
                    </span>
             </td>
           </tr>
@@ -136,6 +144,7 @@
              </tr>
         </tbody>
 
+        <div class="spinner" *ngIf="isLoading"></div>
       </table>
       <!--<div *ngIf="isLoading" class="spinner"></div>-->
     </div>
