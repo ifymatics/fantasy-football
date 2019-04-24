@@ -63,7 +63,7 @@ export class DepositComponent implements OnInit {
   }
   deposit(subscription?) {
     this.isLoading = true;
-    console.log(this.depositForm.value);
+   // console.log(this.depositForm.value);
    const furl = window.location.href.split('?')[0] + '?status=failure',
     surl = window.location.href.split('?')[0] + '?status=success',
     spurl = window.location.href.split('?')[0] + '?status=pending';

@@ -1,3 +1,4 @@
+import { HowtoearnCoinsComponent } from './howtoearn-coins/howtoearn-coins.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { BuycoinsComponent } from './buycoins/buycoins.component';
 import { DepositComponent } from './deposit/deposit.component';
@@ -13,6 +14,7 @@ const financeRouting: Routes = [
     {path: 'buy-coins', component: BuycoinsComponent},
     {path: 'deposit', component:  DepositComponent},
     {path: 'withdraw', component: WithdrawComponent},
+    {path: 'how-to-earn-coins', component: HowtoearnCoinsComponent},
   ]
 }
 ];

@@ -33,7 +33,7 @@ export class LiveComponent implements OnInit {
     this.mobileDevice = this.deviceService.isMobile();
     if (this.deviceService.isMobile()) {
       this.device = 'mobilePitch';
-      console.log(this.device);
+     // console.log(this.device);
       this.isMobile = true;
     } else if (this.deviceService.isDesktop) {
       this.device = 'desktopPitch';
@@ -48,7 +48,7 @@ export class LiveComponent implements OnInit {
   }
   selectLeagueType(status) {
     this.isLoading = true;
-    console.log(status);
+   // console.log(status);
         // this.posting                     = true;
         this.isSelected                  = {};
         // this.lineupDetails               = [];
@@ -66,12 +66,12 @@ export class LiveComponent implements OnInit {
         };
         this.service.api('fantasy/contest/get_collections_by_status', param, 'POST', this.session)
         .subscribe((response) => {
-          console.log(param);
+         // console.log(param);
           this.isLoading = false;
         //  this.posting       = false;
-            //this.groundLoading = false;
+            //  this.groundLoading = false;
             response         = response.data;
-             console.log(response);
+            // console.log(response);
              if (!response.collections.length) {
                 // this.fillPlayGround([]);
              }

@@ -87,12 +87,12 @@ myLeagueArray = [];
     this.route.params.subscribe(
       (params: ParamMap) => {
          this.league_id = params['league_id'];
-         console.log(this.league_id);
+        // console.log(this.league_id);
         //  this.router.navigate([this.sports_id + '/' + this.league_id +'/my-league/live']);
       }
     );
 
-    console.log(this.route.snapshot);
+    // console.log(this.route.snapshot);
     if (this.deviceService.isMobile()) {
       this.device = 'mobilePitch';
     } else {
@@ -167,7 +167,7 @@ myLeagueArray = [];
 
 
 getTeamLineup(lineup, league, collection) {
-  console.log(league, lineup, collection);
+ // console.log(league, lineup, collection);
   this.totalUserJoined = (league) ? league.total_user_joined : 0;
   this.selectedLineupMasterContetId   = lineup.lineup_master_contest_id;
  // this.teamInfo                = {is_turbo_lineup: 0};
@@ -205,7 +205,7 @@ getTeamLineup(lineup, league, collection) {
        // 0 (2 substitute available), 2 (0 substitution allowed)
        this.substituted_players           = response.data.substituted_players;
        // Set position for turbo linup
-        console.log(this.lineupDetails);
+       // console.log(this.lineupDetails);
       //  console.log(this.playersArr);
            if (response.data.team_info.is_turbo_lineup === '1') {
              this.player_position = response.data.team_info.turbo_lineup_type;

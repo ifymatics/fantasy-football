@@ -220,10 +220,14 @@ ul {
 .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
   position: absolute;
   margin-left: 0;
-  left: 0;
+  left: 35px;
   margin-top: 0;
   opacity: 0;
   z-index: 1;
+
+  @include for-sm {
+    left: 0;
+  }
 }
 input[type="radio"], input[type="checkbox"] {
   margin: 4px 0 0;

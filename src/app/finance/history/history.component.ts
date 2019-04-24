@@ -2,6 +2,7 @@ import { AuthloginService } from 'src/app/user/authlogin.service';
 import { UtilityService } from './../../utility.service';
 import { Component, OnInit } from '@angular/core';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { markDirty } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-history',
@@ -33,7 +34,7 @@ export class HistoryComponent implements OnInit {
   ngOnInit() {
     this.selectedSport = this.utilityservice.getLocalStorage('selectedSport');
     this.currentUser = this.utilityservice.getLocalStorage('user');
-    console.log(this.selectedSport);
+   // console.log(this.selectedSport);
     this.session = this.currentUser.data.session_key;
     if (this.selectedSport.format_type === 'seasonlong') {
       this.season_type = 2;
@@ -67,9 +68,9 @@ export class HistoryComponent implements OnInit {
    .subscribe((response) => {
         if (response.response_code === 200) {
           this.isLoading = false;
-          console.log(response);
-          console.log(this.selectedSport);
-          console.log(param);
+         // console.log(response);
+          // console.log(this.selectedSport);
+         // console.log(param);
             response = response.data;
             const transactionHistoryData = response.transaction_history;
             for (const index in transactionHistoryData) {
@@ -92,8 +93,8 @@ export class HistoryComponent implements OnInit {
             this.isLoadMore = response.is_load_more;
             this.disableLoadMore = false;
             this.offset = response.offset;
-            console.log( this.userAccHistories);
-            console.log( this.currentUser);
+           // console.log( this.userAccHistories);
+           // console.log( this.currentUser);
         }
         this.posting  = false;
     }, function (error) {
@@ -114,7 +115,7 @@ getTransactionAmount() {
   .subscribe((response) => {
       if (response.response_code === 200) {
           response = response.data;
-          console.log(response.user_balance);
+        //  console.log(response.user_balance);
          this.user_balance = response.user_balance;
          this.user_balance.total_amount =
          parseFloat(this.user_balance.real_amount) +
@@ -130,6 +131,11 @@ getTransactionAmount() {
         // emitAlert.on(error.global_error, 'danger');
       }
   });
+}
+getTimestamp(dateTime) {
+  const formatted = this.utilityservice.getTimestamp(dateTime);
+
+  return formatted;
 }
 
 }

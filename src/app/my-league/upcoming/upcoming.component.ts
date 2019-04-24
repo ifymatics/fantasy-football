@@ -4,7 +4,7 @@ import { LobbyService } from './../../lobby/lobby.service';
 import { Player } from './../../lineup/lineup/player.model';
 import { Router, ActivatedRoute, RouterState, Params, ParamMap } from '@angular/router';
 import { UtilityService } from './../../utility.service';
-import { Component, OnInit, Output, Input,  ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ɵConsole } from '@angular/core';
+import { Component, OnInit, Output, Input,  ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { AuthloginService } from 'src/app/user/authlogin.service';
 import { PlayersUtilityService } from 'src/app/players-utility.service';
 import { EventEmitter } from 'events';
@@ -94,9 +94,9 @@ export class UpcomingComponent implements OnInit, AfterViewInit {
                   const state: RouterState = router.routerState;
                    const root: ActivatedRoute = state.root;
                  const child = root.firstChild;
-                  console.log(state);
-                 console.log(root);
-                 console.log(route.params);
+                  // console.log(state);
+                 // console.log(root);
+                 // console.log(route.params);
                  }
 
   ngOnInit() {
@@ -448,11 +448,11 @@ this.selectTeam (myTeam, leagues, collections);
 
 }
 selectTeam (myTeam, leagues, collections) {
-  console.log(myTeam.value, leagues);
+  // console.log(myTeam.value, leagues);
   for (const team of leagues['teams']) {
-    console.log(team.team_name);
+  //  console.log(team.team_name);
       if (team.team_name === myTeam.value) {
-        console.log(team.team_name);
+      //  console.log(team.team_name);
         this.getTeamLineup(team, leagues, collections);
       }
   }

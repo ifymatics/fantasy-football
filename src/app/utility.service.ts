@@ -107,5 +107,27 @@ findObjPosition(data, key, val) {
   convertToDateObject = function(date){
     return date; // moment(new Date(date)).toDate();
   };
+  getTimestamp(dateTime) {
+    // dateTime format: Sat, Jan 20-04:00pm
+    const date = new Date(dateTime);
+    const monthObj = {
+      1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May',
+      6: 'Jun', 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct',
+      11: 'Nov', 12: 'Dec'
+     };
+     const hours = date.getHours() > 12 ?  this.addZero(date.getHours() - 12) : this.addZero(date.getHours());
+     const mins = date.getMinutes() < 10 ? '0' + (date.getMinutes()) :  date.getMinutes() ;
+     const am_pm = date.getHours() >= 12 ? 'PM' : 'AM';
+    const NameObj = {0: 'Sun', 1: 'Mon', 2: 'Tue', 3: 'Wed', 4: 'Thur', 5: 'Fri', 6: 'Sat'};
+    const formatted =  (NameObj[ date.getDay()] + ',' + ' ' + monthObj[date.getMonth() + 1]) + ' ' + date.getDate() + '-' +
+    hours  + ':' + mins + ' ' + am_pm;
+    return formatted;
+  }
+  addZero(i) {
+    if (i < 10) {
+      i = '0' + i;
+    }
+    return i;
+  }
 
 }

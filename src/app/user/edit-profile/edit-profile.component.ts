@@ -62,20 +62,20 @@ export class EditProfileComponent implements OnInit {
 
 }
 getStatesByCounty(country_id) {
-  console.log(country_id.toString());
+  // console.log(country_id.toString());
  this.stateList  = [];
   const reqParams = { master_country_id: country_id };
   this.service.api('user/my_profile/get_state_list', reqParams, 'post', this.session)
   .subscribe((response) => {
-    console.log(response);
+   // console.log(response);
       if (response.response_code === 200) {
           response     = response.data;
           this.stateList = response.state_list;
       }
   }, (error) => {
 
-    console.log(error);
-    console.log(reqParams);
+    // console.log(error);
+    // console.log(reqParams);
       // emitAlert.on(error.global_error, 'danger');
   });
 }
@@ -85,13 +85,13 @@ getCounty() {
   this.service.api('user/my_profile/get_country_list', reqParams, '', this.session)
   .subscribe((response) => {
       if (response.response_code === 200) {
-        console.log(response);
+        // console.log(response);
           response = response.data;
          this.countryList = response.country_list;
 
       }
   }, (error) => {
-    console.log(error);
+    // console.log(error);
       // emitAlert.on(error.global_error, 'danger');
   });
 }
@@ -120,19 +120,19 @@ updateProfile() {
          this.updateProfileBtn = false;
       }, (error) => {
         this.editError = error.error.error ;
-         console.log(error);
+        // console.log(error);
          this.updateProfileBtn = false;
       });
 
 }
 updateLocalStorage(data) {
  const  userDetail = this.myProfileDetail.data.user_profile;
-console.log( userDetail);
+// console.log( userDetail);
  Object.keys(userDetail).forEach( (objKey) => {
       if (data[objKey] === null) {
           userDetail[objKey] = data[objKey];
           if (objKey === 'dob') {
-              console.log(userDetail[objKey]);
+              // console.log(userDetail[objKey]);
           }
       }
   });

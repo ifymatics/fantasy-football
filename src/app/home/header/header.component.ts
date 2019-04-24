@@ -35,7 +35,7 @@ user;
       (params: ParamMap) => {
          this.id = +params['id'];
          this.league_id = params['league_id'];
-         console.log(this.league_id);
+         // console.log(this.league_id);
       }
     );
     if (this.utilityService.checkLocalStorageStatus('user')) {
@@ -60,7 +60,7 @@ user;
       this.menuHeader = 'active';
     }
   //  this.menuHeaderArrray.push(this.menuHeader);
-   console.warn(this.menuHeader);
+  // console.warn(this.menuHeader);
  }
   logout() {
     this.service.logout();
@@ -75,7 +75,7 @@ user;
   this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
   .subscribe(
     (response) => {
-      console.log(response.data.user_balance);
+     // console.log(response.data.user_balance);
      const  currentBalance = response.data.user_balance.real_amount;
       this.user_balance =  response.data.user_balance;
       this.point_balance  = parseFloat(this.user_balance.point_balance);

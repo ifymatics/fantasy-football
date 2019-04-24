@@ -13,7 +13,7 @@ export class LobbyService {
   constructor(private router: Router, private utilityservice: UtilityService) { }
 
   toFirstThingFirst(contest, lineupList?, From?) {
-    console.log(contest);
+    // console.log(contest);
     const league = contest;
     const lineupEdit = {
       league_id:    league.league_id,
@@ -22,7 +22,7 @@ export class LobbyService {
       lineup_master_id: league ? league.lineup_master_id : null,
       // contest_id      : league.featured_contest_id ? league.featured_contest_id : 0
   };
-  console.log(lineupEdit.lineup_master_id);
+  // console.log(lineupEdit.lineup_master_id);
   if (From === '') {
     this.league = contest; // league.league_id;
   } else if (From === 'upcoming') {

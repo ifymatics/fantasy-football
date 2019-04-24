@@ -32,6 +32,7 @@ export class BuycoinsComponent implements OnInit {
    this.buycoinForm = new FormGroup({
     'coins': new FormControl(this.addFundAmount, Validators.required)
   });
+
    this.getCoinValue();
   }
   getCoinValue() {
@@ -44,22 +45,25 @@ export class BuycoinsComponent implements OnInit {
        }
    }, (error) => {
        this.posting = false;
-       console.log(error);
+      // console.log(error);
    });
 }
 buyCoins() {
-  this.isLoading = true;
+  this.buycoinForm.get('coins').setValue(this.addFundAmount);
+  // this.isLoading = true;
   this.posting = false;
   console.log(this.buycoinForm.value);
-     const reqData = {coins: this.coins};
+  console.log(this.addFundAmount);
+     const reqData = this.buycoinForm.value; // {coins: this.coins};
      this.service.api('user/finance/buy_coins', reqData, 'POST', this.session)
      .subscribe((response) => {
          if (response.response_code === 200) {
            this.isLoading = false;
           this.posting = false;
              this.coins = this.addFundAmount;
-             console.log(response);
+           //  console.log(response);
              // getTransactionAmount();
+             alert('success!');
              // emitAlert.on(response.message, 'success');
          }
          this.posting = false;

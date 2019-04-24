@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 // import { AuthloginService } from './../authlogin.service';
 import { UtilityService } from './../../utility.service';
 import { ModalService } from './../../modal.service';
@@ -38,8 +39,9 @@ export class AuthComponent implements OnInit {
      device_type: 3
    };
    user;
+   queryObj = {key: '', activation_key: ''};
   constructor(private service: AuthloginService, private socialAuthService: AuthService,
-    private _modalservice: ModalService, private router: Router,
+    private _modalservice: ModalService, private router: Router, private route: ActivatedRoute,
     private utilityservice: UtilityService ) { }
 
   ngOnInit() {
@@ -53,15 +55,12 @@ export class AuthComponent implements OnInit {
       this.user = user;
       this.loggedIn = (user != null);
      });
-    /*const invalid = [];
-    const controls = this.loginForm.controls;
-    for (const name in controls) {
-        if (controls[name].invalid) {
-          //  invalid.push(name);
-         console.log( this.loginForm.Validators);
-        }
-    }
-    return invalid;*/
+   this.route.queryParams.subscribe(
+     (query) => {
+      this.queryObj.key = query['key'];
+      this.queryObj.activation_key = query['activation_key'];
+     }
+   );
   }
   onSubmit() {
     this.isLoading = true;
@@ -82,7 +81,7 @@ export class AuthComponent implements OnInit {
     (data) => {
        // {
           if (data.response_code === 200) {
-             console.log(data.data.session_key);
+            // console.log(data.data.session_key);
           if (this.loginForm.value.rememberMe === true) {
              this.utilityservice.setSession('remember', {email: this.hashing.email, remember: this.loginForm.value.rememberMe});
           } else {
@@ -90,7 +89,7 @@ export class AuthComponent implements OnInit {
            // this.utilityservice.clearLocalStorage('user');
           }
           data.data.login_date =  this.utilityservice.currentDateTime();
-           console.warn(data.data);
+          // console.warn(data.data);
           data.data.login_type = 'native';
           if (this.utilityservice.checkLocalStorageStatus('user')) {
             this.utilityservice.clearLocalStorage('user');
@@ -107,17 +106,17 @@ export class AuthComponent implements OnInit {
             data1 => {
               data['data'].user_profile.sports = data1['data'].sport;
               // console.warn(data['data']['session_key']);
-               console.warn(this.utilityservice.getLocalStorage('user'));
+              // console.warn(this.utilityservice.getLocalStorage('user'));
               // for (const i of data1['data']['sport']) {
                // console.warn(data1['data'].sport);
                const sportId = (globalSport) ? globalSport : '';
-               console.log( data1['data']['sport'][0].sports_id);
+              // console.log( data1['data']['sport'][0].sports_id);
                const id = data1['data']['sport'][0].sports_id;
                // if ( data1['data']['sport'][0].sports_id/*sportId*/) {
                  const selectedSports = data1['data']['sport'][0];
                  selectedSports.format_type = 'daily';
                  selectedSports.selected_sports_id = globalSport;
-                 console.log(selectedSports);
+                 // console.log(selectedSports);
                  this.utilityservice.setLocalStorage('selectedSport', selectedSports);
                  setTimeout(() => {
                    // this.utilityservice.clearLocalStorage('user');
@@ -127,7 +126,7 @@ export class AuthComponent implements OnInit {
               // }
             },
             (error) => {
-              console.log(error['error']); alert(error['error']);
+             // console.log(error['error']); alert(error['error']);
                this.isLoading = false; }
           );
            // this.router.navigate(['/league']);
@@ -135,7 +134,7 @@ export class AuthComponent implements OnInit {
    },
     (error) => {
       this.isLoading = false;
-       console.log(error.error);
+      // console.log(error.error);
        this.loginError = error.error.error;
    // this.isLoading = false;
     }
@@ -159,4 +158,18 @@ export class AuthComponent implements OnInit {
   logout() {
     this.service.logout();
   }
+  validateForgotCode = function() {
+   const forgotCodeObj = {
+        'key': this.queryObj.key
+    };
+  this.service.api('user/auth/forgot_password_validate_code', forgotCodeObj, 'POST', this.session)
+  .subscribe((response) => {
+        if (response.response_code === 200) {
+           // vm.ResetPwdModalInit();
+        }
+    }, (error) => {
+        // alert((error.error['key']) ? error.error['key'] : MessageService.getMessage('session_expired'), 'danger');
+    });
+}
+;
 }

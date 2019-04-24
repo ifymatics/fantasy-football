@@ -96,7 +96,7 @@
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="md-form ">
               <input formControlName="email" type="email" id="loginemail" class="   form-control" [mdbValidate]= "false" mdbInputDirective>
-              <span style="color:red; border-color: black;" class="small" *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">Please enter a valid email</span>
+              <span style="color:red; border-color: black;" class="small" *ngIf="!loginForm?.get('email').valid && loginForm?.get('email').touched">Please enter a valid email</span>
               <span   style="color:red; border-color: black;" class="small" *ngIf="loginError.email">{{loginError.email}}</span>
               <label for="loginemail">Your Email</label>
             </div>

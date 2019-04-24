@@ -72,9 +72,9 @@ export class SignupComponent implements OnInit {
         // console.log(response);
       }
     }, (error) => {
-       console.error(error.error.error);
+     //  console.error(error.error.error);
        this.signupError = error.error.error ;
-        console.log(this.signupError);
+       // console.log(this.signupError);
     });
 
   }
@@ -94,7 +94,7 @@ export class SignupComponent implements OnInit {
    //  dateString.split(" ");
     const dateArray = dateString.split('-');
     const dob = dateFormat[dateArray[1]] + ' ' +  dateArray[2] + ',' + ' ' +  dateArray[0];
-    console.log(dob);
+   // console.log(dob);
     return dob;
   // e.target.pickdate();
   }

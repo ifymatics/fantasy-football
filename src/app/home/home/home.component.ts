@@ -25,4 +25,18 @@ export class HomeComponent implements OnInit {
       this._modalservice.showSignup();
     }
   }
+  validateForgotCode = function() {
+    const forgotCodeObj = {
+         'key': this.queryObj.key
+     };
+   this.service.api('user/auth/forgot_password_validate_code', forgotCodeObj, 'POST')
+   .subscribe((response) => {
+         if (response.response_code === 200) {
+            // vm.ResetPwdModalInit();
+         }
+     }, (error) => {
+         // alert((error.error['key']) ? error.error['key'] : MessageService.getMessage('session_expired'), 'danger');
+     });
+ }
+ ;
 }

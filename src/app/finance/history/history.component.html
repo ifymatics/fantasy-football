@@ -21,7 +21,7 @@
         <tbody>
           <tr *ngFor="let userAccHistory of userAccHistories; let i = index;">
             <td class="hiddenOnMobile">{{userAccHistory.order_id}}</td>
-            <td class="hiddenOnMobile">{{userAccHistory.date_added_timestamp}}Thu, Feb 14-10:07 am</td>
+            <td class="hiddenOnMobile">{{getTimestamp(userAccHistory.date_added_timestamp)}}</td>
             <td class=" contest table-item" id="historydesktop">
               <div class="d-flex align-items-center">
                 <button class="waves-dark relative dropdown-toggle mobileHistoryInfoBtn p-0 black-text" mdbBtn
@@ -46,7 +46,7 @@
                 </div>
                 <div class="d-flex small my-2">
                   <span>Date & Time:</span>
-                  <span class="ml-auto">{{userAccHistory.date_added}}</span>
+                  <span class="ml-auto">{{getTimestamp(userAccHistory.date_added)}}</span>
                 </div>
                 <div class="d-flex small my-2">
                   <span>Credit:</span>

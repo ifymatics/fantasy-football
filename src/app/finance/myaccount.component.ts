@@ -1,6 +1,7 @@
 import { UtilityService } from './../utility.service';
 import { AuthloginService } from 'src/app/user/authlogin.service';
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-myaccount',
@@ -12,7 +13,9 @@ export class MyaccountComponent implements OnInit {
    bonus_amount: '', total_amount: 0, point_balance: ''};
   currentUser;
   session;
-  constructor(private service: AuthloginService, private utilityservice: UtilityService) { }
+  constructor(private service: AuthloginService,
+              private utilityservice: UtilityService,
+              private dataservice: DataService) { }
 
   ngOnInit() {
     this.currentUser = this.utilityservice.getLocalStorage('user');
@@ -21,6 +24,7 @@ export class MyaccountComponent implements OnInit {
     this.getTransactionAmount();
   }
   getTransactionAmount() {
+  // this.user_balance = this.dataservice.getTransactionAmount();
 
     const param = {
         'user_id' : this.currentUser.data.user_profile.user_id

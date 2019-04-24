@@ -55,7 +55,7 @@
                 <label for="customCoins" class="control-label">Enter Custom Coins</label>
                 <input formControlName="coins" type="number" class="form-control" name="coins"
                 id="customCoins" [mdbValidate]= "false"
-                [(ngModel)]= "coins"
+                    [value] = "addFundAmount"
                   mdbInputDirective>
                 <span class="typo"> {{(coins*coin_real_money) }}</span>
 

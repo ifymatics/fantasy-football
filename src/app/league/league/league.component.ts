@@ -48,7 +48,7 @@ data: {sports_id: number};
  // console.log(this.leagueList);
  },
    error => {
-     console.log(error);
+    // console.log(error);
       this.isLoading = false;
       this.showReload = true;
      }
@@ -56,9 +56,9 @@ data: {sports_id: number};
   }
 playNow(league, i) {
   this.onAnimate = true;
-  console.log(league);
+  // console.log(league);
   this.utilityService.setLocalStorage('league', league) ;
  setTimeout(() =>  this.router.navigate([this.sports_id + '/' + league.league_id + '/lobby']) , 500);
- console.log(league.league_id);
+ // console.log(league.league_id);
 }
 }
