@@ -962,6 +962,7 @@ export class LineupComponent implements OnInit {
    * Remove selected players
    */
   removePlayer(playerId, playerType, removeFrom, formationtype?) {
+    // console.log(playerId, playerType, removeFrom);
     const playerIndex = this.utilityService.findObjPosition(
         this.playersArr,
         "player_id",
@@ -979,6 +980,7 @@ export class LineupComponent implements OnInit {
             ]
           : 1,
       salary = this.playersArr[playerIndex].salary;
+    // console.log(playerIndex, playerPositionIndex);
     const selectedPlayerIndex = this.utilityService.findObjPosition(
       this.selectedPlayerData,
       "player_id",
@@ -1132,7 +1134,7 @@ export class LineupComponent implements OnInit {
           !this.goalkeepersArray.includes(player.player_id)
         ) {
           // if (this.defendersArray.length<4) {
-          console.log("till here");
+          //  console.log("till here");
           this.onPlayerListSelectFirst(
             player,
             playerIndex,
@@ -1276,7 +1278,12 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.fiveFourOne.def.def1 = player;
-          // console.log(player);
+
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 5) {
+            this.playerList.hide();
+          }
+
           this.defLi = "";
         } else if (this.defLi === "def2") {
           this.playerStatusCheck(
@@ -1287,6 +1294,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.fiveFourOne.def.def2 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 5) {
+            this.playerList.hide();
+          }
           this.defLi = "";
         } else if (this.defLi === "def3") {
           this.playerStatusCheck(
@@ -1297,6 +1308,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.fiveFourOne.def.def3 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 5) {
+            this.playerList.hide();
+          }
           this.defLi = "";
         } else if (this.defLi === "def4") {
           this.playerStatusCheck(
@@ -1307,6 +1322,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.fiveFourOne.def.def4 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 5) {
+            this.playerList.hide();
+          }
           this.defLi = "";
         } else if (this.defLi === "def5") {
           this.playerStatusCheck(
@@ -1317,6 +1336,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.fiveFourOne.def.def5 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 5) {
+            this.playerList.hide();
+          }
           this.defLi = "";
         } else if (
           !this.defendersArray.includes(player.player_id) &&
@@ -1340,6 +1363,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.fourFourTwo.def.def1 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 4) {
+            this.playerList.hide();
+          }
           this.defLi = "";
           // console.log(player);
         } else if (this.defLi === "def2") {
@@ -1351,6 +1378,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.fourFourTwo.def.def2 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 4) {
+            this.playerList.hide();
+          }
           this.defLi = "";
         } else if (this.defLi === "def3") {
           this.playerStatusCheck(
@@ -1361,6 +1392,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.fourFourTwo.def.def3 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 4) {
+            this.playerList.hide();
+          }
           this.defLi = "";
         } else if (this.defLi === "def4") {
           this.playerStatusCheck(
@@ -1371,6 +1406,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.fourFourTwo.def.def4 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 4) {
+            this.playerList.hide();
+          }
           this.defLi = "";
         } else if (
           !this.defendersArray.includes(player.player_id) &&
@@ -1394,6 +1433,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.threeFiveTwo.def.def1 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 3) {
+            this.playerList.hide();
+          }
           this.defLi = "";
           // console.log(player);
         } else if (this.defLi === "def2") {
@@ -1405,6 +1448,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.threeFiveTwo.def.def2 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 3) {
+            this.playerList.hide();
+          }
           this.defLi = "";
         } else if (this.defLi === "def3") {
           this.playerStatusCheck(
@@ -1415,6 +1462,10 @@ export class LineupComponent implements OnInit {
             maxPlayers
           );
           this.playerObj.threeFiveTwo.def.def3 = player;
+          this.defendersArray.push(player.player_id);
+          if (this.defendersArray.length === 3) {
+            this.playerList.hide();
+          }
           this.defLi = "";
         } else if (
           !this.defendersArray.includes(player.player_id) &&
@@ -1947,15 +1998,15 @@ export class LineupComponent implements OnInit {
             this.playerList.hide();
           }
           this.mfLi = "";
+        } else if (!this.midfieldersArray.includes(player.player_id)) {
+          this.onPlayerListSelectFirst(
+            player,
+            playerIndex,
+            playerPosition,
+            playerType,
+            maxPlayers
+          );
         }
-      } else if (!this.midfieldersArray.includes(player.player_id)) {
-        this.onPlayerListSelectFirst(
-          player,
-          playerIndex,
-          playerPosition,
-          playerType,
-          maxPlayers
-        );
       }
     } else if (player.position === "FW") {
       if (this.formationSelected === "4-3-3") {
@@ -2291,14 +2342,17 @@ export class LineupComponent implements OnInit {
         }
         this.gkLi = "";
       } else if (!this.goalkeepersArray.includes(player.player_id)) {
-        this.onPlayerListSelectFirst(
-          player,
-          playerIndex,
-          playerPosition,
-          playerType,
-          maxPlayers
-        );
+        if (auto === "fromAuto") {
+          this.onPlayerListSelectFirst(
+            player,
+            playerIndex,
+            playerPosition,
+            playerType,
+            maxPlayers
+          );
+        }
         this.playerObj.fiveFourOne.gk.gk1 = player;
+        this.goalkeepersArray.push(player.player_id);
       }
     } else if (this.formationSelected === "4-4-2") {
       if (this.gkLi === "gk") {
@@ -2316,14 +2370,17 @@ export class LineupComponent implements OnInit {
         }
         this.gkLi = "";
       } else if (!this.goalkeepersArray.includes(player.player_id)) {
-        this.onPlayerListSelectFirst(
-          player,
-          playerIndex,
-          playerPosition,
-          playerType,
-          maxPlayers
-        );
+        if (auto === "fromAuto") {
+          this.onPlayerListSelectFirst(
+            player,
+            playerIndex,
+            playerPosition,
+            playerType,
+            maxPlayers
+          );
+        }
         this.playerObj.fourFourTwo.gk.gk1 = player;
+        this.goalkeepersArray.push(player.player_id);
       }
     } else if (this.formationSelected === "4-5-1") {
       if (this.gkLi === "gk") {
@@ -2341,14 +2398,17 @@ export class LineupComponent implements OnInit {
         }
         this.gkLi = "";
       } else if (!this.goalkeepersArray.includes(player.player_id)) {
-        this.onPlayerListSelectFirst(
-          player,
-          playerIndex,
-          playerPosition,
-          playerType,
-          maxPlayers
-        );
+        if (auto === "fromAuto") {
+          this.onPlayerListSelectFirst(
+            player,
+            playerIndex,
+            playerPosition,
+            playerType,
+            maxPlayers
+          );
+        }
         this.playerObj.fourFiveOne.gk.gk1 = player;
+        this.goalkeepersArray.push(player.player_id);
       }
     } else if (this.formationSelected === "5-3-2") {
       if (this.gkLi === "gk") {
@@ -2366,14 +2426,17 @@ export class LineupComponent implements OnInit {
         }
         this.gkLi = "";
       } else if (!this.goalkeepersArray.includes(player.player_id)) {
-        this.onPlayerListSelectFirst(
-          player,
-          playerIndex,
-          playerPosition,
-          playerType,
-          maxPlayers
-        );
-        this.playerObj.fourFiveOne.gk.gk1 = player;
+        if (auto === "fromAuto") {
+          this.onPlayerListSelectFirst(
+            player,
+            playerIndex,
+            playerPosition,
+            playerType,
+            maxPlayers
+          );
+        }
+        this.playerObj.fiveThreeTwo.gk.gk1 = player;
+        this.goalkeepersArray.push(player.player_id);
       }
     } else if (this.formationSelected === "3-5-2") {
       if (this.gkLi === "gk") {
@@ -2391,14 +2454,17 @@ export class LineupComponent implements OnInit {
         }
         this.gkLi = "";
       } else if (!this.goalkeepersArray.includes(player.player_id)) {
-        this.onPlayerListSelectFirst(
-          player,
-          playerIndex,
-          playerPosition,
-          playerType,
-          maxPlayers
-        );
-        this.playerObj.fourFiveOne.gk.gk1 = player;
+        if (auto === "fromAuto") {
+          this.onPlayerListSelectFirst(
+            player,
+            playerIndex,
+            playerPosition,
+            playerType,
+            maxPlayers
+          );
+        }
+        this.playerObj.threeFiveTwo.gk.gk1 = player;
+        this.goalkeepersArray.push(player.player_id);
       }
     } else if (this.formationSelected === "5-2-3") {
       if (this.gkLi === "gk") {
@@ -2416,14 +2482,17 @@ export class LineupComponent implements OnInit {
         }
         this.gkLi = "";
       } else if (!this.goalkeepersArray.includes(player.player_id)) {
-        this.onPlayerListSelectFirst(
-          player,
-          playerIndex,
-          playerPosition,
-          playerType,
-          maxPlayers
-        );
-        this.playerObj.fourFiveOne.gk.gk1 = player;
+        if (auto === "fromAuto") {
+          this.onPlayerListSelectFirst(
+            player,
+            playerIndex,
+            playerPosition,
+            playerType,
+            maxPlayers
+          );
+        }
+        this.playerObj.fiveTwoThree.gk.gk1 = player;
+        this.goalkeepersArray.push(player.player_id);
       }
     } else if (this.formationSelected === "3-4-3") {
       if (this.gkLi === "gk") {
@@ -2441,14 +2510,17 @@ export class LineupComponent implements OnInit {
         }
         this.gkLi = "";
       } else if (!this.goalkeepersArray.includes(player.player_id)) {
-        this.onPlayerListSelectFirst(
-          player,
-          playerIndex,
-          playerPosition,
-          playerType,
-          maxPlayers
-        );
-        this.playerObj.fourFiveOne.gk.gk1 = player;
+        if (auto === "fromAuto") {
+          this.onPlayerListSelectFirst(
+            player,
+            playerIndex,
+            playerPosition,
+            playerType,
+            maxPlayers
+          );
+        }
+        this.playerObj.threeFourThree.gk.gk1 = player;
+        this.goalkeepersArray.push(player.player_id);
       }
     }
   }
@@ -3091,7 +3163,7 @@ export class LineupComponent implements OnInit {
         response => {
           if (response.response_code === 200) {
             // console.log(this.selectedPlayerData);
-            // console.log(response);
+            //  console.log(response.data);
             this.lineupDetails = response.data.lineup_player;
             const used_salary_cap = response.data.lineup_salary;
             this.loadPlayers = false;
@@ -3615,6 +3687,199 @@ export class LineupComponent implements OnInit {
           } else if (formationtype === "fwd3") {
             // console.log(formationtype);
             this.playerObj.fourThreeThree.fwd.fwd3 = {} as Player;
+          }
+        }
+      } else if (this.formationSelected === "3-4-3") {
+        // console.log(formationtype);
+        if (playerType === "GK") {
+          this.playerObj.threeFourThree.gk.gk1 = {} as Player;
+          // this.goalkeepersArray = [];
+        } else if (playerType === "DF") {
+          if (formationtype === "def1") {
+            this.playerObj.threeFourThree.def.def1 = {} as Player;
+          } else if (formationtype === "def2") {
+            this.playerObj.threeFourThree.def.def2 = {} as Player;
+          } else if (formationtype === "def3") {
+            this.playerObj.threeFourThree.def.def3 = {} as Player;
+          }
+        } else if (playerType === "MF") {
+          if (formationtype === "mf1") {
+            this.playerObj.threeFourThree.mid.mid1 = {} as Player;
+          } else if (formationtype === "mf2") {
+            this.playerObj.threeFourThree.mid.mid2 = {} as Player;
+          } else if (formationtype === "mf3") {
+            this.playerObj.threeFourThree.mid.mid3 = {} as Player;
+          } else if (formationtype === "mf4") {
+            this.playerObj.threeFourThree.mid.mid4 = {} as Player;
+          }
+        } else if (playerType === "FW") {
+          if (formationtype === "fwd1") {
+            this.playerObj.threeFourThree.fwd.fwd1 = {} as Player;
+          } else if (formationtype === "fwd2") {
+            this.playerObj.threeFourThree.fwd.fwd2 = {} as Player;
+          } else if (formationtype === "fwd3") {
+            // console.log(formationtype);
+            this.playerObj.threeFourThree.fwd.fwd3 = {} as Player;
+          }
+        }
+      } else if (this.formationSelected === "4-4-2") {
+        // console.log(formationtype);
+        if (playerType === "GK") {
+          this.playerObj.fourFourTwo.gk.gk1 = {} as Player;
+          // this.goalkeepersArray = [];
+        } else if (playerType === "DF") {
+          if (formationtype === "def1") {
+            this.playerObj.fourFourTwo.def.def1 = {} as Player;
+          } else if (formationtype === "def2") {
+            this.playerObj.fourFourTwo.def.def2 = {} as Player;
+          } else if (formationtype === "def3") {
+            this.playerObj.fourFourTwo.def.def3 = {} as Player;
+          } else if (formationtype === "def4") {
+            this.playerObj.fourFourTwo.def.def4 = {} as Player;
+          }
+        } else if (playerType === "MF") {
+          if (formationtype === "mf1") {
+            this.playerObj.fourFourTwo.mid.mid1 = {} as Player;
+          } else if (formationtype === "mf2") {
+            this.playerObj.fourFourTwo.mid.mid2 = {} as Player;
+          } else if (formationtype === "mf3") {
+            this.playerObj.fourFourTwo.mid.mid3 = {} as Player;
+          } else if (formationtype === "mf4") {
+            this.playerObj.fourFourTwo.mid.mid4 = {} as Player;
+          }
+        } else if (playerType === "FW") {
+          if (formationtype === "fwd1") {
+            this.playerObj.fourFourTwo.fwd.fwd1 = {} as Player;
+          } else if (formationtype === "fwd2") {
+            this.playerObj.fourFourTwo.fwd.fwd2 = {} as Player;
+          }
+        }
+      } else if (this.formationSelected === "4-5-1") {
+        // console.log(formationtype);
+        if (playerType === "GK") {
+          this.playerObj.fourFiveOne.gk.gk1 = {} as Player;
+          // this.goalkeepersArray = [];
+        } else if (playerType === "DF") {
+          if (formationtype === "def1") {
+            this.playerObj.fourFiveOne.def.def1 = {} as Player;
+          } else if (formationtype === "def2") {
+            this.playerObj.fourFiveOne.def.def2 = {} as Player;
+          } else if (formationtype === "def3") {
+            this.playerObj.fourFiveOne.def.def3 = {} as Player;
+          } else if (formationtype === "def4") {
+            this.playerObj.fourFiveOne.def.def4 = {} as Player;
+          }
+        } else if (playerType === "MF") {
+          if (formationtype === "mf1") {
+            this.playerObj.fourFiveOne.mid.mid1 = {} as Player;
+          } else if (formationtype === "mf2") {
+            this.playerObj.fourFiveOne.mid.mid2 = {} as Player;
+          } else if (formationtype === "mf3") {
+            this.playerObj.fourFiveOne.mid.mid3 = {} as Player;
+          } else if (formationtype === "mf4") {
+            this.playerObj.fourFiveOne.mid.mid4 = {} as Player;
+          } else if (formationtype === "mf5") {
+            this.playerObj.fourFiveOne.mid.mid5 = {} as Player;
+          }
+        } else if (playerType === "FW") {
+          if (formationtype === "fwd1") {
+            this.playerObj.fourFiveOne.fwd.fwd1 = {} as Player;
+          }
+        }
+      } else if (this.formationSelected === "5-4-1") {
+        // console.log(formationtype);
+        if (playerType === "GK") {
+          this.playerObj.fiveFourOne.gk.gk1 = {} as Player;
+          // this.goalkeepersArray = [];
+        } else if (playerType === "DF") {
+          if (formationtype === "def1") {
+            this.playerObj.fiveFourOne.def.def1 = {} as Player;
+          } else if (formationtype === "def2") {
+            this.playerObj.fiveFourOne.def.def2 = {} as Player;
+          } else if (formationtype === "def3") {
+            this.playerObj.fiveFourOne.def.def3 = {} as Player;
+          } else if (formationtype === "def4") {
+            this.playerObj.fiveFourOne.def.def4 = {} as Player;
+          } else if (formationtype === "def5") {
+            this.playerObj.fiveFourOne.def.def5 = {} as Player;
+          }
+        } else if (playerType === "MF") {
+          if (formationtype === "mf1") {
+            this.playerObj.fiveFourOne.mid.mid1 = {} as Player;
+          } else if (formationtype === "mf2") {
+            this.playerObj.fiveFourOne.mid.mid2 = {} as Player;
+          } else if (formationtype === "mf3") {
+            this.playerObj.fiveFourOne.mid.mid3 = {} as Player;
+          } else if (formationtype === "mf4") {
+            this.playerObj.fiveFourOne.mid.mid4 = {} as Player;
+          }
+        } else if (playerType === "FW") {
+          if (formationtype === "fwd1") {
+            this.playerObj.fiveFourOne.fwd.fwd1 = {} as Player;
+          }
+        }
+      } else if (this.formationSelected === "5-3-2") {
+        // console.log(formationtype);
+        if (playerType === "GK") {
+          this.playerObj.fiveThreeTwo.gk.gk1 = {} as Player;
+          // this.goalkeepersArray = [];
+        } else if (playerType === "DF") {
+          if (formationtype === "def1") {
+            this.playerObj.fiveThreeTwo.def.def1 = {} as Player;
+          } else if (formationtype === "def2") {
+            this.playerObj.fiveThreeTwo.def.def2 = {} as Player;
+          } else if (formationtype === "def3") {
+            this.playerObj.fiveThreeTwo.def.def3 = {} as Player;
+          } else if (formationtype === "def4") {
+            this.playerObj.fiveThreeTwo.def.def4 = {} as Player;
+          } else if (formationtype === "def5") {
+            this.playerObj.fiveThreeTwo.def.def5 = {} as Player;
+          }
+        } else if (playerType === "MF") {
+          if (formationtype === "mf1") {
+            this.playerObj.fiveThreeTwo.mid.mid1 = {} as Player;
+          } else if (formationtype === "mf2") {
+            this.playerObj.fiveThreeTwo.mid.mid2 = {} as Player;
+          } else if (formationtype === "mf3") {
+            this.playerObj.fiveThreeTwo.mid.mid3 = {} as Player;
+          }
+        } else if (playerType === "FW") {
+          if (formationtype === "fwd1") {
+            this.playerObj.fiveThreeTwo.fwd.fwd1 = {} as Player;
+          } else if (formationtype === "fwd2") {
+            this.playerObj.fiveThreeTwo.fwd.fwd2 = {} as Player;
+          }
+        }
+      } else if (this.formationSelected === "3-5-2") {
+        // console.log(formationtype);
+        if (playerType === "GK") {
+          this.playerObj.threeFiveTwo.gk.gk1 = {} as Player;
+          // this.goalkeepersArray = [];
+        } else if (playerType === "DF") {
+          if (formationtype === "def1") {
+            this.playerObj.threeFiveTwo.def.def1 = {} as Player;
+          } else if (formationtype === "def2") {
+            this.playerObj.threeFiveTwo.def.def2 = {} as Player;
+          } else if (formationtype === "def3") {
+            this.playerObj.threeFiveTwo.def.def3 = {} as Player;
+          }
+        } else if (playerType === "MF") {
+          if (formationtype === "mf1") {
+            this.playerObj.threeFiveTwo.mid.mid1 = {} as Player;
+          } else if (formationtype === "mf2") {
+            this.playerObj.threeFiveTwo.mid.mid2 = {} as Player;
+          } else if (formationtype === "mf3") {
+            this.playerObj.threeFiveTwo.mid.mid3 = {} as Player;
+          } else if (formationtype === "mf4") {
+            this.playerObj.threeFiveTwo.mid.mid4 = {} as Player;
+          } else if (formationtype === "mf5") {
+            this.playerObj.threeFiveTwo.mid.mid5 = {} as Player;
+          }
+        } else if (playerType === "FW") {
+          if (formationtype === "fwd1") {
+            this.playerObj.threeFiveTwo.fwd.fwd1 = {} as Player;
+          } else if (formationtype === "fwd2") {
+            this.playerObj.threeFiveTwo.fwd.fwd2 = {} as Player;
           }
         }
       }
@@ -4178,7 +4443,7 @@ export class LineupComponent implements OnInit {
                     Object.entries(this.playerObj["fourFourTwo"][position][def])
                       .length === 0
                   ) {
-                    // console.log('inside 00000000000');
+                    // console.log(this.defendersArray);
                     if (this.defendersArray.length < 4) {
                       this.playerStatusCheck(
                         player.player_id,
@@ -4187,9 +4452,9 @@ export class LineupComponent implements OnInit {
                         playerType,
                         maxPlayers
                       );
-                      this.playerObj["fourFourTwo"][position][def] = player;
+                      this.playerObj[formation][position][def] = player;
                       this.defendersArray.push(player.player_id);
-                      // console.log(this.defendersArray);
+                      // console.log(this.defendersArray.length);
                       if (this.defendersArray.length === 4) {
                         if (this.deviceService.isMobile()) {
                           this.playerList.hide();
@@ -4216,7 +4481,7 @@ export class LineupComponent implements OnInit {
                     Object.entries(this.playerObj["fourFourTwo"][position][mid])
                       .length === 0
                   ) {
-                    if (this.midfieldersArray.length < 5) {
+                    if (this.midfieldersArray.length < 4) {
                       this.playerStatusCheck(
                         player.player_id,
                         playerIndex,
@@ -4227,7 +4492,7 @@ export class LineupComponent implements OnInit {
                       this.playerObj[formation][position][mid] = player;
                       this.midfieldersArray.push(player.player_id);
                       // console.log(this.midfieldersArray);
-                      if (this.midfieldersArray.length === 5) {
+                      if (this.midfieldersArray.length === 4) {
                         if (this.deviceService.isMobile()) {
                           this.playerList.hide();
                           break;
@@ -4251,7 +4516,7 @@ export class LineupComponent implements OnInit {
                     Object.entries(this.playerObj["fourFourTwo"]["fwd"][fwd])
                       .length === 0
                   ) {
-                    if (this.forwardsArray.length === 0) {
+                    if (this.forwardsArray.length < 2) {
                       this.playerStatusCheck(
                         player.player_id,
                         playerIndex,
@@ -4262,12 +4527,12 @@ export class LineupComponent implements OnInit {
                       this.playerObj["fourFourTwo"]["fwd"][fwd] = player;
                       this.forwardsArray.push(player.player_id);
                       // console.log(this.forwardsArray);
-                      // if (this.forwardsArray.length === 3) {
-                      if (this.deviceService.isMobile()) {
-                        this.playerList.hide();
-                        break;
+                      if (this.forwardsArray.length === 2) {
+                        if (this.deviceService.isMobile()) {
+                          this.playerList.hide();
+                          break;
+                        }
                       }
-                      // }
                       break;
                     }
                   }
@@ -4685,6 +4950,7 @@ export class LineupComponent implements OnInit {
                     ).length === 0
                   ) {
                     if (this.midfieldersArray.length < 5) {
+                      // console.log("working....");
                       this.playerStatusCheck(
                         player.player_id,
                         playerIndex,
