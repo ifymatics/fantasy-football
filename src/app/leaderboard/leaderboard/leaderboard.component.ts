@@ -2,6 +2,7 @@ import { AuthloginService } from 'src/app/user/authlogin.service';
 import { UtilityService } from './../../utility.service';
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
@@ -21,7 +22,7 @@ export class LeaderboardComponent implements OnInit {
  OwnLeaderboard;
  state_params     = {};
  selectedSport;
- LeagueList;
+ LeagueList: League[];
  League;
  duration;
  selectedLeague;
@@ -57,7 +58,7 @@ export class LeaderboardComponent implements OnInit {
       (response) => {
       response = response.data;
       this.LeagueList = response.league_list;
-      console.log(response);
+      console.log(response, this.LeagueList[0]);
          this.League = (this.LeagueList.length) ? this.LeagueList[0] : {};
 
          /*$rootScope.league_detail = this.League;

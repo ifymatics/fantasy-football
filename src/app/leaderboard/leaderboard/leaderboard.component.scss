@@ -98,12 +98,11 @@ border-radius: 5px 5px 0 0;
 #leagueName {
 background: #f4f4f4;
 max-width: 100%;
-max-height: 57px;
 overflow-y: hidden;
 
 @include for-xs {
-  white-space: nowrap;
-overflow-x: scroll;
+  //white-space: nowrap;
+//overflow-x: scroll;
 }
 @include for-md {
 overflow-x: auto;
@@ -112,23 +111,29 @@ overflow-x: auto;
 
 ul {
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-column-gap: 29px;
+  min-height: 40px;
+  // display: grid;
+  // grid-template-columns: repeat(10, 1fr);
+  // grid-column-gap: 29px;
+  position: relative;
   padding-top: 10px;
   padding-inline-start: 10px;
   z-index: 1;
   margin-bottom: none;
+  padding-left: 0px;
 
-  @include for-md {
+  /* @include for-md {
     grid-column-gap: 15px;
-  }
+  } */
 
 
   li {
-    display: table-cell;
+    // display: table-cell;
+    float: left;
+    position: relative;
+    display: block;
+    margin-bottom: -1px;
     padding-right: 20px;
-    padding-left: 20px;
 
     @include for-lg {
       padding-left: 15px;
@@ -159,20 +164,21 @@ ul {
 
   }
 
-  li:hover {
-      a {
-          color: #419bf9;
-      }
-  }
+ 
+ li:hover {
+  a {
+    color: #419bf9;
+}
+}
 
-  li.active {
-      a {
-          color: #419bf9;
-          background: transparent;
-          border-color: transparent;
-          border-bottom: solid 4px #419bf9;
-      }
+li.active {
+  a {
+      color: #419bf9;
+      background: transparent;
+      border-color: transparent;
+      border-bottom: solid 4px #419bf9;
   }
+}
 }
 }
 

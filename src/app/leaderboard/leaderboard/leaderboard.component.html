@@ -15,9 +15,11 @@
         <div class="col-12">
           <div id="tableContainer">
             <div id="leagueName">
-              <ul class="nav">
-                <li class="active" (click) = "  class =!class" [ngClass]="{ active: class}"><a>EPL</a></li>
-                <li class="active" (click) = " classa = !classa" [ngClass]="{ active:classa}"><a>Laliga</a></li>
+              <ul class="nav"  >
+                  
+              
+                  <app-single-leaderboard *ngFor="let league of LeagueList" [leag] = "league"></app-single-leaderboard>
+              <!--</li>-->
 
               </ul>
             </div>
