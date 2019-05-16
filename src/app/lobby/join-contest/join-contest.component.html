@@ -649,6 +649,7 @@
                   *ngIf="contest.is_referral != 1"
                 >
                   <button
+                  [disabled] = "joinButtonDisabled && contest.contest_id === contestId"
                     *ngIf="
                       (contest.multiple_lineup == 0 ||
                         contest.user_joined_count == 0) &&
@@ -661,10 +662,12 @@
                     contest.user_joined_count == 0) &&
                   contest.is_quick_contest == 0 &&
                   contest.contest_access_type == 0 }"
-                    class="blue white-text mdbWavesEffect waves-light relative btn-sm"
+                    class="blue white-text mdbWavesEffect waves-light relative joinBtn mx-auto"
                     (click)="checkUserSubscription(contest, '', 'normal_contest')"
                   >
                     {{ contest.user_join_count > 0 ? "REJOIN" : "JOIN" }}
+
+                    <div *ngIf="joinButtonclicked && contest.contest_id === contestId" class="spinner1"></div>
                   </button>
                   <button
                     *ngIf="
@@ -767,9 +770,11 @@
                       mdbBtn
                       mdbWavesEffect
                       (click)="fromFirstThingsModal()"
-                      class="relative waves-light primary-color py-1 px-3 float-right"
+                      class="relative waves-light primary-color py-1 px-3 float-right d-flex"
                     >
                       Create Team
+
+                      <div *ngIf="firstThingClicked" class="spinner1"></div>
                     </button>
                   </div>
                 </div>

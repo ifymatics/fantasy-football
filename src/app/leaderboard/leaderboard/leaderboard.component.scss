@@ -121,6 +121,7 @@ ul {
   z-index: 1;
   margin-bottom: none;
   padding-left: 0px;
+  box-shadow: 0px 2px 1px rgba(0,0,0,0.1);
 
   /* @include for-md {
     grid-column-gap: 15px;
@@ -142,8 +143,9 @@ ul {
 
     a {
       color: #333;
+      font-size: 12px;
       font-family: "RobotoMedium";
-      font-weight: normal;
+      font-weight: bold;
       background: transparent;
       border-color: transparent;
       border-top-color: transparent;
@@ -268,6 +270,13 @@ height: 552px;
 }
 #leaderboardTable {
 width: 100%;
+
+th {
+  span, a {
+    color: #868686;
+    font-size: 12px;
+  }
+}
 
 
 td:nth-child(3), td:nth-child(4), th:nth-child(3), th:nth-child(4) {

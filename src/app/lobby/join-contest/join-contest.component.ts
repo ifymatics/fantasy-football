@@ -25,6 +25,12 @@ export class JoinContestComponent implements OnInit {
 
   // collectionMasterId;
   mobile;
+  joinButtonclicked = false;
+  firstThingClicked = false;
+  contestId = '';
+  ButtonDisabled = false;
+  joinButtonDisabled = false;
+  autodisabled = false;
   clickedIndex: number;
   isLoading = false;
   showReload = false;
@@ -377,9 +383,12 @@ checkProfileComplete() {
 }
 
 checkUserSubscription(contest, string, contestType) {
-  this.onAnimate = true;
+  this.joinButtonclicked = true;
+  this.contestId = contest.contest_id;
+  this.joinButtonDisabled = true;
+ // this.onAnimate = true;
  // console.log(this.onAnimate);
-  // console.log(contest, string, contestType);
+ console.log(contest);
   this.toJoinContest = contest;
   /*----------*/
   // check if the user has enough cash to join OR if he paid the subscription
@@ -391,6 +400,7 @@ this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
 .subscribe(
   (response) => {
  if (response.response_code === 200) {
+  
    // console.log(response);
    const user_balance =  response.data.user_balance,
       point_balance = parseFloat(user_balance.point_balance),
@@ -408,7 +418,7 @@ this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
        } else if (contestType === 'featured_contest') {
          //  this.joinFeaturedGame(contest, lineupList);
        }
- }
+ } else { this.joinButtonDisabled = false;  this.contestId = '';}
 });
   /*-----------*/
  //  this.joinContest(contest);
@@ -428,6 +438,8 @@ subscribe((response) => {
        this.lineupList = response['data'];
       //  console.log(this.lineupList);
         if (this.lineupList.length === 0) {
+          this.joinButtonclicked = false;
+          this.contestId = '';
             // firstThingsModal(this.selectedCollection, false, contest)
             this.firstThingsModal.show();
         } else {
@@ -435,6 +447,8 @@ subscribe((response) => {
         }
      }
 }, (error) => {
+  this.joinButtonclicked = false;
+  this.contestId = '';
     // alert(error.global_error);
     if (error['error']['global_error'] === 'Session key has expired') {
       this.message = error['error']['global_error'];
@@ -444,7 +458,9 @@ subscribe((response) => {
 }
 
 fromFirstThingsModal() {
-  this.onCreateTeamAnimate = true;
+  this.ButtonDisabled = true;
+  this.firstThingClicked = true;
+  // this.onCreateTeamAnimate = true;
     // this.service.interComponetsTalks(this.lineupList, 'lineup');
    // console.log('its working');
    /*const contest = [];

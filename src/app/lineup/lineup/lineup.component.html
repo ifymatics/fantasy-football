@@ -436,8 +436,8 @@
               >
                 Clear
               </button>
-              <button
-                class="waves-light relative ml-auto black-text btn1"
+              <button [disabled] = "autodisabled"
+                class="waves-light relative ml-auto black-text btn1 spinnerBtn d-flex"
                 color="yellow"
                 size="sm"
                 mdbBtn
@@ -446,6 +446,8 @@
                 [ngClass]="{ 'animated bounceIn': onAnimate }"
               >
                 Auto Pick
+
+                <div *ngIf="autodisabled" class="spinner1"></div>
               </button>
             </div>
           </div>

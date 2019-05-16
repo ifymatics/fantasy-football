@@ -1,6 +1,6 @@
 import { AuthloginService } from 'src/app/user/authlogin.service';
 import { UtilityService } from './../../utility.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , AfterContentInit} from '@angular/core';
 
 
 @Component({
@@ -10,14 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeaderboardComponent implements OnInit {
   class = false;
-  classa = false;
+  active = '';
   mobile = false;
+  maLeague;
+  managerId = '';
  posting          = false;
  emptyScreen      = false;
  initFlag  = true;
  session = '';
  currentUser ;
  selectedLeagueId = '';
+ arrayIndex = -1;
  leaderboardList;
  OwnLeaderboard;
  state_params     = {};
@@ -49,6 +52,14 @@ export class LeaderboardComponent implements OnInit {
     this.getLeaderboardData();
     }
   }
+  // ngAfterContentInit(): void {
+  //   // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+  //   // Add 'implements AfterViewInit' to the class.
+  //   setTimeout(() => {
+  //     this.getLeaderboardList(this.maLeague, '', true) ;
+  //     console.log(this.maLeague);
+  // }, 5000); 
+  // }
   getLeaderboardData() {
     const param = {
       'sports_id' : 5 // this.selectedSport.sports_id
@@ -60,7 +71,7 @@ export class LeaderboardComponent implements OnInit {
       this.LeagueList = response.league_list;
       console.log(response, this.LeagueList[0]);
          this.League = (this.LeagueList.length) ? this.LeagueList[0] : {};
-
+         console.log(this.League);
          /*$rootScope.league_detail = this.League;
          $rootScope.league_detail = {'background_image':''};*/
       this.duration = response.duration;
@@ -117,8 +128,17 @@ sortEvent(sort_field, league, Duration) {
 
   this.callLeaderboardList(param);
 }
-toggleContestInfo() {}
+toggleContestInfo(ownboard) {
+  this.managerId = '';
+  this.managerId = ownboard.user_id;
+  this.mobile = !this.mobile;
+// console.log(ownboard);
+}
 
 
-
+onClick(index) {
+  // console.log(index);
+  this.active = 'active';
+  this.arrayIndex = index;
+}
 }

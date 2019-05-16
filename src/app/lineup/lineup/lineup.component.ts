@@ -69,6 +69,7 @@ export class LineupComponent implements OnInit {
   searchBoxForm;
   message;
   inits;
+  autodisabled = false;
   defendersArray = [];
   midfieldersArray = [];
   forwardsArray = [];
@@ -3256,6 +3257,7 @@ export class LineupComponent implements OnInit {
     this.calculateSalaryCap(used_salary_cap, "editOnload"); // Calculate salary cap
   }
   getAutoPickData = function() {
+    this.autodisabled = true;
     this.isLoading = true;
     // if add lineup and all players are selected then blank selected players for random records.
     if (this.lineupPage === "add" && this.selectedPlayerData.length === 11) {
@@ -3284,6 +3286,7 @@ export class LineupComponent implements OnInit {
       .subscribe(
         response => {
           if (response.response_code === 200) {
+            this.autodisabled = false;
             // console.log(this.selectedPlayerData);
             //  console.log(response.data);
             this.lineupDetails = response.data.lineup_player;
@@ -3301,6 +3304,8 @@ export class LineupComponent implements OnInit {
           }
         },
         error => {
+         this.isLoading = false;
+         this.autodisabled = false;
           if (error["error"]["global_error"] === "Session key has expired") {
             this.message = error["error"]["global_error"];
             this.router.navigate(["/"]);

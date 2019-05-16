@@ -2398,7 +2398,7 @@ ul li .block .jersy .player-remove:after {
   padding: 0;
 
   @include for-portrait-phone-only {
-    width: 80px;
+    width: 90px;
     padding: 0;
   }
 }
@@ -2693,6 +2693,23 @@ label {
   left: 50%;
   position:absolute;
 }
+
+button.spinnerBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+
+.spinner1 {
+  border: 3px solid #fff;
+  border-top: 3px solid #387ab7;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: spin 700ms linear infinite;
+  margin-left: 5px;
+}
+
 @keyframes spin {
   0% {transform: rotate(0deg)}
   100% {transform: rotate(360deg)}
