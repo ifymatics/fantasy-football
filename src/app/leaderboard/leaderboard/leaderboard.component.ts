@@ -1,6 +1,7 @@
 import { AuthloginService } from 'src/app/user/authlogin.service';
 import { UtilityService } from './../../utility.service';
-import { Component, OnInit , AfterContentInit} from '@angular/core';
+import { Component, OnInit , AfterViewInit} from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -52,13 +53,13 @@ export class LeaderboardComponent implements OnInit {
     this.getLeaderboardData();
     }
   }
-  // ngAfterContentInit(): void {
+  // ngAfterViewInit(): void {
   //   // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
   //   // Add 'implements AfterViewInit' to the class.
   //   setTimeout(() => {
   //     this.getLeaderboardList(this.maLeague, '', true) ;
   //     console.log(this.maLeague);
-  // }, 5000); 
+  // }, 5000);
   // }
   getLeaderboardData() {
     const param = {
@@ -69,9 +70,10 @@ export class LeaderboardComponent implements OnInit {
       (response) => {
       response = response.data;
       this.LeagueList = response.league_list;
-      console.log(response, this.LeagueList[0]);
+     // console.log(response, this.LeagueList[0]);
          this.League = (this.LeagueList.length) ? this.LeagueList[0] : {};
-         console.log(this.League);
+         this.getLeaderboardList(this.League, '', true);
+         // console.log(this.League);
          /*$rootScope.league_detail = this.League;
          $rootScope.league_detail = {'background_image':''};*/
       this.duration = response.duration;
@@ -81,7 +83,7 @@ export class LeaderboardComponent implements OnInit {
   }
   getLeaderboardList(league, Duration, init) {
     const param = {
-            'league_id' : league.league_id,
+            'league_id' : this.League.league_id,
             'duration'  : Duration || '',
             'sort_field': this.sort.sort_field,
             'sort_order': this.sort.sort_order

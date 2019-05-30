@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="main" [ngStyle]="{'background': 'url('+league_detail.background_image+') 0px 0px fixed'}" 
+<div class="main" [ngStyle]="{'background': 'url('+League?.background_image+') 0px 0px fixed'}" 
 >
 
 
@@ -21,7 +21,8 @@
               <ul class="nav"  >
                 <li *ngFor="let league of LeagueList; let leagueIndex = index;" class= "{{leagueIndex == arrayIndex?active:''}}" >
                   <a *ngIf="league.show_global_leaderboard == 1" (click)=" onClick(leagueIndex)">{{league.league_abbr}} </a>
-                  <span *ngIf="league.show_global_leaderboard == 1 ? getLeaderboardList(league, '', true) : null"></span>
+                 <!--<span *ngIf="league.show_global_leaderboard == 1 ? getLeaderboardList(league, '', true) : null"></span>-->
+                  <form ><input [(ngModel)]="League" [ngModelOptions]="{standalone: true}" type="text" [value] = "league" hidden></form>
                 </li>
               
                    <!--<app-single-leaderboard *ngFor="let league of LeagueList" [leag] = "league"></app-single-leaderboard>-->
@@ -41,9 +42,9 @@
                       <span >Username</span>
                     </th>
 
-                    <th class="px-3"><a (click)="sortEvent('total_score', selectedLeague, DurationID)">Fantasy Points</a></th>
+                    <th class="px-3"><a (click)="sortEvent('total_score', selectedLeague, 'DurationID')">Fantasy Points</a></th>
 
-                    <th class="px-3"><a (click)="sortEvent('winning_avg', selectedLeague, DurationID)">Winnings</a></th>
+                    <th class="px-3"><a (click)="sortEvent('winning_avg', selectedLeague,' DurationID')">Winnings</a></th>
                   </tr>
                 </thead>
                 <tbody>

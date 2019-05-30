@@ -188,7 +188,7 @@ export class CompletedComponent implements OnInit {
     this.btn = true;
     this.checkContest_id.push(league.contest_id);
     // console.log(lineup.lineup_master_id);
-    console.log(this.OnViewSelect.selectedlineu_id);
+   // console.log(this.OnViewSelect.selectedlineu_id);
     this.totalUserJoined = league ? league.total_user_joined : 0;
     this.selectedLineupMasterContetId = lineup.lineup_master_contest_id;
     // this.teamInfo                = {is_turbo_lineup: 0};
@@ -271,7 +271,7 @@ export class CompletedComponent implements OnInit {
       );
   }
   onView(lineup_master_id, contest_id, collection) {
-    console.log(lineup_master_id, contest_id, collection);
+   // console.log(lineup_master_id, contest_id, collection);
     // this.Leagueservice.getContestDataOnviewNavigate(collection);
     this.utilityservice.checkLocalStorageStatus("collection")
       ? this.utilityservice.clearLocalStorage("collection")

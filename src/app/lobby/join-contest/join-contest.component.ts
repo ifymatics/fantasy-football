@@ -386,15 +386,45 @@ checkUserSubscription(contest, string, contestType) {
   this.joinButtonclicked = true;
   this.contestId = contest.contest_id;
   this.joinButtonDisabled = true;
- // this.onAnimate = true;
- // console.log(this.onAnimate);
- console.log(contest);
+
+ // console.log(contest);
   this.toJoinContest = contest;
-  /*----------*/
-  // check if the user has enough cash to join OR if he paid the subscription
   const param = {
+    'league_id': '',
+    'sub_amt': 0,
     'user_id': this.currentUser.user_id
    };
+  // check if the user has enough cash to join OR if he paid the subscription
+   if (contest.contest_access_type === 2) {
+    param.league_id = contest.league_id;
+   this.service.api('user/finance/get_user_subscribed', param, 'POST', this.session)
+   .subscribe( (response) => {
+      if (response.response_code === 200) {
+        const  subscribed_data = response.data;
+        this.joinContest(contest);
+        } else if (response.response_code === 'NOT SUBSCRIBED') {
+         param.sub_amt = 250;
+            const txt = "THE SUBSCRIPTION FEE WILL BE DEDUCTED FROM YOUR ACCOUNT BALANCE IF YOU HAVE ENOUGH CASH?";
+            if (confirm(txt)) {
+              this.service.api('user/finance/get_user_balance_checker', param,'POST', this.session)
+               .subscribe((res) =>  {
+                 if (res.response_code === 'NOBALANCE') {
+                    // notSubscribedInit(contest);
+                 } else {
+                  this.joinContest(contest);
+                  }
+               },
+               (error) => {
+                 console.log(error);
+              });
+              } else {
+             // notSubscribedInit(contest);
+               }
+       }
+   });
+  }
+   // end of subscription check
+ 
 
 this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
 .subscribe(
@@ -613,6 +643,13 @@ this.service.api('fantasy/contest/join_game', param, 'POST', this.session)
       this.featuredContestList[featuredConIndex].total_user_joined+1;
   }
   alert(response.message);
+  this.router.navigate([
+    "/" +
+      this.sports_id +
+      "/" +
+      this.league.league_id +
+      "/my-league"
+  ]);
  //  $rootScope.joinContestSuccessModalInit(response.message); //Success modal init
 
 }, (error) => {

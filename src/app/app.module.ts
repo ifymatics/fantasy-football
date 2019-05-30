@@ -1,6 +1,4 @@
 import { MomentModule } from 'ngx-moment';
-import { InitsDirective } from './inits.directive';
-import { HomeComponent } from './home/home/home.component';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './home/header/header.component';
 import { LeagueModule } from './league/league.module';
@@ -14,6 +12,9 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -26,6 +27,10 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
     AppRoutingModule,
     RouterModule,
     MDBBootstrapModule.forRoot(),
+     /* for firebase */
+     // AngularFireModule.initializeApp(environment.firebase),
+     // AngularFirestoreModule,
+     /*end of for firebase */
     HomeModule,
     // UserModule,
     ReactiveFormsModule,

@@ -24,6 +24,7 @@ export class UpcomingComponent implements OnInit, AfterViewInit {
   isDisabled = false;
   showNoPitch = false;
   collections;
+  lineupFormation = '';
   @Input() lineupDetails;
   isPopulated = false;
   mobileToggle = false;
@@ -384,6 +385,8 @@ this.isLoading = true;
                            formation = '5-3-2';
                           // this.utilityservice.setLocalStorage('formation', formation);
                              }
+                             this.lineupFormation = formation;
+                             console.log(this.lineupFormation);
                      this.utilityservice.setLocalStorage('formation', formation);
 
       } else {
@@ -422,7 +425,7 @@ resetSubsTituteParams() {
      this.utilityservice.clearLocalStorage('private_games');
      this.utilityservice.clearLocalStorage('lineupDetails');
    }
-  this.utilityservice.setLocalStorage('private_game', this.selectedLeague);
+  this.utilityservice.setLocalStorage('private_games', this.selectedLeague);
   this.utilityservice.setLocalStorage('lineupDetails', this.lineupDetails);
  // console.log(league);
  // console.log(this.lineupDetails);

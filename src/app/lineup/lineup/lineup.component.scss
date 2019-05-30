@@ -66,31 +66,31 @@
 /* Player Positions */
 
 /* Forward */
-$forwardPosition-portrait-phone: -7.5%;
+$forwardPosition-portrait-phone: -5.5%;
 $forwardPosition-landscape-phone: -3.5%;
-$forwardPosition-portrait-tablet-and-ipad: -4.5%;
-$forwardPosition-lg: -5.5%;
+$forwardPosition-portrait-tablet-and-ipad: -2.5%;
+$forwardPosition-lg: -1%;
 
 /* Midfield */
 $midfieldPosition-xs-phone: 20.5%;
-$midfieldPosition-portrait-phone: 21.5%;
+$midfieldPosition-portrait-phone: 22.5%;
 $midfieldPosition-landscape-phone: 21%;
-$midfieldPosition-portrait-tablet-and-ipad: 22.5%;
-$midfieldPosition-lg: 22%;
+$midfieldPosition-portrait-tablet-and-ipad: 24.5%;
+$midfieldPosition-lg: 25%;
 
 /* Defence */
 $defencePosition-xs-phone: 45%;
 $defencePosition-portrait-phone: 46%;
 $defencePosition-landscape-phone: 49%;
-$defencePosition-portrait-tablet-and-ipad: 47%;
-$defencePosition-lg: 45%;
+$defencePosition-portrait-tablet-and-ipad: 49%;
+$defencePosition-lg: 48%;
 
 /* Goalie */
 $goaliePosition-xs-phone: 67%;
-$goaliePosition-portrait-phone: 70.5%;
+$goaliePosition-portrait-phone: 68.5%;
 $goaliePosition-landscape-phone: 72%;
-$goaliePosition-portrait-tablet-and-ipad: 69%;
-$goaliePosition-lg: 68%;
+$goaliePosition-portrait-tablet-and-ipad: 71%;
+$goaliePosition-lg: 71%;
 /* /Player Positions */
 
 $sm: 540px;
@@ -874,6 +874,13 @@ a#dropdownlink {
   } */
 
 
+  /* ul {
+
+    li {
+      width: 90px;
+    }
+    
+  } */
 }
 
 
@@ -910,7 +917,8 @@ a#dropdownlink {
     top: -15%;
   }
 }
-#leftAd {
+#leftAdContainer {
+  width: 100%;
   position: relative;
   left: 60px;
   top: 7px;
@@ -976,34 +984,19 @@ a#dropdownlink {
     height: 40px;
     width: 100%px;
   }
-  img {
-    width: 100px;
-    height: 40px;
-    @include for-portrait-phone-only {
-      height: 30px;
-      width: 100%;
-    }
-    @include for-landscape-phone-only {
-      height: 40px;
-      width: 100%;
-    }
-    @include for-portrait-tablet-and-ipad-only {
-      height: 40px;
-      width: 100%;
-    }
-    @include for-lg {
-      height: 40px;
-      width: 100%;
-    }
-    @include for-landscape-tablet-and-ipads-only {
-      height: 40px;
-      width: 100%;
-    }
-    @include for-laptop-and-desktop-only {
-      height: 40px;
-      width: 100%;
-    }
+  
+  .leftAd {
+    background-position: center;
+    background-size: 78%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
   }
+
+  .leftAd.mdScreen {
+    background-size: 64%;
+  }
+  /* Left ad ends */
 }
 
 #leftAdShadow {
@@ -1044,7 +1037,8 @@ clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
   }
 
 }
-#rightAd {
+#rightAdContainer {
+  width: 100%;
   position: relative;
   right: 60px;
   top: 7px;
@@ -1114,36 +1108,22 @@ clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
       width: 100%;
     }
 
-  img {
-    width: 100px;
-    height: 40px;
-    @include for-portrait-phone-only {
-      height: 30px;
-      /* width: 100px; */
+    /* Right Ad starts */
+    .rightAd {
+      background-position: center;
+      background-size: 82%;
+      background-repeat: no-repeat;
       width: 100%;
-    }
-    @include for-landscape-phone-only {
-      height: 40px;
-      width: 100%;
+      height: 100%;
     }
 
-    @include for-portrait-tablet-and-ipad-only {
-      height: 40px;
-      width: 100%;
+    .rightAd.mdScreen {
+      background-size: 44%;
     }
-    @include for-lg {
-      height: 40px;
-      width: 100%;
+    .rightAd.lgScreen {
+      background-size: 48%;
     }
-    @include for-landscape-tablet-and-ipads-only {
-      height: 40px;
-      width: 100%;
-    }
-    @include for-laptop-and-desktop-only {
-      height: 40px;
-      width: 100%;
-    }
-  }
+    /* Right ad ends */
 }
 
 #rightAdShadow {
@@ -1197,6 +1177,23 @@ clip-path: polygon(100% 65%, 100% -5%, 0% 28%, 5% 98%);
   }
 
 }
+
+/* Sponsor's Logo starts */
+.sponsorLogo {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  transform: rotateX(43deg);
+  opacity: 0.5;
+  width: 80%;
+  height: 60%;
+}
+
+.sponsorLogo.mdScreen {
+  left: 22%;
+  width: 60%;
+}
+/* Sponsor's Logo ends */
 
 /*********************************************************
 **********************************************************
@@ -1316,6 +1313,10 @@ ul.goalie {
   /* height: 42px;
   width: 47px; */
   margin-bottom: 2px;
+  width: 69.92px;
+  margin: 0 auto;
+
+  
 
 
   img {
@@ -1323,10 +1324,11 @@ ul.goalie {
     height: 40px;
     z-index: 1;
     position: relative;
+    
 
     @include for-portrait-phone-only {
-      width: 60px;
-      height: 50px;
+      width: 45px;
+      height: 45px;
     }
 
     @include for-landscape-phone-only {
@@ -1339,8 +1341,8 @@ ul.goalie {
       height: 70px;
     }
     @include for-laptop-and-desktop-only {
-      width: 80px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
     }
     /* right: 2px;
     top: -20px; */
@@ -1505,10 +1507,16 @@ ul.FW-5-3-2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 5px;
+  /* margin: 0 auto 43px; */
   justify-items: center;
   /* margin-right: 20px;
   margin-left: -20px; */
   padding-left: 0;
+
+  /* @include for-lg {
+    margin-right: 70px;
+    margin-left: 30px;
+  } */
 
 
 
@@ -1518,6 +1526,34 @@ ul.FW-5-3-2 {
     vertical-align: center;
     text-align: center;
   }
+
+
+  li:first-child {
+    justify-self: flex-end;
+    padding-right: 8%;
+
+    @include for-md {
+      padding-right: 16%;
+    }
+
+    @include for-lg {
+      padding-right: 16.5%;
+    }
+  }
+  li:last-child {
+    justify-self: flex-start;
+    padding-left: 8%;
+
+    @include for-md {
+      padding-left: 16%;
+    }
+
+    @include for-lg {
+      padding-left: 15%;
+    }
+  }
+
+
 }
 ul.Mid-5-3-2 {
   list-style: none;
@@ -1566,7 +1602,7 @@ ul.FW-5-2-3 {
 
   li {
     display: inline-block;
-    padding: 0 35px;
+    padding: 0 5px;
     vertical-align: center;
     text-align: center;
     z-index: 1;
@@ -1596,6 +1632,33 @@ ul.Mid-5-2-3 {
     vertical-align: center;
     text-align: center;
   }
+
+  li:first-child {
+    justify-self: flex-end;
+    padding-right: 8%;
+
+    @include for-md {
+      padding-right: 16%;
+    }
+
+    @include for-lg {
+      padding-right: 16.5%;
+    }
+  }
+  li:last-child {
+    justify-self: flex-start;
+    padding-left: 8%;
+
+    @include for-md {
+      padding-left: 16%;
+    }
+
+    @include for-lg {
+      padding-left: 15%;
+    }
+  }
+
+
 }
 ul.Def-5-2-3 {
   list-style: none;
@@ -1617,6 +1680,7 @@ ul.Def-5-2-3 {
 /************* 4-4-2 formation **********/
 
 ul.FW-4-4-2 {
+  
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1640,7 +1704,34 @@ ul.FW-4-4-2 {
     vertical-align: center;
     text-align: center;
   }
+
+  li:first-child {
+    justify-self: flex-end;
+    padding-right: 8%;
+
+    @include for-md {
+      padding-right: 16%;
+    }
+
+    @include for-lg {
+      padding-right: 16.5%;
+    }
+  }
+  li:last-child {
+    justify-self: flex-start;
+    padding-left: 8%;
+
+    @include for-md {
+      padding-left: 16%;
+    }
+
+    @include for-lg {
+      padding-left: 15%;
+    }
+  }
 }
+
+
 ul.Mid-4-4-2 {
   list-style: none;
   display: grid;
@@ -1663,11 +1754,6 @@ ul.Def-4-4-2 {
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
   justify-items: center;
-  /* margin-right: 25px;
-  margin-left: -20px; */
-  /* margin: 0 auto;
-  justify-content: space-around; */
-  /* justify-items: start; */
   padding-left: 0;
 
   li {
@@ -1719,11 +1805,9 @@ ul.Def-4-3-3 {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 5px;
+  grid-gap: 15px;
   justify-items: center;
   padding-left: 0;
-  /* margin-right: 25px;
-  margin-left: -20px; */
 
   li {
     display: inline-block;
@@ -1814,7 +1898,33 @@ ul.FW-3-5-2 {
     vertical-align: center;
     text-align: center;
   }
+
+  li:first-child {
+    justify-self: flex-end;
+    padding-right: 8%;
+
+    @include for-md {
+      padding-right: 16%;
+    }
+
+    @include for-lg {
+      padding-right: 16.5%;
+    }
+  }
+  li:last-child {
+    justify-self: flex-start;
+    padding-left: 8%;
+
+    @include for-md {
+      padding-left: 16%;
+    }
+
+    @include for-lg {
+      padding-left: 15%;
+    }
+  }
 }
+
 ul.Mid-3-5-2 {
   list-style: none;
   display: grid;
@@ -1830,6 +1940,7 @@ ul.Mid-3-5-2 {
     position: relative;
     text-align: center;
   }
+
 }
 ul.Def-3-5-2 {
   list-style: none;
@@ -1857,9 +1968,10 @@ ul.FW-4-5-1 {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   justify-items: center;
-  /* margin: 0 auto;
-  padding-right: 40px;
-  justify-items: center; */
+
+  /* @include for-laptop-and-desktop-only {
+    padding-right: 75px;
+  } */
   padding-left: 0;
 
   li {
@@ -2573,8 +2685,8 @@ label {
 }
 #removePlayerBtn {
   padding: 0 5px;
-  top: -15px;
-  margin-left: 22px;
+  top: -25px;
+  margin-left: 27px;
   position: absolute;
   border-radius: 4px;
   z-index: 2;
@@ -2584,12 +2696,12 @@ label {
     margin-left: 28px;
   }
   @include for-md{
-    margin-left: 40px;
+    margin-left: 31px;
   }
   @include for-laptop-and-desktop-only{
-    margin-left: 31px;
+    margin-left: 28px;
     padding: 1px 5px;
-    top: -15px;
+    top: -29px;
 
   }
 }
@@ -2689,9 +2801,46 @@ label {
   width:60px;
   height: 60px;
   animation: spin 1000ms linear infinite;
-  top:120%;
-  left: 50%;
+  top: 27%;
+  left: 45.5%;
   position:absolute;
+
+  @include for-portrait-phone-only {
+    border-width: 8px;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+  }
+  @include for-landscape-phone-only {
+    border-width: 8px;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+  }
+  @include for-portrait-tablet-and-ipad-only {
+    border-width: 8px;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    top: 31%;
+    left: 50.5%;
+  }
+}
+.desktopSpinner{
+  display: none;
+  border: 16px solid silver;
+  border-top: 16px solid #387AB7;
+  border-radius: 50%;
+  width:60px;
+  height: 60px;
+  animation: spin 1000ms linear infinite;
+  top:150%;
+  left: 45%;
+  position:absolute;
+
+  @include for-md {
+    display: block;
+  }
 }
 
 button.spinnerBtn {
@@ -2714,9 +2863,9 @@ button.spinnerBtn {
   0% {transform: rotate(0deg)}
   100% {transform: rotate(360deg)}
 }
-@media screen and (max-width: 480px) {
+/*@media screen and (max-width: 480px) {
 
-.spinner{
+ .spinner{
   border: 16px solid silver;
   border-top: 16px solid #387AB7;
   border-radius: 50%;
@@ -2726,12 +2875,12 @@ button.spinnerBtn {
   top:120%;
   left: 50%;
   position:absolute;
-}
+} 
 @keyframes spin {
   0% {transform: rotate(0deg)}
   100% {transform: rotate(360deg)}
 }
-}
+}*/
 
 /* END OF CUSTOMISED SPINNER*/
 /* Modal for confirm starts */
@@ -2753,6 +2902,7 @@ button.spinnerBtn {
   max-width: 215px;
   color: #333;
 }
+
 .confirmation-not-enough-cash {
   font-family: "RobotoMedium";
   font-weight: normal;
@@ -2774,3 +2924,202 @@ button.spinnerBtn {
   border-bottom: 1px solid #ced4da;
 }
 /* Modal for confirm ends */
+
+
+/* Fixttures bar starts */
+
+  /* fixtures border color */
+  $fixturesBorder: 1px solid rgba(178, 178, 178, 0.2);
+  /* /fixtures border color */
+  
+  .fixturesTable {
+    margin-top: 1rem;
+    display: none;
+    color: #fff;
+    background: transparent;
+    border-radius: 0;
+    border: $fixturesBorder;
+    border-bottom: none;
+    height: 60px;
+    margin: 0;
+  
+    @include for-md {
+      display: block;
+    }
+  }
+  
+  .fixtureLabel {
+    height: 60px;
+    width: 111px;
+    line-height: 60px;
+    float: left;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: none;
+    margin: 0;
+    background-color: transparent;
+    border: $fixturesBorder;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  
+    @include for-sm {
+      width: 132px;
+    }
+  }
+  .fixture {
+    position: relative;
+    height: 100%;
+    padding: 10px 8px 0;
+    color: #fff;
+  }
+  
+  /* Match slider  */
+  .match-slidder-navigation {
+    width: 29px;
+    border-left: $fixturesBorder;
+    float: right;
+    text-align: center;
+    position: relative;
+    height: 100%;
+  
+    /* Match slider buttons */
+    a {
+      height: 29px;
+      width: 29px;
+      color: #fff;
+      line-height: 34px;
+      display: block;
+      font-size: 14px;
+    }
+  
+    a:first-child {
+      border-bottom: $fixturesBorder;
+    }
+    /* /Match slider buttons */
+  }
+  /* /Match slider  */
+  
+  /* Container for match slider */
+  .match-fixture-container {
+    overflow: hidden;
+    display: block;
+  }
+  .match-slider {
+    display: block;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1;
+  
+    .owl-stage {
+      position: relative;
+      -ms-touch-action: pan-Y;
+  
+      @include for-xs {
+        width: 548px;
+      }
+  
+      @include for-xs-landscape {
+        width: 770px;
+      }
+  
+      @include for-portrait-phone-only {
+        width: 708px;
+      }
+  
+      @include for-sm {
+        width: 610px;
+      }
+    }
+  
+    .owl-item {
+      position: relative;
+      min-height: 1px;
+      float: left;
+      border-right: $fixturesBorder;
+      border-top: $fixturesBorder;
+      -webkit-backface-visibility: hidden;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+  
+      @include for-xs-landscape {
+        width: 192.5px;
+      }
+      @include for-portrait-phone-only {
+        width: 177px;
+      }
+      @include for-xs {
+        width: 188.4px;
+      }
+      @include for-sm {
+        width: 132.333px;
+      }
+      @include for-lg {
+        width: 206.75px;
+      }
+    }
+  }
+  /* /Container for match slider */
+  
+  .match-slider-outer {
+    position: relative;
+    overflow: hidden;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    -moz-transform: translate3d(0px, 0px, 0px);
+    -ms-transform: translate3d(0px, 0px, 0px);
+    -o-transform: translate3d(0px, 0px, 0px);
+    transform: translate3d(0px, 0px, 0px);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+  
+  .match-slide {
+    height: 60px;
+    padding-bottom: 0;
+    width: 100%;
+    position: relative;
+    text-align: center;
+  }
+  .match:last-child {
+    border-right: none;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+  
+  .participants-name{
+    color: #fff;
+  
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      white-space: nowrap;
+      text-transform: capitalize;
+      font-family: "RobotoBold";
+      font-weight: normal;
+  
+      .vs {
+        color: #666;
+        margin-left: 2px;
+        margin-right: 2px;
+        display: inline-block !important;
+        vertical-align: middle;
+        line-height: 1;
+      }
+    }
+  }
+  /* /Participant name */
+  
+  /* Individual participant */
+  .participant {
+    font-size: 14px;
+    display: inline-block !important;
+    vertical-align: middle;
+    line-height: 1;
+  }
+  /* /Individual participant */
+  
+  /* Fixtures bar ends */

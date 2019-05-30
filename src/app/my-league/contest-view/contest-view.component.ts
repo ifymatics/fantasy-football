@@ -11,14 +11,27 @@ import { DeviceDetectorService } from "ngx-device-detector";
   styleUrls: ["./contest-view.component.scss"]
 })
 export class ContestViewComponent implements OnInit {
-  @ViewChild("owlStage") owlStage: ElementRef;
-  @ViewChild("owlItem") owlItem: ElementRef;
-  widthOfOwlItem;
-  widthOfItem;
-  forwardCount = 0;
-  backwardCount = 0;
-  owlItems = document.getElementsByClassName("owl-item");
+  /* Fixtures properties starts */
+@ViewChild("owlStage") owlStage: ElementRef;
+@ViewChild("owlItem") owlItem: ElementRef;
+widthOfOwlItem;
+widthOfItem;
+forwardCount = 0;
+backwardCount = 0;
+owlItems = document.getElementsByClassName("owl-item");
+showLessFixturesBtn = true;
+showMoreFixturesBtn = false;
 
+
+/* games = [
+  {id: 1, home: 'RBL', away: 'TSG', time: 'Mon, Feb 25-08:30 pm' },
+  {id: 1, home: 'MUD', away: 'CHE', time: 'Mon, Feb 25-08:30 pm' },
+  {id: 1, home: 'ARS', away: 'LIV', time: 'Mon, Feb 25-08:30 pm' },
+  {id: 1, home: 'RBL', away: 'TSG', time: 'Mon, Feb 25-08:30 pm' },
+  {id: 1, home: 'MUD', away: 'CHE', time: 'Mon, Feb 25-08:30 pm' },
+  {id: 1, home: 'ARS', away: 'LIV', time: 'Mon, Feb 25-08:30 pm' }
+];*/
+/* Fixtures properties ends */
   chatbox = true;
   selected = "userRankRow";
   contest = { status: 0, user_rank: "", contest_rank: "" };
@@ -146,7 +159,7 @@ export class ContestViewComponent implements OnInit {
           this.isLoadMore = response.data.is_load_more;
           this.posting = false;
           this.loadMorePosting = false;
-          this.fistItemInArray(this.userRank);
+         // this.fistItemInArray(this.userRank);
           if (!offset) {
             this.loadFireChat();
           }
@@ -213,7 +226,7 @@ export class ContestViewComponent implements OnInit {
           if (response.response_code === 200) {
             this.isLoading = false;
             this.lineupDetails = response.data.lineup;
-            console.log(this.lineupDetails);
+           // console.log(this.lineupDetails);
             this.teamInfo = response.data.team_info;
             this.teamInfo.collection_master_id =
               response.data.lineup[0].collection_master_id;
@@ -267,7 +280,7 @@ export class ContestViewComponent implements OnInit {
   showChatbox() {
     this.chatbox = !this.chatbox;
   }
-  showMoreFixtures() {
+ /* showMoreFixtures() {
     this.forwardCount += 1;
 
     if (this.forwardCount === 1) {
@@ -293,7 +306,7 @@ export class ContestViewComponent implements OnInit {
     this.owlStage.nativeElement.style.transform = `translate3d(${
       this.widthOfOwlItem
     }px, 0px 0px)`;
-  }
+  }*/
   fillPlayGround(lineupDetails) {
     this.defPlayers = [];
     this.midPlayers = [];
@@ -454,12 +467,14 @@ export class ContestViewComponent implements OnInit {
     // console.warn( this.playersArr);
   }
   fistItemInArray(contestListData) {
-    let collections = { contests: [] };
+    console.log(contestListData);
+   let collections = {contests:[]};
     let leagues = { teams: [] };
     let leaguesteam = {};
     for (let i = 0; i <= contestListData.length; i++) {
       if (i === 0) {
         collections = contestListData[i];
+        console.log(collections);
         for (let j = 0; j <= collections.contests.length; j++) {
           if (i === 0) {
             leagues = collections.contests[i];
@@ -469,10 +484,119 @@ export class ContestViewComponent implements OnInit {
               }
             }
           }
-          console.log(collections, leagues, leaguesteam);
+         // console.log(collections, leagues, leaguesteam);
           this.getTeamLineup(leaguesteam, leagues, collections);
         }
       }
     }
   }
+  getCollectionDetail() {
+    // this.collection_detail = {};
+    const param = {
+      collection_master_id: this.stateParams.collection_master_id,
+      sports_id: this.sports_id
+    };
+    this.service
+      .api("fantasy/lobby/get_collection_detail", param, "POST", this.session)
+      .subscribe(
+        (response: Response) => {
+          // console.log(response["data"].collection);
+          if (response["response_code"] === 200) {
+            // Check match available or not
+            if (!response["data"].match_list.length) {
+              alert("Matches not available.");
+              // $state.go('root.lobby.init');
+              return false;
+            }
+
+            this.collection_detail = response["data"].collection;
+            this.collection_detail["season_scheduled_date"] =
+              response["data"].match_list[0].season_scheduled_date;
+            this.collection_detail["today"] =
+              response["data"].match_list[0].today;
+            this.collection_detail["match_list"] = response["data"].match_list;
+            // console.log( this.collection_detail['match_list']);
+            // console.log( this.collection_detail);
+           /* this.getLineupMasterData();
+            this.getAllTeams();
+            this.playerservice.setPlayersPosition();
+            */
+          }
+        },
+        (error: Error) => {
+          if (error["error"]["global_error"] === "Session key has expired") {
+            this.message = error["error"]["global_error"];
+            this.router.navigate(["/"]);
+          }
+          // $state.go('root.lobby.init');
+        }
+      );
+  }
+   /* FIXTURES SLIDER STARTS */
+
+showMoreFixtures() {
+  this.forwardCount += 1;
+  this.backwardCount = 0;
+
+  if ((this.forwardCount === 1) && !(this.owlStage.nativeElement.style.transform !== "translate3d(0px, 0px, 0px)") ) {
+    this.widthOfOwlItem = -this.owlItem.nativeElement.offsetWidth;
+    // console.log(this.widthOfOwlItem);
+  } else if ((this.forwardCount > 1) || ((this.forwardCount === 1) && (this.owlStage.nativeElement.style.transform !== "translate3d(0px, 0px, 0px)") )) {
+    this.widthOfOwlItem -= this.owlItem.nativeElement.offsetWidth;
+    //console.log('Stop');
+  }
+
+  this.owlStage.nativeElement.style.transform = `translate3d(${this.widthOfOwlItem}px, 0px, 0px)`;
+  // console.log(this.widthOfOwlItem);
+
+  if (
+    this.owlStage.nativeElement.style.transform !==
+    "translate3d(0px, 0px, 0px)"
+  ) {
+    this.showLessFixturesBtn = false;
+  }
+
+
+
+  if (!(this.owlItems[this.owlItems.length - 1].getBoundingClientRect().right > document.documentElement.clientWidth) && !(this.owlItems[this.owlItems.length - 1].getBoundingClientRect().right < document.documentElement.clientWidth) ) {
+   // console.log("Hi Arinze!");
+    this.showMoreFixturesBtn = true;
+  }
+
+  if ((this.owlItems[this.owlItems.length - 1].getBoundingClientRect().right < document.documentElement.clientWidth) ) {
+   // console.log("Hello Arinze!");
+    this.showMoreFixturesBtn = true;
+  }
+
+
+  return this.widthOfOwlItem;
+}
+
+showLessFixtures() {
+ // console.log(this.widthOfOwlItem);
+
+  this.forwardCount = 0;
+  this.backwardCount += 1;
+
+  this.widthOfOwlItem += this.owlItem.nativeElement.offsetWidth;
+
+  this.owlStage.nativeElement.style.transform = `translate3d(${
+    this.widthOfOwlItem
+  }px, 0px, 0px)`;
+  // console.log(this.widthOfOwlItem);
+
+  if (
+    this.owlStage.nativeElement.style.transform === "translate3d(0px, 0px, 0px)"
+  ) {
+    this.showLessFixturesBtn = true;
+  }
+
+  if (this.owlItems[this.owlItems.length - 1].getBoundingClientRect().right <  document.documentElement.clientWidth) {
+    // console.log("Hiya Arinze!");
+    this.showMoreFixturesBtn = false;
+  }
+
+  return this.widthOfOwlItem;
+}
+/* FIXTURES SLIDER ENDS */
 }

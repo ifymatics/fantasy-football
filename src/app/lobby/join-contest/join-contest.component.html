@@ -12,11 +12,9 @@
 
         <div class="dropdown ml-auto" dropdown id="leaguesDropdown">
           <div dropdownToggle>
-            <span class="white-text"
-            ><i
-                class="fas fa-chevron-down white-text align-self-center ml-4"
-              ></i
-            >{{selectedFilterObj.league.league_name || 'ALL'}}</span>
+            <span class="white-text">
+              {{selectedFilterObj.league.league_name || 'ALL'}}</span>
+              <i class="fas fa-chevron-down white-text align-self-center ml-4"></i>
           </div>
 
           <div
@@ -141,9 +139,9 @@
         <div class="container">
           <div class="row midwayBtns mb-3">
             <div class="filterBtnContainer">
-              <div class="col-sm-12 ml-auto" mdbDropdown>
+              <div class="col-sm-12 ml-auto pl-0" mdbDropdown>
                 <button
-                  class="btn btn-sm blue darken-3 dropdown-toggle"
+                  class="btn btn-sm blue darken-3 dropdown-toggle ml-0"
                   mdbDropdownToggle
                 >
                   <i class="fas fa-filter"></i>
@@ -679,10 +677,11 @@
                     contest.user_joined_count == 0) &&
                   contest.contest_access_type == 2}"
                     mdbBtn
-                    class="blue white-text mdbWavesEffect waves-light relative btn-sm"
+                    class="blue white-text mdbWavesEffect waves-light relative joinBtn mx-auto btn"
                     (click)="checkUserSubscription(contest, '', 'normal_contest')"
                   >
                     {{ contest.user_join_count > 0 ? "REJOIN" : "JOIN" }}
+                    <div *ngIf="joinButtonclicked && contest.contest_id === contestId" class="spinner1"></div>
                   </button>
                   <button
                     *ngIf="
@@ -694,9 +693,10 @@
                     contest.user_joined_count > 0 &&
                     contest.is_quick_contest == 0}"
                     mdbBtn
-                    class="blue white-text mdbWavesEffect waves-light relative btn-sm"
+                    class="blue white-text mdbWavesEffect waves-light relative joinBtn mx-auto btn"
                     (click)="checkUserSubscription(contest, '', 'normal_contest')"
                   >
+                  <div *ngIf="joinButtonclicked && contest.contest_id === contestId" class="spinner1"></div>
                     +
                   </button>
                   <button
@@ -706,6 +706,7 @@
                     (click)="checkUserSubscription(contest, '', 'normal_contest')"
                   >
                     {{ "JOIN" }}
+                    <div *ngIf="joinButtonclicked && contest.contest_id === contestId" class="spinner1"></div>
                   </button>
                 </td>
               </tr>
@@ -1726,7 +1727,7 @@
     <div class="modal-content">
       <div class="modal-header d-flex" style="background: #f4f4f4">
         <span>CONFIRM AND YOU'RE IN!</span>
-        <span class="close" (click)='joinGameConfirmModal.hide()'>&times;</span>
+        <span class="close" (click)='joinGameConfirmModal.hide();joinButtonclicked = false;joinButtonDisabled = false;'>&times;</span>
       </div>
 
       <div class="modal-body" >
@@ -1806,7 +1807,7 @@
 
             <div class='d-flex'>
               <button
-              (click)='joinGameConfirmModal.hide()'
+              (click)='joinGameConfirmModal.hide(); joinButtonclicked = false;joinButtonDisabled = false;'
                class='waves-light relative btn-sm ml-auto'
                 style='background: linear-gradient(to bottom, #f8f8f8 0%, #e9e9e9 100%); color:black;'
                  mdbBtn mdbWavesEffect>Cancel</button>

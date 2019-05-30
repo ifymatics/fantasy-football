@@ -40,6 +40,31 @@ class JoinGameInitObj {
   styleUrls: ["./lineup.component.scss"]
 })
 export class LineupComponent implements OnInit {
+/* Fixtures properties starts */
+@ViewChild("owlStage") owlStage: ElementRef;
+  @ViewChild("owlItem") owlItem: ElementRef;
+  widthOfOwlItem;
+  widthOfItem;
+  forwardCount = 0;
+  backwardCount = 0;
+  owlItems = document.getElementsByClassName("owl-item");
+  showLessFixturesBtn = true;
+  showMoreFixturesBtn = false;
+
+
+  games = [
+    {id: 1, home: 'RBL', away: 'TSG', time: 'Mon, Feb 25-08:30 pm' },
+    {id: 1, home: 'MUD', away: 'CHE', time: 'Mon, Feb 25-08:30 pm' },
+    {id: 1, home: 'ARS', away: 'LIV', time: 'Mon, Feb 25-08:30 pm' },
+    {id: 1, home: 'RBL', away: 'TSG', time: 'Mon, Feb 25-08:30 pm' },
+    {id: 1, home: 'MUD', away: 'CHE', time: 'Mon, Feb 25-08:30 pm' },
+    {id: 1, home: 'ARS', away: 'LIV', time: 'Mon, Feb 25-08:30 pm' }
+  ];
+/* Fixtures properties ends */
+
+
+
+
   @ViewChild("playerList") playerList: ModalDirective;
   @ViewChild("formationModal") formationModal: ModalDirective;
   @ViewChild("selectCaptain") selectCaptain: ModalDirective;
@@ -294,6 +319,7 @@ export class LineupComponent implements OnInit {
   'FW': {'max_player_per_position': ''},
   'DF': {'max_player_per_position': ''}
 }*/
+ promoClasss;
   salary_cap = 0;
   used_salary_cap = 0;
   remaining_salary_cap = 0;
@@ -328,6 +354,7 @@ export class LineupComponent implements OnInit {
     team_league_id: "",
     position: ""
   };
+  queryStringObj = {share: '', share_by: 'collection'};
   constructor(
     private utilityService: UtilityService,
     private service: AuthloginService,
@@ -347,7 +374,13 @@ export class LineupComponent implements OnInit {
     collection_master_id: ""
   };
   ngOnInit() {
-    // this.inits;
+    this.promoClasss = this.deviceService.isMobile()? 'mdScreen': 'lgScreen';
+  this.route.queryParams.subscribe(
+    (data) => {
+      this.queryStringObj.share = data['share']
+    }
+
+   );
     let user;
     if (this.utilityService.checkLocalStorageStatus("user")) {
       // this.datas.league_id
@@ -380,15 +413,16 @@ export class LineupComponent implements OnInit {
           this.lineup_master_id = data["contest"].lineup_master_id;
           this.datas.collection_master_id = data.contest.collection_master_id;
           this.lineupPage = "edit";
-          if (this.utilityService.checkLocalStorageStatus("lineupdetails")) {
+          if (this.utilityService.checkLocalStorageStatus("lineupDetails")) {
             this.formationSelected = this.utilityService.checkLocalStorageStatus(
               "formation"
             )
               ? this.utilityService.getLocalStorage("formation")
               : "";
             this.lineupDetails = this.utilityService.getLocalStorage(
-              "lineupdetails"
+              "lineupDetails"
             );
+           // console.log(this.lineupDetails);
             // this.fillPlayGround();
           }
           // console.log(this.contest);
@@ -422,7 +456,7 @@ export class LineupComponent implements OnInit {
         }
       }
     });
-    // this.getCollectionDetail();
+     this.getCollectionDetail();
     this.lineupPage = this.lineup_master_id === "" ? "add" : "edit";
     // console.log( this.route.data);
     //  console.log(this.lineupDetails);
@@ -430,44 +464,7 @@ export class LineupComponent implements OnInit {
     if (this.session) {
       this.contestList = this.utilityService.getLocalStorage("contestList");
       this.getLineupMasterData();
-      // console.log(this.contest);
-      /* this.service.api('fantasy/cricket_lineup/lineup/get_lineup_master_data', this.datas, 'post', user.data.session_key)
-      .subscribe(
-        data => {
-         if (data['response_code'] === 200) {
-           // console.warn(reqParams);
-           // console.warn(response);
-           this.masterLineupData = data['data'].all_position;
-           this.salary_cap = data['data'].salary_cap;
-           this.remaining_salary_cap = data['data'].salary_cap;
-           this.captainObj.team_name = data['data'].team_name;
-           // this.masterLineupData.forEach(obj => {
-             for (const obj of this.masterLineupData ) {
-             this.defaultTeam[obj.position] = '';
-             if (obj.position !== 'All') {
-                 this.playersMinMaxData[obj.position] = obj;
-             } else {
-                 this.defaultTeam[obj.position] = 'active';
-             }
-            }
-            // });
-            this.league_detail = data['data'].league_data;
-           if (this.lineupPage === 'edit') {
-                this.getUsersLineUp();
-           }
-       }
-       console.log(this.lineupPage);
-        // console.log(data);
-       }, error => {
-          if (error['error']['global_error'] === 'Session key has expired') {
-            this.message = error['error']['global_error'];
-            this.router.navigate(['/']);
-          }
-       });
-      if (this.lineupPage === 'add') {
-       this.getAllRosters();
-     }
-       } else {this.router.navigate(['/']);*/
+     
     }
   }
   onSelectPlayer(playerType) {
@@ -568,8 +565,10 @@ export class LineupComponent implements OnInit {
     this.headingTitle = this.playersAbbr[playerType];
     if (isMobile || (isTassblet && !isDesktopDevice)) {
       this.playerList.show();
+      // this.promoClasss = 'mdScreen';
     } else {
       this.playerList.hide();
+      // this.promoClasss = 'lgScreen';
     }
     // console.log(isMobile);
     // console.log(this.deviceService.device);
@@ -614,6 +613,7 @@ export class LineupComponent implements OnInit {
     this.isPicked = true;
   }
   trackByPlayers(index: number, playerSelect: Player): number {
+    // console.log(playerSelect);
     return playerSelect.player_id;
     //  this.playerIndex.push(index);
     // console.log(playerSelect.player_id);
@@ -646,7 +646,7 @@ export class LineupComponent implements OnInit {
     }
   }
   joinGameModals(contest, lineup, lineupList, isTurbo) {
-    // console.log(contest);
+     // console.log(lineupList);
     // joinGameModals(contest, lineup, lineupList, isTurbo) {
     // const user = this.utilityService.getLocalStorage('user').data;
     // this.currentUser = user.user_profile;
@@ -664,7 +664,7 @@ export class LineupComponent implements OnInit {
             point_balance = parseFloat(user_balance.point_balance);
           let currentBalance = response.data.user_balance.real_amount;
           currentBalance = Number(currentBalance);
-          console.log(currentBalance);
+         // console.log(currentBalance);
           if (
             !this.utilityService.isAbleToJoinContest(user_balance, entryFee) &&
             (contest.prize_type === 0 || contest.prize_type === 1)
@@ -700,7 +700,7 @@ export class LineupComponent implements OnInit {
     // }
   }
   joinGameInit(_CONTEST, _LINEUP, _CURRENTBALANCE, _LINEUPLIST, _USERBALANCE) {
-    // console.log(joinGameInitObj);
+    console.log( _LINEUPLIST);
     // return JoinGameInitObj;
     this.joinGameInitObj = {
       contest: _CONTEST,
@@ -3345,7 +3345,7 @@ export class LineupComponent implements OnInit {
       .api("fantasy/lobby/get_collection_detail", param, "POST", this.session)
       .subscribe(
         (response: Response) => {
-          // console.log(response);
+          console.log(response["data"].collection);
           if (response["response_code"] === 200) {
             // Check match available or not
             if (!response["data"].match_list.length) {
@@ -3527,7 +3527,7 @@ export class LineupComponent implements OnInit {
     this.captainObj = captainObj;
     // console.log(this.captainshipForm);
     // this.captainObj = captainObj;
-    // console.log(captainObj);
+     console.log(captainObj);
     this.playersData = [];
     // console.log(captainObj);
     // alert('stopped');
@@ -3651,10 +3651,12 @@ export class LineupComponent implements OnInit {
 
               if (response.response_code === 200) {
                 // alert(response.message);
+                console.log(response.data.lineup_master_id);
                 this.joinGameModals(
                   this.contest,
                   "lineup",
-                  this.myLineupList,
+                  response.data.lineup_master_id,
+                // this.myLineupList,
                   "isTurbo"
                 );
                 // this.confirmJoinContest();
@@ -3686,7 +3688,7 @@ export class LineupComponent implements OnInit {
       lineup_master_id: this.confirmJoinForm.value.lineup,
       promo_code: this.confirmJoinForm.value.lineup.promo_code
     };
-    // console.log(this.confirmJoinForm.value.lineup[0], param);
+     console.log(this.confirmJoinForm.value.lineup, param);
 
     this.service
       .api("fantasy/contest/join_game", param, "POST", this.session)
@@ -5369,4 +5371,82 @@ export class LineupComponent implements OnInit {
       }
     }
   }
+
+
+
+
+
+
+
+
+
+
+  /* FIXTURES SLIDER STARTS */
+
+showMoreFixtures() {
+    this.forwardCount += 1;
+    this.backwardCount = 0;
+
+    if ((this.forwardCount === 1) && !(this.owlStage.nativeElement.style.transform !== "translate3d(0px, 0px, 0px)") ) {
+      this.widthOfOwlItem = -this.owlItem.nativeElement.offsetWidth;
+      // console.log(this.widthOfOwlItem);
+    } else if ((this.forwardCount > 1) || ((this.forwardCount === 1) && (this.owlStage.nativeElement.style.transform !== "translate3d(0px, 0px, 0px)") )) {
+      this.widthOfOwlItem -= this.owlItem.nativeElement.offsetWidth;
+      //console.log('Stop');
+    }
+
+    this.owlStage.nativeElement.style.transform = `translate3d(${this.widthOfOwlItem}px, 0px, 0px)`;
+    // console.log(this.widthOfOwlItem);
+
+    if (
+      this.owlStage.nativeElement.style.transform !==
+      "translate3d(0px, 0px, 0px)"
+    ) {
+      this.showLessFixturesBtn = false;
+    }
+
+
+
+    if (!(this.owlItems[this.owlItems.length - 1].getBoundingClientRect().right > document.documentElement.clientWidth) && !(this.owlItems[this.owlItems.length - 1].getBoundingClientRect().right < document.documentElement.clientWidth) ) {
+     // console.log("Hi Arinze!");
+      this.showMoreFixturesBtn = true;
+    }
+
+    if ((this.owlItems[this.owlItems.length - 1].getBoundingClientRect().right < document.documentElement.clientWidth) ) {
+     // console.log("Hello Arinze!");
+      this.showMoreFixturesBtn = true;
+    }
+
+
+    return this.widthOfOwlItem;
+  }
+
+  showLessFixtures() {
+   // console.log(this.widthOfOwlItem);
+
+    this.forwardCount = 0;
+    this.backwardCount += 1;
+
+    this.widthOfOwlItem += this.owlItem.nativeElement.offsetWidth;
+
+    this.owlStage.nativeElement.style.transform = `translate3d(${
+      this.widthOfOwlItem
+    }px, 0px, 0px)`;
+    // console.log(this.widthOfOwlItem);
+
+    if (
+      this.owlStage.nativeElement.style.transform === "translate3d(0px, 0px, 0px)"
+    ) {
+      this.showLessFixturesBtn = true;
+    }
+
+    if (this.owlItems[this.owlItems.length - 1].getBoundingClientRect().right <  document.documentElement.clientWidth) {
+      // console.log("Hiya Arinze!");
+      this.showMoreFixturesBtn = false;
+    }
+
+    return this.widthOfOwlItem;
+  }
+  /* FIXTURES SLIDER ENDS */
+
 }

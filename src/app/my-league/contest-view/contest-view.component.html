@@ -52,159 +52,62 @@
     </div>
 
     <!-- Desktop fixtures table starts -->
-    <div class="container mt-3">
-      <section class="fixturesTable">
-        <!-- Fixtures Label starts -->
-        <div class="fixtureLabel">
-          Fixtures
-        </div>
-        <!-- Fixtures Label ends -->
 
-        <div>
-          <div class="match-slidder-navigation">
-            <a (click)="showMoreFixtures()">
-              <i class="fas fa-angle-right"></i>
-            </a>
-            <a (click)="showLessFixtures()">
-              <i class="fas fa-angle-left"></i>
-            </a>
+    <div class="container">
+        <section class="fixturesTable">
+          <!-- Fixtures Label starts -->
+          <div class="fixtureLabel">
+            Fixtures
           </div>
-
-          <div class="match-fixture-container">
-            <div class="match-slider match-slider-onload">
-              <div class="match-slider-outer">
-                <div
-                  #owlStage
-                  class="owl-stage"
-                  style="transform: translate3d(0px, 0px, 0px); transition: all 0.3s ease 0s; width: 1318px;"
-                >
-                  <!-- Match fixture item starts-->
-                  <div #owlItem class="owl-item">
-                    <div class="match-slide pointer">
-                      <div class="fixture">
-                        <div class="participants-name">
-                          <span
-                            class="participant participant-one font-weight-bold"
-                            >RBL</span
-                          >
-                          <span class="vs">vs</span>
-                          <span class="participant participant-two">TSG</span>
-                        </div>
-
-                        <div class="font-weight-bold small">
-                          Mon, Feb 25-08:30 pm
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Match fixture item ends-->
-                  <!-- Match fixture item starts-->
-                  <div class="owl-item">
-                    <div class="match-slide pointer">
-                      <div class="fixture">
-                        <div class="participants-name">
-                          <span
-                            class="participant participant-one font-weight-bold"
-                            >RBL</span
-                          >
-                          <span class="vs">vs</span>
-                          <span class="participant participant-two">TSG</span>
-                        </div>
-
-                        <div class="font-weight-bold small">
-                          Mon, Feb 25-08:30 pm
+          <!-- Fixtures Label ends -->
+  
+          <div>
+            <div class="match-slidder-navigation">
+              <a (click)="showMoreFixtures()" [ngClass]='{disabled: showMoreFixturesBtn}'>
+                <i class="fas fa-angle-right"></i>
+              </a>
+              <a class='disabled' (click)="showLessFixtures()" [ngClass]='{disabled: showLessFixturesBtn}' >
+                <i class="fas fa-angle-left"></i>
+              </a>
+            </div>
+  
+            <div class="match-fixture-container">
+              <div class="match-slider match-slider-onload">
+                <div class="match-slider-outer">
+                  <div
+                    #owlStage
+                    class="owl-stage"
+                    style="transform: translate3d(0px, 0px, 0px); transition: all 0.3s ease 0s; width: max-content;"
+                  >
+                    <!-- Match fixture item starts-->
+                    <div #owlItem class="owl-item" *ngFor='let game of collection_detail?.match_list'>
+                      <div class="match-slide pointer">
+                        <div class="fixture">
+                          <div class="participants-name">
+                            <span
+                              class="participant participant-one font-weight-bold"
+                              >{{game.home}}</span
+                            >
+                            <span class="vs">vs</span>
+                            <span class="participant participant-two">{{game.away}}</span>
+                          </div>
+  
+                          <div class="font-weight-bold small">
+                            {{game.time}}
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <!-- Match fixture item ends-->
+  
                   </div>
-                  <!-- Match fixture item ends-->
-                  <!-- Match fixture item starts-->
-                  <div class="owl-item">
-                    <div class="match-slide pointer">
-                      <div class="fixture">
-                        <div class="participants-name">
-                          <span
-                            class="participant participant-one font-weight-bold"
-                            >RBL</span
-                          >
-                          <span class="vs">vs</span>
-                          <span class="participant participant-two">TSG</span>
-                        </div>
-
-                        <div class="font-weight-bold small">
-                          Mon, Feb 25-08:30 pm
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Match fixture item ends-->
-                  <!-- Match fixture item starts-->
-                  <div class="owl-item">
-                    <div class="match-slide pointer">
-                      <div class="fixture">
-                        <div class="participants-name">
-                          <span
-                            class="participant participant-one font-weight-bold"
-                            >RBL</span
-                          >
-                          <span class="vs">vs</span>
-                          <span class="participant participant-two">TSG</span>
-                        </div>
-
-                        <div class="font-weight-bold small">
-                          Mon, Feb 25-08:30 pm
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Match fixture item ends-->
-                  <!-- Match fixture item starts-->
-                  <div class="owl-item">
-                    <div class="match-slide pointer">
-                      <div class="fixture">
-                        <div class="participants-name">
-                          <span
-                            class="participant participant-one font-weight-bold"
-                            >RBL</span
-                          >
-                          <span class="vs">vs</span>
-                          <span class="participant participant-two">TSG</span>
-                        </div>
-
-                        <div class="font-weight-bold small">
-                          Mon, Feb 25-08:30 pm
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Match fixture item ends-->
-                  <!-- Match fixture item starts-->
-                  <div class="owl-item">
-                    <div class="match-slide pointer">
-                      <div class="fixture">
-                        <div class="participants-name">
-                          <span
-                            class="participant participant-one font-weight-bold"
-                            >RBL</span
-                          >
-                          <span class="vs">vs</span>
-                          <span class="participant participant-two">TSG</span>
-                        </div>
-
-                        <div class="font-weight-bold small">
-                          Mon, Feb 25-08:30 pm
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Match fixture item ends-->
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+
 
     <!-- Desktop fixtures table ends -->
   </div>
