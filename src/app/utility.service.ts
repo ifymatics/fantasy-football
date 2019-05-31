@@ -129,5 +129,12 @@ findObjPosition(data, key, val) {
     }
     return i;
   }
+  alertHandler(type?) {
+    let result = 'success';
+    if (type === 'error') {
+      return result = 'danger';
+    }
+    return result;
+  }
 
 }

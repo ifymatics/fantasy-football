@@ -5,6 +5,14 @@
 <div id="lineupBody">
   <div class="black">
     <!-- desktop league info starts -->
+    <!--alert Widget-->
+    <div *ngIf="message.length" #alert class="alert alert-{{messageCss}} alert-dismissible fade  show" role="alert">
+      <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{message}}</strong>
+    </div>
+    <!--End of alert widget-->
     <div class="container" id="desktopLeagueInfo">
       <div class="d-flex py-2">
         <div class="d-flex">
