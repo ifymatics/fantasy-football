@@ -641,6 +641,7 @@ export class LineupComponent implements OnInit {
     }
   }
   captainSelection(arg?) {
+    // console.log('worrking');
     if (arg === "hide") {
       this.selectCaptain.hide();
     } else {
@@ -703,7 +704,7 @@ export class LineupComponent implements OnInit {
     // }
   }
   joinGameInit(_CONTEST, _LINEUP, _CURRENTBALANCE, _LINEUPLIST, _USERBALANCE) {
-    console.log( _LINEUPLIST);
+    // console.log( _LINEUPLIST);
     // return JoinGameInitObj;
     this.joinGameInitObj = {
       contest: _CONTEST,
@@ -3535,6 +3536,7 @@ export class LineupComponent implements OnInit {
   }
   captainSelector() {
     this.lineupSubmitBtn = true;
+    this.isLoading = true;
     // console.log(this.captain.nativeElement.value,
     // this.viceCaptain.nativeElement.value, this.team_name.nativeElement.value);
     const captainObj = {
@@ -3545,7 +3547,7 @@ export class LineupComponent implements OnInit {
     this.captainObj = captainObj;
     // console.log(this.captainshipForm);
     // this.captainObj = captainObj;
-     console.log(captainObj);
+    // console.log(captainObj);
     this.playersData = [];
     // console.log(captainObj);
     // alert('stopped');
@@ -3604,6 +3606,7 @@ export class LineupComponent implements OnInit {
       // tslint:disable-next-line:quotemark
       this.message ="Your Captain and vice-captain can't be same";
       this.messageCss = this.utilityService.alertHandler('error');
+      this.isLoading = false;
       return false;
     } else {
       this.selectCaptain.hide();
@@ -3710,7 +3713,7 @@ export class LineupComponent implements OnInit {
       lineup_master_id: this.confirmJoinForm.value.lineup,
       promo_code: this.confirmJoinForm.value.lineup.promo_code
     };
-     console.log(this.confirmJoinForm.value.lineup, param);
+     // console.log(this.confirmJoinForm.value.lineup, param);
 
     this.service
       .api("fantasy/contest/join_game", param, "POST", this.session)
@@ -3750,7 +3753,8 @@ export class LineupComponent implements OnInit {
             this.featuredContestList[featuredConIndex].total_user_joined + 1;
           }
           this.message =response.message;
-         this.messageCss = this.utilityService.alertHandler('error');
+         this.messageCss = this.utilityService.alertHandler();
+         this.isLoading = false;
           this.router.navigate([
             "/" +
               this.datas.sports_id +

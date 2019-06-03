@@ -103,7 +103,7 @@ onCreateTeamAnimate = false;
     this.route.params.subscribe(
       (params: ParamMap) => {
         this.league.league_id = params['league_id'];
-        this.sports_id = params['id'];
+        this.sports_id = +params['id'];
       //  console.log( this.league.league_id);
        // console.log(params['league_id']);
       }
@@ -599,6 +599,7 @@ joinGameModals(contest, lineup, lineupList, isTurbo) {
           userbalance: _USERBALANCE
         };
         this.joinGameConfirmModal.show();
+        this.joinButtonclicked = false;
         // this.modalservice.showJoinConfirm();
        // console.log(this.joinGameInitObj);
     }

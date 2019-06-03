@@ -16,11 +16,12 @@ export class ChatComponent implements OnInit {
   firechatAccountDisable = false;
   // userDetail = UtilityService.getLocalStorage('user').user_profile;
 
-  constructor(private firebase: AngularFirestore) { }
+  constructor(private db: AngularFirestore) { }
 
   ngOnInit() {
-    this.chatRef = this.firebase; //.database().ref("chat");
-    console.log( this.firebase);
+    this.chatRef = this.db; // .database().ref("chat");
+    console.log( this.db.collection('chat')
+    );
   }
 
 }

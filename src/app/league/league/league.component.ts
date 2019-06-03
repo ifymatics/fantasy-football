@@ -13,6 +13,8 @@ export class LeagueComponent implements OnInit {
   leagueList      = [];
   private session;
   clicker = '';
+  message = '';
+  messageCss;
   sports_id;
   isLoading = false;
   showReload = false;
@@ -31,8 +33,8 @@ data: {sports_id: number};
     };*/
     this.route.params.subscribe(
       (param: Params) => {
-        this.data = {sports_id: param['id']};
-        this.sports_id = param['id'];
+        this.data = {sports_id: +param['id']};
+        this.sports_id = +param['id'];
       }
     );
      this.session =  this.utilityService.getLocalStorage('user').data.session_key ;
@@ -51,6 +53,11 @@ data: {sports_id: number};
     // console.log(error);
       this.isLoading = false;
       this.showReload = true;
+      if (error["error"]["global_error"] === "Session key has expired") {
+        this.message = error["error"]["global_error"];
+        this.messageCss = this.utilityService.alertHandler('error');
+        this.router.navigate(["/"]);
+      }
      }
  );
   }

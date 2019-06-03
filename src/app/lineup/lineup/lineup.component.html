@@ -444,6 +444,7 @@
               </div>
 
               <button
+              [disabled]="(selectedPlayersCount.All ==0)?true:false"
                 class="waves-light relative  black-text btn1 ml-5 mr-3"
                 color="yellow"
                 size="sm"
@@ -454,7 +455,7 @@
               >
                 Clear
               </button>
-              <button [disabled] = "autodisabled"
+              <button [disabled] = "(  selectedPlayersCount.All == 11)?true:false "
                 class="waves-light relative ml-auto black-text btn1 spinnerBtn d-flex"
                 color="yellow"
                 size="sm"
@@ -696,8 +697,8 @@
                                   mdbWavesEffect
                                   type="button"
                                   [disabled]="
-                                    selectedPlayersCount.All !== 11 ||
-                                    !isPosting
+                                    selectedPlayersCount.All !== 11
+                                   
                                   "
                                   class="float-right waves-effect blue"
                                   (click)="captainSelector()"
@@ -1665,6 +1666,7 @@
                         style="position:absolute; bottom: 0; width: 100%"
                       >
                         <button
+                           (click)="captainSelection()"
                           type="submit"
                           style="width:90%; height: 90%"
                           class="relative waves-dark grey white-text text-center mx-auto pt-2"
@@ -1674,7 +1676,7 @@
                           [disabled]="selectedPlayersCount.All !== 11"
                         >
                           {{
-                            lineupPage === "add" ? "CreateTeam" : "Edit Team"
+                            lineupPage === "add" ? "Create Team" : "Update Team"
                           }}
                         </button>
                       </div>
@@ -2633,6 +2635,7 @@
                         style="position:absolute; bottom: 0; width: 100%"
                       >
                         <button
+                        (click)="captainSelection()"
                           type="submit"
                           style="width:90%; height: 90%"
                           class="relative waves-dark grey white-text text-center mx-auto pt-2"
@@ -2642,7 +2645,7 @@
                           [disabled]="selectedPlayersCount.All !== 11"
                         >
                           {{
-                            lineupPage === "add" ? "CreateTeam" : "Edit Team"
+                            lineupPage === "add" ? "Create Team" : "Update Team"
                           }}
                         </button>
                       </div>
@@ -3589,7 +3592,7 @@
                           [disabled]="selectedPlayersCount.All !== 11"
                         >
                           {{
-                            lineupPage === "add" ? "CreateTeam" : "Edit Team"
+                            lineupPage === "add" ? "CreateTeam" : "Update Team"
                           }}
                         </button>
                       </div>
@@ -4544,6 +4547,7 @@
                         style="position:absolute; bottom: 0; width: 100%"
                       >
                         <button
+                        (click)="captainSelection()"
                           type="submit"
                           style="width:90%; height: 90%"
                           class="relative waves-dark grey white-text text-center mx-auto pt-2"
@@ -4553,7 +4557,7 @@
                           [disabled]="selectedPlayersCount.All !== 11"
                         >
                           {{
-                            lineupPage === "add" ? "CreateTeam" : "Edit Team"
+                            lineupPage === "add" ? "Create Team" : "Update Team"
                           }}
                         </button>
                       </div>
@@ -5676,6 +5680,7 @@
                         style="position:absolute; bottom: 0; width: 100%"
                       >
                         <button
+                        (click)="captainSelection()"
                           type="submit"
                           style="width:90%; height: 90%"
                           class="relative waves-dark grey white-text text-center mx-auto pt-2"
@@ -5685,7 +5690,7 @@
                           [disabled]="selectedPlayersCount.All !== 11"
                         >
                           {{
-                            lineupPage === "add" ? "CreateTeam" : "Edit Team"
+                            lineupPage === "add" ? "Create Team" : "Update Team"
                           }}
                         </button>
                       </div>
@@ -6683,6 +6688,7 @@
                         style="position:absolute; bottom: 0; width: 100%"
                       >
                         <button
+                        (click)="captainSelection()"
                           type="submit"
                           style="width:90%; height: 90%"
                           class="relative waves-dark grey white-text text-center mx-auto pt-2"
@@ -6692,7 +6698,7 @@
                           [disabled]="selectedPlayersCount.All !== 11"
                         >
                           {{
-                            lineupPage === "add" ? "CreateTeam" : "Edit Team"
+                            lineupPage === "add" ? "Create Team" : "Update Team"
                           }}
                         </button>
                       </div>
@@ -7667,6 +7673,7 @@
                         style="position:absolute; bottom: 0; width: 100%"
                       >
                         <button
+                        (click)="captainSelection()"
                           type="submit"
                           style="width:90%; height: 90%"
                           class="relative waves-dark grey white-text text-center mx-auto pt-2"
@@ -7676,7 +7683,7 @@
                           [disabled]="selectedPlayersCount.All !== 11"
                         >
                           {{
-                            lineupPage === "add" ? "CreateTeam" : "Edit Team"
+                            lineupPage === "add" ? "Create Team" : "Update Team"
                           }}
                         </button>
                       </div>
@@ -8636,6 +8643,7 @@
                         style="position:absolute; bottom: 0; width: 100%"
                       >
                         <button
+                        (click)="captainSelection()"
                           type="submit"
                           style="width:90%; height: 90%"
                           class="relative waves-dark grey white-text text-center mx-auto pt-2"
@@ -8645,7 +8653,7 @@
                           [disabled]="selectedPlayersCount.All !== 11"
                         >
                           {{
-                            lineupPage === "add" ? "CreateTeam" : "Edit Team"
+                            lineupPage === "add" ? "Create Team" : "Update Team"
                           }}
                         </button>
                       </div>

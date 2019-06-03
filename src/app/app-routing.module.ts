@@ -16,6 +16,7 @@ const fantRoutes: Routes = [
  {path: ':sports_id/leaderboard',  canActivateChild: [AuthGuard], loadChildren: './leaderboard/leaderboard.module#LeaderboardModule'},
   {path: ':id/user', canActivateChild: [AuthGuard], loadChildren: './user/user.module#UserModule'},
   {path: ':id/finance', canActivateChild: [AuthGuard], loadChildren: './finance/finance.module#FinanceModule'},
+  {path: ':id/chat', canActivateChild: [AuthGuard], loadChildren: './chat/chat.module#ChatModule'},
 
    // {path: '', redirectTo: '/', pathMatch: 'full'},
 ];

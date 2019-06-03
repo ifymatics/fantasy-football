@@ -172,4 +172,8 @@ export class AuthComponent implements OnInit {
     });
 }
 ;
+onCut(){
+  this.isLoading = false;
+  this.loginmodal.hide();
+}
 }

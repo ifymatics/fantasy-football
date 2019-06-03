@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit {
     this.service.api('user/my_profile/get_my_profile', reqParams, 'POST', this.session)
     .subscribe((response) => {
         if (response.response_code === 200) {
-          console.log(response);
+         // console.log(response);
             response                = response.data;
             this.profileDetail        = response.user_profile;
             this.bankDetail           = response.user_bank_detail;
@@ -193,7 +193,7 @@ this.service.api(apiUrl, changePasswordObj, 'POST', this.session)
 }
 onType(event: string) {
   this.value = event;
-console.log(this.value);
+// console.log(this.value);
 if (this.value !== '') {
   this.changePasswordForm.value.confirmpassword.setError({'The new passwords must match': true});
 }

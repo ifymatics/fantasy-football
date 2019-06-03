@@ -6,13 +6,21 @@
 
 <div class="body-container">
 <div class="container mb-3" style="margin-bottom: 90%;">
+  <!--alert Widget-->
+  <div *ngIf="message.length" #alert class="alert alert-{{messageCss}} alert-dismissible fade  show" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+  <!--End of alert widget-->
   <div class="row">
     <div class="col-12 w-100 mt-3">
       <div class="col-sm-4">
         <div class="btn-group">
-          <button class="waves-light relative btn-primary" mdbBtn mdbWavesEffect>HOME</button>
-          <button class="waves-light relative btn-primary" mdbBtn mdbWavesEffect>NEWS</button>
-          <button class="waves-light relative btn-primary" mdbBtn mdbWavesEffect>HELP</button>
+          <button class="waves-light  btn-primary" mdbBtn mdbWavesEffect>FANshop</button>
+          <button class="waves-light btn-primary" mdbBtn mdbWavesEffect>FRIENDS</button>
+          <button class="waves-light  btn-primary" mdbBtn mdbWavesEffect>HELP</button>
         </div>
       </div>
     </div>
@@ -28,6 +36,7 @@
         <mdb-card-body class="text-center">
           <mdb-card-title class="d-flex">
             <span class="small ml-auto">League sponsor</span>
+            <img style = "margin-top: 15px;" src="{{league.sponsor_logo}}" alt="">
           </mdb-card-title>
           <mdb-card-text>
             <div class="row my-4">

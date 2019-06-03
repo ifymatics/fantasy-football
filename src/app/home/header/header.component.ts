@@ -34,7 +34,7 @@ user;
     this.route.params.subscribe(
       (params: ParamMap) => {
          this.id = +params['id'];
-         this.league_id = params['league_id'];
+         this.league_id = +params['league_id'];
          // console.log(this.league_id);
       }
     );
