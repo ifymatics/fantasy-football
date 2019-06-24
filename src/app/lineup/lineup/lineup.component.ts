@@ -13,16 +13,17 @@ import {
 import { CollectionDetails } from "./collection-details.model";
 import { LobbyService } from "./../../lobby/lobby.service";
 import { ModalDirective } from "angular-bootstrap-md";
-import { Router, ActivatedRoute, Params, Data } from "@angular/router";
+import { Router, ActivatedRoute, Params, Data, NavigationEnd } from "@angular/router";
 import { UtilityService } from "./../../utility.service";
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, ɵConsole, OnDestroy } from "@angular/core";
 import { AuthloginService } from "src/app/user/authlogin.service";
 import { DeviceDetectorService } from "ngx-device-detector";
 import { Player } from "./player.model";
 import { forEach } from "@angular/router/src/utils/collection";
 import { ConditionalExpr } from "@angular/compiler";
 import { TouchSequence } from "selenium-webdriver";
-import { pipe, empty } from "rxjs";
+import { pipe, empty, Subscription} from "rxjs";
+import { filter} from "rxjs/operators";
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { isEmpty, timeout } from "rxjs/Operators";
 import { LineupRoutingModule } from "../lineup-routing.module";
@@ -39,7 +40,7 @@ class JoinGameInitObj {
   templateUrl: "./lineup.component.html",
   styleUrls: ["./lineup.component.scss"]
 })
-export class LineupComponent implements OnInit {
+export class LineupComponent implements OnInit,OnDestroy{
 /* Fixtures properties starts */
 @ViewChild("owlStage") owlStage: ElementRef;
   @ViewChild("owlItem") owlItem: ElementRef;
@@ -53,14 +54,14 @@ export class LineupComponent implements OnInit {
   showMoreFixturesBtn = false;
 
 
-  games = [
-    {id: 1, home: 'RBL', away: 'TSG', time: 'Mon, Feb 25-08:30 pm' },
-    {id: 1, home: 'MUD', away: 'CHE', time: 'Mon, Feb 25-08:30 pm' },
-    {id: 1, home: 'ARS', away: 'LIV', time: 'Mon, Feb 25-08:30 pm' },
-    {id: 1, home: 'RBL', away: 'TSG', time: 'Mon, Feb 25-08:30 pm' },
-    {id: 1, home: 'MUD', away: 'CHE', time: 'Mon, Feb 25-08:30 pm' },
-    {id: 1, home: 'ARS', away: 'LIV', time: 'Mon, Feb 25-08:30 pm' }
-  ];
+  // games = [
+  //   {id: 1, home: 'RBL', away: 'TSG', time: 'Mon, Feb 25-08:30 pm' },
+  //   {id: 1, home: 'MUD', away: 'CHE', time: 'Mon, Feb 25-08:30 pm' },
+  //   {id: 1, home: 'ARS', away: 'LIV', time: 'Mon, Feb 25-08:30 pm' },
+  //   {id: 1, home: 'RBL', away: 'TSG', time: 'Mon, Feb 25-08:30 pm' },
+  //   {id: 1, home: 'MUD', away: 'CHE', time: 'Mon, Feb 25-08:30 pm' },
+  //   {id: 1, home: 'ARS', away: 'LIV', time: 'Mon, Feb 25-08:30 pm' }
+  // ];
 /* Fixtures properties ends */
 
 
@@ -94,6 +95,7 @@ export class LineupComponent implements OnInit {
   confirmJoinForm;
   searchBoxForm;
   message = '' ;
+  result;
   messageCss;
   inits;
   autodisabled = false;
@@ -356,6 +358,7 @@ export class LineupComponent implements OnInit {
     team_league_id: "",
     position: ""
   };
+  subscription: Subscription;
   queryStringObj = {share: '', share_by: 'collection'};
   constructor(
     private utilityService: UtilityService,
@@ -376,6 +379,11 @@ export class LineupComponent implements OnInit {
     collection_master_id: ""
   };
   ngOnInit() {
+    this.subscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ) .subscribe(
+      () => window.scrollTo(0,0)
+    );
     this.promoClasss = this.deviceService.isMobile()? 'mdScreen': 'lgScreen';
   this.route.queryParams.subscribe(
     (data) => {
@@ -469,6 +477,9 @@ export class LineupComponent implements OnInit {
      
     }
   }
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
   onSelectPlayer(playerType) {
     // this.setPlayersPosition();
     //  console.log(playerType);
@@ -511,6 +522,8 @@ export class LineupComponent implements OnInit {
             this.allRosterslist = this.allRosterslist.concat(
               response["result"]
             );
+            // this.allRosterslist =  response["result"];
+            // console.log(this.allRosterslist);
             this.emptyScreen = this.allRosterslist.length ? false : true;
             this.loadMorePosting = false;
             this.isLoadMore = response["is_load_more"];
@@ -560,10 +573,11 @@ export class LineupComponent implements OnInit {
     const isMobile = this.deviceService.isMobile();
     const isDesktopDevice = this.deviceService.isDesktop();
     const isTassblet = this.deviceService.isTablet();
-    const result = this.allRosterslist.filter(
+     const result = this.allRosterslist.filter(
       type => type["position"] === playerType
     );
     this.allRosterslistCopy = result;
+    // console.log(result);
     this.headingTitle = this.playersAbbr[playerType];
     if (isMobile || (isTassblet && !isDesktopDevice)) {
       this.playerList.show();
@@ -574,6 +588,23 @@ export class LineupComponent implements OnInit {
     }
     // console.log(isMobile);
     // console.log(this.deviceService.device);
+  }
+  searchfilter(query:string) {
+
+    this.allRosterslistCopy = [];
+    this.allRosterslistCopy = (query) ?
+      this.allRosterslist.filter( name => (
+      name["team_abbreviation"].toLowerCase() === query.toLowerCase())
+      ?name["team_abbreviation"].toLowerCase() === query.toLowerCase():
+      (name["first_name"].toLowerCase() === query.toLowerCase())?
+       name["first_name"].toLowerCase() === query.toLowerCase():
+       (name["last_name"].toLowerCase() === query.toLowerCase()?
+       name["last_name"].toLowerCase() === query.toLowerCase():
+       name["nick_name"].toLowerCase() === query.toLowerCase())
+      ) :
+      this.allRosterslistCopy;
+      
+     console.log(this.allRosterslistCopy);
   }
   epicFunction() {
     this.deviceInfo = this.deviceService.getDeviceInfo();
@@ -3437,9 +3468,9 @@ export class LineupComponent implements OnInit {
             if (this.lineupPage === "edit") {
               // this.fillPlayGround();
               this.getUsersLineUp();
-            } // else {
+            } else {
             this.getAllRosters();
-            // }
+            }
           }
         },
         (error: Error) => {
@@ -3523,6 +3554,7 @@ export class LineupComponent implements OnInit {
         (response: Response) => {
           if (response["response_code"] === 200) {
             this.allTeamslist = response["data"].result;
+            console.log(this.allTeamslist);
           }
         },
         error => {
@@ -5398,18 +5430,7 @@ export class LineupComponent implements OnInit {
         // return false;
       }
     }
-
   }
-
-
-
-
-
-
-
-
-
-
   /* FIXTURES SLIDER STARTS */
 
 showMoreFixtures() {
@@ -5481,5 +5502,28 @@ showMoreFixtures() {
     this.message = '';
     // this.alert.nativeElement.classList.remove('show');
   }
+  filterTeamPlayers(filterType, filterBy) {
+    if(this.lineupLoading){
+        return false;
+    }
+    switch (filterType) {
+        case 'position':
+            // this.defaultTeam = {};
+            this.filter.position = (filterBy == 'All') ? '' : filterBy;
+            this.defaultTeam[filterBy] = 'active';
+            this.allRosterslist = [];
+            this.currentPage = 1;
+            break;
+        case 'search':
+            this.filter.position = filterBy;
+            break;
+        case 'team':
+            this.filter.team_league_id = filterBy;
+            this.allRosterslist = [];
+            this.currentPage = 1;
+            break;
+    }
+    this.getAllRosters(); // Call all player list with player
+}
 
 }

@@ -17,6 +17,7 @@ const fantRoutes: Routes = [
   {path: ':id/user', canActivateChild: [AuthGuard], loadChildren: './user/user.module#UserModule'},
   {path: ':id/finance', canActivateChild: [AuthGuard], loadChildren: './finance/finance.module#FinanceModule'},
   {path: ':id/chat', canActivateChild: [AuthGuard], loadChildren: './chat/chat.module#ChatModule'},
+   {path: 'fanshop', canActivateChild: [AuthGuard], loadChildren: './fanshop/fanshop.module#FanshopModule'},
 
    // {path: '', redirectTo: '/', pathMatch: 'full'},
 ];

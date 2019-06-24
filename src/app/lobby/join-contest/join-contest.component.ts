@@ -6,17 +6,18 @@ import { LobbyService } from './../lobby.service';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { UtilityService } from './../../utility.service';
 import { AuthloginService } from './../../user/authlogin.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap, NavigationEnd } from '@angular/router';
 import { forEach } from '@angular/router/src/utils/collection';
 import { LeagueRoutingModule } from 'src/app/league/league-routing.module';
+import { filter } from 'rxjs/Operators';
 
 @Component({
   selector: 'app-join-contest',
   templateUrl: './join-contest.component.html',
   styleUrls: ['./join-contest.component.scss']
 })
-export class JoinContestComponent implements OnInit {
+export class JoinContestComponent implements OnInit, OnDestroy {
   @ViewChild('firstThingsModal') firstThingsModal: ModalDirective;
   @ViewChild('joinGameConfirmModal') joinGameConfirmModal: ModalDirective;
   toJoinContest;
@@ -90,7 +91,7 @@ export class JoinContestComponent implements OnInit {
 selectedLeague = '';
 onAnimate = false;
 onCreateTeamAnimate = false;
-
+subscription;
   constructor(private service: AuthloginService,
     private utilityService: UtilityService,
      private router: Router,
@@ -100,6 +101,11 @@ onCreateTeamAnimate = false;
      private modalservice: ModalService
      ) {}
   ngOnInit() {
+    this.subscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ) .subscribe(
+      () => window.scrollTo(0,0)
+    );
     this.route.params.subscribe(
       (params: ParamMap) => {
         this.league.league_id = params['league_id'];
@@ -132,6 +138,9 @@ onCreateTeamAnimate = false;
  this.LobbyMasterData();
    }
    this.isLoading = true;
+   }
+   ngOnDestroy() {
+     this.subscription.unsubscribe();
    }
 LobbyMasterData() {
   const league_filter = [];

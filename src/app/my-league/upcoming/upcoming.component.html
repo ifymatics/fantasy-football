@@ -255,7 +255,7 @@
                         </td>
                         <td class="tableItem" *ngIf="(leagues.game_starts_in | amDifference: leagues.today :'days' : true)  >= 1">
                           <span class="d-block font-weight-bold">{{ leagues.season_scheduled_date | date }}</span>
-                          <span class='text-center'>{{leagues.season_scheduled_date | date: "shortTime"}}</span>
+                          <span class='text-center matchTime'>{{leagues.season_scheduled_date | date: "shortTime"}}</span>
                          </td>
                       </tr>
                     </table>

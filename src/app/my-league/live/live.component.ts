@@ -61,7 +61,7 @@ export class LiveComponent implements OnInit {
         this.isSelected[this.currentMatch] = 'active';
         const param = {
             'status':  status,
-            'sports_id':5 // this.sports_id,
+            'sports_id': 5 // this.sports_id,
             // 'league_id': 114 // this.league_id
         };
         this.service.api('fantasy/contest/get_collections_by_status', param, 'POST', this.session)
@@ -77,7 +77,7 @@ export class LiveComponent implements OnInit {
              }
             //  this.leagueservice.getContestData( response.collections);
              this.contestListData = response.collections;
-            // console.warn(this.contestListData);
+            console.warn(this.contestListData);
         }, error => {
           this.isLoading = false;
            // console.log(error);

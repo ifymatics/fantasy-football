@@ -14,7 +14,14 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
+import { CategoryService } from './fanshop/shared/services/category.service';
+import { ProductService } from './fanshop/shared/services/product.service';
+import { ShoppingCartService } from './fanshop/shared/services/shopping-cart.service';
+import { OrderService } from './fanshop/shared/services/order.service';
+import { UserService } from './fanshop/shared/services/user.service';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 
 @NgModule({
@@ -29,7 +36,13 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     MDBBootstrapModule.forRoot(),
      /* for firebase */
      // AngularFireModule.initializeApp(environment.firebase),
-     // AngularFirestoreModule,
+    
+     AngularFireModule.initializeApp(environment.firebase),
+     AngularFireAuthModule,
+     AngularFirestoreModule,
+     AngularFireStorageModule,
+
+    AngularFirestoreModule.enablePersistence(),
      /*end of for firebase */
     HomeModule,
     // UserModule,
@@ -44,7 +57,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
    // LeagueModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [ ],
+  providers: [AngularFirestore,{provide:AngularFirestoreDocument}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

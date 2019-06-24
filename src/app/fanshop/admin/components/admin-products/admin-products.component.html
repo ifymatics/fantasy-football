@@ -1,0 +1,27 @@
+<div class="container" style="margin-bottom: 100px;">
+    <bs-navbar></bs-navbar>
+</div>
+<div class="container">
+    <p><a routerLink="/fanshop/admin/products/new"
+        routerLinkActive="router-link-active"  class="btn btn-primary">new Product</a>
+    </p>
+    <p>
+        <input #query (keyup)="filter(query.value)" type="text" class="form-control" placeholder="search...">
+    </p>
+   <table class="table bordered">
+      <thead>
+          <tr>
+              <th><b>Title</b></th>
+              <th><b>Price</b></th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let p of (filteredProducts?filteredProducts: products)">
+              <td>{{p.title}}</td>
+              <td>{{p.price}}</td>
+              <td><a  [routerLink]="['/fanshop/admin/products', p.id]" style ="color:#4285f4 ;font:15px robotoRegular;" > <b>Edit </b></a></td>
+          </tr>
+      </tbody>
+   </table>
+</div>

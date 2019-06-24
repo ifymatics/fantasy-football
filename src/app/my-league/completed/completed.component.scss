@@ -490,7 +490,7 @@ table#contestInfo1 td {
 
   @include for-md {
     text-align: center;
-    width: 50px;
+    width: max-content;
   }
 
   /* @include for-sm {
@@ -1944,4 +1944,11 @@ table#contestInfo td {
  color: white;
  border-radius: 20%;
 
+}
+
+.matchTime {
+  color: #B8B8B8;
+    display: block;
+    font-size: 12px;
+    font-style: italic; 
 }

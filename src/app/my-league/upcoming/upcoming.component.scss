@@ -502,7 +502,7 @@ table#contestInfo1 td {
 
   @include for-md {
     text-align: center;
-    width: 50px;
+    width: max-content;
   }
 
   /* @include for-sm {
@@ -1935,3 +1935,10 @@ table#contestInfo td {
 }
 }
 /* END OF CUSTOMISED SPINNER*/
+
+.matchTime {
+  color: #B8B8B8;
+    display: block;
+    font-size: 12px;
+    font-style: italic; 
+}

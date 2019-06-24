@@ -8738,11 +8738,11 @@
                         class="fas fa-search align-self-center mr-3"
                         id="playerSearchIcon"
                       ></i>
-                      <!--
-                          <form action="">
+                      
+                          <!-- <form action="">
                             <input type="search" name="" id="searchPlayers" placeholder="Search" aria-placeholder="Search players"/>
-                          </form>
-                        -->
+                          </form> -->
+                        
                     </div>
                   </div>
 
@@ -8890,31 +8890,26 @@
                         class="align-self-center"
                         id="linupDropdown"
                       >
-                        <a
+                         <a 
                           mdbDropdownToggle
                           class=" dropdown-toggle align-self-center"
                         >
                           <span>All Teams</span>
-                        </a>
+                          <select  mdbDropdownToggle
+                          class=" dropdown-toggle align-self-center" id="" disabled="disabled">
+                            <option *ngFor="let team of allTeamslist" [value]="team.team_id">{{team.team_name}}</option>
+                          </select>
+                        </a> 
                         <div class="dropdown-menu">
-                          <ul class="list-group">
-                            <li class="dropdown-item">
+                          
+                          <!-- <ul class="list-group">
+                            <li class="dropdown-item" *ngFor="let team of allTeamslist">
                               <a href="" class="dropdown-link"
-                                >Manchester United</a
+                                >{{team.team_name}}</a
                               >
                             </li>
-                            <li class="dropdown-item">
-                              <a href="" class="dropdown-link"
-                                >Manchester City</a
-                              >
-                            </li>
-                            <li class="dropdown-item">
-                              <a href="" class="dropdown-link">Liverpool</a>
-                            </li>
-                            <li class="dropdown-item">
-                              <a href="" class="dropdown-link">Arsenal</a>
-                            </li>
-                          </ul>
+                           
+                          </ul> -->
                         </div>
                       </div>
 
@@ -8926,7 +8921,8 @@
 
                         <form class="py-0">
                           <div class="md-form ">
-                            <input
+                            <input #query
+                            (keyup)="searchfilter(query.value)"
                               type="text"
                               id="searchplayers"
                               class="   form-control"

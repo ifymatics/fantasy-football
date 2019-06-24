@@ -1,14 +1,46 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FanshopComponent } from './fanshop/fanshop.component';
-import { AdminProductsComponent } from './admin/controllers/admin-products/admin-products.component';
-import { AdminOrdersComponent } from './admin/controllers/admin-orders/admin-orders.component';
-import { ProductFormComponent } from './admin/controllers/product-form/product-form.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+// import { AngularFireModule } from 'angularfire';
+import { SharedModule } from './../shared.module';
+// import { environment } from './../environments/environment';
+import { AdminModule } from './admin/admin.module';
+import { AdminAuthGuardService } from './admin/services/admin-auth-guard.service';
+import { LoginComponent } from './core/components/login/login.component';
+import { CoreModule } from './core/core.module';
+// import { SharedModule } from './shared/shared.module';
+import { ProductsComponent } from './shopping/components/products/products.component';
+import { ShoppingModule } from './shopping/shopping.module';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { FanshopComponent } from './fanshop.component';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FanSharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [FanshopComponent, AdminProductsComponent, AdminOrdersComponent, ProductFormComponent],
+  declarations: [
+    FanshopComponent,
+    // ProductsComponent   
+  ],
   imports: [
-    CommonModule
+   // BrowserModule,
+    SharedModule,
+    FanSharedModule,
+    AdminModule,  
+    ShoppingModule,
+    CoreModule,
+   AngularFireModule.initializeApp(environment.firebase),
+   AngularFirestoreModule,
+   AngularFirestoreModule.enablePersistence(),
+    RouterModule.forChild([
+      { path: '', component:FanshopComponent},
+      { path: 'products', component:ProductsComponent},
+      { path: 'login', component: LoginComponent },
+    ])    
   ]
+  /*providers: [
+    AdminAuthGuardService,
+  ],*/
+ 
 })
 export class FanshopModule { }

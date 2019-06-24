@@ -80,8 +80,8 @@
               <span
                 style="color:red; border-color: black;"
                 class="small"
-                *ngIf="loginError.email"
-                >{{ loginError.email }}</span
+                *ngIf="loginError?.email"
+                >{{ loginError?.email }}</span
               >
               <label for="loginemail">Your Email</label>
             </div>
@@ -105,8 +105,8 @@
               <span
                 style="color:red; border-color: black;"
                 class="small"
-                *ngIf="loginError.password"
-                >{{ loginError.password }}</span
+                *ngIf="loginError?.password"
+                >{{ loginError?.password }}</span
               >
             </div>
             <div
@@ -119,8 +119,8 @@
               class=""
               *ngIf="
                 noNetwork &&
-                (this.loginError.email === '' ||
-                  this.loginError.password === '') &&
+                (this.loginError?.email === '' ||
+                  this.loginError?.password === '') &&
                 !isLoading
               "
               style="top:50%;

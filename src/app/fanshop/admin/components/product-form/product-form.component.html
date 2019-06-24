@@ -1,0 +1,65 @@
+<div class="container" style="margin-bottom: 100px;">
+  <bs-navbar></bs-navbar>
+</div> 
+<div class="container">
+  
+<div class="row">
+  <div class="col-md-6">
+    <form [formGroup]="productForm" (ngSubmit)="save()">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input 
+          [mdbValidate]="false"
+          mdbInputDirective
+           formControlName="title" name="title"
+            id="title" type="text" 
+            class="form-control" >
+        </div>  
+        <div class="alert alert-danger" *ngIf="!productForm.get('title').valid && productForm.touched">
+          Title is required.
+        </div>      
+        <div class="form-group">
+          <label for="price">Price</label>
+          <div class="input-group">
+            <span class="input-group-addon">N</span>
+            <input formControlName="price" name="price" id="price" type="number" class="form-control" >
+            
+          </div>
+            <div class="alert alert-danger"  *ngIf="!productForm.get('price').valid && productForm.touched">Price is required.</div>
+          
+          <!--<div class="alert alert-danger" *ngIf="!productForm.get('price').valid && productForm.touched">
+            <div *ngIf="!productForm.get('price').valid && productForm.touched">Price is required.</div>
+             <div *ngIf="productForm.price?.errors.min">Price should be 0 or higher.</div> 
+          </div>-->
+        </div>        
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select formControlName="category" name="category" id="category" class="form-control" required>
+            <option value="null"></option>
+            <!-- <option *ngFor="let c of categories$ | async" value="{{c.name}}"> -->
+         <option *ngFor="let c of categories" value="{{c.id}}"> {{c.name}}</option>
+            <!-- </option> -->
+          </select>
+         <div class="alert alert-danger"
+           *ngIf="!productForm.get('category').valid && productForm.touched">
+            Category is required.
+          </div>
+        </div>        
+        <div class="form-group">
+          <label for="imageUrl">Image URL</label>
+          <input formControlName="imageUrl"  name="imageUrl" id="imageUrl" type="text" class="form-control" required url>
+          <div class="alert alert-danger" *ngIf="!productForm.get('imageUrl').valid && productForm.touched">
+            <div *ngIf="imageUrl?.errors.required">Image URL is required.</div>
+            <div *ngIf="imageUrl?.errors.url">Please enter a valid URL.</div>
+          </div>
+        </div>        
+        <button  [disabled]="!productForm.valid" class="btn btn-primary">Save</button>
+        <button *ngIf="id" type="button" (click)="delete()" class="btn btn-danger">Delete</button>
+      </form>    
+  </div>
+  <div class="col-md-4">
+    <product-card [product]="product" [showActions]="false" ></product-card>
+  </div>
+</div>
+
+</div>
