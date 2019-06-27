@@ -2,7 +2,7 @@
   <div class="col-sm-12 col-lg-7">
     <div>
       <div *ngIf="contestListData.length > 0 || isLoading">
-        <div class="container" *ngIf="!isDisabled">
+        <div class="container" *ngIf="!isDisabled; else elseBlock">
           <!-- Card starts -->
           <mdb-card class="my-3" *ngFor="let collections of contestListData">
             <div class="border-bottom pt-2 pb-0">
@@ -424,7 +424,7 @@
             style="top:50%;
                   left: 45%;"
           ></div>
-          <ng-template #No *ngIf="!isPopulated">
+          <ng-template elseBlock *ngIf="!isPopulated">
             <h4>There is no live league available.</h4>
           </ng-template>
         </div>
@@ -442,65 +442,7 @@
 
   <div class="col-sm-12 col-lg-5">
     <div id="{{ device }}" *ngIf="isPopulated">
-      <!-- <div class="pitchadscontainer ">
-        <div class="" id="teamName">
-          <div>
-            <a class="white-text" (click)="backToDetails()" *ngIf="isDisabled"
-              ><i class="fas fa-arrow-left mr-2"></i> Back</a
-            >
-          </div>
-
-          <div>
-            <span>{{ teamName }}</span>
-          </div>
-        </div>
-
-        <div>
-          <div
-            class="d-flex align-items-center justify-content-between px-3 mt-1"
-          >
-            <div
-              class="white-text"
-              style="max-height:25px;"
-              *ngIf="
-                (currentMatch == 'Upcoming' ? true : false) &&
-                playersArr.length &&
-                normalLineup
-              "
-            >
-              <span style="max-height:25px;" class="d-block remainingSalary">{{
-                !teamInfo.creadit_left
-              }}</span>
-              <small
-                style="max-height:7px;margin-bottom: 4px;padding-bottom: 5px;"
-                class="small"
-                >Salary left</small
-              >
-            </div>
-
-
-          </div>
-        </div>
-
-
-
-
-        <div class="d-flex pt-0">
-          <div class="d-flex" id="leftAd">
-            <div id="leftAdShadow"></div>
-            <div id="leftAdBox">
-              <img src="assets/image/bg-1.jpg" alt="" />
-            </div>
-          </div>
-
-          <div class="d-flex " id="rightAd">
-            <div id="rightAdBox">
-              <img src="assets/image/bg-1.jpg" alt="" />
-            </div>
-            <div id="rightAdShadow"></div>
-          </div>
-        </div>
-      </div> -->
+      
 
       <div class="pitchadscontainer ">
         <div class="" id="teamName">

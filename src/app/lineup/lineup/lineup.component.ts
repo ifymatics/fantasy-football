@@ -3592,13 +3592,13 @@ export class LineupComponent implements OnInit,OnDestroy{
         captainObj.team_name.indexOf(
           currentUser["data"]["user_profile"].user_name
         ) >= 0
-      )
+       )
     ) {
       this.captainObj.team_name =
         currentUser["data"]["user_profile"].user_name +
         " " +
         captainObj.team_name;
-      // console.log(this.captainObj);
+       console.log(this.captainObj);
     }
     this.is_disable_selection = false;
     // console.log("selected collection",this.collection_detail);
@@ -3792,7 +3792,7 @@ export class LineupComponent implements OnInit,OnDestroy{
               this.datas.sports_id +
               "/" +
               this.datas.league_id +
-              "/my-league"
+              "/my-league/upcoming"
           ]);
           //  $rootScope.joinContestSuccessModalInit(response.message); //Success modal init
         },

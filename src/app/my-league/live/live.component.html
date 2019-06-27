@@ -11,7 +11,7 @@
           <div class="col-sm-12 col-lg-7">
               <div>
                   <!-- Completed section starts -->
-                   <div *ngIf="contestListData.length > 0 || isLoading">
+                   <div *ngIf="contestListData.length > 0 || isLoading ; else elseBlock">
         <div class="container" *ngIf="!isDisabled">
           <!-- Card starts -->
           <mdb-card class="my-3" *ngFor="let collections of contestListData">
@@ -397,13 +397,13 @@
             style="top:50%;
                   left: 45%;"
           ></div>
-          <ng-template #No *ngIf="!isPopulated">
+          <ng-template #No *ngIf="!isPopulated; else No">
             <h4>There is no live league available.</h4>
           </ng-template>
         </div>
       </div>
                   <!-- Completed section ends -->
-                  <ng-template #No>
+                  <ng-template #elseBlock>
                     <div class="container text-center">
                         <h5><p>No live contest available on this league</p></h5>
                     </div>

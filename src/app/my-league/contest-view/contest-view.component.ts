@@ -33,7 +33,7 @@ showMoreFixturesBtn = false;
 ];*/
 /* Fixtures properties ends */
   chatbox = true;
-  selected = "userRankRow";
+  selected = "";
   contest = { status: 0, user_rank: "", contest_rank: "" };
   userRankList;
   posting = false;
@@ -146,9 +146,11 @@ showMoreFixturesBtn = false;
       .api("fantasy/contest/get_contest_rank", param, "POST", this.session)
       .subscribe(
         response => {
-          // console.log(response);
+          // console.log(response.data.contest.user_rank);
+           // console.log(param);
           this.contest = response.data.contest;
           this.userRank = this.contest.user_rank;
+         // console.log(this.userRank[0]);
           // this.contestListRank            = this.contest.contest_rank;
           this.contestListRank = this.contestListRank.concat(
             this.contest.contest_rank
@@ -157,6 +159,7 @@ showMoreFixturesBtn = false;
           this.collection_detail.match_list = response.data.contest.fixtures;
           this.contestListOffset = response.data.offset;
           this.isLoadMore = response.data.is_load_more;
+          this.getTeamLineup(this.userRank[0]);
           this.posting = false;
           this.loadMorePosting = false;
          // this.fistItemInArray(this.userRank);
@@ -165,6 +168,8 @@ showMoreFixturesBtn = false;
           }
         },
         error => {
+          console.log(error);
+          console.log(param);
           this.posting = false;
           // emitAlert.on(UtilityService.getErrorMessage(error), 'danger');
           // $state.go('root.league.init', { 'current_tab': 1 });
@@ -185,13 +190,17 @@ showMoreFixturesBtn = false;
          }
      });*/
   }
-  getTeamLineup(lineup, league, collection) {
+  getTeamLineup(lineup, league?, collection?) {
     this.teamName = lineup.team_name;
     this.isLoading = true;
     this.checkContest_id = [];
     this.btn = true;
-    this.checkContest_id.push(league.contest_id);
-    // console.log(lineup, collection);
+    // console.log(lineup);
+    this.defPlayers = [];
+    this.midPlayers = [];
+    this.fwdPlayers = [];
+   // this.checkContest_id.push(league.contest_id);
+   
     // console.log(this.device);
     this.totalUserJoined = league ? league.total_user_joined : 0;
     this.selectedLineupMasterContetId = lineup.lineup_master_contest_id;
@@ -226,8 +235,9 @@ showMoreFixturesBtn = false;
           if (response.response_code === 200) {
             this.isLoading = false;
             this.lineupDetails = response.data.lineup;
-           // console.log(this.lineupDetails);
+           
             this.teamInfo = response.data.team_info;
+            console.log(this.teamInfo);
             this.teamInfo.collection_master_id =
               response.data.lineup[0].collection_master_id;
             this.teamInfo.league_id = response.data.lineup[0].league_id;

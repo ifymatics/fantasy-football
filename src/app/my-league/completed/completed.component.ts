@@ -122,7 +122,7 @@ export class CompletedComponent implements OnInit {
       const user = this.utilityservice.getLocalStorage("user");
       this.currentUser = user.user_profile;
       this.session = user.data.session_key;
-      this.selectLeagueType(0);
+      this.selectLeagueType(2);
     }
     this.defaultEndPosition = this.utilityservice.playersDefaultEndPosotion(
       "soccer"
