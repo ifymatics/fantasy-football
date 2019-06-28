@@ -147,7 +147,7 @@ showMoreFixturesBtn = false;
       .subscribe(
         response => {
           // console.log(response.data.contest.user_rank);
-           // console.log(param);
+            console.log(param);
           this.contest = response.data.contest;
           this.userRank = this.contest.user_rank;
          // console.log(this.userRank[0]);
@@ -168,8 +168,8 @@ showMoreFixturesBtn = false;
           }
         },
         error => {
-          console.log(error);
-          console.log(param);
+           console.log(error);
+           console.log(param);
           this.posting = false;
           // emitAlert.on(UtilityService.getErrorMessage(error), 'danger');
           // $state.go('root.league.init', { 'current_tab': 1 });
@@ -195,12 +195,13 @@ showMoreFixturesBtn = false;
     this.isLoading = true;
     this.checkContest_id = [];
     this.btn = true;
-    // console.log(lineup);
+    //  console.log(lineup);
     this.defPlayers = [];
     this.midPlayers = [];
     this.fwdPlayers = [];
-   // this.checkContest_id.push(league.contest_id);
-   
+    this.checkContest_id = [];
+    this.checkContest_id.push(lineup.user_id);
+  // console.log(this.checkContest_id);
     // console.log(this.device);
     this.totalUserJoined = league ? league.total_user_joined : 0;
     this.selectedLineupMasterContetId = lineup.lineup_master_contest_id;
@@ -237,7 +238,7 @@ showMoreFixturesBtn = false;
             this.lineupDetails = response.data.lineup;
            
             this.teamInfo = response.data.team_info;
-            console.log(this.teamInfo);
+           // console.log(this.teamInfo);
             this.teamInfo.collection_master_id =
               response.data.lineup[0].collection_master_id;
             this.teamInfo.league_id = response.data.lineup[0].league_id;
@@ -477,14 +478,14 @@ showMoreFixturesBtn = false;
     // console.warn( this.playersArr);
   }
   fistItemInArray(contestListData) {
-    console.log(contestListData);
+   // console.log(contestListData);
    let collections = {contests:[]};
     let leagues = { teams: [] };
     let leaguesteam = {};
     for (let i = 0; i <= contestListData.length; i++) {
       if (i === 0) {
         collections = contestListData[i];
-        console.log(collections);
+      //  console.log(collections);
         for (let j = 0; j <= collections.contests.length; j++) {
           if (i === 0) {
             leagues = collections.contests[i];

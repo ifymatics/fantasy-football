@@ -133,7 +133,7 @@
               </thead>
 
               <tbody >
-                <tr class="{{selected}}" *ngFor="let userDetail of userRank; first as isFirst" >
+                <tr [ngClass]="{userRankRow: checkContest_id.includes(userDetail.user_id)}" class="{{selected}}" *ngFor="let userDetail of userRank; first as isFirst" >
                   <td></td>
                   <td>
                     <span class="rankTag">{{((userDetail.current_rank) ? userDetail.current_rank : '--')}}</span>
@@ -175,7 +175,7 @@
                   <td></td>
                   <!-- <td *ngIf="isFirst ? getTeamLineup(userDetail, selectedContest) : null"></td> -->
                 </tr>
-                <tr class="{{selected}}" *ngFor = "let contestRankList of contestListRank">
+                <tr [ngClass]="{userRankRow: checkContest_id.includes(contestRankList.user_id)}" *ngFor = "let contestRankList of contestListRank">
                   <td></td>
                   <td>
                     <span class="rankTag">{{((contestRankList.current_rank) ? contestRankList.current_rank : '--')}}</span>

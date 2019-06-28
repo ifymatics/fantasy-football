@@ -204,6 +204,7 @@ export class LiveComponent implements OnInit {
               this.teamInfo.collection_master_id =
                 response.data.lineup[0].collection_master_id;
               this.teamInfo.league_id = response.data.lineup[0].league_id;
+              console.log( this.teamInfo.league_id);
               this.teamInfo.lineup_master_id =
                 response.data.lineup[0].lineup_master_id;
               this.teamInfo.rank = this.router.isActive("livecontest", true)
@@ -248,7 +249,7 @@ export class LiveComponent implements OnInit {
         );
     }
     onView(lineup_master_id, contest_id, collection) {
-     // console.log(lineup_master_id, contest_id, collection);
+     console.log(lineup_master_id, contest_id, collection);
       // this.Leagueservice.getContestDataOnviewNavigate(collection);
       this.utilityservice.checkLocalStorageStatus("collection")
         ? this.utilityservice.clearLocalStorage("collection")
