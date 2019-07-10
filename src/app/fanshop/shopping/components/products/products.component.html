@@ -5,7 +5,7 @@
  <div class="container">
     <div class="row">
         <div class="col-md-3 categories" >
-            <div *ngIf="d_svice.isDesktop()" class=' navbarProductSearchBox'>
+            <div *ngIf="!mobile" class=' navbarProductSearchBox'>
                 <input type="text" placeholder="Search product" class='' style = "">
                 <i class="fas fa-search"></i>
             </div>

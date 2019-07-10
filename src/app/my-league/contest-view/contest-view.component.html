@@ -292,7 +292,7 @@
                       <div class="row rank">
                         <div class="ml-auto mr-3">Rank</div>
                         <div class="mr-4">
-                          {{ teamInfo ? teamInfo.rank + "/" + totalUserJoined : "--" }}
+                          {{ teamInfo ? teamInfo.rank  + "/" + totalUserJoined : "--" }}
                         </div>
                       </div>
                     </div>
@@ -333,7 +333,8 @@
                       <!-- Formation 5-4-1 Forward -->
                       <div id="FW">
                         <ul [ngClass]="fwclass">
-                          <li *ngFor="let fwdplayer of fwdPlayers; let fwdIndex = index">
+                          <ng-container *ngFor="let fwdplayer of fwdPlayers; let fwdIndex = index" >
+                          <li *ngIf="!fwdPlayers[fwdIndex]['allow_substitution']==1">
                             <div
                               *ngIf="
                                 fwdPlayers[fwdIndex]['captain'] === '1' ||
@@ -386,6 +387,7 @@
                               <!--<span hidden class="white-text small">DEF</span>-->
                             </a>
                           </li>
+                        </ng-container>
                         </ul>
                       </div>
                       <!-- /Formation 4-4-2 Forward -->
@@ -393,7 +395,8 @@
                       <!-- Formation 5-4-1 Midfield -->
                       <div id="Mid">
                         <ul [ngClass]="midclass">
-                          <li *ngFor="let mfplayer of midPlayers; let mfIndex = index">
+                          <ng-container *ngFor="let mfplayer of midPlayers; let mfIndex = index">
+                          <li *ngIf="!midPlayers[mfIndex]['allow_substitution']==1"  >
                             <div
                               *ngIf="
                                 midPlayers[mfIndex]['captain'] === '1' ||
@@ -446,6 +449,8 @@
                               <!--<span hidden class="white-text small">DEF</span>-->
                             </a>
                           </li>
+                          
+                        </ng-container>
                         </ul>
                       </div>
             
@@ -461,8 +466,8 @@
                       <!-- Formation 5-4-1 Defence -->
                       <div id="Def">
                         <ul [ngClass]="defclass">
-                         
-                          <li *ngFor="let dfplayer of defPlayers; let dfIndex = index">
+                          <ng-container *ngFor="let dfplayer of defPlayers; let dfIndex = index">
+                          <li *ngIf="!defPlayers[dfIndex]['allow_substitution']==1"  >
                             
                               <!-- <ng-container *ngIf="!is_live && defPlayers[dfIndex].status==1">  -->
                             <div
@@ -518,7 +523,7 @@
                             </a>
                              <!-- </ng-container>   -->
                           </li>
-                      
+                        </ng-container>
                         </ul>
                       </div>
                       <!-- /Formation 5-4-1 Defence -->

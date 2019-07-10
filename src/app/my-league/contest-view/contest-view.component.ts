@@ -142,7 +142,10 @@ showMoreFixturesBtn = false;
 
       this.contestData = this.utilityservice.getLocalStorage("collection");
       this.is_live = this.contestData.is_live;
-      // console.log( this.is_live );
+      if (this.contestData.is_live =='undefined') {
+        this.is_live = true;
+      }
+       console.log( this.is_live );
     });
     if (this.utilityservice.checkLocalStorageStatus("user")) {
       const user = this.utilityservice.getLocalStorage("user");
@@ -694,7 +697,7 @@ getUserRankBySocket(offset?) {
             this.contestCopy.contest_rank
           );
            this.getLineupWithSores(this.userRankCopy[0]);
-           // console.log(this.userRankCopy[0]);
+            // console.log(this.userRankCopy[0]);
            // console.log(this.contestData);
         }
       );
