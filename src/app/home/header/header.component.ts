@@ -2,6 +2,7 @@ import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
 import { AuthloginService } from './../../user/authlogin.service';
 import { UtilityService } from './../../utility.service';
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-header',
@@ -27,7 +28,8 @@ point_balance;
 user;
 
   constructor(private utilityservice: UtilityService, private utilityService: UtilityService,
-     private service: AuthloginService, private router: Router, private route: ActivatedRoute) { }
+     private service: AuthloginService, private router: Router, private route: ActivatedRoute,
+     private dataservice: DataService) { }
 
   ngOnInit() {
     // this. showMenu();
@@ -80,7 +82,7 @@ user;
       this.user_balance =  response.data.user_balance;
       this.point_balance  = parseFloat(this.user_balance.point_balance);
       this.currentBalance = Number(currentBalance);
-
+     this.dataservice.userBalance.emit(this.user_balance);
     },
     (error) => {
 

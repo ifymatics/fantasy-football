@@ -6,12 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { BsNavbarComponent } from '../core/components/bs-navbar/bs-navbar.component';
-import { ShoppingModule } from '../shopping/shopping.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [  BsNavbarComponent,ProductCardComponent, ProductQuantityComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    MDBBootstrapModule,
   ],
   exports: [
     ProductCardComponent,
@@ -19,6 +20,7 @@ import { ShoppingModule } from '../shopping/shopping.module';
     ProductQuantityComponent,
     CommonModule,
     FormsModule,
+    MDBBootstrapModule,
     // ShoppingModule,
     // CustomFormsModule,
     // DataTableModule,

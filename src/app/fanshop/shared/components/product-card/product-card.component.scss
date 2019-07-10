@@ -1,5 +1,5 @@
 
-.card { 
+/* .card { 
     margin-bottom: 30px;
   }
   
@@ -15,4 +15,938 @@
   .card-footer button {
     cursor: pointer;
     text-transform: uppercase;
+  } */
+
+  $startRatingFill: #ffd439;
+@mixin for-portrait-phone-only {
+    @media (min-width: 320px) and (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin for-sm {
+    @media (min-width: 576px) {
+        @content;
+    }
+}
+
+// Media query size for low Resolution Tablets, Mobiles (Landscape)
+@mixin for-landscape-phone-only {
+    @media (min-width: 481px) and (max-width: 767px) {
+        @content;
+    }
+}
+
+//Media query for Tablets, Ipads (portraits)
+@mixin for-portrait-tablet-and-ipad-only {
+    @media (min-width: 768px) and (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin for-md {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin for-lg {
+    @media (min-width: 992px) {
+        @content;
+    }
+}
+
+@mixin for-xl {
+    @media (min-width: 1200px) {
+        @content;
+    }
+}
+
+//Media query for Tablets, Ipads (landscape)
+@mixin for-landscape-tablet-and-ipads-only {
+    @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+        @content;
+    }
+}
+
+//Media query Laptops, Desktops
+@mixin for-laptop-and-desktop-only {
+    @media (min-width: 1025px) {
+        @content;
+    }
+}
+
+//Desktop navbar starts
+//mdb navbar-brand starts
+#navbar-logo {
+    @include for-portrait-phone-only {
+        float: right;
+        position: absolute;
+        right: 100px;
+        align-self: center;
+    }
+    @include for-landscape-phone-only {
+        float: right;
+        position: absolute;
+        right: 200px;
+        align-self: center;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        float: right;
+        position: absolute;
+        right: 200px;
+        align-self: center;
+    }
+    @include for-landscape-tablet-and-ipads-only {
+        float: none;
+        right: 0px;
+        position: relative;
+        align-self: center;
+        margin-left: -35px;
+        margin-right: 20px;
+    }
+    @include for-laptop-and-desktop-only {
+        margin-left: -95px;
+        margin-right: 20px;
+    }
+}
+
+//desktop navbar logo starts
+#logo_Desktop {
+    @include for-portrait-phone-only {
+        display: block;
+        margin-left: -150px;
+    }
+    @include for-landscape-phone-only {
+        display: block;
+        margin-left: -230px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        margin-left: -265px;
+    }
+    @include for-landscape-tablet-and-ipads-only {
+        margin-left: 0px;
+    }
+    width: 133px;
+    height: 20px;
+    @include for-laptop-and-desktop-only {
+        width: 200px;
+        height: 30px;
+    }
+}
+
+//Logo on mobile starts
+#logo_Mobile {
+    display: none;
+    @include for-portrait-phone-only {
+        max-width: 30px;
+        max-height: 60px;
+        margin-left: -115px;
+        display: block;
+    }
+    @include for-landscape-phone-only {
+        max-width: 30px;
+        max-height: 60px;
+        margin-left: -215px;
+        display: block;
+    }
+}
+
+//animation for navbar links starts
+#nav-link {
+    color: #333;
+    font-size: 13px;
+    font-weight: normal;
+    border-bottom: 4px solid transparent;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+    @include for-landscape-tablet-and-ipads-only {
+        position: relative;
+        top: 10px;
+        height: 45px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    @include for-laptop-and-desktop-only {
+        position: relative;
+        top: 10px;
+        height: 45px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+
+#nav-link:hover {
+    @include for-landscape-tablet-and-ipads-only {
+        animation: navLink 0.3s ease forwards;
+    }
+    @include for-laptop-and-desktop-only {
+        animation: navLink 0.3s ease forwards;
+    }
+}
+
+@keyframes navLink {
+    to {
+        border-bottom: 4px solid #419bf9;
+    }
+}
+
+#nav-link.active {
+    border-bottom: 4px solid #419bf9;
+}
+
+.shoppingDCartContaier {
+    margin-left: auto;
+}
+
+//animation for navbar links ends
+//USER MENU STARTS
+//Mobile navbar
+#Mobiledropdown1 {
+    display: none;
+    @include for-portrait-phone-only {
+        display: block;
+        margin-right: -85px;
+    }
+    @include for-landscape-phone-only {
+        display: block;
+        margin-right: -185px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        display: block;
+        margin-right: -185px;
+        position: relative;
+        bottom: 5px;
+    }
+    @include for-landscape-tablet-and-ipads-only {
+        display: none;
+    }
+}
+
+//right user icon on desktop starts
+#dropdown {
+    @include for-portrait-phone-only {
+        display: none;
+    }
+    @include for-landscape-phone-only {
+        display: none;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        display: none;
+    }
+    @include for-landscape-tablet-and-ipads-only {
+        display: block;
+        margin-right: -30px;
+    }
+    @include for-laptop-and-desktop-only {
+        margin-right: -100px;
+    }
+}
+
+//pointer cursor for DesktopNavbar starts
+#dropdownBtn {
+    display: flex;
+}
+
+#dropdownBtn:hover {
+    cursor: pointer;
+}
+
+//USer info for user dropdown button
+.user-info {
+    @include for-portrait-phone-only {
+        display: none;
+    }
+    @include for-landscape-phone-only {
+        display: none;
+    }
+}
+
+// User icon in top right of desktop headers starts
+#user-icon {
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    @include for-portrait-phone-only {
+        height: 31px;
+        width: 31px;
+    }
+    @include for-landscape-phone-only {
+        height: 31px;
+        width: 31px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        height: 44px;
+        width: 44px;
+    }
+}
+
+// border around user icon starts
+#user-icon-border {
+    border: solid 1px rgb(218, 218, 218);
+    border-radius: 50%;
+    padding: 8px 8px;
+    @include for-sm {
+        position: relative;
+        bottom: 3px;
+    }
+    @include for-md {
+        padding: 0;
+    }
+}
+
+// border around user icon when hovering starts
+#user-icon-border:hover {
+    border: solid 1px rgb(107, 195, 253);
+}
+
+// Dropdown menu starts
+// Desktop navbar user dropdown menu on the right side of navbar starts
+#dropdown-menu {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    position: absolute;
+    left: -110px;
+    @include for-portrait-phone-only {
+        left: -190px;
+    }
+    @include for-landscape-phone-only {
+        left: -190px;
+    }
+    .btn-in-user-dropdown {
+        width: 100px;
+    }
+}
+
+//  Links in user dropdown starts
+a#dropdownlink {
+    color: #777;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#dropdown #dropdownlink:hover {
+    background: #4caf50;
+    color: white;
+    transition: 0.3s;
+}
+
+.dropdown-menu-top {
+    height: 107px;
+}
+
+//USER MENU ENDS
+/////======HEADER ENDS=======/////
+.navbars {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 999;
+    padding: 5px 10px;
+    max-height: 60px;
+    transition: max-height 0.5s ease;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    @include for-md {
+        padding-top: 5px;
+    }
+}
+
+.cartQuantity {
+    background: red;
+    position: absolute;
+    padding: 0px 7px;
+    color: white;
+    border-radius: 50%;
+    top: 5px;
+    margin-left: -7px;
+    font-size: 14px;
+    @include for-md {
+        padding: 0 5px;
+        font-size: 12px;
+        top: 8px;
+    }
+}
+
+
+/*  @-webkit-keyframes navbars {
+
+
+  100% {
+    max-height: unset;
   }
+} */
+
+
+/* @-webkit-keyframes navbars-pull-up {
+  50% {
+    height: 175px;
+   }
+   100% {
+     height: auto;
+   }
+} */
+
+
+/* .navbars.active {
+   max-height: unset;
+   transition: all 0.5s ease;
+} */
+
+
+/* .navbars.deactivate {
+  height: 175px;
+  animation: navbars-pull-up 0.5s forwards;
+} */
+
+.containers {
+    display: grid;
+    align-items: baseline;
+    grid-template-columns: 2.2fr 1fr;
+    @include for-sm {
+        grid-template-columns: 1.9fr 1fr;
+    }
+    @include for-md {
+        grid-template-columns: 2.9fr 1fr;
+        padding-left: 10px;
+    }
+    @include for-lg {
+        padding-left: 10px;
+        padding-right: 10px;
+        grid-template-columns: 4fr 1fr;
+        /* align-items: end; */
+    }
+}
+
+.nav-logo {
+    display: inline-block;
+    /* margin-left: 33%; */
+    margin-left: 15px;
+    @include for-lg {
+        margin-left: 0;
+    }
+    img {
+        width: 158px;
+        height: 25px;
+        @include for-md {
+            width: 149px;
+            height: 22px;
+        }
+        @include for-lg {
+            width: 180px;
+            height: 30px;
+        }
+    }
+}
+
+.fa-shopping-cart {
+    font-size: 22px;
+    margin: 0 auto;
+    color: #5d5d5d;
+    @include for-md {}
+}
+
+.navbar-navs {
+    list-style: none;
+    padding-left: 0;
+    display: none;
+    @include for-lg {
+        overflow: unset;
+        display: inline-block;
+        padding-left: 15px;
+        display: none;
+    }
+    li {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        @include for-lg {
+            margin: auto;
+            display: inline-block;
+        }
+    }
+}
+
+@keyframes navbar-navs {
+    0% {
+        /* display: none */
+        max-height: auto;
+    }
+    100% {
+        //display: block;
+        //height: auto;
+        max-height: auto;
+    }
+}
+
+.navbar-navs.active {
+    display: unset;
+    overflow: hidden;
+    //height: auto;
+    //max-height: auto;
+    // animation: navbar-navs 1s forwards;
+    //transition: max-height 0.35s ease;
+}
+
+.menu-label-container {
+    display: flex;
+    align-items: center;
+    @include for-md {
+        display: inline-flex
+    }
+    @include for-lg {
+        display: inline-block;
+    }
+}
+
+span.fa-bars {
+    font-size: 24px;
+    @include for-lg {
+        display: none;
+    }
+}
+
+#nav-links {
+    color: #333;
+    font-size: 13px;
+    font-weight: normal;
+    border-bottom: 4px solid transparent;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+    @include for-lg {
+        position: relative;
+        height: 15px;
+        padding-top: 0px;
+        padding-bottom: 19px;
+    }
+    /* @include for-laptop-and-desktop-only {
+    position: relative;
+    top: 10px;
+    height: 45px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  } */
+}
+
+#nav-links:hover {
+    @include for-landscape-tablet-and-ipads-only {
+        animation: navLinks 0.3s ease forwards;
+    }
+    @include for-laptop-and-desktop-only {
+        animation: navLinks 0.3s ease forwards;
+    }
+}
+
+@keyframes navLinks {
+    to {
+        border-bottom: 4px solid #419bf9;
+    }
+}
+
+#nav-links.active {
+    @include for-lg {
+        border-bottom: 4px solid #419bf9;
+    }
+}
+
+.menu-logo-navlinks-container {
+    /* padding-top: 10px; */
+    @include for-sm {
+        padding-top: 10px;
+    }
+    @include for-lg {
+        display: flex;
+        padding-top: unset;
+    }
+}
+
+
+/* #notfication-friends-list {
+    display: none;
+    margin-bottom: 0;
+    align-self: center;
+    @include for-xl {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        list-style: none;
+        padding-left: 0;
+        li {
+            display: inline-block;
+            padding: 0 5px;
+            i {
+                font-size: 24px;
+            }
+        }
+    }
+} */
+
+.column-2 {
+    align-items: center;
+    /* @include for-lg {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    align-items: center;
+
+  } */
+    @include for-xl {
+        display: grid;
+        grid-template-columns: auto auto;
+        align-items: center;
+        width: 269px;
+    }
+    @include for-landscape-tablet-and-ipads-only;
+}
+
+//right user icon on desktop starts
+#dropdown {
+    @include for-portrait-phone-only {
+        display: none;
+    }
+    @include for-landscape-phone-only {
+        display: none;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        display: none;
+    }
+    @include for-landscape-tablet-and-ipads-only {
+        display: block;
+        margin-right: -30px;
+    }
+    @include for-laptop-and-desktop-only {
+        margin-right: -100px;
+    }
+}
+
+.user-info {
+    font-size: 14px;
+    width: max-content;
+    @include for-portrait-phone-only {
+        display: none;
+    }
+    @include for-landscape-phone-only {
+        display: none;
+    }
+}
+
+// User icon in top right of desktop headers starts
+#user-icon {
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    @include for-portrait-phone-only {
+        height: 31px;
+        width: 31px;
+    }
+    @include for-landscape-phone-only {
+        height: 31px;
+        width: 31px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        height: 44px;
+        width: 44px;
+    }
+}
+
+// border around user icon starts
+#user-icon-border {
+    border: solid 1px rgb(218, 218, 218);
+    border-radius: 50%;
+    padding: 8px 8px;
+    @include for-sm {
+        position: relative;
+        bottom: 3px;
+    }
+    @include for-md {
+        padding: 0;
+    }
+}
+
+// border around user icon when hovering starts
+#user-icon-border:hover {
+    border: solid 1px rgb(107, 195, 253);
+}
+
+// Dropdown menu starts
+// Desktop navbar user dropdown menu on the right side of navbar starts
+#dropdown-menu {
+    position: absolute;
+    left: -200px;
+    z-index: 999;
+    @include for-sm {
+        left: -200px;
+    }
+    @include for-md {
+        left: -120px;
+    }
+    @include for-lg {
+        left: -100px;
+    }
+    /* @include for-md {
+    left: -200px;
+  } */
+    .btn-in-user-dropdown {
+        width: 100px;
+    }
+}
+
+//  Links in user dropdown starts
+a#dropdownlink {
+    color: #777;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#dropdown #dropdownlink:hover {
+    background: #4caf50;
+    color: white;
+    transition: 0.3s;
+}
+
+#Mobiledropdown {
+    display: inline-block;
+    margin-left: 30px;
+    float: right;
+    @include for-lg {
+        display: inline-block;
+    }
+}
+
+#blueBorderBottom {
+    border-bottom: 4px solid transparent;
+    padding-bottom: 15px;
+    @include for-lg {
+        height: 15px;
+        padding-bottom: 12px;
+    }
+}
+
+#blueBorderBottom:hover {
+    border-bottom: 4px solid #419bf9;
+}
+
+
+/* .notificationBell {
+    position: relative;
+    i.makeBlue {
+        color: #419bf9;
+    }
+} */
+
+
+/* Navbar ends */
+
+
+/* Main starts */
+
+.main {
+    margin-top: 15px;
+}
+
+.productSearchBox,
+.navbarProductSearchBox {
+    border-radius: 4px;
+    border: 1px solid #c5c5c5;
+    align-items: center;
+    input {
+        width: 90%;
+        padding: 5px 7px;
+        border: none;
+        outline: none;
+        @include for-lg {
+            width: 95%;
+        }
+    }
+}
+
+.navbarProductSearchBox {
+    width: 45%;
+    margin: 0 auto;
+    display: none;
+    @include for-md {
+        display: inline-flex;
+        margin-left: 9%;
+    }
+    input {
+        width: 92%;
+    }
+}
+
+.productSearchBox {
+    display: flex;
+    @include for-md {
+        display: none;
+    }
+}
+
+ul.categoryList {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+    text-align: center;
+    li {
+        padding: 5px 10px;
+        border: 1px solid rgb(148, 148, 148);
+        border-bottom: none;
+    }
+    li:last-child {
+        border-bottom: 1px solid rgb(148, 148, 148);
+    }
+    li:hover {
+        background-color: rgb(57, 57, 204);
+        a {
+            color: white;
+        }
+    }
+}
+
+.starsContainer {
+    display: flex;
+    justify-content: space-around;
+    justify-content: space-evenly;
+    margin-top: 18px;
+    svg {
+        height: 39px;
+        width: 39px;
+    }
+}
+
+.navContainer {
+    display: none;
+    @include for-lg {
+        display: unset;
+    }
+}
+
+.productInfoTop {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #C4C4C4;
+    img {
+        height: 87px;
+        width: 87px;
+    }
+    .productRatingsContainer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .productStars {
+            display: flex;
+            svg {
+                height: 13px;
+                width: 13px;
+                border: none;
+                fill: $startRatingFill;
+            }
+        }
+        .productRatings {
+            margin-left: 10px;
+        }
+    }
+    .productName {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .productPrice {
+        font-size: 25px;
+        font-weight: 800;
+    }
+}
+
+.productDescription {
+    margin-top: 10px;
+    border-bottom: 1px solid #C4C4C4;
+    .descriptionTitle {
+        font-variant: small-caps;
+        color: #6F6F6F;
+        font-weight: 700;
+    }
+}
+
+.purchaseBtnContainer {
+    margin-top: 10px;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #C4C4C4;
+    button {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+.modal-content {
+    margin-top: 20%;
+    @include for-lg {
+        width: 30%;
+        margin: 0 auto;
+        margin-top: 8%;
+    }
+}
+
+.modal-header {
+    h5 {
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+}
+
+.readMore {
+    z-index: 1;
+    height: 65px;
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 1));
+    position: absolute;
+    top: 41%;
+    font-weight: 700;
+    @include for-lg {
+        width: 92%;
+    }
+}
+
+.ratingsContainer {
+    text-align: center;
+    span {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #6E6E6E;
+    }
+}
+
+.mobileNavContainer {
+    position: relative;
+    .mobileNavCategory {
+        position: absolute;
+        z-index: 1;
+        height: 1000%;
+        width: 70%;
+        left: -77%;
+        background-color: white;
+        top: 0;
+        transition: 0.3s;
+        .mobileNavClose {
+            display: flex;
+            span {
+                margin-left: auto;
+            }
+        }
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+    }
+    .mobileNavCategory.active {
+        left: -14px;
+    }
+}
+
+.productImage {
+  height: 170px;
+}
+
+
+/* Main ends */

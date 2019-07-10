@@ -27,6 +27,7 @@ import { filter} from "rxjs/operators";
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { isEmpty, timeout } from "rxjs/Operators";
 import { LineupRoutingModule } from "../lineup-routing.module";
+import { DataService } from "src/app/data.service";
 class JoinGameInitObj {
   contest: Object;
   lineup: Object;
@@ -369,7 +370,8 @@ export class LineupComponent implements OnInit,OnDestroy{
     private deviceService: DeviceDetectorService,
     private playerservice: PlayersUtilityService,
     private leagueservice: ContestJoinService,
-    private modalservice: ModalService
+    private modalservice: ModalService, 
+    private dataservice: DataService
   ) {
     this.epicFunction();
   }
@@ -604,7 +606,7 @@ export class LineupComponent implements OnInit,OnDestroy{
       ) :
       this.allRosterslistCopy;
       
-     console.log(this.allRosterslistCopy);
+    // console.log(this.allRosterslistCopy);
   }
   epicFunction() {
     this.deviceInfo = this.deviceService.getDeviceInfo();
@@ -699,6 +701,7 @@ export class LineupComponent implements OnInit,OnDestroy{
           let currentBalance = response.data.user_balance.real_amount;
           currentBalance = Number(currentBalance);
          // console.log(currentBalance);
+          this.utilityService.userBalance.emit( response.data.user_balance);
           if (
             !this.utilityService.isAbleToJoinContest(user_balance, entryFee) &&
             (contest.prize_type === 0 || contest.prize_type === 1)

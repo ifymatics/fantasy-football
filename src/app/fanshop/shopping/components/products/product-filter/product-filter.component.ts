@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CategoryService } from 'src/app/fanshop/shared/services/category.service';
 import { map, catchError } from 'rxjs/Operators';
 import { of } from 'rxjs';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'product-filter',
@@ -9,14 +10,17 @@ import { of } from 'rxjs';
   styleUrls: ['./product-filter.component.scss']
 })
 export class ProductFilterComponent implements OnInit {
-cat
+  mobile = false;
+  open = false;
+ cat;
   categories$;
   @Input('category') category;
 
-  constructor(private categoryService: CategoryService) {
+  constructor(private categoryService: CategoryService, private d_svice: DeviceDetectorService) {
   }
 
   ngOnInit() {
+    this.device();
     this.categories$ = this.categoryService.getAll();
    this.categoryService.getAll()
    /*.pipe(
@@ -29,6 +33,23 @@ cat
       this.cat = categories;
     }
   );
+  // console.log(this.mobile);
+  }
+  onToggle() {
+    console.log('hello');
+    this.open = !this.open;
+    // this.d_svice.isMobile();
+  }
+  device() {
+
+    if (this.d_svice.isMobile()) {
+     // console.log(this.d_svice.isMobile());
+      this.mobile = true;
+    } else if (this.d_svice.isDesktop) {
+      this.mobile = false;
+      // return this.d_svice.isDesktop();
+    }
+    return this.d_svice.isTablet();
   }
 
 }

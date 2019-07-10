@@ -11,6 +11,7 @@ import { Router, ActivatedRoute, ParamMap, NavigationEnd } from '@angular/router
 import { forEach } from '@angular/router/src/utils/collection';
 import { LeagueRoutingModule } from 'src/app/league/league-routing.module';
 import { filter } from 'rxjs/Operators';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-join-contest',
@@ -98,7 +99,8 @@ subscription;
      private lobbyservice: LobbyService,
      private route: ActivatedRoute,
      private leagueservice: LeagueService,
-     private modalservice: ModalService
+     private modalservice: ModalService,
+     private dataservice: DataService
      ) {}
   ngOnInit() {
     this.subscription = this.router.events.pipe(
@@ -444,6 +446,7 @@ this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
    const user_balance =  response.data.user_balance,
       point_balance = parseFloat(user_balance.point_balance),
       etry_free     = parseFloat(contest.entry_fee);
+      this.utilityService.userBalance.emit( 'its working' );
     if (!this.utilityService.isAbleToJoinContest(user_balance, contest.entry_fee) &&
     (contest.prize_type === 0 || contest.prize_type === 1)) {
       alert('You dont have enough cash');
@@ -459,6 +462,7 @@ this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
        }
  } else { this.joinButtonDisabled = false;  this.contestId = '';}
 });
+
   /*-----------*/
  //  this.joinContest(contest);
 }

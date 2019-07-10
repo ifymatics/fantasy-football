@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/fanshop/shared/services/product.service';
 import { ShoppingCartService } from 'src/app/fanshop/shared/services/shopping-cart.service';
 import { switchMap, map, catchError } from 'rxjs/Operators';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'products',
@@ -19,14 +20,17 @@ export class ProductsComponent implements OnInit {
   category: string;
   cart$: Observable<ShoppingCart>;
   cart;
+  mobile = false;
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private shoppingCartService: ShoppingCartService
+    private shoppingCartService: ShoppingCartService, 
+    private d_svice: DeviceDetectorService
   ) {
   }
 
   async ngOnInit() {
+    this.device();
     this.cart$ = await this.shoppingCartService.getCart();
     this.populateProducts();
     //  await this.shoppingCartService.getCart().then( 
@@ -66,5 +70,15 @@ export class ProductsComponent implements OnInit {
     this.products;
     // console.log(this.filteredProducts);
   }
+  device() {
 
+    if (this.d_svice.isMobile()) {
+     // console.log(this.d_svice.isMobile());
+      this.mobile = true;
+    } else if (this.d_svice.isDesktop) {
+      this.mobile = false;
+      // return this.d_svice.isDesktop();
+    }
+    return this.d_svice.isTablet();
+  }
 }

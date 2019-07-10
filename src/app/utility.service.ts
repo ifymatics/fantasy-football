@@ -1,5 +1,5 @@
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 // import {Moment} from 'moment';
 // import moment = require('moment');
 
@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UtilityService {
+  userBalance = new EventEmitter();
 
   constructor(private lstorage: LocalStorageService, private sessionStorage: SessionStorageService) { }
   setLocalStorage(index, data) {

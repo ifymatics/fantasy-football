@@ -1,15 +1,16 @@
 import { AuthloginService } from './../../user/authlogin.service';
 import { UtilityService } from './../../utility.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-live',
   templateUrl: './live.component.html',
   styleUrls: ['./live.component.scss']
 })
-export class LiveComponent implements OnInit {
+export class LiveComponent implements OnInit, OnDestroy {
   menu = false;
   blue = false;
   toggle = false;
@@ -92,6 +93,7 @@ export class LiveComponent implements OnInit {
   status;
   match = [];
   teamName;
+  private socketObSubscription: Subscription;
   constructor(private deviceService: DeviceDetectorService,
               private utilityservice: UtilityService,
               private service: AuthloginService,
@@ -100,6 +102,10 @@ export class LiveComponent implements OnInit {
 
   ngOnInit() {
     this.mobileDevice = this.deviceService.isMobile();
+    this.route.parent.params.subscribe((params: ParamMap) => {
+      this.league_id = params["league_id"];
+      // console.log(params);
+    });
     if (this.deviceService.isMobile()) {
       this.device = 'mobilePitch';
      // console.log(this.device);
@@ -114,6 +120,22 @@ export class LiveComponent implements OnInit {
       this.session = user.data.session_key;
       this.selectLeagueType(1);
       }
+      // const socketObservable = Observable.create(
+      //   observer => {
+      //     setInterval(() => {
+      //       const data = this.selectLeagueType(1);
+      //       observer.next(data);
+
+      //      // this.selectLeagueType(1);
+      //     }, 6000);
+      //   }
+      // );
+      //  this.socketObSubscription = socketObservable.subscribe(data => {
+      //   console.log(data);
+      // }) ;
+  }
+  ngOnDestroy(){
+    // this.socketObSubscription.unsubscribe();
   }
   selectLeagueType(status) {
     this.isLoading = true;
@@ -126,12 +148,12 @@ export class LiveComponent implements OnInit {
         this.contestListData             = [];
         this.viewLiveRank                = false;
         this.viewCompletedRank           = false;
-        this.currentMatch                = (status === 0) ? 'Upcoming' : ((status === 1) ? 'Live' : 'Complete');
+        this.currentMatch                = 'Live';
         this.isSelected[this.currentMatch] = 'active';
         const param = {
             'status':  status,
-            'sports_id': 5 // this.sports_id,
-            // 'league_id': 114 // this.league_id
+            'sports_id': 5 , // this.sports_id,
+             // 'league_id':  this.league_id
         };
         this.service.api('fantasy/contest/get_collections_by_status', param, 'POST', this.session)
         .subscribe((response) => {
@@ -146,7 +168,8 @@ export class LiveComponent implements OnInit {
              }
             //  this.leagueservice.getContestData( response.collections);
              this.contestListData = response.collections;
-            console.warn(this.contestListData);
+             this.fistItemInArray(this.contestListData);
+           // console.warn(this.contestListData);
         }, error => {
           this.isLoading = false;
            // console.log(error);
@@ -204,7 +227,7 @@ export class LiveComponent implements OnInit {
               this.teamInfo.collection_master_id =
                 response.data.lineup[0].collection_master_id;
               this.teamInfo.league_id = response.data.lineup[0].league_id;
-              console.log( this.teamInfo.league_id);
+             // console.log( this.teamInfo.league_id);
               this.teamInfo.lineup_master_id =
                 response.data.lineup[0].lineup_master_id;
               this.teamInfo.rank = this.router.isActive("livecontest", true)
@@ -249,7 +272,8 @@ export class LiveComponent implements OnInit {
         );
     }
     onView(lineup_master_id, contest_id, collection) {
-     console.log(lineup_master_id, contest_id, collection);
+     //console.log(lineup_master_id, contest_id, collection);
+     collection['is_live'] = true;
       // this.Leagueservice.getContestDataOnviewNavigate(collection);
       this.utilityservice.checkLocalStorageStatus("collection")
         ? this.utilityservice.clearLocalStorage("collection")

@@ -1,13 +1,14 @@
 import { UtilityService } from './utility.service';
 import { AuthloginService } from './user/authlogin.service';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
-})
+  })
 export class DataService {
  // getUserBalance: new Subject();
+  userBalance = new EventEmitter();
   user_balance = {total_amount: 0, real_amount: '', winning_amount: '', bonus_amount: '',  point_balance: ''};
    currentUser;
    session;
@@ -16,7 +17,7 @@ export class DataService {
     this.currentUser = this.utilityservice.getLocalStorage('user');
     this.session = this.currentUser.data.session_key;
     }
-    console.log(this.utilityservice.getLocalStorage('user'));
+   // console.log(this.utilityservice.getLocalStorage('user'));
   }
 
    getTransactionAmount() {
@@ -33,7 +34,8 @@ export class DataService {
              + parseFloat(this.user_balance.winning_amount)
              + parseFloat(this.user_balance.bonus_amount);
             // emit('user:update_balance', this.user_balance.real_amount);
-            console.log(param);
+            this.userBalance.emit(this.user_balance);
+            // console.log(param);
             return this.user_balance;
         }
     },  (error) => {

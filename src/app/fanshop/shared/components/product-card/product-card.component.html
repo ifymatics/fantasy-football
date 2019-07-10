@@ -1,14 +1,14 @@
-<div *ngIf="product?.title" class="card">
+<!-- <div *ngIf="product?.title" class="card">
   <img *ngIf="product?.imageUrl" class="card-img-top" [src]="product?.imageUrl" alt="{{ product.title }}">
   <div class="card-body">
     <h4 class="card-title">{{ product?.title }}</h4>
     <p class="card-text">{{ product?.price | currency:'NGN':true }}</p>
  <div class="card-footer">
-   <button class="btn btn-secondary "  (click)="addToCart(product)">Add to Cart</button>
+   <button class="btn btn-secondary "  (click)="addToCart(product)" >Add to wishlist</button>
    <button class="btn btn-primary ">Buy Now</button>
  </div>
-    <!-- </div>
-  <div *ngIf="showActions && shoppingCart" class="card-footer">
+    </div>  -->
+  <!--<div *ngIf="showActions && shoppingCart" class="card-footer">
     <button 
       *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
       (click)="addToCart()"
@@ -18,5 +18,84 @@
       <product-quantity [product]="product" [shoppingCart]="shoppingCart">
       </product-quantity>
     </ng-template>
-  </div> -->
-</div>    
+  </div> 
+</div>     -->
+
+<!--THE NEW CARD-->
+<mdb-card>
+
+  <img [src]="product?.imageUrl" alt="{{ product.title }}" class='productImage'>
+
+  <mdb-card-body>
+   
+      <mdb-card-title class='align-items-center'>
+          <h6>{{ product?.title }}</h6>
+          <h5 class='font-weight-bold ml-auto'>{{ product?.price }} coins</h5>
+      </mdb-card-title>
+
+      <hr class='my-2'>
+
+      <div class='d-flex flex-center'>
+          <button mdbBtn class='ml-0 waves-light relative btn-sm grey' mdbWavesEffect>Add to wishlist</button>
+          <button mdbBtn class='waves-light relative btn-sm bg-primary' mdbWavesEffect (click)='productModal.show(product)'>Buy now</button>
+      </div>
+  </mdb-card-body>
+
+</mdb-card>
+<!--<END OF THE NEW CARD>-->
+<div class='modal fade' tabindex="-1" mdbModal #productModal='mdbModal'>
+    <div class="modal-dialogue modal-md">
+        <div class="modal-content">
+            <div class="modal-header d-flex">
+                <h5>Buy product</h5>
+                <span class='ml-auto close' (click)='productModal.hide()'>&times;</span>
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    <div class='productInfoTop'>
+                        <img [src]="product?.imageUrl" alt="{{product?.title}}">
+
+                        <!-- Product brief info starts -->
+                        <div>
+                            <div class="productName">{{product?.title}}</div>
+                            <div class="productRatingsContainer">
+                                <div class='productStars'>
+                              
+                                      <i style = "color: #ffd439;" *ngFor="let item of [1,2,3,4,5]" class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <span class='productRatings'>(5/5)</span>
+                               
+                            </div>
+                            <div class="productPrice">{{product?.price}}coins</div>
+                        </div>
+                        <!-- Product brief info ends -->
+                    </div>
+
+                    <div class="productDescription">
+                        <span class="descriptionTitle">description</span>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt vel commodi est eveniet, deserunt accusantium atque neque nihil tempora excepturi?</p>
+                        <div class='readMore'>
+                            Read More
+                        </div>
+                    </div>
+
+                    <!-- Confirm purchase button starts -->
+                    <div class='purchaseBtnContainer'>
+                        <button mdbBtn mdbWavesEffect class="waves-light relative font-weight-bold mx-auto bg-primary">Confirm Purchase</button>
+                    </div>
+                    <!-- Confirm purchase button ends -->
+
+                    <div class='ratingsContainer'>
+                        <span>Rate this product</span>
+
+                        <div class="starsContainer">
+                            <i style = "font-size: 2.5em;" *ngFor="let item of [1,2,3,4,5]" class="fa fa-star-o" aria-hidden="true"></i>
+                           
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

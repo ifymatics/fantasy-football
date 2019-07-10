@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { FanshopComponent } from './fanshop.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FanSharedModule } from './shared/shared.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FanSharedModule } from './shared/shared.module';
     AdminModule,  
     ShoppingModule,
     CoreModule,
+    MDBBootstrapModule,
    AngularFireModule.initializeApp(environment.firebase),
    AngularFirestoreModule,
    AngularFirestoreModule.enablePersistence(),

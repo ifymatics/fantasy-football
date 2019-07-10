@@ -1,18 +1,7 @@
-/*import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
-})
-export class ShoppingModule { }*/
 import { FanSharedModule } from './../shared/shared.module';
 // import { AuthGuardService } from 'shared/services/auth-guard.service';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { CheckOutComponent } from './components/check-out/check-out.component';
@@ -28,12 +17,14 @@ import { ProductFilterComponent } from './components/products/product-filter/pro
 import { BsNavbarComponent } from '../core/components/bs-navbar/bs-navbar.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreModule } from '../core/core.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   imports: [
     // CommonModule,
     SharedModule,
     FanSharedModule,
+    MDBBootstrapModule,
     CoreModule,
     RouterModule.forChild([
       // { path: 'products', component: ProductsComponent },

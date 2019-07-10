@@ -1,4 +1,40 @@
-<div class="sticky-top">
+<!-- Mobile categories starts -->
+<!-- <select name="mobileCategories" id="mobileCategories">
+  
+    <option>
+   
+    All Categories</option>
+  
+  <option>
+   men
+</option>
+<option>
+    women
+ </option>
+  </select> -->
+
+  <div class="mobileDropdown" *ngIf="mobile">
+    <div  class="dropdownBtn dropdown-toggle" (click) = "onToggle()">Categories</div>
+
+    <div class='dropdownBody active' [ngClass]="{active: open}">
+      <ul>
+        <li  class="list-group-item list-group-item-action"
+        [class.active]="!category"
+        routerLink="/fanshop/products"> <a>All Categories</a>
+      </li>
+        <li  *ngFor="let c of  cat" 
+        routerLink="/fanshop/products"
+        [queryParams]="{ category: c.id }"
+        class="list-group-item list-group-item-action"
+        [class.active]="category === c.id"><a>{{ c.name }}</a></li>
+      
+      </ul>
+    </div>
+  </div>
+  <!-- Mobile categories ends -->
+  
+  <div class="sticky-top" id="desktopCategories">
+   
   <div class="list-group">
       <a
         class="list-group-item list-group-item-action"
@@ -15,4 +51,6 @@
         {{ c.name }}
       </a>
     </div>
+   
 </div>
+

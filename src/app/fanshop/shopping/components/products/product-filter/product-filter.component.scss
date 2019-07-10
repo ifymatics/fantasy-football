@@ -1,3 +1,62 @@
+@mixin for-md {
+  @media (min-width: 768px) {
+      @content;
+  }
+}
+
 .sticky-top { 
     top: 80px;
+  }
+
+  #mobileCategories {
+    width: 126%;
+      height: 37px;
+      padding-left: 6px;
+      color: #8c8c8c;
+
+    @include for-md {
+      width: 100%;
+      display: none;
+      margin-left: unset;
+    }
+  }
+
+  .mobileDropdown {
+    position: relative;
+    height: 36px;
+    border: 1px solid #8c8c8c;
+    padding-top: 8px;
+    width: 96%;
+
+    .dropdownBtn {
+      padding-left: 10px;
+    }
+
+    .dropdownBody {
+      position: absolute;
+      background-color: white;
+      border: 1px solid #8c8c8c;
+      z-index: 999;
+      width: 100%;
+      padding-left: 14px;
+      display: none;
+
+      ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+    }
+
+    .dropdownBody.active {
+      display: unset;
+    }
+  }
+
+  #desktopCategories {
+    display: none;
+
+    @include for-md {
+      display: unset;
+    }
   }

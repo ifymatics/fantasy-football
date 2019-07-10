@@ -1,10 +1,8 @@
 import { EditProfileComponent } from "./edit-profile/edit-profile.component";
 import { SharedModule } from "./../shared.module";
-import { AuthComponent } from "./auth/auth.component";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { SignupComponent } from "./signup/signup.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UserRoutingModule } from "./user-routing.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -14,7 +12,6 @@ import {
   FacebookLoginProvider,
   LinkedInLoginProvider
 } from "angularx-social-login";
-import { SocialLoginComponent } from "./auth/social-login/social-login.component";
 
 // Configs
 const config = new AuthServiceConfig([

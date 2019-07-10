@@ -1,10 +1,8 @@
 import { Router } from '@angular/router';
 import { AuthloginService } from 'src/app/user/authlogin.service';
 import { ModalService } from './../modal.service';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { UtilityService } from '../utility.service';
-import {  Observable, of, Subject} from 'rxjs';
-import { SubjectSubscriber } from 'rxjs/internal/Subject';
  class JoinGameInitObj  {
    contest: Object; lineup: Object;
   currentbalance: Number; lineuplist: []; userbalance: Object ;
@@ -14,6 +12,7 @@ import { SubjectSubscriber } from 'rxjs/internal/Subject';
   providedIn: 'root'
 })
 export class LeagueService {
+  collection = new EventEmitter();
   message;
   currentUser;
   session;

@@ -37,13 +37,16 @@
             <span class="contest-detail-title">Start In</span>
           </div>
           <div class="contest-details-block">
-            <span class="contest-detail-body" *ngIf="contestData.prize_type==2">
-              <i class="fas fa-coins ml-2"></i>{{userRank[0].prize_pool == 0 ? 'Skill Game' : (userRank[0].prize_pool)}}</span>
+            <span class="contest-detail-body"  *ngIf="userRank[0]?.prize_type==2">
+              <i class="fas fa-coins ml-2"></i>{{userRank[0]?.prize_pool == 0 ? 'Skill Game' : (userRank[0]?.prize_pool)}}
+            </span>
             <span class="contest-detail-body">
-              <span class="font-weight-bold">24</span>/25</span
+             <span class="font-weight-bold"> {{userRank[0]?.current_rank }} </span>/{{userRank[0]?.total_user_joined}}
+              </span
             >
-            <span class="contest-detail-body"> 21.1</span>
-            <span class="contest-detail-body"> Completed</span>
+            <span class="contest-detail-body"> {{userRank[0]?.total_score}}</span>
+            <span *ngIf="!is_live" class="contest-detail-body"> Completed</span>
+            <span *ngIf="is_live" class="contest-detail-body"> Live</span>
           </div>
           <div class="contest-details-block"></div>
           <div class="contest-details-block"></div>
@@ -127,13 +130,14 @@
                   <th class="font-weight-bold">Rank</th>
                   <th class="font-weight-bold">Username</th>
                   <th class="font-weight-bold">Points</th>
-                  <th  class="font-weight-bold">Won</th>
+                  <th  class="font-weight-bold" *ngIf="contest.status > 1">Won</th>
                   <th class="font-weight-bold"></th>
                 </tr>
               </thead>
 
               <tbody >
-                <tr [ngClass]="{userRankRow: checkContest_id.includes(userDetail.user_id)}" class="{{selected}}" *ngFor="let userDetail of userRank; first as isFirst" >
+                <tr [ngClass]="{userRankRow: checkContest_id.includes(userDetail.user_id)}" class="{{selected}}" 
+                *ngFor="let userDetail of (userRankCopy?userRankCopy:userRank); first as isFirst" >
                   <td></td>
                   <td>
                     <span class="rankTag">{{((userDetail.current_rank) ? userDetail.current_rank : '--')}}</span>
@@ -175,7 +179,7 @@
                   <td></td>
                   <!-- <td *ngIf="isFirst ? getTeamLineup(userDetail, selectedContest) : null"></td> -->
                 </tr>
-                <tr [ngClass]="{userRankRow: checkContest_id.includes(contestRankList.user_id)}" *ngFor = "let contestRankList of contestListRank">
+                <tr [ngClass]="{userRankRow: checkContest_id.includes(contestRankList.user_id)}" *ngFor = "let contestRankList of (contestListRankCopy.length>0?contestListRankCopy:contestListRank)">
                   <td></td>
                   <td>
                     <span class="rankTag">{{((contestRankList.current_rank) ? contestRankList.current_rank : '--')}}</span>
@@ -295,8 +299,11 @@
             
                     <div>
                       <div class="px-3 mt-1">
-                        <span class="d-flex align-items-center completed white-text">
+                        <span *ngIf="!is_live" class="d-flex align-items-center completed white-text">
                           Completed
+                        </span>
+                        <span *ngIf="is_live" class="d-flex align-items-center completed white-text">
+                          Live
                         </span>
                       </div>
                     </div>
@@ -360,6 +367,10 @@
                                       : "FW"
                                   }}</span
                                 >
+                                <span  class="white-text small d-block playerSalary">
+                                   {{(fwdPlayers[fwdIndex]['score']) ? fwdPlayers[fwdIndex]['score']+' pts' : ''}}
+
+                                </span>
                                 <span
                                   class="white-text small d-block playerSalary"
                                   *ngIf="currentMatch === 'Upcoming'"
@@ -416,6 +427,10 @@
                                       : "MF"
                                   }}</span
                                 >
+                                <span  class="white-text small d-block playerSalary">
+                                    {{( midPlayers[mfIndex]['score']) ?  midPlayers[mfIndex]['score']+' pts' : ''}}
+ 
+                                 </span>
                                 <span
                                   class="white-text small d-block playerSalary"
                                   *ngIf="currentMatch === 'Upcoming'"
@@ -446,7 +461,10 @@
                       <!-- Formation 5-4-1 Defence -->
                       <div id="Def">
                         <ul [ngClass]="defclass">
+                         
                           <li *ngFor="let dfplayer of defPlayers; let dfIndex = index">
+                            
+                              <!-- <ng-container *ngIf="!is_live && defPlayers[dfIndex].status==1">  -->
                             <div
                               *ngIf="
                                 defPlayers[dfIndex]['captain'] === '1' ||
@@ -473,13 +491,17 @@
                               <div class="my-0 py-0 playerDetails">
                                 <span
                                   class="white-text small d-block playerName"
-                                  *ngIf="playerActive[dfIndex]"
+                                  *ngIf="defPlayers[dfIndex]"
                                   >{{
                                     defPlayers[dfIndex]["nick_name"]
                                       ? defPlayers[dfIndex]["nick_name"]
                                       : "DEF"
                                   }}</span
                                 >
+                                <span  class="white-text small d-block playerSalary">
+                                    {{(  defPlayers[dfIndex]['score']) ?   defPlayers[dfIndex]['score']+' pts' : ''}}
+ 
+                                 </span>
                                 <span
                                   class="white-text small d-block playerSalary"
                                   *ngIf="currentMatch === 'Upcoming'"
@@ -494,23 +516,25 @@
             
                               <!--<span hidden class="white-text small">DEF</span>-->
                             </a>
+                             <!-- </ng-container>   -->
                           </li>
+                      
                         </ul>
                       </div>
                       <!-- /Formation 5-4-1 Defence -->
             
                       <!-- Formation 5-4-1 Goalie -->
                       <div id="goalie">
-                        <ul class="goalie">
-                          <li *ngIf="playersArr[0]">
+                        <ul class="goalie" *ngFor="let gkplayer of gkPlayers; let gkIndex = index">
+                          <li *ngIf="gkPlayers[0] && !gkPlayers[0]['allow_substitution']==1" >
                             <div
                               *ngIf="
-                                playersArr[0]['captain'] === '1' ||
-                                playersArr[0]['captain'] === '2'
+                                gkPlayers[0]['captain'] === '1' ||
+                                gkPlayers[0]['captain'] === '2'
                               "
                               class="captainBadge"
                             >
-                              {{ playersArr["captain"] === "1" ? "C" : "VC" }}
+                              {{ gkPlayers["captain"] === "1" ? "C" : "VC" }}
                             </div>
                             <a>
                               <div
@@ -521,7 +545,7 @@
                               >
                                 <img
                                   style="width:45px;height: 45px;"
-                                  src="{{ playersArr[0]['jersey'] }}"
+                                  src="{{ gkPlayers[0]['jersey'] }}"
                                   alt=""
                                 />
                               </div>
@@ -529,14 +553,17 @@
                               <div class="my-0 py-0 playerDetails">
                                 <span class="white-text small d-block playerName">
                                   {{
-                                    playersArr[0]["nick_name"]
-                                      ? playersArr[0]["nick_name"]
-                                      : playersArr[0]["full_name"]
+                                    gkPlayers[0]["nick_name"]
+                                      ? gkPlayers[0]["nick_name"]
+                                      : gkPlayers[0]["full_name"]
                                   }}</span
                                 >
-                                <span class="white-text small d-block playerSalary">{{
-                                  playersArr[0]["salary"] ? playersArr[0]["salary"] : ""
-                                }}</span>
+                                <span class="white-text small d-block playerSalary"> 
+                                  {{(gkPlayers[0]['score']) ? gkPlayers[0]['score']+' pts' : ''}}
+                                </span>
+                                <!-- <span class="white-text small d-block playerSalary">{{
+                                  gkPlayers[0]["salary"] ? playersArr[0]["salary"] : ""
+                                }}</span> -->
                               </div>
                             </a>
                           </li>
