@@ -98,6 +98,7 @@ export class AuthComponent implements OnInit {
             this.utilityservice.setLocalStorage('user', data) ;
           }
           this.isLoggedIn = true ;
+          this.router.navigate([ '5/league']);
          //  this.user = this.utilityservice.getLocalStorage('user');
            // if (this.user !== false) {
            this.session = data.data.session_key; // this.user.data.session_key;
@@ -105,10 +106,6 @@ export class AuthComponent implements OnInit {
           .subscribe(
             data1 => {
               data['data'].user_profile.sports = data1['data'].sport;
-              // console.warn(data['data']['session_key']);
-              // console.warn(this.utilityservice.getLocalStorage('user'));
-              // for (const i of data1['data']['sport']) {
-               // console.warn(data1['data'].sport);
                const sportId = (globalSport) ? globalSport : '';
               // console.log( data1['data']['sport'][0].sports_id);
                const id = data1['data']['sport'][0].sports_id;

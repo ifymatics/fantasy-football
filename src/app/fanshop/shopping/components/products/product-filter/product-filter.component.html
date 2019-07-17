@@ -16,13 +16,13 @@
   <div class="mobileDropdown" *ngIf="mobile">
     <div  class="dropdownBtn dropdown-toggle" (click) = "onToggle()">Categories</div>
 
-    <div class='dropdownBody active' [ngClass]="{active: open}">
+    <div  class='dropdownBody active' [ngClass]="{active: open}">
       <ul>
-        <li  class="list-group-item list-group-item-action"
+        <li (click) = "onToggle()" class="list-group-item list-group-item-action"
         [class.active]="!category"
         routerLink="/fanshop/products"> <a>All Categories</a>
       </li>
-        <li  *ngFor="let c of  cat" 
+        <li (click) = "onToggle()" *ngFor="let c of  cat" 
         routerLink="/fanshop/products"
         [queryParams]="{ category: c.id }"
         class="list-group-item list-group-item-action"

@@ -52,8 +52,8 @@ buyCoins() {
   this.buycoinForm.get('coins').setValue(this.addFundAmount);
   // this.isLoading = true;
   this.posting = false;
-  console.log(this.buycoinForm.value);
-  console.log(this.addFundAmount);
+  // console.log(this.buycoinForm.value);
+  // console.log(this.addFundAmount);
      const reqData = this.buycoinForm.value; // {coins: this.coins};
      this.service.api('user/finance/buy_coins', reqData, 'POST', this.session)
      .subscribe((response) => {

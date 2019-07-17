@@ -19,21 +19,22 @@ export class ProductService {
   }
 
   create(product: Product) { 
-   const id = this.db.createId();
-    product.id = id;
+  //  const id = this.db.createId();
+  //   product.id = id;
    return this.itemsCollection.add(product);
     // return this.db.doc<Item>('/products').push(product);
   }
 
   getAll() {
-  return this.db.collection<Product>('/products',ref => {
+  return this.db.collection<Product>('products',ref => {
     return ref.orderBy('category');
-  }).valueChanges({idField: 'id'}); // this.db.list('/products');
+  }
+  ).valueChanges({idField: 'id'}); // this.db.list('/products');
   }
   
   get(productId) { 
     // creted by Engr Ifeanyi. O
-    this.itemDoc = this.db.doc<Product>('/products/' + productId);
+    this.itemDoc = this.db.doc<Product>('products/' + productId);
     this.item = this.itemDoc.valueChanges();
     return this.item;
     // END of creted by Engr Ifeanyi.O
@@ -46,7 +47,7 @@ export class ProductService {
   }
 
   delete(productId) { 
-    this.itemDoc = this.db.doc<Product>('/products/' + productId);
+    this.itemDoc = this.db.doc<Product>('products/' + productId);
    return this.itemDoc.delete();
    // return this.db.object('/products/' + productId).remove();
   }

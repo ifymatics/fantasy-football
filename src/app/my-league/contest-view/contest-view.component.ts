@@ -6,6 +6,8 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { DeviceDetectorService } from "ngx-device-detector";
 import { Subscription, Observable } from "rxjs";
 import {Location} from '@angular/common'
+// import { typeofExpr } from "@angular/compiler/src/output/output_ast";
+
 
 @Component({
   selector: "app-contest-view",
@@ -50,7 +52,7 @@ showMoreFixturesBtn = false;
     collection_master_id: ""
   };
   userRank;
-  is_live = false;
+  is_live = 'false';
   mobileDevice = "";
   contestData;
   contestListRank = [];
@@ -117,6 +119,7 @@ showMoreFixturesBtn = false;
   gkPlayers = [];
   contestListRankCopy = [];
   totalUserJoinedCopy = 0;
+  interval;
   constructor(
     private service: AuthloginService,
     private router: Router,
@@ -127,6 +130,15 @@ showMoreFixturesBtn = false;
   ) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe(
+      data => {
+        this.is_live = data['is_live'];
+      //ss console.log(typeof data['is_live']);
+      //  if (this.is_live === 'false'){
+      //    clearInterval(this.interval);
+      //  }
+      }
+    );
     // console.log(this.route.routeConfig);
     this.route.params.subscribe((params: ParamMap) => {
       this.stateParams.contest_id = params["contest_id"];
@@ -141,18 +153,14 @@ showMoreFixturesBtn = false;
       // );
 
       this.contestData = this.utilityservice.getLocalStorage("collection");
-      this.is_live = this.contestData.is_live;
-      if (this.contestData.is_live =='undefined') {
-        this.is_live = true;
-      }
-       console.log( this.is_live );
+       // console.log( this.is_live );
     });
     if (this.utilityservice.checkLocalStorageStatus("user")) {
       const user = this.utilityservice.getLocalStorage("user");
       this.currentUser = user.user_profile;
       this.session = user.data.session_key;
 
-      this.getContestRank();
+      this.getContestRank(0);
       this.getLivescores();
     }
     for (let i = 0; i <= this.owlItems.length; i++) {
@@ -189,16 +197,19 @@ showMoreFixturesBtn = false;
             // console.log(param);
           this.contest = response.data.contest;
           this.userRank = this.contest.user_rank;
-         // console.log(this.userRank[0]);
+          console.log(this.selectedLineUp);
           // this.contestListRank            = this.contest.contest_rank;
           this.contestListRank = this.contestListRank.concat(
             this.contest.contest_rank
           );
+         //  this.userRank[0]
+         this.selectedLineUp =  this.userRank[0];
           this.collection_detail = response.data.contest;
           this.collection_detail.match_list = response.data.contest.fixtures;
           this.contestListOffset = response.data.offset;
           this.isLoadMore = response.data.is_load_more;
-          this.getTeamLineup(this.userRank[0]);
+          this.getTeamLineup(this.selectedLineUp);
+         // console.log(this.selectedLineUp);
           this.posting = false;
           this.loadMorePosting = false;
          // this.fistItemInArray(this.userRank);
@@ -247,6 +258,7 @@ showMoreFixturesBtn = false;
     // this.teamInfo                = {is_turbo_lineup: 0};
     // this.lineupDetails           = [];
     this.selectedLineUp = lineup;
+   // console.log(this.selectedLineUp);
     this.selectedLeague = league;
     // this.groundLoading           = true;
     this.userNameLabel = lineup;
@@ -282,7 +294,7 @@ showMoreFixturesBtn = false;
             this.teamInfo.league_id = response.data.lineup[0].league_id;
             this.teamInfo.lineup_master_id =
               response.data.lineup[0].lineup_master_id;
-            this.teamInfo.rank = this.is_live
+            this.teamInfo.rank = (this.is_live === 'true')
               ? lineup.current_rank
               : lineup.game_rank; // New Changes
             this.totalSalary = response.data.total_salary_cap;
@@ -656,12 +668,15 @@ getLivescores() {
   const liveObj = {getFromUserRank: {}, getFromLineup: {} };
   const socketObservable = new Observable(
     observer => {
-      setInterval(() => {
+     this.interval = setInterval(() => {
          const data =  this.getUserRankBySocket(); // this.getContestRank();
-         // const data2 = this.getLineupWithSores(this.userRank[0]);
+         const data2 = this.getLineupWithSores(this.selectedLineUp);
         observer.next();
         // this.getContestRank();
       }, 30000);
+      if (this.is_live === 'false'){
+        clearInterval(this.interval);
+      }
     }
   );
    this.subscription = socketObservable.subscribe(data => {
@@ -670,6 +685,7 @@ getLivescores() {
 }
 ngOnDestroy() {
   this.subscription.unsubscribe();
+   clearInterval(this.interval);
 }
 getUserRankBySocket(offset?) {
   // console.log('imelaa');
@@ -681,7 +697,8 @@ getUserRankBySocket(offset?) {
       lineup_master_id: lineup_master_id,
       sports_id: this.stateParams.sports_id
     };
-    if (this.is_live) {
+   
+    if (this.is_live === 'true' ) {
       this.service
       .api("fantasy/contest/get_contest_rank", param, "POST", this.session)
       .subscribe(
@@ -691,12 +708,13 @@ getUserRankBySocket(offset?) {
           this.contestListRankCopy = [];
           this.contestCopy = response.data.contest;
           this.userRankCopy = this.contestCopy.user_rank;
-         // console.log(response.data.contest);
+          console.log('working 00');
           // this.contestListRank            = this.contest.contest_rank;
           this.contestListRankCopy =   this.contestListRankCopy.concat(
             this.contestCopy.contest_rank
           );
-           this.getLineupWithSores(this.userRankCopy[0]);
+           // this.getLineupWithSores(this.selectedLineUp);
+           // console.log(this.selectedLineUp );
             // console.log(this.userRankCopy[0]);
            // console.log(this.contestData);
         }
@@ -756,6 +774,7 @@ getLineupWithSores(lineup, league?, collection?) {
             // console.log('hello');
            // this.isLoading = false;
             this.lineupDetailsCopy = response.data.lineup;
+           // console.log(this.lineupDetailsCopy);
             this.teamInfoCopy = response.data.team_info;
            // console.log(this.teamInfo);
             this.teamInfoCopy.collection_master_id =

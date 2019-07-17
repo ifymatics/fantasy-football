@@ -7,9 +7,12 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { BsNavbarComponent } from '../core/components/bs-navbar/bs-navbar.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { RatingComponent } from './components/rating.component';
+import { MyDirectiveDirective } from './my-directive.directive';
+
 
 @NgModule({
-  declarations: [  BsNavbarComponent,ProductCardComponent, ProductQuantityComponent],
+  declarations: [  BsNavbarComponent,ProductCardComponent, ProductQuantityComponent, RatingComponent, MyDirectiveDirective],
   imports: [
     CommonModule,
     MDBBootstrapModule,

@@ -28,7 +28,7 @@ export class DepositComponent implements OnInit {
 
     const user          =     this.utilityservice.getLocalStorage('user');
     this.currentUser    =     user.data.user_profile;
-    this.session = user.data.session_key;
+    this.session        = user.data.session_key;
   this.league_datum     =     this.utilityservice.getLocalStorage('league').league_id;
   this.route.params.subscribe(
     (params: ParamMap) => {
@@ -39,7 +39,8 @@ export class DepositComponent implements OnInit {
   );
     this.route.queryParams.subscribe(
     (queryParams) => {
-      this.paymentStatus.status = queryParams['status'];
+      this.paymentStatus.status = queryParams['status'] ?
+      queryParams['status'] : '';
     }
    );
    if (this.paymentStatus.status !== '') {
@@ -61,6 +62,7 @@ export class DepositComponent implements OnInit {
      'amount': new FormControl(this.params.amount, Validators.required),
    });
   }
+  
   deposit(subscription?) {
     this.isLoading = true;
    // console.log(this.depositForm.value);

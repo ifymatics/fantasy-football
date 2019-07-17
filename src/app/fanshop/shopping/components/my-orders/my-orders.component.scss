@@ -1,0 +1,139 @@
+@mixin for-md {
+    @media screen and (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin for-lg {
+    @media screen and (min-width: 996px) {
+        @content;
+    }
+}
+
+.main {
+    height: 100%;
+}
+
+.row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.singleProductCard {
+    width: 100%;
+    border: 1px solid #CAC4C4;
+    padding: 16px 10px;
+    padding-bottom: 5px;
+}
+
+.orderDetails {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #c4caca;
+}
+
+.productImageContainer {
+    width: 30%;
+    height: 85px;
+    img {
+        height: 100%;
+        width: 100%;
+    }
+    @include for-lg {
+        width: 18%;
+    }
+}
+
+.orderHistory {
+    text-align: center;
+    padding-top: 20px;
+    border-bottom: 1px solid #9A9A9A;
+    h3 {
+        font-weight: 700;
+    }
+    @include for-lg {
+        text-align: left;
+        h3 {
+            margin-left: 20px;
+        }
+    }
+}
+
+.orderList {
+    padding-top: 20px;
+    background: #EDEDED;
+    height: 100%;
+}
+
+.orderWhiteBackground {
+    background: white;
+    width: 95%;
+    margin: 0 auto;
+    height: 100%;
+    .row {
+        padding-top: 12px;
+    }
+    @include for-lg {
+        width: 66%;
+    }
+}
+
+.orderDay {
+    width: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+    @include for-lg {
+        margin-left: 37px;
+        margin-right: 37px;
+    }
+}
+
+.orderDate {
+    font-size: 14px;
+    display: block;
+    font-weight: 700;
+}
+
+.productInfoContainer {
+    width: 70%;
+    padding-left: 15px;
+    margin-left: 15px;
+    border-left: 1px solid #b1b0b0;
+    font-weight: 600;
+    .productName {
+        color: #838383;
+    }
+    >div:not(:last-child) {
+        margin-bottom: 7px;
+    }
+}
+
+.rateProductBtn {
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+    padding-top: 10px;
+}
+
+i.far.fa-star {
+    color: #616161;
+    font-size: 43px;
+}
+
+#starContainer {
+    margin-top: 20px;
+}
+
+.modal {
+    top: 30%;
+}
+
+.modal-dialogue {
+    margin: 0 auto;
+    max-width: 100% !important;
+    @include for-md {
+        max-width: 50% !important;
+    }
+    @include for-lg {
+        max-width: 38% !important;
+    }
+}

@@ -24,7 +24,7 @@
 <!--THE NEW CARD-->
 <mdb-card>
 
-  <img [src]="product?.imageUrl" alt="{{ product.title }}" class='productImage'>
+  <img [src]="product?.imageUrl" alt="{{ product?.title }}" class='productImage'>
 
   <mdb-card-body>
    
@@ -62,12 +62,12 @@
                             <div class="productRatingsContainer">
                                 <div class='productStars'>
                               
-                                      <i style = "color: #ffd439;" *ngFor="let item of [1,2,3,4,5]" class="fa fa-star" aria-hidden="true"></i>
+                                      <i style = "color: #ffd439;"  class="fa fa-star" aria-hidden="true"  *ngFor="let item of [1,2,3,4,5]; let i = index;"></i>
                                 </div>
-                                <span class='productRatings'>(5/5)</span>
-                               
+                                
+                                <app-rating [prodRating] = 'rating'></app-rating>
                             </div>
-                            <div class="productPrice">{{product?.price}}coins</div>
+                            <div class="productPrice">{{product?.price}} coins</div>
                         </div>
                         <!-- Product brief info ends -->
                     </div>
@@ -75,14 +75,14 @@
                     <div class="productDescription">
                         <span class="descriptionTitle">description</span>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt vel commodi est eveniet, deserunt accusantium atque neque nihil tempora excepturi?</p>
-                        <div class='readMore'>
+                        <div *ngIf="!read" class='readMore'(click) ="onRead()">
                             Read More
                         </div>
                     </div>
 
                     <!-- Confirm purchase button starts -->
                     <div class='purchaseBtnContainer'>
-                        <button mdbBtn mdbWavesEffect class="waves-light relative font-weight-bold mx-auto bg-primary">Confirm Purchase</button>
+                        <button (click)="buyNow(product)" mdbBtn mdbWavesEffect class="waves-light relative font-weight-bold mx-auto bg-primary">Confirm Purchase</button>
                     </div>
                     <!-- Confirm purchase button ends -->
 
@@ -90,8 +90,13 @@
                         <span>Rate this product</span>
 
                         <div class="starsContainer">
-                            <i style = "font-size: 2.5em;" *ngFor="let item of [1,2,3,4,5]" class="fa fa-star-o" aria-hidden="true"></i>
-                           
+                          
+                                   
+                            <i (click) = "onClickRating(i,product.id, $event)" style = "font-size: 2.5em; " 
+                             *ngFor="let item of [1,2,3,4,5]; let i = index;"
+                             [ngStyle]="{'color': (rArray.includes(item))?'#ffd439':'black'}"
+                            class="fa fa-star-o" aria-hidden="true"></i>
+                                    
                     </div>
                 </div>
 

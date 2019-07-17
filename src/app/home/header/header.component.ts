@@ -104,4 +104,17 @@ user;
         return false;
     }
 }
+onRoute(arg?) {
+  console.log('begin');
+ if (arg === 'mycontest') this.router.navigate(
+  ['/'+ this.selectedSport.sport_id + '/'+ this.league_id+'/my-league']
+ )
+ if (arg === 'lobby') 
+ this.router.navigate(
+  ['/'+ this.selectedSport.sport_id + '/' +  this.league_id + '/lobby']
+ )
+ if (arg === 'leaderboard') this.router.navigate(
+  ['/'+ this.selectedSport.sport_id + '/leaderboard']
+ );
+}
 }

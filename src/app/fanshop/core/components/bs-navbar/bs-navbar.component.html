@@ -97,7 +97,7 @@
                       </div>
                       <div>
                           <span class='font-weight-bold'> <i class="fas fa-coins pr-2"></i>60 / </span>
-                          <span class="green-text">{{userbalance}}</span>
+                          <span class="green-text">{{userbalance.point_balance}}</span>
                       </div>
                   </div>
                   <div class="align-self-center ml-2 justify-content-center" id="user-icon-border">
@@ -111,7 +111,7 @@
                       <div class="d-flex">
                           <div class="pr-3 mr-2 ml-3">
                               <span class="d-block small">Balance</span>
-                              <span class="green-text">{{userbalance}}</span>
+                              <span class="green-text">{{userbalance.point_balance}}</span>
                           </div>
                           <button class="green mb-3 ml-auto mr-3 mt-2 p-2 px-3 btn-in-user-dropdown" size="sm" mdbBtn>
                     ADD FUNDS
@@ -134,20 +134,7 @@
                   <div class="dropdown-divider"></div>
                   <section class="dropdown-menu-bottom">
                       <div class="list-group list-group-flush ">
-                          <a routerLink='/achievement' class="list-group-item pb-2 pt-0" id="dropdownlink">
-                      Achievement</a
-                    >
-                    <a routerLink='/invite-friends'  class="list-group-item py-2" id="dropdownlink">
-                      Refer a friend</a
-                    >
-
-                  <a routerLink='/request-withdrawal' class="list-group-item py-2" id="dropdownlink">
-                    Request Withdrawal</a
-                  >
-
-                  <a routerLink='../myaccount' class="list-group-item py-2" id="dropdownlink"
-                    >My Account</a
-                  >
+                    
                   <a routerLink='../profile' class="list-group-item py-2" id="dropdownlink">Profile</a>
                           <a href="" class="list-group-item py-2 d-flex justify-content-between" id="dropdownlink">Notification
                     <span class="badge badge-success badge-pill align-self-center"

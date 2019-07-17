@@ -32,15 +32,13 @@ export class OrderService {
   }
 
   getOrdersByUser(userId: string) {
-   /* return this.db.list('/orders', {
-      query: {
-        orderByChild: 'userId',
-        equalTo: userId        
-      }
-    });*/
-    this.ordersCollection = this.db.collection('/orders', ref => {
-      return ref.orderBy('userId').where('userId', '==' , userId);
-    });
-    return this.ordersCollection.valueChanges()
-  }
+  
+  //   this.ordersCollection = this.db.collection('/orders', ref => {
+  //     return ref.orderBy('userId').where('userId', '==' , userId);
+  //   });
+  //   return this.ordersCollection.valueChanges()
+  return this.db.collection('userhistory').doc(userId).collection('product')
+  .valueChanges({idField: 'id'});
+ 
+   }
 }

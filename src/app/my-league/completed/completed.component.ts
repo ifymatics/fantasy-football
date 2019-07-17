@@ -271,11 +271,10 @@ export class CompletedComponent implements OnInit {
       );
   }
   onView(lineup_master_id, contest_id, collection) {
-    const collectionObj = {is_live: false, collection: collection};
+   // const collectionObj = {is_live: false, collection: collection};
    // console.log(lineup_master_id, contest_id, collection);
     // this.Leagueservice.getContestDataOnviewNavigate(collection);
     // this.Leagueservice.collection.emit(collectionObj);
-    collection['is_live'] = false;
     this.utilityservice.checkLocalStorageStatus("collection")
       ? this.utilityservice.clearLocalStorage("collection")
       : this.utilityservice.setLocalStorage("collection", collection);
@@ -287,7 +286,7 @@ export class CompletedComponent implements OnInit {
       lineup_master_id,
       contest_id,
       collection.collection_master_id
-    ]);
+    ], {queryParams: {is_live: false}});
   }
   fillPlayGround(lineupDetails) {
     this.defPlayers = [];

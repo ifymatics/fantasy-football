@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/fanshop/shared/services/auth.service';
 import { ShoppingCartService } from 'src/app/fanshop/shared/services/shopping-cart.service';
 import { DataService } from 'src/app/data.service';
 import { UtilityService } from 'src/app/utility.service';
+import { FanshopService } from 'src/app/fanshop/fanshop.service';
 
 @Component({
 // tslint:disable-next-line: component-selector
@@ -24,22 +25,27 @@ export class BsNavbarComponent implements OnInit {
   navbars = false;
   noNavbar = true;
   appUser: AppUser;
-  userbalance = '';
+  userbalance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0};
   cart$: Observable<ShoppingCart>;
 
   constructor(private auth: AuthService,
      private shoppingCartService: ShoppingCartService,
      private dataservice: DataService,
-      private utilityservice: UtilityService) {
-        this.dataservice.userBalance.subscribe(
-          (data) => {
-            this.userbalance = data;
-            console.log(data);
-          }
-        );
+      private utilityservice: UtilityService,
+      private fanservice: FanshopService) {
+        // this.dataservice.userBalance.subscribe(
+        //   (data) => {
+        //     this.userbalance = data;
+        //    // console.log(data);
+        //   }
+        // );
   }
 
   async ngOnInit() {
+    this.fanservice.userBalance.subscribe(
+      data => this.userbalance = data
+    );
+  
     // this.utilityservice.userBalance.subscribe(
     //   (data) => {
     //     this.userbalance = data;

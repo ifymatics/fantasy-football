@@ -23,13 +23,13 @@
 
             <ul class="navbar-navs {{menuHeader}} ">
                   <li  routerLinkActive="active" >
-                      <a  [routerLink]="['/'+ selectedSport.sport_id + '/' +  league_id + '/lobby']"   routerLinkActive="active"   id="nav-links">LOBBY</a>
+                      <a (click) = "onRoute('lobby')"   routerLinkActive="active"   id="nav-links">LOBBY</a>
                     </li>
                     <li  routerLinkActive="active" >
-                        <a [routerLink]="['/'+ selectedSport.sport_id + '/'+ league_id+'/my-league']" routerLinkActive="active"   id="nav-links"n routerLinkActive="active">MY CONTEST</a>
+                        <a (click) = "onRoute('mycontest')"  routerLinkActive="active"   id="nav-links">MY CONTEST</a>
                     </li>
-                    <li  routerLinkActive="active">
-                        <a [routerLink]="['/'+ selectedSport.sport_id + '/leaderboard']" id="nav-links"  routerLinkActive="active">LEADERBOARD</a>
+                    <li (click) = "onRoute('leaderboard')" routerLinkActive="active">
+                        <a  id="nav-links"  routerLinkActive="active">LEADERBOARD</a>
                     </li>
                     <li  routerLinkActive="active">
                         <a   [routerLink]="['/'+ '/fanshop/products']" id="nav-links">EARN COINS</a>

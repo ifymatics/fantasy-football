@@ -286,7 +286,7 @@ export class LiveComponent implements OnInit, OnDestroy {
         lineup_master_id,
         contest_id,
         collection.collection_master_id
-      ]);
+      ],  {queryParams: {is_live: true}});
     }
     fillPlayGround(lineupDetails) {
       this.defPlayers = [];
