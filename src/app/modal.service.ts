@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ModalDirective } from 'angular-bootstrap-md';
+import { EventEmitter } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
+  emitModal = new EventEmitter< ModalDirective>();
 LoginModal: ModalDirective;
 SignupModal: ModalDirective;
 joinGameConfirmModal: ModalDirective;

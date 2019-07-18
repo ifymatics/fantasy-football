@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { UtilityService } from './utility.service';
+import { AuthloginService } from './user/authlogin.service';
 
 
 @Component({
@@ -8,5 +10,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
- 
+  constructor(private utilityservice: UtilityService, private service: AuthloginService) {
+
+  }
+  logout() {
+    console.log('from eventemitter');
+     this.service.logout();
+   }
 }

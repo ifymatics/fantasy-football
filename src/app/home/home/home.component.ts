@@ -3,8 +3,6 @@ import { md5 } from './../../user/md5';
 import { Component, OnInit, Output , EventEmitter} from '@angular/core';
 import { AuthloginService } from '../../user/authlogin.service';
 import { Router } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 // import { EventEmitter } from 'events';
 
 

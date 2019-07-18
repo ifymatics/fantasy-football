@@ -55,6 +55,10 @@ export class ProductCardComponent implements OnInit {
     // console.log(this.shoppingCart);
     this.getUserBalance ();
   }
+  wishlist(product){
+    // console.log(product);
+   this.ratingservice.product.emit(product);
+  }
   addToCart(product: Product) {
     // console.log(product);
     this.cartService.addToCart(product);

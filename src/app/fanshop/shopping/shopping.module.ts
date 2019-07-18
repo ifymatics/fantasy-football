@@ -18,6 +18,8 @@ import { BsNavbarComponent } from '../core/components/bs-navbar/bs-navbar.compon
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreModule } from '../core/core.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+
 
 @NgModule({
   imports: [
@@ -45,6 +47,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     ShoppingCartSummaryComponent,
     ShippingFormComponent,
     ProductFilterComponent,
+    WishlistComponent,
   ]
 })
 export class ShoppingModule { }

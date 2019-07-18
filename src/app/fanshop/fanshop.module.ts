@@ -36,6 +36,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
    AngularFirestoreModule.enablePersistence(),
     RouterModule.forChild([
       { path: '', component:FanshopComponent},
+     // {path: 'fanshop', redirectTo: 'products', pathMatch: 'full'},
       { path: 'products', component:ProductsComponent},
       { path: 'login', component: LoginComponent },
     ])    

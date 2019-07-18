@@ -1,0 +1,152 @@
+<app-header></app-header>
+
+<div class='main'>
+
+    <!-- MObile starts -->
+
+    <div id='forMobile'>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/football-manager.png"); background-repeat: no-repeat; background-size: contain;'  [routerLink]="['/5/league']"></div>
+        </a>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/predict-and-win.png"); background-repeat: no-repeat; background-size: contain;'></div>
+        </a>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/fan-shop.png"); background-repeat: no-repeat; background-size: contain;' [routerLink]="['/fanshop/products']"></div>
+        </a>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/fantasy-quiz.png"); background-repeat: no-repeat; background-size: contain;'></div>
+        </a>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/news.png"); background-repeat: no-repeat; background-size: contain;'></div>
+        </a>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/social.png"); background-repeat: no-repeat; background-size: contain;'></div>
+        </a>
+    </div>
+
+    <!-- Mobile ends -->
+
+    <!-- Desktop starts -->
+    <div id="forDesktop">
+        <div class="container">
+            <div class="row">
+
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard"  [routerLink]="['/5/league']"  routerLinkActive="" >
+                    <mdb-card class=''>
+
+                        <div class="singleSection">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/footballManager.png" alt="">
+                            </div>
+                            <div>
+                                <div class='sectionTitle'>
+                                    <h3>Football Manager</h3>
+                                </div>
+                                <div class='sectionInfo'> Build your team, top the league and win great prizes</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard">
+                    <mdb-card class=''>
+
+                        <div class="singleSection">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/predict_n_win_icon.png" alt="">
+                            </div>
+                            <div>
+                                <div class='sectionTitle'>
+                                    <h3>Predict and Win</h3>
+                                </div>
+                                <div class='sectionInfo'>Predict the winner of a match to win prizes</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard" [routerLink]="['/fanshop/products']">
+                    <mdb-card class=''>
+
+                        <div class="singleSection">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/shopping-cart.png" alt="">
+                            </div>
+                            <div>
+                                <div class='sectionTitle'>
+                                    <h3>Fanshop</h3>
+                                </div>
+                                <div class='sectionInfo'>Put your coins to use on the things you love</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard">
+                    <mdb-card class=''>
+
+                        <div class="singleSection">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/News_icon.jpg" alt="">
+                            </div>
+                            <div>
+                                <div class='sectionTitle'>
+                                    <h3>News</h3>
+                                </div>
+                                <div class='sectionInfo'>Put your coins to use on the things you love</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard">
+                    <mdb-card class=''>
+
+                        <div class="singleSection">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/quiz.png" alt="">
+                            </div>
+                            <div>
+                                <div class='sectionTitle'>
+                                    <h3>Quiz</h3>
+                                </div>
+                                <div class='sectionInfo'>Test your knowledge of football</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard">
+                    <mdb-card class=''>
+
+                        <div class="singleSection">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/social.jpg" alt="">
+                            </div>
+                            <div>
+                                <div class='sectionTitle'>
+                                    <h3>Social</h3>
+                                </div>
+                                <div class='sectionInfo'>Connect through your passion</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+            </div>
+        </div>
+    </div>
+</div>

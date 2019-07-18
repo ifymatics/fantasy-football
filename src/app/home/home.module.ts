@@ -12,6 +12,7 @@ import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { HttpClientModule } from "@angular/common/http";
 import { SharedModule } from "../shared.module";
 import { FooterComponent } from "./footer/footer.component";
+import { NewHomeComponent } from './new-home/new-home.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { FooterComponent } from "./footer/footer.component";
     HomeRoutingModule,
     HttpClientModule,
     FormsModule,
+    MDBBootstrapModule,
     ReactiveFormsModule,
     SharedModule,
     HomeRoutingModule
@@ -31,7 +33,8 @@ import { FooterComponent } from "./footer/footer.component";
     // JoinContestComponent,
     AuthComponent,
     SignupComponent,
-    SocialLoginComponent
+    SocialLoginComponent,
+    NewHomeComponent
   ]
 })
 export class HomeModule {}

@@ -98,34 +98,34 @@ export class AuthComponent implements OnInit {
             this.utilityservice.setLocalStorage('user', data) ;
           }
           this.isLoggedIn = true ;
-          this.router.navigate([ '5/league']);
+          this.router.navigate([ '/home']);
          //  this.user = this.utilityservice.getLocalStorage('user');
            // if (this.user !== false) {
            this.session = data.data.session_key; // this.user.data.session_key;
-          this.service.api('user/my_profile/header_detail' , {}, 'post', this.session)
-          .subscribe(
-            data1 => {
-              data['data'].user_profile.sports = data1['data'].sport;
-               const sportId = (globalSport) ? globalSport : '';
-              // console.log( data1['data']['sport'][0].sports_id);
-               const id = data1['data']['sport'][0].sports_id;
-               // if ( data1['data']['sport'][0].sports_id/*sportId*/) {
-                 const selectedSports = data1['data']['sport'][0];
-                 selectedSports.format_type = 'daily';
-                 selectedSports.selected_sports_id = globalSport;
-                 // console.log(selectedSports);
-                 this.utilityservice.setLocalStorage('selectedSport', selectedSports);
-                 setTimeout(() => {
-                   // this.utilityservice.clearLocalStorage('user');
-                      this.router.navigate([id + '/league']);
-                 }, 300);
-               // }
-              // }
-            },
-            (error) => {
-             // console.log(error['error']); alert(error['error']);
-               this.isLoading = false; }
-          );
+          // this.service.api('user/my_profile/header_detail' , {}, 'post', this.session)
+          // .subscribe(
+          //   data1 => {
+          //     data['data'].user_profile.sports = data1['data'].sport;
+          //      const sportId = (globalSport) ? globalSport : '';
+          //     // console.log( data1['data']['sport'][0].sports_id);
+          //      const id = data1['data']['sport'][0].sports_id;
+          //      // if ( data1['data']['sport'][0].sports_id/*sportId*/) {
+          //        const selectedSports = data1['data']['sport'][0];
+          //        selectedSports.format_type = 'daily';
+          //        selectedSports.selected_sports_id = globalSport;
+          //        // console.log(selectedSports);
+          //        this.utilityservice.setLocalStorage('selectedSport', selectedSports);
+          //        setTimeout(() => {
+          //          // this.utilityservice.clearLocalStorage('user');
+          //             this.router.navigate([id + '/league']);
+          //        }, 300);
+          //      // }
+          //     // }
+          //   },
+          //   (error) => {
+          //    // console.log(error['error']); alert(error['error']);
+          //      this.isLoading = false; }
+          // );
            // this.router.navigate(['/league']);
           }
    },

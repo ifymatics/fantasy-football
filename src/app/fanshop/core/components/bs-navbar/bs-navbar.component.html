@@ -54,7 +54,8 @@
                   <span class="fas fa-bars" (click)='showMenu()'></span>
                   <div class="nav-logo">
                       <a>
-                          <img src="assets/image/logo/logo.png" alt="Fantastic.ng logo" />
+                          <img routerLink="['/home']" (click) = "onNavigate('home')"
+                          src="assets/image/logo/logo.png" alt="Fantastic.ng logo" />
                       </a>
                   </div>
               </div>
@@ -62,14 +63,20 @@
               
 
               <ul class="navbar-navs" [ngClass]='{active: menu}' #dropdownMenu>
-                  <li>
-                      <a id="nav-links" href="">All</a>
+                  <li  (click)="onNavigate('fanshophome')"  >
+                      <a class = "dropdown-item"    [ngClass]="{active: isActive.includes('fanshophome')}" >Fanshop Home</a>
+                  </li>
+                  <li  (click)="onNavigate('oderhistory')"  >
+                      <a class = "dropdown-item"    [ngClass]="{active: isActive.includes('oderhistory')}" >Order History</a>
                   </li>
                   <li>
-                      <a id="nav-links" href="">Men</a>
+                      <a class = "dropdown-item"  >My wishlist</a>
                   </li>
-                  <li><a id="nav-links" href="">Women</a>
-                  </li>
+                
+                  <ng-container >
+                    <li (click)="onNavigate('manageoders')"  [ngClass]="{active: isActive.includes('manageoders')}"><a class="dropdown-item " >Manage Orders</a></li>
+                     <li (click)="onNavigate('manageproducts')"   [ngClass]="{active: isActive.includes('manageproducts')}"><a class="dropdown-item " >Manage Products</a></li>
+                  </ng-container>
               </ul>
 
               
@@ -141,7 +148,7 @@
                       >1</span
                     >
                   </a>
-                          <a href="" class="list-group-item pt-2 pb-0" id="dropdownlink" routerLink=''>Logout</a>
+                          <a (click)="logout()" class="list-group-item pt-2 pb-0" id="dropdownlink" routerLink=''>Logout</a>
                       </div>
                   </section>
               </div>

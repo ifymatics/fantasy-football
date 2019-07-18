@@ -22,6 +22,7 @@ import { OrderService } from './fanshop/shared/services/order.service';
 import { UserService } from './fanshop/shared/services/user.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({

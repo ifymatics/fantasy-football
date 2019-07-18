@@ -32,6 +32,9 @@ user;
      private dataservice: DataService) { }
 
   ngOnInit() {
+    this.utilityservice.logout.subscribe(
+      data => (data === 'logout') ? this.logout() : ''
+      );
     // this. showMenu();
     this.route.params.subscribe(
       (params: ParamMap) => {
@@ -65,6 +68,7 @@ user;
   // console.warn(this.menuHeader);
  }
   logout() {
+   // console.log('from eventemitter');
     this.service.logout();
   }
   onNavigate() {

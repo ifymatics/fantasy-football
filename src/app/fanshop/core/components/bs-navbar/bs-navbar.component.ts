@@ -8,6 +8,8 @@ import { ShoppingCartService } from 'src/app/fanshop/shared/services/shopping-ca
 import { DataService } from 'src/app/data.service';
 import { UtilityService } from 'src/app/utility.service';
 import { FanshopService } from 'src/app/fanshop/fanshop.service';
+import { Router } from '@angular/router';
+import { longStackSupport } from 'q';
 
 @Component({
 // tslint:disable-next-line: component-selector
@@ -17,6 +19,7 @@ import { FanshopService } from 'src/app/fanshop/fanshop.service';
 })
 export class BsNavbarComponent implements OnInit {
   blue = false;
+  isActive = [];
   // selectedProduct: object;
   mobileNav = false;
   @ViewChild('dropdownMenu') dropdownMenu: ElementRef;
@@ -25,6 +28,7 @@ export class BsNavbarComponent implements OnInit {
   navbars = false;
   noNavbar = true;
   appUser: AppUser;
+  
   userbalance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0};
   cart$: Observable<ShoppingCart>;
 
@@ -32,13 +36,8 @@ export class BsNavbarComponent implements OnInit {
      private shoppingCartService: ShoppingCartService,
      private dataservice: DataService,
       private utilityservice: UtilityService,
-      private fanservice: FanshopService) {
-        // this.dataservice.userBalance.subscribe(
-        //   (data) => {
-        //     this.userbalance = data;
-        //    // console.log(data);
-        //   }
-        // );
+      private fanservice: FanshopService,
+      private router: Router) {
   }
 
   async ngOnInit() {
@@ -77,5 +76,25 @@ export class BsNavbarComponent implements OnInit {
       }
 
   }
-
+  onNavigate(arg) {
+   this.isActive = [];
+    if (arg === 'oderhistory') {
+      this.isActive.push(arg);
+      this.router.navigate(['/fanshop/my/orders']);
+    } else if (arg === 'manageoders') {
+       this.isActive.push(arg);
+      this.router.navigate(['/fanshop/admin/products']);
+    } else  if (arg === 'manageproducts') {
+      this.isActive.push(arg);
+      this.router.navigate(['/fanshop/admin/products']);
+    } else if(arg === 'home') {
+      this.router.navigate(['/home']);
+    } else if(arg === 'fanshophome') {
+      this.router.navigate(['/fanshop/products']);
+    }
+  }
+  logout() {
+    // console.log('logoute');
+    this.utilityservice.logout.emit('logout');
+  }
 }
