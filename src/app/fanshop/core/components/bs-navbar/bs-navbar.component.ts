@@ -91,6 +91,8 @@ export class BsNavbarComponent implements OnInit {
       this.router.navigate(['/home']);
     } else if(arg === 'fanshophome') {
       this.router.navigate(['/fanshop/products']);
+    } else if(arg === 'wishlist') {
+      this.router.navigate(['/fanshop/wishlist']);
     }
   }
   logout() {

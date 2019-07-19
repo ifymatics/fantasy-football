@@ -295,7 +295,7 @@
 
               </div>
               <ng-template #No>
-                <h5><p>No live contest available on this league</p></h5>
+                <h5 style="text-align: center; margin-top: 20px; color: #666666"><p>No live contest available on this league</p></h5>
               </ng-template>
               <div class="spinner" *ngIf="isLoading" style ="top:50%;
               left: 45%;"></div>
@@ -353,21 +353,24 @@
                 </div> -->
 
 
-                <div class="d-flex pt-0">
-                  <div class="d-flex" id="leftAd">
-                    <div id="leftAdShadow"></div>
-                    <div id="leftAdBox">
-                      <img src="assets/image/bg-1.jpg" alt="" />
+                <div class="d-flex pt=0">
+                    <div class="d-flex" id="leftAdContainer">
+                      <div
+                        id="leftAdShadow"
+                        style="background: #DD1731;"
+                      ></div>
+                      <div id="leftAdBox">
+                        <div class='leftAd {{promoClasss}}' style='background-image: url("assets/image/Budweiser_ad.png")' alt='Budweiser Ad'></div>
+                      </div>
+                    </div>
+        
+                    <div class="d-flex " id="rightAdContainer">
+                      <div id="rightAdBox" style="background: #DD1731;">
+                          <div class='rightAd {{promoClasss}}' style='background-image: url("assets/image/Budweiser_logo.svg")' alt='Budweiser Ad'></div>
+                      </div>
+                      <div id="rightAdShadow"></div>
                     </div>
                   </div>
-
-                  <div class="d-flex " id="rightAd">
-                    <div id="rightAdBox">
-                      <img src="assets/image/bg-1.jpg" alt="" />
-                    </div>
-                    <div id="rightAdShadow"></div>
-                  </div>
-                </div>
               </div>
               <!-- 5-4-1 formation -->
               <div class=" pr-0 mr-0">
@@ -453,12 +456,13 @@
                   </div>
 
                   <img
-                    src="assets/image/logo/logo_F.png"
-                    alt="Sponsor's Logo"
-                    width="80%"
-                    height="60%"
-                    style="position:absolute; top: 0; left: 10%; transform: rotateX(75deg); opacity: 0.7;"
-                  />
+            src="assets/image/Budweiser_logo.svg"
+            class='sponsorLogo'
+            alt="Sponsor's Logo"
+            width="80%"
+            height="60%"
+            
+          />
                   <!-- /Formation 5-4-1 Midfield -->
 
                   <!-- Formation 5-4-1 Defence -->
@@ -544,23 +548,26 @@
             <!-- pitch ends -->
              <!--Empty Pitch starts -->
       <div id="{{ device }}" *ngIf="!mobileDevice && !isPopulated">
-        <div class="pitchadscontainer ">
-          <div class="d-flex pt-0">
-            <div class="d-flex" id="leftAd">
-              <div id="leftAdShadow"></div>
-              <div id="leftAdBox">
-                <img src="assets/image/bg-1.jpg" alt="" />
-              </div>
-            </div>
-
-            <div class="d-flex " id="rightAd">
-              <div id="rightAdBox">
-                <img src="assets/image/bg-1.jpg" alt="" />
-              </div>
-              <div id="rightAdShadow"></div>
-            </div>
+          <div class="dummyPitchadscontainer ">
+              <div class="d-flex pt=0">
+                  <div class="d-flex" id="leftAdContainer">
+                    <div
+                      id="leftAdShadow"
+                      style="background: #DD1731;"
+                    ></div>
+                    <div id="leftAdBox">
+                      <div class='leftAd {{promoClasss}}' style='background-image: url("assets/image/Budweiser_ad.png")' alt='Budweiser Ad'></div>
+                    </div>
+                  </div>
+      
+                  <div class="d-flex " id="rightAdContainer">
+                    <div id="rightAdBox" style="background: #DD1731;">
+                        <div class='rightAd {{promoClasss}}' style='background-image: url("assets/image/Budweiser_logo.svg")' alt='Budweiser Ad'></div>
+                    </div>
+                    <div id="rightAdShadow"></div>
+                  </div>
+                </div>
           </div>
-        </div>
         <!-- 4-4-2 formation -->
         <div class=" pr-0 mr-0" >
           <div
@@ -725,12 +732,13 @@
             </div>
 
             <img
-              src="assets/image/logo/logo_F.png"
-              alt="Sponsor's Logo"
-              width="80%"
-              height="60%"
-              style="position:absolute; top: 0; left: 10%; transform: rotateX(75deg); opacity: 0.7;"
-            />
+            src="assets/image/Budweiser_logo.svg"
+            class='sponsorLogo'
+            alt="Sponsor's Logo"
+            width="80%"
+            height="60%"
+            
+          />
             <!-- /Formation 4-4-2 Midfield -->
 
             <!-- Formation 4-4-2 Defence -->

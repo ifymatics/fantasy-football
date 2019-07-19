@@ -126,17 +126,14 @@ showMoreFixturesBtn = false;
     private route: ActivatedRoute,
     private utilityservice: UtilityService,
     private deviceService: DeviceDetectorService,
-    private leagueservice: LeagueService
+    private leagueservice: LeagueService,
+    private location: Location
   ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(
       data => {
         this.is_live = data['is_live'];
-      //ss console.log(typeof data['is_live']);
-      //  if (this.is_live === 'false'){
-      //    clearInterval(this.interval);
-      //  }
       }
     );
     // console.log(this.route.routeConfig);
@@ -144,13 +141,6 @@ showMoreFixturesBtn = false;
       this.stateParams.contest_id = params["contest_id"];
       this.stateParams.lineup_master_id = params["lineup_master_id"];
       this.stateParams.collection_master_id = params["collection_master_id"];
-      // console.log(this.stateParams.lineup_master_id);
-      // this.leagueservice.collection.subscribe(
-      //   collection => {
-      //      this.contestData = collection.collection;
-      //     console.log(collection.collection);
-      //   }
-      // );
 
       this.contestData = this.utilityservice.getLocalStorage("collection");
        // console.log( this.is_live );
@@ -341,33 +331,9 @@ showMoreFixturesBtn = false;
   showChatbox() {
     this.chatbox = !this.chatbox;
   }
- /* showMoreFixtures() {
-    this.forwardCount += 1;
-
-    if (this.forwardCount === 1) {
-      this.widthOfOwlItem = this.owlItem.nativeElement.offsetWidth;
-    } else if (this.forwardCount > 1) {
-      this.widthOfOwlItem += this.widthOfOwlItem;
-    }
-
-    this.owlStage.nativeElement.style.transform = `translate3d(-${
-      this.widthOfOwlItem
-    }px, 0px 0px)`;
-
-    // console.log("Hello");
+  goBack() {
+    this.location.back();
   }
-  showLessFixtures() {
-    this.backwardCount += 1;
-    if (this.backwardCount === 1) {
-      this.widthOfOwlItem = this.owlItem.nativeElement.offsetWidth;
-    } else if (this.backwardCount > 1) {
-      this.widthOfOwlItem -= this.widthOfOwlItem;
-    }
-
-    this.owlStage.nativeElement.style.transform = `translate3d(${
-      this.widthOfOwlItem
-    }px, 0px 0px)`;
-  }*/
   fillPlayGround(lineupDetails) {
     this.defPlayers = [];
     this.midPlayers = [];

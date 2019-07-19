@@ -31,6 +31,7 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
     RouterModule.forChild([
       // { path: 'products', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
+      { path: 'wishlist', component: WishlistComponent },
       { path: 'check-out', component: CheckOutComponent, /*canActivate: [AuthGuardService]*/ },
       { path: 'order-success/:id', component: OrderSuccessComponent, /*canActivate: [AuthGuardService]*/},
       { path: 'my/orders', component: MyOrdersComponent, /*canActivate: [AuthGuardService]*/ },

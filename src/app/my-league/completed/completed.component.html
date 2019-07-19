@@ -448,9 +448,9 @@
         <div class="" id="teamName">
           <div
             class="border-bottom teamName px-2"
-            style="display: grid; grid-template-columns: 0.5fr 1fr;"
+            
           >
-            <div style="display: inline-block;">
+            <div class="btBtn">
               <a
                 class="white-text font-weight-bold"
                 (click)="backToDetails()"
@@ -459,39 +459,50 @@
               >
             </div>
             <!--<div>-->
-            <span class="text-right">{{ teamInfo.team_name }}</span>
+            <span>{{ teamInfo.team_name }}</span>
             <!--</div>-->
           </div>
-          <div class="row rank">
-            <div class="ml-auto mr-3">Rank</div>
-            <div class="mr-4">
-              {{ teamInfo ? teamInfo.rank + "/" + totalUserJoined : "--" }}
+          <div class="pointsAndRank">
+            <div class="row points d-flex" style="align-items: center;">
+              <div class="pointsTitle">Points</div>
+              <div class="pointsValue">237</div>
             </div>
+
+            <div class="row rank d-flex" style='align-items: center;'>
+                <div class="rankTitle">Rank</div>
+                <div class="rankValue">
+                  {{ teamInfo ? teamInfo.rank + "/" + totalUserJoined : "--" }}
+                </div>
+            </div>
+            
           </div>
         </div>
 
         <div>
           <div class="px-3 mt-1">
             <span class="d-flex align-items-center completed white-text">
-              Completed
+                <span style="width: 10px; height: 10px; border-radius: 50%; margin-right: 10px; background-color: #00FF00"></span> Completed
             </span>
           </div>
         </div>
-        <div class="d-flex pt-0">
-          <div class="d-flex" id="leftAd">
-            <div id="leftAdShadow"></div>
-            <div id="leftAdBox">
-              <img src="assets/image/bg-1.jpg" alt="" />
+        <div class="d-flex pt=0">
+            <div class="d-flex" id="leftAdContainer">
+              <div
+                id="leftAdShadow"
+                style="background: #DD1731;"
+              ></div>
+              <div id="leftAdBox">
+                <div class='leftAd {{promoClasss}}' style='background-image: url("assets/image/Budweiser_ad.png")' alt='Budweiser Ad'></div>
+              </div>
             </div>
-          </div>
 
-          <div class="d-flex " id="rightAd">
-            <div id="rightAdBox">
-              <img src="assets/image/bg-1.jpg" alt="" />
+            <div class="d-flex " id="rightAdContainer">
+              <div id="rightAdBox" style="background: #DD1731;">
+                  <div class='rightAd {{promoClasss}}' style='background-image: url("assets/image/Budweiser_logo.svg")' alt='Budweiser Ad'></div>
+              </div>
+              <div id="rightAdShadow"></div>
             </div>
-            <div id="rightAdShadow"></div>
           </div>
-        </div>
       </div>
       <!-- 5-4-1 formation -->
       <div class=" pr-0 mr-0">
@@ -547,6 +558,10 @@
                           : ""
                       }}
                     </span>
+                    <span  class="white-text small d-block playerSalary">
+                        {{(fwdPlayers[fwdIndex]['score']) ? fwdPlayers[fwdIndex]['score']+'pts' : ''}}
+
+                     </span>
                   </div>
 
                   <!--<span hidden class="white-text small">DEF</span>-->
@@ -603,6 +618,10 @@
                           : ""
                       }}
                     </span>
+                    <span  class="white-text small d-block playerSalary">
+                        {{(midPlayers[mfIndex]['score']) ? midPlayers[mfIndex]['score']+'pts' : ''}}
+
+                     </span>
                   </div>
 
                   <!--<span hidden class="white-text small">DEF</span>-->
@@ -612,11 +631,12 @@
           </div>
 
           <img
-            src="assets/image/logo/logo_F.png"
+          src="assets/image/Budweiser_logo.svg"
+          class='sponsorLogo'
             alt="Sponsor's Logo"
             width="80%"
             height="60%"
-            style="position:absolute; top: 0; left: 10%; transform: rotateX(75deg); opacity: 0.7;"
+            
           />
           <!-- /Formation 5-4-1 Midfield -->
 
@@ -666,6 +686,9 @@
                           ? defPlayers[dfIndex]["salary"]
                           : ""
                       }}
+                    </span>
+                    <span  class="white-text small d-block playerSalary">
+                        {{(defPlayers[dfIndex]['score']) ?defPlayers[dfIndex]['score']+'pts' : ''}}
                     </span>
                   </div>
 
@@ -725,23 +748,29 @@
     </div>
     <!-- Empty Pitch starts -->
     <div id="{{ device }}" *ngIf="!mobileDevice && !isPopulated">
-      <div class="pitchadscontainer ">
-        <div class="d-flex pt-0">
-          <div class="d-flex" id="leftAd">
-            <div id="leftAdShadow"></div>
-            <div id="leftAdBox">
-              <img src="assets/image/bg-1.jpg" alt="" />
+      <!-- Dummy pitch Ads container starts -->
+      <div class="dummyPitchadscontainer ">
+          <div class="d-flex pt=0">
+              <div class="d-flex" id="leftAdContainer">
+                <div
+                  id="leftAdShadow"
+                  style="background: #DD1731;"
+                ></div>
+                <div id="leftAdBox">
+                  <div class='leftAd {{promoClasss}}' style='background-image: url("assets/image/Budweiser_ad.png")' alt='Budweiser Ad'></div>
+                </div>
+              </div>
+  
+              <div class="d-flex " id="rightAdContainer">
+                <div id="rightAdBox" style="background: #DD1731;">
+                    <div class='rightAd {{promoClasss}}' style='background-image: url("assets/image/Budweiser_logo.svg")' alt='Budweiser Ad'></div>
+                </div>
+                <div id="rightAdShadow"></div>
+              </div>
             </div>
-          </div>
-
-          <div class="d-flex " id="rightAd">
-            <div id="rightAdBox">
-              <img src="assets/image/bg-1.jpg" alt="" />
-            </div>
-            <div id="rightAdShadow"></div>
-          </div>
-        </div>
       </div>
+      <!-- Dummy pitch Ads container ends -->
+
       <!-- 4-4-2 formation -->
       <div class=" pr-0 mr-0">
         <div
@@ -882,11 +911,12 @@
           </div>
 
           <img
-            src="assets/image/logo/logo_F.png"
+            src="assets/image/Budweiser_logo.svg"
+            class='sponsorLogo'
             alt="Sponsor's Logo"
             width="80%"
             height="60%"
-            style="position:absolute; top: 0; left: 10%; transform: rotateX(75deg); opacity: 0.7;"
+            
           />
           <!-- /Formation 4-4-2 Midfield -->
 

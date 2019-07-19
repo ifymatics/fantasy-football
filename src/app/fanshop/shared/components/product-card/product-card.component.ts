@@ -11,6 +11,8 @@ import { AuthloginService } from 'src/app/user/authlogin.service';
 import { Alert } from 'selenium-webdriver';
 import { database } from 'firebase';
 import {  ModalDirective } from 'angular-bootstrap-md';
+import { EventEmitter } from 'events';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'product-card',
@@ -26,38 +28,43 @@ export class ProductCardComponent implements OnInit {
   rArray = [];
   session;
   itemDoc;
+  message = '';
   // coinbalance: number;
   @Input() ratingArray: Rating[];
   allRatings: Rating[];
   @Input('product') product: Product;
-  @Input('showActions') showActions = true;
+  @Input('showActions') showActions;
   @Input('shoppingCart') shoppingCart: ShoppingCart; 
   @ViewChild('productModal') productModal: ModalDirective;
-  
+  @ViewChild('addedToWishlistModal') addedToWishlistModal: ModalDirective;
+  user;
 
   constructor(private cartService: ShoppingCartService,
               private utils: UtilityService,
               private ratingservice: FanshopService,
               private db: AngularFirestore,
-              private service: AuthloginService) { }
+              private service: AuthloginService,
+              private router: Router) { }
   ngOnInit() {
+   
    // console.log(this.ratingArray);
-    const user  = this.utils.getLocalStorage('user');
-    this.session =  user.data.session_key;
-     this.userId = user.data.user_profile.user_id;
-    //  this.ratingservice.userBalance.subscribe(
-    //    balance => {this.user_balance = balance;
-    //     console.log(this.user_balance);}
-    //  );
+    this.user  = this.utils.getLocalStorage('user');
+    this.session =  this.user.data.session_key;
+     this.userId = this.user.data.user_profile.user_id;
    // this.getAllRating()
-    // console.log(user.data.user_profile.user_id);
-   // console.log(this.product+`hello`);
-    // console.log(this.shoppingCart);
     this.getUserBalance ();
   }
-  wishlist(product){
+  wishlist(prod){
     // console.log(product);
-   this.ratingservice.product.emit(product);
+    const data = {product: prod, user: this.user.data};
+   this.ratingservice.productAddedToWishlist.emit(data);
+    this.ratingservice.submittedSuccessfully.subscribe(
+      message => {
+        this.message = message;
+        alert(message);
+        // this.addedToWishlistModal.show();
+      }
+    );
   }
   addToCart(product: Product) {
     // console.log(product);

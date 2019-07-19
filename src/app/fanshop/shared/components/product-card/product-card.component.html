@@ -104,3 +104,19 @@
         </div>
     </div>
 </div>
+<!-- Purchase confirmation modal starts -->
+<div class='modal fade' tab-index='-1' mdbModal #addedToWishlistModal='mdbModal'>
+        <div class='modal-dialogue'>
+            <div class='modal-content'>
+                <div class="modal-header d-flex">
+                    <h3>Success</h3>
+                    <span class="close ml-auto" (click)='addedToWishlistModal.hide()'>&times;</span>
+                </div>
+    
+                <div class="modal-body">
+                    <p>{{message}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Purchase confirmation modal ends -->

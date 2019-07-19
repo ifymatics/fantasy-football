@@ -85,32 +85,31 @@
 /* Player Positions */
 
 /* Forward */
-$forwardPosition-portrait-phone: -10.5%;
-$forwardPosition-landscape-phone: -6.5%;
-$forwardPosition-portrait-tablet-and-ipad: -4.5%;
-$forwardPosition-lg: -10.5%;
+$forwardPosition-portrait-phone: -5.5%;
+$forwardPosition-landscape-phone: -3.5%;
+$forwardPosition-portrait-tablet-and-ipad: -2.5%;
+$forwardPosition-lg: -2.5%;
 
 /* Midfield */
 $midfieldPosition-xs-phone: 20.5%;
-$midfieldPosition-portrait-phone: 18.5%;
-$midfieldPosition-landscape-phone: 18.5%;
-$midfieldPosition-portrait-tablet-and-ipad: 22.5%;
-$midfieldPosition-lg: 17%;
+$midfieldPosition-portrait-phone: 22.5%;
+$midfieldPosition-landscape-phone: 21%;
+$midfieldPosition-portrait-tablet-and-ipad: 24.5%;
+$midfieldPosition-lg: 25%;
 
 /* Defence */
 $defencePosition-xs-phone: 45%;
-$defencePosition-portrait-phone: 43%;
-$defencePosition-landscape-phone: 45%;
-$defencePosition-portrait-tablet-and-ipad: 47%;
-$defencePosition-lg: 42%;
+$defencePosition-portrait-phone: 46%;
+$defencePosition-landscape-phone: 49%;
+$defencePosition-portrait-tablet-and-ipad: 49%;
+$defencePosition-lg: 48%;
 
 /* Goalie */
 $goaliePosition-xs-phone: 67%;
-$goaliePosition-portrait-phone: 67.5%;
-$goaliePosition-landscape-phone: 66%;
-$goaliePosition-portrait-tablet-and-ipad: 69%;
-$goaliePosition-lg: 64%;
-$goaliePosition-laptop-and-desktop: 69%;
+$goaliePosition-portrait-phone: 68.5%;
+$goaliePosition-landscape-phone: 72%;
+$goaliePosition-portrait-tablet-and-ipad: 71%;
+$goaliePosition-lg: 71%;
 /* /Player Positions */
 
 /* Pitch colors */
@@ -122,7 +121,7 @@ $darkGreen: #007b0c;
 
 
 .main {
-  min-height: 600px;
+  min-height: 1200px;
 }
 
 .two-column-layout {
@@ -148,11 +147,11 @@ $darkGreen: #007b0c;
   display: block;
 }
 
-/* #mobilePitch {
+#mobilePitch {
   @include for-lg {
     display: none;
   }
-} */
+}
 
 #desktopPitch {
   display: none;
@@ -490,7 +489,7 @@ table#contestInfo1 td {
 
   @include for-md {
     text-align: center;
-    width: 50px;
+    width: max-content;
   }
 
   /* @include for-sm {
@@ -602,13 +601,13 @@ table#contestInfo td {
   }
 
   #teamName {
-    padding-top: 10px;
-    padding-bottom: 5px;
-    padding-left: 25px;
-    background-color: rgba(0,0,0,0.3);
+    /* padding-top: 10px;
+    padding-bottom: 5px; */
+    background-color: rgba(0, 0, 0, 0.3);
     color: white;
     display: grid;
-    grid-template-columns: 0.5fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 
   .editbtn, .remainingSalary {
@@ -618,7 +617,34 @@ table#contestInfo td {
   .pitchadscontainer {
     background: $lightGreen;
     width: 100%;
-    height: 150px;
+    height: 185px;
+
+
+
+    > div {
+      width: 100%;
+    }
+
+    > div:nth-child(2) {
+      position: relative;
+      /* top: -15%; */
+    }
+  }
+  .dummyPitchadscontainer {
+    background: $lightGreen;
+    width: 100%;
+    height: 55px;
+
+
+
+    > div {
+      width: 100%;
+    }
+
+    > div:nth-child(2) {
+      position: relative;
+      /* top: -15%; */
+    }
   }
   #leftAd {
     position: relative;
@@ -656,6 +682,45 @@ table#contestInfo td {
     }
 
   }
+
+  #leftAdContainer {
+    width: 100%;
+    position: relative;
+    left: 60px;
+    top: 7px;
+    @include for-portrait-phone-only {
+      left: 0;
+      top: 20px;
+    }
+    @include for-landscape-phone-only {
+      left: 0px;
+      top: 10px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+      left: 0px;
+    }
+  
+    @include for-landscape-tablet-and-ipads-only {
+      left: 0px;
+      top: 10px;
+    }
+  
+    @include for-md {
+      left: 0px;
+      top: 10px;
+    }
+    @include for-lg {
+      right: 0px;
+      top: 10px;
+    }
+  
+    @include for-laptop-and-desktop-only {
+      right: 0px;
+      top: 10px;
+    }
+  
+  }
+
   #leftAdBox {
     background: white;
     width: 100px;
@@ -684,35 +749,35 @@ table#contestInfo td {
       height: 40px;
       width: 100%px;
     }
-    img {
-      width: 100px;
-      height: 40px;
-      @include for-portrait-phone-only {
-        height: 30px;
-        width: 100%;
-      }
-      @include for-landscape-phone-only {
-        height: 40px;
-        width: 100%;
-      }
-      @include for-portrait-tablet-and-ipad-only {
-        height: 40px;
-        width: 100%;
-      }
-      @include for-lg {
-        height: 40px;
-        width: 100%;
-      }
-      @include for-landscape-tablet-and-ipads-only {
-        height: 40px;
-        width: 100%;
-      }
-      @include for-laptop-and-desktop-only {
-        height: 40px;
-        width: 100%;
+    > div {
+      background-position: center;
+      background-size: 78%;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+
+      @include for-md {
+        background-size: 64%;
       }
     }
   }
+
+  /* Sponsor logo starts */
+  .sponsorLogo {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    transform: rotateX(43deg);
+    opacity: 0.7;
+    width: 80%;
+    height: 60%;
+
+    @include for-lg {
+      left: 22%;
+      width: 60%;
+    }
+  }
+  /* Sponsor logo ends */
 
   #leftAdShadow {
     background: #fff;
@@ -791,6 +856,47 @@ table#contestInfo td {
     }
 
   }
+  #rightAdContainer {
+    width: 100%;
+    position: relative;
+    right: 60px;
+    top: 7px;
+  
+  
+    @include for-portrait-phone-only {
+      /* right: 35px; */
+      right: 0;
+      top: 20px;
+    }
+    @include for-landscape-phone-only {
+      right: 0px;
+      top: 10px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+      right: 0;
+      top: 10px;
+    }
+  
+    @include for-landscape-tablet-and-ipads-only {
+      right: 0;
+      top: 10px;
+    }
+  
+    @include for-md {
+      right: 0px;
+    }
+  
+    @include for-lg {
+      right: 0;
+    }
+  
+    @include for-laptop-and-desktop-only {
+      right: 0px;
+      top: 10px;
+    }
+  
+  }
+
   #rightAdBox {
     background: white;
     width: 100px;
@@ -822,34 +928,18 @@ table#contestInfo td {
         width: 100%;
       }
 
-    img {
-      width: 100px;
-      height: 40px;
-      @include for-portrait-phone-only {
-        height: 30px;
-        /* width: 100px; */
-        width: 100%;
-      }
-      @include for-landscape-phone-only {
-        height: 40px;
-        width: 100%;
-      }
+    div {
+      background-position: center;
+      background-size: 82%;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
 
-      @include for-portrait-tablet-and-ipad-only {
-        height: 40px;
-        width: 100%;
+      @include for-md {
+        background-size: 44%;
       }
       @include for-lg {
-        height: 40px;
-        width: 100%;
-      }
-      @include for-landscape-tablet-and-ipads-only {
-        height: 40px;
-        width: 100%;
-      }
-      @include for-laptop-and-desktop-only {
-        height: 40px;
-        width: 100%;
+        background-size: 48%;
       }
     }
   }
@@ -1018,9 +1108,7 @@ table#contestInfo td {
     @include for-lg {
       top: $goaliePosition-lg;
     }
-    @include for-laptop-and-desktop-only {
-      top: $goaliePosition-laptop-and-desktop;
-    }
+    
   }
   #Def {
     position: absolute;
@@ -1831,6 +1919,106 @@ table#contestInfo td {
      /* Old browsers */
      background: radial-gradient(ellipse at center, rgb(31, 31, 31), rgba(31, 30, 30, 0.568), rgba(129, 129, 129, 0.192))
   }
+  .completed {
+    border: 1px solid #fff;
+    border-radius: 4px;
+    padding: 5px 10px;
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .teamName,.rank, .points {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.teamName {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  @include for-lg {
+    grid-template-columns: 1fr;
+  }
+  > span {
+    text-align: right;
+    @include for-lg {
+      text-align: center;
+    }
+  }
+}
+
+.pointsAndRank {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  .rank {
+    .rankValue {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    @include for-lg {
+      text-align: center;
+    }
+    >div:first-child {
+      margin-left: auto;
+      margin-right: 16px;
+
+      @include for-lg {
+        margin-left: auto;
+        margin-right: 10px;
+      }
+    }
+
+    >div:last-child {
+      margin-right: 24px;
+
+      @include for-lg {
+        margin-right: auto;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .points {
+    text-align: center;
+
+    .pointsTitle {
+      text-transform: capitalize;
+      font-size: 14px;
+      vertical-align: bottom;
+      color: white;
+    }
+
+    .pointsValue {
+      font-weight: bold;
+      font-size: 22px;
+    }
+
+    @include for-lg {
+      text-align: center;
+    }
+
+    > div:first-child {
+      margin-left: auto;
+      margin-right: 16px;
+
+      @include for-lg {
+        margin-left: auto;
+        margin-right: 10px;
+      }
+    }
+
+    > div:last-child {
+      margin-right: 24px;
+      @include for-lg {
+        margin-right: auto;
+        margin-left: 10px;
+      }
+    }
+
+  }
+}
   .captainBadge {
     width: 15px;
     height: 15px;
@@ -1914,3 +2102,17 @@ table#contestInfo td {
 }
 }
 /* END OF CUSTOMISED SPINNER*/
+.activeShowLineupBtn {
+  // color: rgb(155, 43, 149);
+  background-color:  rgb(155, 43, 149);
+ color: white;
+ border-radius: 20%;
+
+}
+
+.matchTime {
+  color: #B8B8B8;
+    display: block;
+    font-size: 12px;
+    font-style: italic; 
+}

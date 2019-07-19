@@ -69,8 +69,8 @@
                   <li  (click)="onNavigate('oderhistory')"  >
                       <a class = "dropdown-item"    [ngClass]="{active: isActive.includes('oderhistory')}" >Order History</a>
                   </li>
-                  <li>
-                      <a class = "dropdown-item"  >My wishlist</a>
+                  <li  (click)="onNavigate('wishlist')">
+                      <a class = "dropdown-item" [ngClass]="{active: isActive.includes('wishlist')}"  >My wishlist</a>
                   </li>
                 
                   <ng-container >

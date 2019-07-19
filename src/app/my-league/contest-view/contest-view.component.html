@@ -10,7 +10,7 @@
 
     <div class="topInfo container align-items-end">
       <div>
-        <span class="d-block blue-text my-2">Back</span>
+        <span (click)="goBack()"  class="d-block blue-text my-2">Back</span>
         <div class="d-flex ">
           <div class="white playerAvatar text-center">
             <img
@@ -368,7 +368,7 @@
                                   }}</span
                                 >
                                 <span  class="white-text small d-block playerSalary">
-                                   {{(fwdPlayers[fwdIndex]['score']) ? fwdPlayers[fwdIndex]['score']+' pts' : ''}}
+                                   {{(fwdPlayers[fwdIndex]['score']) ? fwdPlayers[fwdIndex]['score']+'pts' : ''}}
 
                                 </span>
                                 <span
@@ -430,7 +430,7 @@
                                   }}</span
                                 >
                                 <span  class="white-text small d-block playerSalary">
-                                    {{( midPlayers[mfIndex]['score']) ?  midPlayers[mfIndex]['score']+' pts' : ''}}
+                                    {{( midPlayers[mfIndex]['score']) ?  midPlayers[mfIndex]['score']+'pts' : ''}}
  
                                  </span>
                                 <span
@@ -503,7 +503,7 @@
                                   }}</span
                                 >
                                 <span  class="white-text small d-block playerSalary">
-                                    {{(  defPlayers[dfIndex]['score']) ?   defPlayers[dfIndex]['score']+' pts' : ''}}
+                                    {{(  defPlayers[dfIndex]['score']) ?   defPlayers[dfIndex]['score']+'pts' : ''}}
  
                                  </span>
                                 <span
@@ -563,7 +563,7 @@
                                   }}</span
                                 >
                                 <span class="white-text small d-block playerSalary"> 
-                                  {{(gkPlayers[0]['score']) ? gkPlayers[0]['score']+' pts' : ''}}
+                                  {{(gkPlayers[0]['score']) ? gkPlayers[0]['score']+'pts' : ''}}
                                 </span>
                                 <!-- <span class="white-text small d-block playerSalary">{{
                                   gkPlayers[0]["salary"] ? playersArr[0]["salary"] : ""

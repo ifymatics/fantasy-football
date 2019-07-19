@@ -13,6 +13,7 @@ export class WishlistComponent implements OnInit {
 product: Product;
 session ;
 userId ;
+wishListProducts$;
   constructor(private fanshopservice: FanshopService,
     private db: AngularFirestore, private utils: UtilityService) { }
 
@@ -20,18 +21,13 @@ userId ;
     const user  = this.utils.getLocalStorage('user');
     this.session =  user.data.session_key;
      this.userId = user.data.user_profile.user_id;
-    this.fanshopservice.product.subscribe(
-      data => {
-        this.product = data;
-      console.log(data);}
+    this.fanshopservice.productAddedToWishlist.subscribe(
+      data => console.log(data)
     );
+    this.getWishList();
   }
-  submitOrder() {
-   this.db.collection('wishlist').doc(this.userId).set(this.product).then(
-     data => {
-       console.log(data);
-     }
-   );
-  }
-
+getWishList(){
+  this.wishListProducts$ = this.db.collection('wishlist').doc(this.userId).collection('product')
+  .valueChanges({idField: 'id'});
+}
 }
