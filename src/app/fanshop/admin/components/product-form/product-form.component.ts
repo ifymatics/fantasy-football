@@ -36,6 +36,7 @@ export class ProductFormComponent implements OnInit {
       'price': new FormControl(null, Validators.required),
       'category': new FormControl(null, Validators.required),
       'imageUrl':  new FormControl(null, Validators.required),
+      'description':  new FormControl(null, Validators.required),
       // 'rememberMe': new FormControl(null)
     });
    this.categoryService.getAll()
@@ -59,6 +60,7 @@ export class ProductFormComponent implements OnInit {
         this.productForm.get('price').setValue(this.product.price);
         this.productForm.get('category').setValue(this.product.category);
         this.productForm.get('imageUrl').setValue(this.product.imageUrl);
+        this.productForm.get('description').setValue(this.product.description);
       });
      
       }

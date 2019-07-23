@@ -1,7 +1,7 @@
 import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
 import { AuthloginService } from './../../user/authlogin.service';
 import { UtilityService } from './../../utility.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -26,12 +26,13 @@ user_balance;
 currentBalance;
 point_balance;
 user;
-
+@Input('condition')condition;
   constructor(private utilityservice: UtilityService, private utilityService: UtilityService,
      private service: AuthloginService, private router: Router, private route: ActivatedRoute,
      private dataservice: DataService) { }
 
   ngOnInit() {
+    
     this.utilityservice.logout.subscribe(
       data => (data === 'logout') ? this.logout() : ''
       );

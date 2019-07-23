@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UtilityService } from 'src/app/utility.service';
+
 
 @Component({
   selector: 'app-new-home',
@@ -7,10 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./new-home.component.scss']
 })
 export class NewHomeComponent implements OnInit {
-
-  constructor(private router: Router) { }
+ homeRoute;
+  constructor(private router: Router, private utilityservice: UtilityService) { }
 
   ngOnInit() {
+    this.homeRoute = this.router.isActive('/home', true);
   }
   onNavigate(arg){
     if (arg === 'league') {

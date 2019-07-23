@@ -3,12 +3,22 @@
         @content;
     }
 }
+@mixin for-lg {
+    @media (min-width: 992px) {
+        @content;
+    }
+}
 
 .singleCard {
     margin-top: 20px;
 }
-.singleCard:first-child, .singleCard:nth-child(2), .singleCard:nth-child(3) {
+.singleCard:first-child, .singleCard:nth-child(2) {
     @include for-md {
+        margin-top: 0;
+    }
+}
+.singleCard:first-child, .singleCard:nth-child(2), .singleCard:nth-child(3) {
+    @include for-lg {
         margin-top: 0;
     }
 }
@@ -48,4 +58,5 @@
       @include for-md {
           display: unset;
       }
+
   }

@@ -15,16 +15,17 @@
 }
 
 #forMobile {
+    display: none;
     @include for-md {
         display: none;
     }
 }
 
 #forDesktop {
-    display: none;
+    /* display: none;
     @include for-md {
         display: unset;
-    }
+    } */
 }
 
 a {
@@ -38,6 +39,15 @@ a {
 }
 
 .singleCard {
+    .card {
+        box-shadow: none;
+        border-bottom: 1px solid #c3c3c3;
+        @include for-md {
+            box-shadow: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+            border-radius: 0px;
+        }
+    }
     @include for-md {
         margin-top: 20px;
     }
@@ -45,37 +55,88 @@ a {
 
 .singleSection {
     padding: 0 25px;
-    padding-bottom: 19px;
-    min-height: 303px;
+    padding-bottom: 12px;
+    padding-top: 15px;
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    @include for-md {
+        display: unset;
+        min-height: 303px
+    }
 }
 
 .sectionImage {
     padding: 40px 0;
     text-align: center;
-    height: 202px;
+    height: 114px;
     display: flex;
     justify-content: center;
+    @include for-md {
+        height: 195px;
+    }
     img {
         align-self: center;
-        max-width: 150px;
+        max-width: 75px;
+        @include for-md {
+            max-width: 150px;
+        }
     }
 }
 
 .singleCard:first-child {
     img {
-        max-width: 88px;
+        max-width: 49px;
+        /* height: 85px; */
+        @include for-md {
+            max-width: 88px;
+        }
     }
 }
 
 .sectionTitle {
     text-align: center;
     color: #485FAC;
+    margin-left: 40px;
+    @include for-md {
+        margin-left: unset;
+    }
     h3 {
         font-weight: 700;
+        font-size: 1.5em;
+        @include for-md {
+            font-size: 1.75em;
+        }
+    }
+}
+
+
+/* .sectionTitle:first-child {
+    margin-left: 40px;
+} */
+
+.singleCard:first-child .sectionTitle {
+    margin-left: 62px;
+    @include for-md {
+        margin-left: unset;
     }
 }
 
 .sectionInfo {
     font-size: 14px;
     text-align: center;
+    display: none;
+    @include for-md {
+        display: block;
+    }
+}
+
+.containers {
+    width: 100%;
+    @include for-md {
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
 }

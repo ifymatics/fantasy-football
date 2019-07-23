@@ -21,7 +21,7 @@
         <div class="col">
           <div class="row" >
               <ng-container *ngFor="let p of filteredProducts; let i = index">
-                <div class="col-md-4 singleCard">
+                <div class="col-md-6 col-lg-4 singleCard">
                   <product-card [product]="p" [shoppingCart]="cart" [ratingArray] = "rating"></product-card>
                 </div>
                 <!-- <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div> -->

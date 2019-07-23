@@ -945,7 +945,25 @@ ul.categoryList {
 }
 
 .productImage {
-  height: 170px;
+    height: 170px;
+    max-width: 272px;
+    margin: 0 auto;
+    margin-top: 6px;
+
+     @include for-md {
+        height: 170px;
+        max-width: unset;
+        margin: unset;
+    }
+  
+}
+
+[class~='fa-heart'] {
+    font-size: 30px;
+}
+
+.emptyHeart {
+    color: grey;
 }
 
 

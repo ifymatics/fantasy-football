@@ -32,13 +32,9 @@ export class OrderService {
   }
 
   getOrdersByUser(userId: string) {
-  
-  //   this.ordersCollection = this.db.collection('/orders', ref => {
-  //     return ref.orderBy('userId').where('userId', '==' , userId);
-  //   });
-  //   return this.ordersCollection.valueChanges()
+
   return this.db.collection('userhistory').doc(userId).collection('product')
   .valueChanges({idField: 'id'});
- 
+ // return new Observable();
    }
 }

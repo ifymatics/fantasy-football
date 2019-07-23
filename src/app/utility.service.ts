@@ -9,6 +9,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 export class UtilityService {
   userBalance = new EventEmitter();
   logout = new EventEmitter<any>();
+  checkHeader = new EventEmitter<boolean>();
 
   constructor(private lstorage: LocalStorageService, private sessionStorage: SessionStorageService) { }
   setLocalStorage(index, data) {

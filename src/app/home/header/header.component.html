@@ -21,24 +21,24 @@
             </div>
 
 
-            <ul class="navbar-navs {{menuHeader}} ">
-                  <li  routerLinkActive="active" >
+            <ul class="navbar-navs {{menuHeader}} " *ngIf="!condition">
+                  <li *ngIf="!condition" routerLinkActive="active" >
                       <a (click) = "onRoute('lobby')"   routerLinkActive="active" class="dropdown-item"  id="nav-links">LOBBY</a>
                     </li>
                     <li  routerLinkActive="active" >
-                        <a (click) = "onRoute('mycontest')"  routerLinkActive="active"  class="dropdown-item"   id="nav-links">MY CONTEST</a>
+                        <a  (click) = "onRoute('mycontest')"  routerLinkActive="active"  class="dropdown-item"   id="nav-links">MY CONTEST</a>
                     </li>
-                    <li (click) = "onRoute('leaderboard')" routerLinkActive="active">
+                    <li  (click) = "onRoute('leaderboard')" routerLinkActive="active">
                         <a  id="nav-links"  class="dropdown-item"  routerLinkActive="active">LEADERBOARD</a>
                     </li>
                     <li  routerLinkActive="active">
-                        <a   class="dropdown-item"   id="nav-links">EARN COINS</a>
+                        <a class="dropdown-item"   id="nav-links">EARN COINS</a>
                     </li>
                     <li  routerLinkActive="active">
-                        <a  class="dropdown-item"  id="nav-links">HOW TO PLAY</a>
+                        <a class="dropdown-item"  id="nav-links">HOW TO PLAY</a>
                     </li>
                     <li  routerLinkActive="active">
-                        <a  class="dropdown-item"   id="nav-links">CONTACT</a>
+                        <a class="dropdown-item"   id="nav-links">CONTACT</a>
                     </li>
 
               </ul>

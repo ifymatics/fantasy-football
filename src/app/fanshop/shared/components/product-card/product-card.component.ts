@@ -38,7 +38,8 @@ export class ProductCardComponent implements OnInit {
   @ViewChild('productModal') productModal: ModalDirective;
   @ViewChild('addedToWishlistModal') addedToWishlistModal: ModalDirective;
   user;
-
+ toggle= true;
+  whishlistArray = [];
   constructor(private cartService: ShoppingCartService,
               private utils: UtilityService,
               private ratingservice: FanshopService,
@@ -53,16 +54,43 @@ export class ProductCardComponent implements OnInit {
      this.userId = this.user.data.user_profile.user_id;
    // this.getAllRating()
     this.getUserBalance ();
+    this.ratingservice.buyFromWishList.subscribe(
+      data => this.buyNow(data)
+    );
+    this. checkItemInWishlist();
   }
-  wishlist(prod){
+  wishlist(prod, flag){
+    // if (flag === 'remove') { 
+      
+    //    console.log(this.whishlistArray);
+    //  }
     // console.log(product);
-    const data = {product: prod, user: this.user.data};
+    const data = {product: prod, user: this.user.data, flag: flag};
    this.ratingservice.productAddedToWishlist.emit(data);
     this.ratingservice.submittedSuccessfully.subscribe(
       message => {
+        if (message === 'removed successfully from your wishlist') {
+          this.whishlistArray.splice(this.whishlistArray.indexOf(prod.id), 1 );
+          this.ratingservice.WishlistProducts.emit(this.whishlistArray);
+        }
         this.message = message;
-        alert(message);
-        // this.addedToWishlistModal.show();
+     // alert(message);
+      
+       //  this. checkItemInWishlist();
+         // this.addedToWishlistModal.show();
+      }
+    );
+  }
+  checkItemInWishlist(){
+    this.db.collection('wishlist').doc(this.userId).collection('product')
+    .valueChanges({idField: 'id'}).subscribe(
+      data => {
+        this.ratingservice.WishlistProducts.emit(data);
+        // this.whishlistArray = data;
+        // console.log(this.whishlistArray);
+        for (const p of data) {
+         this.whishlistArray.push(p.id);
+        }
       }
     );
   }
@@ -74,45 +102,51 @@ export class ProductCardComponent implements OnInit {
     this.read = true;
   }
   buyNow(product) {
-    // console.log(product);
-    const param = {
-      point_bal: 0,
-      real_bal:0,
-      winning_bal:0,
-      bonus_bal: 0,
-      user_id: this.userId
-    };
+    this.ratingservice.buyNow(product,this.session, this.userId);
+  //  if(result === undefined) {
+  //    alert('system error');
+  //  } else if (result === 'Your purchase was successful.'){
+  //   this.productModal.hide();
+  //   alert(result);
+  //  } else {
+  //   alert('nothing');
+   //}
+  //    console.log(product);
+  //   const param = {
+  //     point_bal: 0,
+  //     real_bal:0,
+  //     winning_bal:0,
+  //     bonus_bal: 0,
+  //     user_id: this.userId
+  //   };
 
-    if (this.user_balance.point_balance >= product.price) {
-      this.user_balance.point_balance -= product.price;
-      param.point_bal = this.user_balance.point_balance;
-      param.bonus_bal = this.user_balance.bonus_amount;
-      param.real_bal = this.user_balance.real_amount;
-      param.winning_bal = this.user_balance.winning_amount;
-      this.service
-  .api("user/finance/updateUserBalanceFromFANSHOP", param, "POST", this.session)
-  .subscribe(
-    data => {
-      if (data.response_code === 200) {
-        this.ratingservice.userBalance.emit(data.data);
-        alert('Your purchase was successful.');
-         this.productModal.hide();
-         this.createHistory(product);
-        // this.router.navigate([''])
-        // console.log(data.data);
-      }
-      },
-    error => console.log(error)
-  );
+  //   if (this.user_balance.point_balance >= product.price) {
+  //     this.user_balance.point_balance -= product.price;
+  //     param.point_bal = this.user_balance.point_balance;
+  //     param.bonus_bal = this.user_balance.bonus_amount;
+  //     param.real_bal = this.user_balance.real_amount;
+  //     param.winning_bal = this.user_balance.winning_amount;
+  //     this.service
+  // .api("user/finance/updateUserBalanceFromFANSHOP", param, "POST", this.session)
+  // .subscribe(
+  //   data => {
+  //     if (data.response_code === 200) {
+  //       this.ratingservice.userBalance.emit(data.data);
+  //       alert('Your purchase was successful.');
+  //        this.productModal.hide();
+  //        this.createHistory(product);
+  //       // this.router.navigate([''])
+  //       // console.log(data.data);
+  //     }
+  //     },
+  //   error => console.log(error)
+  // );
 
-    } else {
-         alert(`YOUR BALANCE OF ${this.user_balance.point_balance} COINS
-      IS NOT ENOUGH TO BUY A PRODUCT WORTH ${product.price} COINS! 
-      LEARN SOME OF THE WAYS TO EARN MORE COINS IN OUR SYSTEM`);
-    }
-    // this.user_balance.point_bal -= product.price;
-   // console.log(+this.user_balance.point_balance);
-
+  //   } else {
+  //        alert(`YOUR BALANCE OF ${this.user_balance.point_balance} COINS
+  //     IS NOT ENOUGH TO BUY A PRODUCT WORTH ${product.price} COINS! 
+  //     LEARN SOME OF THE WAYS TO EARN MORE COINS IN OUR SYSTEM`);
+  //   }
    
   }
   onClickRating (index, prodId, e) {
@@ -151,21 +185,22 @@ productRate.then((data)=> {
 
   }
   getUserBalance () {
-    const param = {
-      user_id: this.userId
-    };
-    this.service
-    .api("user/finance/get_user_balance", param, "POST", this.session)
-    .subscribe(
-      data => {
-       this.user_balance = data.data.user_balance;
-      //  this.user_balance.bonus_amount = data.data.user_balance.bonus_amount;
-      //  this.user_balance.winning_amount = data.data.user_balance.winning_amount;
-      //  this.user_balance.real_bal = data.data.user_balance.real_amount;
-        //  console.log(data.data.user_balance);
-        this.ratingservice.userBalance.emit(this.user_balance);
-      }
-    );
+    this.ratingservice.getUserBalance(this.userId,this.session);
+    // const param = {
+    //   user_id: this.userId
+    // };
+    // this.service
+    // .api("user/finance/get_user_balance", param, "POST", this.session)
+    // .subscribe(
+    //   data => {
+    //    this.user_balance = data.data.user_balance;
+    //   //  this.user_balance.bonus_amount = data.data.user_balance.bonus_amount;
+    //   //  this.user_balance.winning_amount = data.data.user_balance.winning_amount;
+    //   //  this.user_balance.real_bal = data.data.user_balance.real_amount;
+    //     //  console.log(data.data.user_balance);
+    //     this.ratingservice.userBalance.emit(this.user_balance);
+    //   }
+    // );
   }
   createHistory(product) {
     const dateCreated = Date.now();

@@ -1,4 +1,4 @@
-<div class="container" style="margin-bottom: 100px;">
+<!-- <div class="container" style="margin-bottom: 100px;">
   <bs-navbar></bs-navbar>
 </div> 
 <div class="container">
@@ -26,19 +26,13 @@
             
           </div>
             <div class="alert alert-danger"  *ngIf="!productForm.get('price').valid && productForm.touched">Price is required.</div>
-          
-          <!--<div class="alert alert-danger" *ngIf="!productForm.get('price').valid && productForm.touched">
-            <div *ngIf="!productForm.get('price').valid && productForm.touched">Price is required.</div>
-             <div *ngIf="productForm.price?.errors.min">Price should be 0 or higher.</div> 
-          </div>-->
         </div>        
         <div class="form-group">
           <label for="category">Category</label>
           <select formControlName="category" name="category" id="category" class="form-control" required>
             <option value="null"></option>
-            <!-- <option *ngFor="let c of categories$ | async" value="{{c.name}}"> -->
+    
          <option *ngFor="let c of categories" value="{{c.id}}"> {{c.name}}</option>
-            <!-- </option> -->
           </select>
          <div class="alert alert-danger"
            *ngIf="!productForm.get('category').valid && productForm.touched">
@@ -62,4 +56,91 @@
   </div>
 </div>
 
+</div>  -->
+
+
+
+ <bs-navbar></bs-navbar>
+<div class='orderHistory'>
+    <h3>Fanshop Admin</h3>
 </div>
+
+
+
+<div class="main">
+    <div class="container">
+        <form  [formGroup]="productForm" (ngSubmit)="save()">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6 text-center">
+                    <!-- <img *ngIf="!id" src="assets/image/bg-1.jpg"> -->
+                   
+                    <product-card [product]="product" [showActions]="false" ></product-card>
+                    <input type="file" name="" id="" class='mt-4'>
+                </div>
+
+                <div class="col-sm-12 col-md-6 secondColumn">
+                    <div class='input'>
+                        <label for="productName">Product Title</label>
+                        <input
+                        [mdbValidate]="false"
+                        mdbInputDirective
+                         formControlName="title"
+                         type="text" name='productName' id='productName' placeholder='Enter product name'>
+                         <div class="alert alert-danger" *ngIf="!productForm.get('title').valid && productForm.touched">
+                            Title is required.
+                          </div>
+                    </div>
+                    <div class='input'>
+                        <label for="productCategory">Product Category</label>
+                      <select formControlName="category" name="category" id="category" class="form-control" required>
+                      <option value="null"></option>
+    
+                       <option *ngFor="let c of categories" value="{{c.id}}"> {{c.name}}</option>
+                     </select>
+                      <div class="alert alert-danger"
+                         *ngIf="!productForm.get('category').valid && productForm.touched">
+                             Category is required.
+                      </div>
+                    </div>
+                    <div class='input'>
+                        <label for="productPrice">Product Price</label>
+                        <div class="d-flex">
+                            <span class='coinIconContainer'><i class="fas fa-coins"></i></span>
+                            <input formControlName="price" type="number" name='productPrice' id='productPrice' placeholder='Enter product price'>
+                        </div>
+                        <div class="alert alert-danger"  *ngIf="!productForm.get('price').valid && productForm.touched">Price is required.</div>
+                    </div>
+                    <div class='input'>
+                        <label for="productDescription">Product Description</label>
+                        <textarea formControlName="description" type="text" name='productDescription' id='productDescription' placeholder='Enter product description'></textarea>
+                    </div>
+                    <div class='input'>
+                        <label for="Image Url">Image Url</label>
+                        <input formControlName="imageUrl"
+                        [mdbValidate]="false"
+                        mdbInputDirective
+                         type="text" name='imageUrl' id='productName' placeholder='Image Url' required url>
+                         <div class="alert alert-danger" *ngIf="!productForm.get('imageUrl').valid && productForm.touched">
+                            <div *ngIf="imageUrl?.errors.required">Image URL is required.</div>
+                            <div *ngIf="imageUrl?.errors.url">Please enter a valid URL.</div>
+                         </div>
+                    </div>
+                    <div class='d-flex'>
+                        <mdb-checkbox [default]="true" class='theCheckbox'>Premium Product</mdb-checkbox>
+                        <mdb-checkbox [default]="true" class='theCheckbox ml-auto'>Featured Product</mdb-checkbox>
+                    </div>
+
+                    <div class="d-flex">
+                        <button *ngIf="id" type="button" (click)="delete()" class="btn btn-danger">Delete</button>
+                        <button [disabled]="!productForm.valid" class='waves-light relative bg-primary' mdbWavesEffect mdbBtn>Save Product</button>
+                        
+                    </div>
+
+                    
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>  

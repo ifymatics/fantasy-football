@@ -3,6 +3,7 @@ import { Rating } from './shared/models/rating.model';
 import { Product } from './shared/models/product';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { AuthloginService } from '../user/authlogin.service';
  export interface UserBalance {
   real_bal: 0;
    winning_bal: 0;
@@ -13,16 +14,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FanshopService {
+  user_balance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0};
   allRating = new EventEmitter<Rating[]>();
   ratingClick = new EventEmitter<Rating>();
   userBalance = new EventEmitter<any>();
   productAddedToWishlist = new EventEmitter<{}>();
-  wishListProduct: Product;
+  WishlistProducts = new EventEmitter<{}>();
   submittedSuccessfully = new EventEmitter<string>();
+  buyFromWishList = new EventEmitter<Product>();
   user;
   userId;
   wishListArray =[];
-  constructor(private db: AngularFirestore) {
+  wishListProduct: Product;
+  constructor(private db: AngularFirestore, private service: AuthloginService) {
     const prod = {} as Product;
 
     this.productAddedToWishlist.subscribe(
@@ -34,21 +38,33 @@ export class FanshopService {
         this.user = data.user;
         const userId = data.user.user_profile.user_id;
         this.userId = userId;
-        this.submitToWishlist(userId);
+        this.submitToWishlist( data.flag);
         console.log(this.userId);
       }
     );
    }
-   submitToWishlist(userId) {
-     // console.log(userId);
-     this.db.collection("wishlist").doc(this.userId)
-     .collection('product').doc(this.wishListProduct.id).set(this.wishListProduct).
+   submitToWishlist(flag) {
+    if (flag === 'remove') {
+      this.db.collection("wishlist").doc(this.userId)
+      .collection('product').doc(this.wishListProduct.id).delete()
+      .then(
+        data => {
+          this.submittedSuccessfully.emit('removed successfully from your wishlist');
+         // console.log(data);
+        }
+      )
+      .catch(error => console.log(error));
+    } else { 
+      this.db.collection("wishlist").doc(this.userId)
+     .collection('product').doc(this.wishListProduct.id)
+     .set(this.wishListProduct).
     then(
       data => {
         this.submittedSuccessfully.emit('Added successfully to your wishlist');
-        console.log(data);
+        // console.log(data);
       }
     ).catch(error => console.log(error));
+    }
    }
    getAllProductFromWishlist(): Observable<any[]>{ 
      const userId = '505';
@@ -62,4 +78,91 @@ export class FanshopService {
   //     }
   //  );
  }
+ getUserBalance (userId, session) {
+  const param = {
+    user_id: userId
+  };
+  this.service
+  .api("user/finance/get_user_balance", param, "POST", session)
+  .subscribe(
+    data => {
+     this.user_balance = data.data.user_balance;
+    //  this.user_balance.bonus_amount = data.data.user_balance.bonus_amount;
+    //  this.user_balance.winning_amount = data.data.user_balance.winning_amount;
+    //  this.user_balance.real_bal = data.data.user_balance.real_amount;
+      //  console.log(data.data.user_balance);
+      this.userBalance.emit(this.user_balance);
+    }
+  );
+}
+createHistory(product,userId) {
+  const dateCreated = Date.now();
+ // console.log(product);
+   product.dateCreated = dateCreated;
+   const prod = product;
+ // console.log(prod);
+  // this.db.collection('userhistory').doc<Product>('');
+   this.db.collection("userhistory").doc(userId)
+   .collection('product').add(prod)
+   .then(
+    //  data => this.getAllUserBought()
+   )
+   .catch(
+     error => console.log(error)
+   );
+  // this.itemDoc = this.db.doc<Product>('userhistory/' + this.userId);
+  // const item = this.itemDoc.valueChanges();
+  // console.log(item);
+  // return item.subscribe(
+  //   data => console.log(data)
+  // );
+}
+buyNow(product, session, userId) {
+  console.log( userId);
+ const result = { value:'Your purchase was successful.',error: 'error'};
+ const param = {
+   point_bal: 0,
+   real_bal:0,
+   winning_bal:0,
+   bonus_bal: 0,
+   user_id: userId
+ };
+
+ if (this.user_balance.point_balance >= product.price) {
+   this.user_balance.point_balance -= product.price;
+   param.point_bal = this.user_balance.point_balance;
+   param.bonus_bal = this.user_balance.bonus_amount;
+   param.real_bal = this.user_balance.real_amount;
+   param.winning_bal = this.user_balance.winning_amount;
+   this.service
+.api("user/finance/updateUserBalanceFromFANSHOP", param, "POST", session)
+.subscribe(
+ data => {
+   if (data.response_code === 200) {
+     this.userBalance.emit(data.data);
+    //  console.log(data);
+      this.createHistory(product, userId);
+     alert(  'Your purchase was successful.');
+     // this.router.navigate([''])
+     // console.log(data.data);
+   } else{ alert(  'an error occured'); }
+   },
+ error => {
+   console.log(error);
+  // return result.error;
+  
+
+  }
+);
+
+ } else {
+      alert( `YOUR BALANCE OF ${this.user_balance.point_balance} COINS
+   IS NOT ENOUGH TO BUY A PRODUCT WORTH ${product.price} COINS! 
+   LEARN SOME OF THE WAYS TO EARN MORE COINS IN OUR SYSTEM`);
+ }
+ // this.user_balance.point_bal -= product.price;
+// console.log(+this.user_balance.point_balance);
+// return;
+
+}
 }
