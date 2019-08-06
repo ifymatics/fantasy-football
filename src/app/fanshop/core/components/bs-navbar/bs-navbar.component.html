@@ -158,6 +158,39 @@
 
   </div>
 
-
+<!-- Alert modal ends -->
+<app-modal-alert (close)="closeAlert()" [deviceType] ="deviceService.isMobile()" [message] = "message" [tag]="tag" *ngIf="message" ></app-modal-alert>
+<!-- End of Alert modal ends -->
 </nav>
+<!-- Get token modal starts -->
+<div class="modal fade" tabindex="-1" mdbModal #getToken='mdbModal' [ngClass]="{desktop: !deviceService.isMobile()}">
+  <div class="modal-dialog" [ngClass]="{desktopModal: !deviceService.isMobile()}">
+      <div class="modal-content">
+          <div class="modal-header d-flex">
+              <h3>Get Tokens</h3>
+              <span class="close ml-auto" (click)='getToken.hide()'>&times;</span>
+          </div>
+
+          <div class="modal-body">
+              <!-- <form> -->
+                  <div class="d-flex justify-content-around">
+                      <div (click)="calculateToken('reduce')"  class='tokenAmountControllers'><i class="fas fa-minus"></i></div>
+                      <input type="number" value="{{tokenObj.unit}}" class='w-50 tokenAmountInput'>
+                      <div (click)="calculateToken('increase')" class='tokenAmountControllers'><i class="fas fa-plus"></i></div>
+                  </div>
+
+                  <button type="button" (click)="buyToken()" class="waves-light relative w-100 mt-5"
+                   mdbBtn mdbWavesEffect style="background-color: #22C61E">
+                    Pay N{{tokenObj.price*tokenObj.unit}}
+                  </button>
+              <!-- </form> -->
+              <div class="col-md-9 text-right mt-3 ">
+                  <label for="paystacklogo" class="mr-2 small">Secured by:</label>
+                  <img id="paystacklogo" src="https://paystack.com/assets/website/images/logo.svg" alt="" style="background-color: lightgray;padding: 0px 10px;padding-top: 10px; padding-bottom: 10px;">
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Get token modal ends -->
 <!-- Header ends -->

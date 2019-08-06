@@ -53,8 +53,9 @@ export class LineupComponent implements OnInit,OnDestroy{
   owlItems = document.getElementsByClassName("owl-item");
   showLessFixturesBtn = true;
   showMoreFixturesBtn = false;
-
-
+  error;
+  tag;
+  
   // games = [
   //   {id: 1, home: 'RBL', away: 'TSG', time: 'Mon, Feb 25-08:30 pm' },
   //   {id: 1, home: 'MUD', away: 'CHE', time: 'Mon, Feb 25-08:30 pm' },
@@ -95,7 +96,7 @@ export class LineupComponent implements OnInit,OnDestroy{
   searchPlayerForm;
   confirmJoinForm;
   searchBoxForm;
-  message = '' ;
+ // message = '' ;
   result;
   messageCss;
   inits;
@@ -367,7 +368,7 @@ export class LineupComponent implements OnInit,OnDestroy{
     private lobbyservice: LobbyService,
     private router: Router,
     private route: ActivatedRoute,
-    private deviceService: DeviceDetectorService,
+    public deviceService: DeviceDetectorService,
     private playerservice: PlayersUtilityService,
     private leagueservice: ContestJoinService,
     private modalservice: ModalService, 
@@ -482,6 +483,9 @@ export class LineupComponent implements OnInit,OnDestroy{
   ngOnDestroy(){
     this.subscription.unsubscribe();
   }
+  closeAlert() {
+  this.error = null;
+  }
   onSelectPlayer(playerType) {
     // this.setPlayersPosition();
     //  console.log(playerType);
@@ -545,6 +549,12 @@ export class LineupComponent implements OnInit,OnDestroy{
         error => {
           // console.log(error['global_error']);
           // alert(error['global_error']);
+          if (error['error']['global_error'] === 'Session key has expired') {
+            this.error = error['error']['global_error'];
+            this.tag = 'danger';
+            setTimeout(() =>  this.router.navigate(['/']) , 5000);
+           // this.router.navigate(['/']);
+          }
           this.router.navigate(["/"]);
           this.posting = false;
           this.loadMorePosting = false;
@@ -728,10 +738,11 @@ export class LineupComponent implements OnInit,OnDestroy{
           }
         },
         error => {
-          if (error["error"]["global_error"] === "Session key has expired") {
-            this.message = error["error"]["global_error"];
-            this.messageCss = this.utilityService.alertHandler('error');
-            this.router.navigate(["/"]);
+          if (error['error']['global_error'] === 'Session key has expired') {
+            this.error = error['error']['global_error'];
+            this.tag = 'danger';
+            setTimeout(() =>  this.router.navigate(['/']) , 5000);
+           // this.router.navigate(['/']);
           }
         }
       );
@@ -843,8 +854,9 @@ export class LineupComponent implements OnInit,OnDestroy{
 
     // Validate 11 players in team
     if (this.finalSelectedPlayersArr.length === this.default_total_players) {
-      this.message = 'only maximum of 11 players allowed';
-      this.messageCss = this.utilityService.alertHandler('error');
+      this.tag = 'danger';
+      this.error = 'only maximum of 11 players allowed';
+     // this.messageCss = this.utilityService.alertHandler('error');
       // alert("only maximum of 11 players allowed");
       isValid = false;
       return false;
@@ -853,9 +865,10 @@ export class LineupComponent implements OnInit,OnDestroy{
     // Validate players salary cap
     const salary = parseFloat(playerDetail.salary);
     if (salary > this.remaining_salary_cap) {
-      this.utilityService.alertHandler('error');
-      this.message = 'Insufficient credit balance. Please select another player';
-      this.messageCss = this.utilityService.alertHandler('error');
+      // this.utilityService.alertHandler('error');
+      this.tag = 'danger';
+      this.error = 'Insufficient credit balance. Please select another player';
+     // this.messageCss = this.utilityService.alertHandler('error');
       // alert("Insufficient credit balance. Please select another player");
       // emitAlert.on('Insufficient credit balance. Please select another player', 'danger');
       isValid = false;
@@ -863,9 +876,10 @@ export class LineupComponent implements OnInit,OnDestroy{
 
     // Validate only 6 players in one team
     if (maxPlayersPerTeam.length === 4 && isValid) {
-      this.utilityService.alertHandler('error');
-      this.message = "Only Maximum of 4 players allowed from 1 team";
-      this.messageCss = this.utilityService.alertHandler('error');
+     // this.utilityService.alertHandler('error');
+     this.tag = "danger";
+      this.error = "Only Maximum of 4 players allowed from 1 team";
+     // this.messageCss = this.utilityService.alertHandler('error');
       // emitAlert.on('Max 4 players allowed from 1 team', 'danger');
       isValid = false;
     }
@@ -873,10 +887,11 @@ export class LineupComponent implements OnInit,OnDestroy{
     // Validate max players in team
     if (isValid) {
       if (maxAllowed === selectedPlayers.length) {
-        this.utilityService.alertHandler('error');
-        this.message =
+        // this.utilityService.alertHandler('error');
+        this.tag = 'danger';
+        this.error =
           "Max " + maxAllowed + " " + this.playersAbbr[playerType] + " allowed";
-          this.messageCss = this.utilityService.alertHandler('error');
+         // this.messageCss = this.utilityService.alertHandler('error');
         // emitAlert.on('Max ' + maxAllowed + ' ' + playersAbbr[playerType] + ' allowed', 'danger');
         isValid = false;
       }
@@ -942,8 +957,10 @@ export class LineupComponent implements OnInit,OnDestroy{
         // Check message is exist or not
         if (message) {
          // alert(message);
-         this.messageCss = this.utilityService.alertHandler('error');
+         // this.messageCss = this.utilityService.alertHandler('error');
           // emitAlert.on(message, 'danger');
+          this.tag = 'danger';
+          this.error = message;
           isValid = false;
           return false;
         }
@@ -3353,11 +3370,12 @@ export class LineupComponent implements OnInit,OnDestroy{
         error => {
          this.isLoading = false;
          this.autodisabled = false;
-          if (error["error"]["global_error"] === "Session key has expired") {
-            this.message = error["error"]["global_error"];
-            this.messageCss = this.utilityService.alertHandler('error');
-            this.router.navigate(["/"]);
-          }
+         if (error['error']['global_error'] === 'Session key has expired') {
+          this.error = error['error']['global_error'];
+          this.tag = 'danger';
+          setTimeout(() =>  this.router.navigate(['/']) , 5000);
+         // this.router.navigate(['/']);
+        }
         }
       );
   };
@@ -3397,8 +3415,9 @@ export class LineupComponent implements OnInit,OnDestroy{
           if (response["response_code"] === 200) {
             // Check match available or not
             if (!response["data"].match_list.length) {
-              this.message ="Matches not available.";
-              this.messageCss = this.utilityService.alertHandler('error');
+              this.tag = 'danger';
+              this.error ="Matches not available.";
+              // this.messageCss = this.utilityService.alertHandler('error');
               // $state.go('root.lobby.init');
               return false;
             }
@@ -3417,10 +3436,11 @@ export class LineupComponent implements OnInit,OnDestroy{
           }
         },
         (error: Error) => {
-          if (error["error"]["global_error"] === "Session key has expired") {
-            this.message = error["error"]["global_error"];
-            this.messageCss = this.utilityService.alertHandler('error');
-            this.router.navigate(["/"]);
+          if (error['error']['global_error'] === 'Session key has expired') {
+            this.error = error['error']['global_error'];
+            this.tag = 'danger';
+            setTimeout(() =>  this.router.navigate(['/']) , 5000);
+           // this.router.navigate(['/']);
           }
           // $state.go('root.lobby.init');
         }
@@ -3477,10 +3497,11 @@ export class LineupComponent implements OnInit,OnDestroy{
           }
         },
         (error: Error) => {
-          if (error["error"]["global_error"] === "Session key has expired") {
-            this.message = error["error"]["global_error"];
-            this.messageCss = this.utilityService.alertHandler('error');
-            this.router.navigate(["/"]);
+          if (error['error']['global_error'] === 'Session key has expired') {
+            this.error = error['error']['global_error'];
+            this.tag = 'danger';
+            setTimeout(() =>  this.router.navigate(['/']) , 5000);
+           // this.router.navigate(['/']);
           }
         }
       );
@@ -3530,10 +3551,11 @@ export class LineupComponent implements OnInit,OnDestroy{
         },
         (error: Error) => {
           this.loadPlayers = false;
-          if (error["error"]["global_error"] === "Session key has expired") {
-            this.message = error["error"]["global_error"];
-            this.messageCss = this.utilityService.alertHandler('error');
-            this.router.navigate(["/"]);
+          if (error['error']['global_error'] === 'Session key has expired') {
+            this.error = error['error']['global_error'];
+            this.tag = 'danger';
+            setTimeout(() =>  this.router.navigate(['/']) , 5000);
+           // this.router.navigate(['/']);
           }
           // $state.go('root.lobby.init');
         }
@@ -3557,14 +3579,15 @@ export class LineupComponent implements OnInit,OnDestroy{
         (response: Response) => {
           if (response["response_code"] === 200) {
             this.allTeamslist = response["data"].result;
-            console.log(this.allTeamslist);
+            // console.log(this.allTeamslist);
           }
         },
         error => {
-          if (error["error"]["global_error"] === "Session key has expired") {
-            this.message = error["error"]["global_error"];
-            this.messageCss = this.utilityService.alertHandler('error');
-            this.router.navigate(["/"]);
+          if (error['error']['global_error'] === 'Session key has expired') {
+            this.error = error['error']['global_error'];
+            this.tag = 'danger';
+            setTimeout(() =>  this.router.navigate(['/']) , 5000);
+           // this.router.navigate(['/']);
           }
         }
       );
@@ -3639,8 +3662,9 @@ export class LineupComponent implements OnInit,OnDestroy{
   submitLineUp(formValidation) {
     if (this.captainObj.captain === this.captainObj.viceCaptain) {
       // tslint:disable-next-line:quotemark
-      this.message ="Your Captain and vice-captain can't be same";
-      this.messageCss = this.utilityService.alertHandler('error');
+      this.tag = 'danger';
+      this.error ="Your Captain and vice-captain can't be same";
+     // this.messageCss = this.utilityService.alertHandler('error');
       this.isLoading = false;
       return false;
     } else {
@@ -3662,8 +3686,9 @@ export class LineupComponent implements OnInit,OnDestroy{
             response => {
               if (response.response_code === 200) {
                 this.isPosting = false;
-                this.message = response.message;
-                this.messageCss = this.utilityService.alertHandler();
+                this.tag = 'success';
+                this.error = response.message;
+                // this.messageCss = this.utilityService.alertHandler();
                 this.router.navigate([this.sports_id + "/my-league/upcoming"]);
                 // $uibModalInstance.dismiss('cancel');
                 if (
@@ -3684,12 +3709,11 @@ export class LineupComponent implements OnInit,OnDestroy{
             error => {
               this.lineupSubmitBtn = false;
               // $uibModalInstance.dismiss('cancel');
-              if (
-                error["error"]["global_error"] === "Session key has expired"
-              ) {
-                this.message = error["error"]["global_error"];
-                this.messageCss = this.utilityService.alertHandler('error');
-                this.router.navigate(["/"]);
+              if (error['error']['global_error'] === 'Session key has expired') {
+                this.error = error['error']['global_error'];
+                this.tag = 'danger';
+                setTimeout(() =>  this.router.navigate(['/']) , 5000);
+               // this.router.navigate(['/']);
               }
             }
           );
@@ -3726,12 +3750,11 @@ export class LineupComponent implements OnInit,OnDestroy{
             error => {
               this.lineupSubmitBtn = false;
               //  $uibModalInstance.dismiss('cancel');
-              if (
-                error["error"]["global_error"] === "Session key has expired"
-              ) {
-                this.message = error["error"]["global_error"];
-                this.messageCss = this.utilityService.alertHandler('error');
-                this.router.navigate(["/"]);
+              if (error['error']['global_error'] === 'Session key has expired') {
+                this.error = error['error']['global_error'];
+                this.tag = 'danger';
+                setTimeout(() =>  this.router.navigate(['/']) , 5000);
+               // this.router.navigate(['/']);
               }
             }
           );
@@ -3787,8 +3810,9 @@ export class LineupComponent implements OnInit,OnDestroy{
             this.featuredContestList[featuredConIndex].user_joined_count++;
             this.featuredContestList[featuredConIndex].total_user_joined + 1;
           }
-          this.message =response.message;
-         this.messageCss = this.utilityService.alertHandler();
+          this.tag = 'danger';
+          this.error =response.message;
+        // this.messageCss = this.utilityService.alertHandler();
          this.isLoading = false;
           this.router.navigate([
             "/" +
@@ -3801,8 +3825,13 @@ export class LineupComponent implements OnInit,OnDestroy{
         },
         error => {
           // emitAlert.on(error.global_error, 'danger');
-          this.message = error.error["global_error"];
-          this.messageCss = this.utilityService.alertHandler('error');
+          if (error['error']['global_error'] === 'Session key has expired') {
+            this.error = error['error']['global_error'];
+            this.tag = 'danger';
+            setTimeout(() =>  this.router.navigate(['/']) , 5000);
+           // this.router.navigate(['/']);
+          }
+          // this.messageCss = this.utilityService.alertHandler('error');
           // console.log(error);
         }
       );
@@ -5501,10 +5530,10 @@ showMoreFixtures() {
     return this.widthOfOwlItem;
   }
   /* FIXTURES SLIDER ENDS */
-  closeAlert() {
-    this.message = '';
-    // this.alert.nativeElement.classList.remove('show');
-  }
+  // closeAlert() {
+  //   // this.message = '';
+  //   // this.alert.nativeElement.classList.remove('show');
+  // }
   filterTeamPlayers(filterType, filterBy) {
     if(this.lineupLoading){
         return false;

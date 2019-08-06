@@ -1,6 +1,10 @@
 <!-- <app-header></app-header> -->
 <bs-navbar></bs-navbar>
 <div class="main">
+ <!--alert Widget-->
+    
+ <app-modal-alert (close)="closeAlert()" [deviceType] ="deviceService.isMobile()" [message] = "message" [tag]="tag" *ngIf="message" ></app-modal-alert>
+ <!--End of alert widget-->
 
   <!-- Page title starts -->
   <div class='orderHistory'>

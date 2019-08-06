@@ -22,6 +22,9 @@
             *dropdownMenu
             id="leaguesDropdownMenu"
           >
+          <!--alertModal widget-->
+          <app-modal-alert [message] = "error " [tag]="tag" [deviceType]= "!deviceService.isDesktop()" [tag]="tag" *ngIf="error "></app-modal-alert>
+          <!--end of alertModal widget-->
            <!--<div class="text-center ">
               <h5 class="font-weight-bold">Switch Leagues</h5>
             </div>-->
@@ -1800,4 +1803,93 @@
   </div>
 </div>
   <!-- Confirmation modal ends -->
+
+  <!-- Subcription to premium modal starts -->
+<div class="modal fade" tab-index="-1" mdbModal #subscriptionModal="mdbModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-flex">
+        <h5 class = "alert alert-info">Subscribe to premium</h5>
+                <span class="close ml-auto" (click)="subscriptionModal.hide()">&times;</span
+        >
+      </div>
+      <div class="modal-body">
+        <div class="tab-pane text-center">
+          <h4 class="mx-auto">Gain exclusive access to special content</h4>
+                <div class="panel-body">
+                    <div class="account-section">
+                        <!-- <div class="my-3">
+                                <div class="mx-auto text-center">
+                                    <h4>Buy tokens in account through your wallet balance.</h4>
+                                </div>
+                            </div> -->
+
+                        <div class="clear-fix my-2"></div>
+
+                        <div class="row">
+                            <div class="" style="width: 100%;">
+                                <div class="row">
+                                    <div class="col-sm-3 col-6 col-lg-6 offset-lg-3">
+                                        <div class="form-group clearfix">
+                                            <div class="not-enough-cash">
+                                                <label for="" class="radio-inline">
+                            <span class="label-text">
+                              <span class="">30 days</span>
+                              </span>
+                                 </label>
+
+                                <span class="converted-amount">
+                                N{{subscriptionObj.amount}}
+                                </span>
+                               </div>
+                             </div>
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2">
+                                <form action="" class="">
+                                    <!-- <div class="col-sm-8 offset-sm-2">
+                                            <div class="md-form coin-total">
+                                                <label for="customCoins" class="control-label">Enter Custom Tokens</label>
+                                                <input type="number" class="form-control" name="" id="customCoins" value="1" placeholder="100" mdbInputDirective>
+                                                <span class="typo">100</span>
+
+                                                <span class="helper-block"></span>
+                                            </div>
+                                        </div> -->
+                                    <div class="mt-2">
+                                        <div class="text-center">
+                                            <p>By paying you agree to Fantasy Sports'</p>
+                                            <p>
+                                                <a href="#" target="_blank">Terms of Use</a> and
+                                                <a href="#" target="_blank">Privacy Policy</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="">
+                                            <br />
+                                            <button (click)="subscribeNow()" mdbBtn mdbWavesEffect class="waves-light relative mx-auto blue d-block" (click)="getToken.show()">
+                                             PAY NOW
+                                           </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-9 text-right mt-3 ">
+                            <label for="paystacklogo" class="mr-2 small">Secured by:</label>
+                            <img id="paystacklogo" src="https://paystack.com/assets/website/images/logo.svg" alt="" style="background-color: lightgray;padding: 0px 10px;padding-top: 10px; padding-bottom: 10px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Subcription to premium modal ends -->
 </div>

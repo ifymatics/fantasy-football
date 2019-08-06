@@ -164,3 +164,4 @@
       <!-- Confirm poduct purchase ends -->
   </div>
 </div>
+<app-modal-alert (close)="closeAlert()" [deviceType] ="deviceService.isMobile()" [message] = "message" [tag]="tag" *ngIf="message" ></app-modal-alert>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/fanshop/shared/services/category.service';
 import { ProductService } from 'src/app/fanshop/shared/services/product.service';
@@ -15,13 +15,17 @@ class Categories {
   styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent implements OnInit {
-
+  // @ViewChild('files') files:File;
+  public imagePath;
+  imgURL: any;
+  public message: string;
   categories$;
   check;
   product: Product; 
   id = null;
   productForm;
   categories=[];
+  fileToUpload: File = null;
 
   constructor(
     private router: Router, 
@@ -80,6 +84,28 @@ export class ProductFormComponent implements OnInit {
     
     this.productService.delete(this.id);
     this.router.navigate(['fanshop/admin/products']);
+  }
+  handleFileInput(files: FileList) {
+  
+      this.fileToUpload = files.item(0);
+      console.log(this.fileToUpload.name);
+  }
+
+  preview(files: FileList) {
+   // console.log(files);
+    if (files.length === 0){ return; }
+
+    let mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+    const reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result; 
+    };
   }
 
 }

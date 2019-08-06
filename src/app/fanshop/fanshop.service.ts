@@ -10,6 +10,10 @@ import { AuthloginService } from '../user/authlogin.service';
     bonus_bal: 0;
     point_bal: 0;
  }
+ export interface Results {
+   message?: string;
+   tag?: string;
+ }
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +30,8 @@ export class FanshopService {
   userId;
   wishListArray =[];
   wishListProduct: Product;
+  error = new EventEmitter<Results>();
+  results: Results;
   constructor(private db: AngularFirestore, private service: AuthloginService) {
     const prod = {} as Product;
 
@@ -119,7 +125,7 @@ createHistory(product,userId) {
 }
 buyNow(product, session, userId) {
   console.log( userId);
- const result = { value:'Your purchase was successful.',error: 'error'};
+  let results = { message: '', tag: ''}
  const param = {
    point_bal: 0,
    real_bal:0,
@@ -138,14 +144,23 @@ buyNow(product, session, userId) {
 .api("user/finance/updateUserBalanceFromFANSHOP", param, "POST", session)
 .subscribe(
  data => {
+ 
    if (data.response_code === 200) {
      this.userBalance.emit(data.data);
     //  console.log(data);
+    
       this.createHistory(product, userId);
-     alert(  'Your purchase was successful.');
+      results.message = ' Your purchase was successful';
+      results.tag = 'success';
+      this.error.emit(results);
+    // alert(  'Your purchase was successful.');
      // this.router.navigate([''])
      // console.log(data.data);
-   } else{ alert(  'an error occured'); }
+   } else {
+       results.message = 'an error occured';
+     results.tag = 'danger';
+     this.error.emit(results);
+    } // alert(  'an error occured'); 
    },
  error => {
    console.log(error);
@@ -156,9 +171,11 @@ buyNow(product, session, userId) {
 );
 
  } else {
-      alert( `YOUR BALANCE OF ${this.user_balance.point_balance} COINS
+   results.tag = 'danger';
+      results.message = `YOUR BALANCE OF ${this.user_balance.point_balance} COINS
    IS NOT ENOUGH TO BUY A PRODUCT WORTH ${product.price} COINS! 
-   LEARN SOME OF THE WAYS TO EARN MORE COINS IN OUR SYSTEM`);
+   LEARN SOME OF THE WAYS TO EARN MORE COINS IN OUR SYSTEM`;
+   this.error.emit(this.results);
  }
  // this.user_balance.point_bal -= product.price;
 // console.log(+this.user_balance.point_balance);

@@ -97,7 +97,8 @@ a {
 .sectionTitle {
     text-align: center;
     color: #485FAC;
-    margin-left: 40px;
+    margin-left: 17px;
+    white-space: nowrap;
     @include for-md {
         margin-left: unset;
     }
@@ -116,7 +117,7 @@ a {
 } */
 
 .singleCard:first-child .sectionTitle {
-    margin-left: 62px;
+    margin-left: 45px;
     @include for-md {
         margin-left: unset;
     }

@@ -3,6 +3,7 @@ import { AuthloginService } from './../../user/authlogin.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UtilityService } from './../../utility.service';
 import { Component, OnInit } from '@angular/core';
+import { Location} from '@angular/common';
 
 @Component({
   selector: 'app-deposit',
@@ -22,7 +23,8 @@ export class DepositComponent implements OnInit {
 
   constructor(private utilityservice: UtilityService,
               private router: Router, private route: ActivatedRoute,
-              private service: AuthloginService) { }
+              private service: AuthloginService,
+              private location: Location) { }
 
   ngOnInit() {
 
@@ -65,28 +67,30 @@ export class DepositComponent implements OnInit {
   
   deposit(subscription?) {
     this.isLoading = true;
-   // console.log(this.depositForm.value);
-   const furl = window.location.href.split('?')[0] + '?status=failure',
-    surl = window.location.href.split('?')[0] + '?status=success',
-    spurl = window.location.href.split('?')[0] + '?status=pending';
+  // console.log(this.depositForm.value);
+  console.log(this.router.url);
     this.is_loading = true;
     const param = {
         'amount': this.depositForm.value.amount,
-        'sports_id': 5
+        'sports_id': 5,
+        'return_url': this.router.url
     };
     let url = 'user/paystack/deposit';
-    if (subscription === 'subscription') {
-      url = 'user/paystack/subscription';
-    }
+    url = 'user/paystack/subscription';
+    // if (subscription === 'subscription') {
+    //   url = 'user/paystack/subscription';
+    // }
     this.service.api(url , param, 'POST', this.session)
-    .subscribe(function(response) {
+    .subscribe((response) =>{
         if (response.response_code === 200) {
+           console.log(param);
           this.isLoading = false;
-           window.location.href = response.data.authorization_url;
+           // window.location.href = response.data.authorization_url;
            this.is_loading = false;
         }
     }, (error) => {
-        this.is_loading = false;
+      this.isLoading = false;
+        console.log(error);
         // emitAlert.on(display, 'danger');
     });
   }

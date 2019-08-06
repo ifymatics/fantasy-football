@@ -73,7 +73,8 @@ export class AuthloginService {
     return promise;
   }
   checkIfLoggedIn() {
-    this.isLoggedIn =  this.utilityService.checkLocalStorageStatus('user');
+    // const isLoggedIn = this.utilityService.checkLocalStorageStatus('user');
+     this.isLoggedIn =  this.utilityService.checkLocalStorageStatus('user');
     return this.isLoggedIn;
   }
    interComponetsTalks(data, arg) {
@@ -157,8 +158,10 @@ login(hashing, globalSport, loginForm) {
   );
 }
 logout() {
-  if (this.checkIfLoggedIn) {
-  const user = this.utilityService.getLocalStorage('user').data.session_key;
+ // if (this.checkIfLoggedIn()) {
+
+   const user = this.utilityService.getLocalStorage('user').data.session_key;
+  // const user = this.checkIfLoggedIn().data.session_key;
     if (user) {
        const logoutObj  = { 'session_key': user };
        this.api('user/auth/logout', logoutObj, 'logout')
@@ -171,10 +174,10 @@ logout() {
         },
          error => console.log(error)
        );
+    }  else {
+      this.router.navigate(['/']);
     }
-  } else {
-    this.router.navigate(['/']);
-  }
+  // }
 }
 private handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {

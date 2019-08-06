@@ -56,7 +56,7 @@ export class EditProfileComponent implements OnInit {
             this.myProfileDetail.user_profile.image = '';
             // emitAlert.on(response.message, 'success');
         }
-    }, function(error) {
+    }, (error) => {
        //  emitAlert.on(error.global_error, 'danger');
     });
 

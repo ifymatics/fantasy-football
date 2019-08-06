@@ -691,3 +691,53 @@ a#dropdownlink {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Get token modal starts */
+
+.tokenAmountInput {
+  background-color: #e9ecef;
+  border: none;
+  text-align: center;
+  font-size: 23px;
+  border-radius: 8px;
+  font-size: 23px;
+}
+
+.tokenAmountControllers {
+  border: 1px solid #585858;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+.modal-dialog {
+  position: absolute;
+  bottom: 0;
+}
+ .desktop {
+   top:10vh;
+  left:30vw;
+  width: 40vw;
+ }
+ .desktopModal {
+  top:5vh;
+// left:20vw;
+//  width: 50vw;
+}
+
+
+/* Get token modal ends */

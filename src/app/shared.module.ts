@@ -8,12 +8,14 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HeaderComponent } from './home/header/header.component';
 import { RouterModule } from '@angular/router';
+import { ModalAlertComponent } from './modal-alert/modal-alert.component';
 
 @NgModule({
   declarations: [
 HeaderComponent,
 NewlobbyComponent,
-FooterComponent
+FooterComponent,
+ModalAlertComponent
   ],
   exports: [
     CommonModule,
@@ -21,6 +23,7 @@ FooterComponent
     NewlobbyComponent,
     MDBBootstrapModule,
     FooterComponent,
+     ModalAlertComponent,
     RouterModule,
 
   ],

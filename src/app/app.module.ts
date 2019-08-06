@@ -15,20 +15,17 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
-import { CategoryService } from './fanshop/shared/services/category.service';
-import { ProductService } from './fanshop/shared/services/product.service';
-import { ShoppingCartService } from './fanshop/shared/services/shopping-cart.service';
-import { OrderService } from './fanshop/shared/services/order.service';
-import { UserService } from './fanshop/shared/services/user.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { UserModule } from './user/user.module';
+import { ModalAlertComponent } from './modal-alert/modal-alert.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    // ModalAlertComponent
     // HomeComponent
+   
   ],
   imports: [
     BrowserModule,
@@ -58,6 +55,7 @@ import { UserModule } from './user/user.module';
    // LeagueModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
+  // exports: [ModalAlertComponent],
   providers: [AngularFirestore,{provide:AngularFirestoreDocument}],
   bootstrap: [AppComponent]
 })

@@ -6,6 +6,7 @@ import { UtilityService } from 'src/app/utility.service';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { Product } from 'src/app/fanshop/shared/models/product';
 import { FanshopService } from 'src/app/fanshop/fanshop.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-my-orders',
@@ -19,12 +20,15 @@ export class MyOrdersComponent implements OnInit {
   userId;
   order: Product;
   more = true;
+  message;
+  tag;
   @ViewChild('productModal') productModal: ModalDirective;
   constructor(
     private authService: AuthService,
     private orderService: OrderService,
     private utils: UtilityService,
-    private fanshopservice: FanshopService) { 
+    private fanshopservice: FanshopService,
+    public deviceService: DeviceDetectorService) { 
 
     // this.orders$ = authService.user$.pipe(
     //   switchMap(u => orderService.getOrdersByUser(u.uid)));
@@ -49,7 +53,17 @@ export class MyOrdersComponent implements OnInit {
 
     this.fanshopservice.buyNow(prod,this.session, this.userId);
   this.productModal.hide();
+  this.fanshopservice.error.subscribe(
+    data => {
+      this.message = data.message;
+      this.tag = data.tag;
+     // console.log(data);
+    }
+  );
 }
+closeAlert() {
+  this.message = null;
+  }
 getUserBalance () {
   this.fanshopservice.getUserBalance(this.userId,this.session);
 }

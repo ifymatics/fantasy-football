@@ -1214,5 +1214,85 @@
   border-bottom: 1px solid #ced4da;
 }
 /* Modal for confirm ends */
+/************************* Subscribe to premium modal STARTS  ************************/
+
+$navLinkColor: #419bf9;
+.panel-body {
+    padding: 15px;
+    h4 {
+        font-size: 22px;
+    }
+}
+
+.not-enough-cash .radio-inline {
+    width: 100%;
+    @include for-lg {
+        width: 55%;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+.not-enough-cash .label-text {
+    font-size: 16px !important;
+    margin-top: 2px;
+    font-weight: normal !important;
+    font-family: "RobotoMedium";
+    font-weight: normal;
+}
+
+.not-enough-cash .label-text>span {
+    display: inline-block;
+    vertical-align: middle;
+    @include for-lg {
+        white-space: nowrap;
+    }
+}
+
+.not-enough-cash {
+    font-family: "RobotoMedium";
+    font-weight: normal;
+    border: 1px solid #DDDDDD;
+    background: #F4F4F4;
+    line-height: 40px;
+    padding: 10px 0 10px 10px;
+    line-height: 26px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.not-enough-cash .converted-amount {
+    margin: 5px 0 -5px -10px;
+    text-align: center;
+    display: block;
+    float: none;
+    clear: both;
+    border-top: 1px solid #ddd;
+    padding: 5px 5px 0;
+}
+
+.radio-inline {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0;
+    vertical-align: middle;
+    font-weight: normal;
+    cursor: pointer;
+    text-align: center
+}
+
+.account-section {
+    @include for-md {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+}
+
+
+/************************* Subscribe to premium modal ENDS  ************************/
 
 ////=======BODY ENDS=======/////

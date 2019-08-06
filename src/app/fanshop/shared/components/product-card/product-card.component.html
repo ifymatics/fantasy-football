@@ -31,12 +31,12 @@
       <mdb-card-title class='align-items-center d-flex justify-content-between'>
           <div>
                 <h6>{{ product?.title }}</h6>
-                <h5 class='font-weight-bold ml-auto'>{{ product?.price }} coins</h5>
+                <h5 class='font-weight-bold ml-auto'>{{ product?.price | currency: ' coin': 'symbol-narrow'}} </h5>
           </div>
 
           <div>
-              <i *ngIf="!whishlistArray.includes(product.id) &&  showActions"   class="far fa-heart emptyHeart" (click)="wishlist(product, 'add')"></i>
-              <i *ngIf="whishlistArray.includes(product.id) &&  showActions " class="fas fa-heart red-text" (click)="wishlist(product, 'remove')"></i>
+              <i *ngIf="!whishlistArray.includes(product?.id) &&  showActions"   class="far fa-heart emptyHeart" (click)="wishlist(product, 'add')"></i>
+              <i *ngIf="whishlistArray.includes(product?.id) &&  showActions " class="fas fa-heart red-text" (click)="wishlist(product, 'remove')"></i>
           </div>
           
       </mdb-card-title>
@@ -88,7 +88,10 @@
                             Read More
                         </div>
                     </div>
-
+                        <!--alert Widget-->
+    
+                        <app-modal-alert (close)="closeAlert()" [deviceType] ="deviceService.isMobile()" [message] = "message" [tag]="tag" *ngIf="message" ></app-modal-alert>
+                        <!--End of alert widget-->
                     <!-- Confirm purchase button starts -->
                     <div class='purchaseBtnContainer'>
                         <button (click)="buyNow(product)" mdbBtn mdbWavesEffect class="waves-light relative font-weight-bold mx-auto bg-primary">Confirm Purchase</button>

@@ -88,7 +88,7 @@
             <div class="d-flex" dropdownToggle id="dropdownBtn">
               <div class="user-info">
                 <div class="d-block" style='width: max-content'>
-                  <span class="font-weight-bold">{{currentUser.first_name && currentUser.last_name ? currentUser.first_name+' '+currentUser.last_name : currentUser.user_name}}</span>
+                  <span class="font-weight-bold">{{currentUser?.first_name && currentUser?.last_name ? currentUser?.first_name+' '+currentUser?.last_name : currentUser?.user_name}}</span>
                 </div>
                 <div>
                   <span class="font-weight-bold"> <i class="fas fa-coins pr-2"></i>{{user_balance?.point_balance}} / </span>
@@ -113,23 +113,25 @@
               <section class="dropdown-menu-top grey lighten-4">
                 <div class="d-flex">
                   <div class="pr-3 mr-2 ml-3">
-                    <span class="d-block small">Balance</span>
-                    <span class="green-text">{{user_balance?.real_amount | currency: 'NGN':'symbol-narrow' }}</span>
+                    <span class="d-block small">Token</span>
+                    <span class="green-text">{{user_balance?.token }}</span>
                   </div>
                   <button
                     class="green mb-3 ml-auto mr-3 mt-2 p-2 px-3 btn-in-user-dropdown"
                     size="sm"
                     mdbBtn
-                    routerLink="/5/finance/deposit"
+                    (click)='getToken.show()'
+                   
                    
                   >
-                    ADD FUNDS
+                   <!-- routerLink="/5/finance/deposit" -->
+                    GET TOKEN
                   </button>
                 </div>
 
                 <div class="d-flex ">
                   <div class="pr-1 mr-2 ml-3">
-                    <span class="d-block small">Buy Coins</span>
+                    <span class="d-block small">Coins</span>
 
                     <i class="fas fa-coins mr-2"></i>
                     <span class="font-weight-bold green-text">{{user_balance?.point_balance}}</span>
@@ -147,7 +149,12 @@
               <div class="dropdown-divider"></div>
               <section class="dropdown-menu-bottom">
                 <div class="list-group list-group-flush ">
-                  <a href="" class="list-group-item pb-2 pt-0" id="dropdownlink">
+                  <a (click)='subscriptionModal.show()' class="list-group-item pb-2 pt-0 d-flex justify-content-between" id="dropdownlink">
+                    Subscription <span class='badge badge-primary badge-pill align-self-center'>P</span></a
+                  >
+                  <a 
+                  
+                  class="list-group-item pb-2 pt-0" id="dropdownlink">
                     Request Withdrawal</a
                   >
                   <a [routerLink]="['/5/finance']"  class="list-group-item py-2" id="dropdownlink"
@@ -181,6 +188,160 @@
 
 
 
+
+
+<!-- Subcription to premium modal starts -->
+<div class="modal fade" tab-index="-1" mdbModal #subscriptionModal="mdbModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-flex">
+        <span>Subscribe to premium</span>
+                <span class="close ml-auto" (click)="subscriptionModal.hide()">&times;</span
+        >
+      </div>
+      <div class="modal-body">
+        <div class="tab-pane">
+          <div class="panel-body">
+            <div class="account-section">
+              <!-- <div class="my-3">
+                                <div class="mx-auto text-center">
+                                    <h4>Buy tokens in account through your wallet balance.</h4>
+                                </div>
+                            </div> -->
+
+              <div class="clear-fix my-2"></div>
+
+              <div class="row">
+                <div class="" style="width: 100%;">
+                  <div class="row">
+                    <div class="col-sm-3 col-6 col-lg-6">
+                      <div class="form-group clearfix">
+                        <div class="not-enough-cash">
+                          <label for="" class="radio-inline">
+                            <input
+                              type="radio"
+                              name="inlineRadioOption"
+                              id=""
+                            />
+                            <i></i>
+                            <span class="label-text">
+                              <span class="">30 days</span>
+                </span>
+                </label>
+
+                <span class="converted-amount">
+                            N1000
+                          </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3 col-6 col-lg-6">
+        <div class="form-group clear">
+            <div class="not-enough-cash">
+                <label for="" class="radio-inline">
+                            <input
+                              type="radio"
+                              name="inlineRadioOption"
+                              id=""
+                            />
+                            <i></i>
+                            <span class="label-text">
+                              <span class="">60 days</span>
+                            </span>
+                          </label>
+
+                <span class="converted-amount">
+                            N2000
+                          </span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <form action="" class="">
+            <!-- <div class="col-sm-8 offset-sm-2">
+                                            <div class="md-form coin-total">
+                                                <label for="customCoins" class="control-label">Enter Custom Tokens</label>
+                                                <input type="number" class="form-control" name="" id="customCoins" value="1" placeholder="100" mdbInputDirective>
+                                                <span class="typo">100</span>
+
+                                                <span class="helper-block"></span>
+                                            </div>
+                                        </div> -->
+            <div class="mt-2">
+                <div class="text-center">
+                    <p>By paying you agree to Fantasy Sports'</p>
+                    <p>
+                        <a href="#" target="_blank">Terms of Use</a> and
+                        <a href="#" target="_blank">Privacy Policy</a>
+                    </p>
+                </div>
+            </div>
+            <div class="mt-2">
+                <div class="">
+                    <br />
+                    <button mdbBtn mdbWavesEffect class="waves-light relative mx-auto blue d-block" (click)="getToken.show()">
+                          PAY NOW
+                        </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="col-md-9 text-right mt-3 ">
+    <label for="paystacklogo" class="mr-2 small">Secured by:</label>
+    <img id="paystacklogo" src="https://paystack.com/assets/website/images/logo.svg" alt="" style="background-color: lightgray;padding: 0px 10px;padding-top: 10px; padding-bottom: 10px;" />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Subcription to premium modal ends -->
+
+
+
+
+<!-- Get token modal starts -->
+<div class="modal fade" tabindex="-1" mdbModal #getToken='mdbModal' [ngClass]="{desktop: !deviceService.isMobile()}">
+  <div class="modal-dialog" [ngClass]="{desktopModal: !deviceService.isMobile()}">
+      <div class="modal-content">
+          <div class="modal-header d-flex">
+              <h3>Get Tokens</h3>
+              <span class="close ml-auto" (click)='getToken.hide()'>&times;</span>
+          </div>
+
+          <div class="modal-body">
+              <!-- <form> -->
+                  <div class="d-flex justify-content-around">
+                      <div (click)="calculateToken('reduce')"  class='tokenAmountControllers'><i class="fas fa-minus"></i></div>
+                      <input type="number" value="{{tokenObj.unit}}" class='w-50 tokenAmountInput' readonly>
+                      <div (click)="calculateToken('increase')" class='tokenAmountControllers'><i class="fas fa-plus"></i></div>
+                  </div>
+
+                  <button [disable]= "disabled" type="button" (click)="buyToken()" class="waves-light relative w-100 mt-5"
+                   mdbBtn mdbWavesEffect style="background-color: #22C61E">
+                    Pay N{{tokenObj.price*tokenObj.unit}}
+                  </button>
+              <!-- </form> -->
+              <div class="col-md-9 text-right mt-3 ">
+                  <label for="paystacklogo" class="mr-2 small">Secured by:</label>
+                  <img id="paystacklogo" src="https://paystack.com/assets/website/images/logo.svg" alt="" style="background-color: lightgray;padding: 0px 10px;padding-top: 10px; padding-bottom: 10px;">
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Get token modal ends -->
+<!-- Alert modal ends -->
+<app-modal-alert (close)="closeAlert()" [deviceType] ="deviceService.isMobile()" [message] = "message" [tag]="tag" *ngIf="message" ></app-modal-alert>
+<!-- End of Alert modal ends -->
 
 
 

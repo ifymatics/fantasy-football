@@ -5,11 +5,11 @@ import { AppUser } from 'src/app/fanshop/shared/models/app-user';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/fanshop/shared/services/auth.service';
 import { ShoppingCartService } from 'src/app/fanshop/shared/services/shopping-cart.service';
-import { DataService } from 'src/app/data.service';
 import { UtilityService } from 'src/app/utility.service';
 import { FanshopService } from 'src/app/fanshop/fanshop.service';
-import { Router } from '@angular/router';
-import { longStackSupport } from 'q';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthloginService } from 'src/app/user/authlogin.service';
+// import { longStackSupport } from 'q';
 
 @Component({
 // tslint:disable-next-line: component-selector
@@ -28,23 +28,61 @@ export class BsNavbarComponent implements OnInit {
   navbars = false;
   noNavbar = true;
   appUser: AppUser;
-  
+  paymentStatus = {status: ''};
+  message;
+  tag;
+  user;
+  currentUser;
+  session;
+  tokenObj = {price: 100, unit: 1};
+  token = this.tokenObj.unit * this.tokenObj.price;
   userbalance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0};
   cart$: Observable<ShoppingCart>;
+  disabled = false;
 
   constructor(private auth: AuthService,
      private shoppingCartService: ShoppingCartService,
-     private dataservice: DataService,
       private utilityservice: UtilityService,
       private fanservice: FanshopService,
-      private router: Router) {
+      private router: Router,private route: ActivatedRoute,
+      private service: AuthloginService) {
   }
 
   async ngOnInit() {
     this.fanservice.userBalance.subscribe(
       data => this.userbalance = data
     );
+    this.route.queryParams.subscribe(
+      (queryParams) => {
+        this.paymentStatus.status = queryParams['status'] ?
+        queryParams['status'] : '';
+      }
+     );
+     if (this.paymentStatus.status !== '') {
+      if (this.paymentStatus.status === 'success' || this.paymentStatus.status === 'completed' ) {
   
+                  // emitAlert.on("Fund added successfully", 'success');
+                  this.message = 'Token added successfully';
+                  this.tag = 'success';
+      } else if (this.paymentStatus.status === 'subscribed') {
+        this.message = 'You have successfully subscribed for a month premium access with a 5 token bonus';
+        this.tag = 'success';
+     } else if (this.paymentStatus.status === 'failure') {
+         // emitAlert.on("Payment failure. Try again !!", 'danger');
+         this.message = 'Payment failure. Try again !!';
+         this.tag = 'danger';
+      } else if (this.paymentStatus.status === 'pending') {
+        this.message = 'Your request has been sent to paypal, your order status will update soon.';
+         this.tag = 'info';
+         // emitAlert.on("Your request has been sent to paypal, your order status will update soon.", 'info');
+      }
+     }
+     if (this.utilityservice.checkLocalStorageStatus('user')) {
+      this.user = this.utilityservice.getLocalStorage('user');
+      this.currentUser = this.user.data.user_profile;
+     this.session = this.user.data.session_key;
+     // console.log(this.currentUser);
+     }
     // this.utilityservice.userBalance.subscribe(
     //   (data) => {
     //     this.userbalance = data;
@@ -99,4 +137,50 @@ export class BsNavbarComponent implements OnInit {
     // console.log('logoute');
     this.utilityservice.logout.emit('logout');
   }
+  calculateToken(arg) {
+    if (arg === 'increase') {
+      this.tokenObj.unit += 1;
+      this.token = this.tokenObj.unit * this.tokenObj.price;
+    // console.log(this.tokenObj.unit);
+    } else if (arg === 'reduce') {
+     if (this.tokenObj.unit > 1) {
+      this.tokenObj.unit -= 1;
+      this.token = this.tokenObj.unit * this.tokenObj.price;
+      // console.log(this.tokenObj.unit);
+      // console.log(this.tokenObj.unit * this.tokenObj.price);
+     }
+    }
+  
+  }
+  buyToken(arg?) {
+    this.disabled = true;
+    //console.log(this.token);
+    if (this.token) {
+      // console.log(this.router.url);
+      const param = {
+        'amount': this.token,
+        'sports_id': 5,
+        'token':  this.tokenObj.unit,
+        'return_url': this.router.url
+    };
+    let url = 'user/paystack/deposit';
+    if (arg === 'subscription') {
+      url = 'user/paystack/subscription';
+    }
+    this.service.api(url , param, 'POST', this.session)
+    .subscribe((response) =>{
+        if (response.response_code === 200) {
+          // console.log(response);
+            window.location.href = response.data.authorization_url;
+        }
+    }, (error) => {
+      this.disabled = false;
+        console.log(error);
+        // emitAlert.on(display, 'danger');
+    });
+    }
+  }
+  closeAlert() {
+    this.message = null;
+    }
 }

@@ -4,6 +4,7 @@ import { Product } from 'src/app/fanshop/shared/models/product';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UtilityService } from 'src/app/utility.service';
 import { ModalDirective } from 'angular-bootstrap-md';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-wishlist',
@@ -18,9 +19,12 @@ userId ;
 wishListProducts$;
 wishListProducts;
 readMore = true;
+message;
+tag;
 user_balance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0};
   constructor(private fanshopservice: FanshopService,
-    private db: AngularFirestore, private utils: UtilityService) { }
+    private db: AngularFirestore, private utils: UtilityService,
+    public deviceService: DeviceDetectorService) { }
 
   ngOnInit() {
     const user  = this.utils.getLocalStorage('user');
@@ -50,7 +54,17 @@ confirmPurchase (prod) {
 
     this.fanshopservice.buyNow(prod,this.session, this.userId);
   this.productModal.hide();
+  this.fanshopservice.error.subscribe(
+    data => {
+      this.message = data.message;
+      this.tag = data.tag;
+     // console.log(data);
+    }
+  );
 }
+closeAlert() {
+  this.message = null;
+  }
 getUserBalance () {
   this.fanshopservice.getUserBalance(this.userId,this.session);
 }

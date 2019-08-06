@@ -25,8 +25,9 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
   ],
   imports: [
    // BrowserModule,
-    SharedModule,
+    
     FanSharedModule,
+     SharedModule,
     AdminModule,  
     ShoppingModule,
     CoreModule,

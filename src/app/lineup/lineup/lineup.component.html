@@ -6,12 +6,13 @@
   <div class="black">
     <!-- desktop league info starts -->
     <!--alert Widget-->
-    <div *ngIf="message.length" #alert class="alert alert-{{messageCss}} alert-dismissible fade  show" role="alert">
+    <!-- <div *ngIf="message.length" #alert class="alert alert-{{messageCss}} alert-dismissible fade  show" role="alert">
       <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
         <span aria-hidden="true">&times;</span>
       </button>
       <strong>{{message}}</strong>
-    </div>
+    </div> -->
+    <app-modal-alert (close)="closeAlert()" [message] = "error " [tag]="tag" *ngIf="error && !deviceService.isMobile()"></app-modal-alert>
     <!--End of alert widget-->
     <div class="container" id="desktopLeagueInfo">
       <div class="d-flex py-2">
@@ -8853,6 +8854,7 @@
       <!-- Modal for Goal keeper selection -->
 
       <div id="modal-container " class=" col col-md-12">
+     
         <div
           class="modal bottom fade"
           tabindex="-1"
@@ -8873,6 +8875,9 @@
                   class="modal-header d-flex align-items-center navbar position-sticky sticky-top bg-white"
                   id="lineupHeader"
                 >
+                 <!--alertModal widget-->
+                <app-modal-alert (close)="closeAlert()" [message] = "error " [tag]="tag" [deviceType]= "!deviceService.isDesktop()" [tag]="tag" *ngIf="error && !deviceService.isDesktop()"></app-modal-alert>
+                <!--end of alertModal widget-->
                   <h3>{{ headingTitle }}s</h3>
                   <span
                     class="close ml-auto align-self-center"

@@ -6,18 +6,16 @@ import { UtilityService } from 'src/app/utility.service';
 import { Rating } from '../../models/rating.model';
 import { FanshopService, UserBalance } from 'src/app/fanshop/fanshop.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AuthloginService } from 'src/app/user/authlogin.service';
-import { Alert } from 'selenium-webdriver';
-import { database } from 'firebase';
 import {  ModalDirective } from 'angular-bootstrap-md';
-import { EventEmitter } from 'events';
 import { Router } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'product-card',
   templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.scss']
+  styleUrls: ['./product-card.component.scss'],
+  providers: [FanshopService]
 })
 export class ProductCardComponent implements OnInit {
   read = false;
@@ -28,7 +26,8 @@ export class ProductCardComponent implements OnInit {
   rArray = [];
   session;
   itemDoc;
-  message = '';
+  message;
+  tag;
   // coinbalance: number;
   @Input() ratingArray: Rating[];
   allRatings: Rating[];
@@ -45,6 +44,7 @@ export class ProductCardComponent implements OnInit {
               private ratingservice: FanshopService,
               private db: AngularFirestore,
               private service: AuthloginService,
+              public deviceService: DeviceDetectorService,
               private router: Router) { }
   ngOnInit() {
    
@@ -101,8 +101,18 @@ export class ProductCardComponent implements OnInit {
   onRead() {
     this.read = true;
   }
+  closeAlert() {
+    this.message = null;
+    }
   buyNow(product) {
     this.ratingservice.buyNow(product,this.session, this.userId);
+    this.ratingservice.error.subscribe(
+      data => {
+        this.message = data.message;
+        this.tag = data.tag;
+        console.log(data);
+      }
+    );
   //  if(result === undefined) {
   //    alert('system error');
   //  } else if (result === 'Your purchase was successful.'){
