@@ -376,7 +376,7 @@ a#dropdownlink {
     padding-left: 10px;
     padding-right: 10px;
     grid-template-columns: 4fr 1fr;
-    align-items: end;
+    align-items: center;
   }
 }
 .nav-logo {
@@ -456,10 +456,10 @@ span.fa-bars {
   font-size: 13px;
   font-weight: normal;
   border-bottom: 4px solid transparent;
-  padding-top: 15px;
+  //padding-top: 15px;
   padding-left: 10px;
   padding-right: 10px;
-  padding-bottom: 15px;
+  //padding-bottom: 15px;
   @include for-lg {
     position: relative;
     height: 15px;
@@ -741,3 +741,22 @@ a#dropdownlink {
 
 
 /* Get token modal ends */
+/* Small spinner in token button starts */
+.spinner1 {
+  border: 3px solid #fff;
+  border-top: 3px solid #387ab7;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: spin 700ms linear infinite;
+  margin-left: 5px;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* Small spinner in token button ends */

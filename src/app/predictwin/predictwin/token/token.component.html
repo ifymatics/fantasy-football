@@ -1,0 +1,88 @@
+<div class="main">
+
+  <!-- Games category container starts -->
+  <div class="gamesContainer">
+
+      <!-- Single game dropdown starts -->
+      <div class="singleGameDropdown">
+
+          <!-- Single game header starts -->
+          <div class="containers dropdownhHeader d-flex align-items-center" (click)='toggleDropdown()'>
+              <h3 class='gameTitle mb-0'>Game 1</h3>
+              <span class="entryFee small"><b>Entry:</b> 1 Token</span>
+              <span class="prize small"><b>Prize:</b> 10,000 coins</span>
+              <i class="fas fa-caret-down"></i>
+          </div>
+          <!-- Single game header ends -->
+
+          <!-- Single game body starts -->
+          <div class="dropdownBody" [ngClass]='{active: dropdownToggle}'>
+              <div class="containers gameInstructions small">
+                  Predict all 5 games
+              </div>
+
+              <!-- Single game day section starts -->
+              <div class='singleGameDay'>
+
+                  <!-- Game date starts -->
+                  <div class="gameDate">
+                      <div class="containers">
+                          <span>10 August, 2019</span>
+                      </div>
+
+                  </div>
+                  <!-- Game date ends -->
+
+                  <!-- Game list section starts -->
+                  <div class="gameList">
+                      <ul>
+                          <li>
+
+                              <div class="containers">
+                                  <!-- Single game header starts -->
+                                  <div class='singleGameHeader d-flex justify-content-between'>
+                                      <span class="small gameTime">12:30</span>
+                                      <span class="small gamePrize">Prize: 1 coin</span>
+                                  </div>
+                                  <!-- Single game header ends -->
+
+                                  <!-- Single game body starts -->
+                                  <div class='singleGameBody'>
+
+
+                                      <!-- Single game teams starts -->
+                                      <div class="singleGameTeams">
+                                          <span class="homeTeam">West Ham</span>
+                                          <span class="awayTeam">Man City</span>
+                                      </div>
+                                      <!-- Single game teams ends -->
+
+                                      <!-- Action buttons starts -->
+                                      <div class="actionBtnsContainer">
+                                          <button class="actionBtn selectedBtn">Home</button>
+                                          <button class="actionBtn">Draw</button>
+                                          <button class="actionBtn">Away</button>
+                                      </div>
+                                      <!-- Action buttons ends -->
+                                  </div>
+                                  <!-- Single game body ends -->
+                              </div>
+
+                          </li>
+                      </ul>
+                  </div>
+                  <!-- Game list section ends -->
+              </div>
+              <!-- Single game day section ends -->
+
+
+          </div>
+          <!-- Single game body ends -->
+
+
+      </div>
+      <!-- Single game ends -->
+  </div>
+  <!-- Games category container ends -->
+</div>
+

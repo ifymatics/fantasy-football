@@ -1,5 +1,7 @@
 <app-header></app-header>
-
+ <!--alertModal widget-->
+ <app-modal-alert (close)="closeAlert()" [message] = "message" [tag]="tag" [deviceType]= "!deviceService.isDesktop()" *ngIf="message"></app-modal-alert>
+ <!--end of alertModal widget-->
 <!--NEW JOIN CONTEST-->
 <!-- BODY STARTS HERE -->
 
@@ -22,9 +24,7 @@
             *dropdownMenu
             id="leaguesDropdownMenu"
           >
-          <!--alertModal widget-->
-          <app-modal-alert [message] = "error " [tag]="tag" [deviceType]= "!deviceService.isDesktop()" [tag]="tag" *ngIf="error "></app-modal-alert>
-          <!--end of alertModal widget-->
+         
            <!--<div class="text-center ">
               <h5 class="font-weight-bold">Switch Leagues</h5>
             </div>-->
@@ -128,19 +128,19 @@
                   <div class="dropdown-divider"></div>
 
                   <h5 class="text-center font-weight-bold">Contest</h5>
-                  <a href="" class="dropdown-item py-2">All Contests</a>
-                  <a href="" class="dropdown-item py-2">Multiple Contest</a>
-                  <a href="" class="dropdown-item py-2">Premium Contest</a>
+                  <a href="#" class="dropdown-item py-2">All Contests</a>
+                  <a href="#" class="dropdown-item py-2">Multiple Contest</a>
+                  <a href="#" class="dropdown-item py-2">Premium Contest</a>
                   <div class="dropdown-divider"></div>
                   <h5 class="text-center font-weight-bold">Entry fee</h5>
-                  <a href="" class="dropdown-item py-2">All</a>
-                  <a href="" class="dropdown-item py-2">Low to high</a>
-                  <a href="" class="dropdown-item py-2">High to low</a>
+                  <a href="#" class="dropdown-item py-2">All</a>
+                  <a href="#" class="dropdown-item py-2">Low to high</a>
+                  <a href="#" class="dropdown-item py-2">High to low</a>
                   <div class="dropdown-divider"></div>
                   <h5 class="text-center font-weight-bold">Prizes</h5>
-                  <a href="" class="dropdown-item py-2">All</a>
-                  <a href="" class="dropdown-item py-2">Low to high</a>
-                  <a href="" class="dropdown-item py-2">High to low</a>
+                  <a href="#" class="dropdown-item py-2">All</a>
+                  <a href="#" class="dropdown-item py-2">Low to high</a>
+                  <a href="#" class="dropdown-item py-2">High to low</a>
                 </div>
               </div>
             </div>
@@ -155,10 +155,16 @@
                 </span>
                 <span class="white-text small mr-5">
                   <span class="badge badge-pill py-1 amber darken-3 mr-2"
-                    >P</span
-                  >
+                    >P</span>
                   Premium Contest
                 </span>
+                <span class="white-text small mr-5">
+                    <span class="badge badge-pill py-1 amber darken-3 mr-2">
+                        T
+                    </span>
+                    Token Contest
+                  </span>    
+               
               </div>
             </div>
           </div>
@@ -215,15 +221,18 @@
 
                     <div (click)="contestinfo.show()">
                       <span
-                        mdbTooltip="Premium Contest"
+                        mdbTooltip = "{{ contest.contest_name }}"
                         position="top"
                         class="d-block"
                       >
                         {{ contest.contest_name }}
-                        <span
-                          class="badge badge-pill amber darken-3 py-1 align-self-center"
-                          >P</span
-                        >
+                        <span *ngIf="contest.contest_access_type === '2'" class="badge badge-pill amber darken-3 py-1 align-self-center"
+                          >P</span>
+                          <span *ngIf="contest.multiple_lineup != '0'" class="badge badge-pill mr-2 py-1 badge-info">
+                            M</span>
+                            <span *ngIf="contest.contest_access_type === '3'" class="badge badge-pill mr-2 py-1 badge-info">
+                              T</span>
+                        
                       </span>
                       <small>{{ contest.collection_name }}</small>
                     </div>
@@ -260,8 +269,9 @@
                           class="ml-auto"
                           style="padding-left: 80px; margin-left: 40px; font-size: 1em;"
                         >
-                          <i class="fas fa-coins" style="font-size: 1em;"></i
-                          >{{
+                          <!-- <i class="fas fa-coins" style="font-size: 1em;"></i> -->
+                          <img src="assets/image/coin_img/Fancoin.png" style="height: 22px;">
+                          {{
                             contest.entry_fee == 0 ? "Free" : contest.entry_fee
                           }}</span
                         >
@@ -281,7 +291,8 @@
                             *ngIf="contest.prize_type == 2"
                             style="padding-left: 100px;margin-left: 40px;"
                           >
-                            <i class="fas fa-coins"></i>
+                            <!-- <i class="fas fa-coins"></i> -->
+                            <img src="assets/image/coin_img/Fancoin.png" style="height: 22px;">
                             {{ contest.prize_pool }}
                           </span>
                           <span
@@ -474,7 +485,8 @@
                     "
                     style="font-size:1em;"
                   >
-                    <i class="fas fa-coins" [style.font-size.em]="1"></i>
+                    <!-- <i class="fas fa-coins" [style.font-size.em]="1"></i> -->
+                    <img src="assets/image/coin_img/Fancoin.png" style="height: 22px;">
                     {{ contest.entry_fee }}
                   </span>
                 </td>
@@ -522,7 +534,8 @@
                         *ngIf="contest.prize_type == 2"
                         [style.font-size.em]="1"
                       >
-                        <i class="fas fa-coins" style="font-size: 1em;"></i>
+                        <!-- <i class="fas fa-coins" style="font-size: 1em;"></i> -->
+                        <img src="assets/image/coin_img/Fancoin.png" style="height: 22px;">
                         {{ contest.prize_pool }}
                       </span>
                       <span
@@ -654,11 +667,27 @@
                   contest.contest_access_type == 2}"
                     mdbBtn
                     class="blue white-text mdbWavesEffect waves-light relative joinBtn mx-auto btn"
-                    (click)="checkUserSubscription(contest, '', 'normal_contest')"
+                    (click)="checkUserSubscription(contest, '', 'premium_contest')"
                   >
                     {{ contest.user_join_count > 0 ? "REJOIN" : "JOIN" }}
                     <div *ngIf="joinButtonclicked && contest.contest_id === contestId" class="spinner1"></div>
                   </button>
+                  <button
+                  *ngIf="
+                    (contest.multiple_lineup == 0 ||
+                      contest.user_joined_count == 0) &&
+                    contest.contest_access_type == 3
+                  "
+                  [ngClass]="{'animated bounceIn': onAnimate &&  (contest.multiple_lineup == 0 ||
+                  contest.user_joined_count == 0) &&
+                contest.contest_access_type == 3}"
+                  mdbBtn
+                  class="blue white-text mdbWavesEffect waves-light relative joinBtn mx-auto btn"
+                  (click)="checkUserSubscription(contest, '', 'token_contest')"
+                >
+                  {{ contest.user_join_count > 0 ? "REJOIN" : "JOIN" }}
+                  <div *ngIf="joinButtonclicked && contest.contest_id === contestId" class="spinner1"></div>
+                </button>
                   <button
                     *ngIf="
                       contest.multiple_lineup > 0 &&
@@ -732,14 +761,14 @@
                     >
                       <div class="table-cell">
                         <span>Step 1</span>
-                        <p>Create your fantasy team</p>
+                        <p>Pick your team</p>
                       </div>
 
                       <div class="table-cell"><i></i></div>
 
                       <div class="table-cell">
                         <span>Step 2</span>
-                        <p>Join a league!</p>
+                        <p>Join a contest!</p>
                       </div>
                     </div>
                     <button
@@ -749,7 +778,7 @@
                       (click)="fromFirstThingsModal()"
                       class="relative waves-light primary-color py-1 px-3 float-right d-flex"
                     >
-                      Create Team
+                      Start
 
                       <div *ngIf="firstThingClicked" class="spinner1"></div>
                     </button>
@@ -1872,7 +1901,7 @@
                                     <div class="mt-2">
                                         <div class="">
                                             <br />
-                                            <button (click)="subscribeNow()" mdbBtn mdbWavesEffect class="waves-light relative mx-auto blue d-block" (click)="getToken.show()">
+                                            <button (click)="subscribeNow()" mdbBtn mdbWavesEffect class="waves-light relative mx-auto blue d-block" >
                                              PAY NOW
                                            </button>
                                         </div>

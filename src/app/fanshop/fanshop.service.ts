@@ -18,7 +18,7 @@ import { AuthloginService } from '../user/authlogin.service';
   providedIn: 'root'
 })
 export class FanshopService {
-  user_balance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0};
+  user_balance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0, token: 0};
   allRating = new EventEmitter<Rating[]>();
   ratingClick = new EventEmitter<Rating>();
   userBalance = new EventEmitter<any>();
@@ -131,15 +131,17 @@ buyNow(product, session, userId) {
    real_bal:0,
    winning_bal:0,
    bonus_bal: 0,
+   token: 0,
    user_id: userId
  };
-
+ // this.user_balance.point_balance = 7927210;
  if (this.user_balance.point_balance >= product.price) {
    this.user_balance.point_balance -= product.price;
-   param.point_bal = this.user_balance.point_balance;
+   param.point_bal =   this.user_balance.point_balance;
    param.bonus_bal = this.user_balance.bonus_amount;
    param.real_bal = this.user_balance.real_amount;
    param.winning_bal = this.user_balance.winning_amount;
+   param.token = this.user_balance.token;
    this.service
 .api("user/finance/updateUserBalanceFromFANSHOP", param, "POST", session)
 .subscribe(
@@ -148,7 +150,6 @@ buyNow(product, session, userId) {
    if (data.response_code === 200) {
      this.userBalance.emit(data.data);
     //  console.log(data);
-    
       this.createHistory(product, userId);
       results.message = ' Your purchase was successful';
       results.tag = 'success';

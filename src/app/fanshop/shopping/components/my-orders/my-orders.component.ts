@@ -22,6 +22,7 @@ export class MyOrdersComponent implements OnInit {
   more = true;
   message;
   tag;
+  disabled = false;
   @ViewChild('productModal') productModal: ModalDirective;
   constructor(
     private authService: AuthService,
@@ -50,13 +51,14 @@ export class MyOrdersComponent implements OnInit {
     this.more = false;
   }
   confirmPurchase (prod) {
-
+  this.disabled = true;
     this.fanshopservice.buyNow(prod,this.session, this.userId);
-  this.productModal.hide();
   this.fanshopservice.error.subscribe(
     data => {
       this.message = data.message;
       this.tag = data.tag;
+      this.productModal.hide();
+     // setTimeout(() =>  this.productModal.hide(), 6000);
      // console.log(data);
     }
   );

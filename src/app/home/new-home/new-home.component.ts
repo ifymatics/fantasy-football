@@ -10,6 +10,7 @@ import { UtilityService } from 'src/app/utility.service';
 })
 export class NewHomeComponent implements OnInit {
  homeRoute;
+ pointer;
   constructor(private router: Router, private utilityservice: UtilityService) { }
 
   ngOnInit() {

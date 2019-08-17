@@ -2,8 +2,9 @@ import { AuthloginService } from './../../user/authlogin.service';
 import { UtilityService } from './../../utility.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap, NavigationStart } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/Operators';
 
 @Component({
   selector: 'app-live',
@@ -81,6 +82,7 @@ export class LiveComponent implements OnInit, OnDestroy {
     selectedlineu_id: "",
     SelectedCollections: []
   };
+  subscription;
   viewLiveRank = false;
   viewCompletedRank = false;
   currentUser;
@@ -101,6 +103,13 @@ export class LiveComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.subscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationStart)
+    ) .subscribe(
+      () => {window.scrollTo({ top: 0, behavior: 'smooth' });
+      console.log(window.scrollY);
+    }
+    );
     this.mobileDevice = this.deviceService.isMobile();
     this.route.parent.params.subscribe((params: ParamMap) => {
       this.league_id = params["league_id"];

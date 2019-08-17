@@ -5,7 +5,7 @@ import { ModalDirective } from 'angular-bootstrap-md';
 import { UtilityService } from './../../utility.service';
 import { AuthloginService } from './../../user/authlogin.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap, NavigationEnd, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/Operators';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
@@ -60,12 +60,12 @@ export class JoinContestComponent implements OnInit, OnDestroy {
   leagueList;
   leagueListFilter;
   ref_ps_detail = {} ;
-  sports_id = 5;
+  sports_id = "5";
   sports;
   currentUser;
   league_selected;
   joinGameInitObj;
-  subscriptionObj = {amount:1000, token:5}
+  subscriptionObj = {amount:1000, token:8}
   /* sponsor"s image starts*/
    rightBtmSponList      = [];
   rightTopSponList    = [];
@@ -93,6 +93,7 @@ selectedLeague = '';
 onAnimate = false;
 onCreateTeamAnimate = false;
 subscription;
+user_balance;
   constructor(private service: AuthloginService,
     private utilityService: UtilityService,
      private router: Router,
@@ -102,14 +103,16 @@ subscription;
      ) {}
   ngOnInit() {
     this.subscription = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
+      filter(event => event instanceof NavigationStart)
     ) .subscribe(
-      () => window.scrollTo(0,0)
+      () => {window.scrollTo({ top: 0, behavior: 'smooth' });
+      console.log(window.scrollY);
+    }
     );
     this.route.params.subscribe(
       (params: ParamMap) => {
         this.league.league_id = params['league_id'];
-        this.sports_id = +params['id'];
+        this.sports_id = params['id'];
       //  console.log( this.league.league_id);
        // console.log(params['league_id']);
       }
@@ -138,6 +141,7 @@ subscription;
  this.LobbyMasterData();
    }
    this.isLoading = true;
+   this.getUserBalance();
    }
    ngOnDestroy() {
      this.subscription.unsubscribe();
@@ -251,7 +255,7 @@ this.service.api('fantasy/lobby/get_contests_of_collection', param, 'post', this
     if (error['error']['global_error'] === 'Session key has expired') {
       this.tag = 'danger';
       this.message = error['error']['global_error'];
-      setTimeout(() =>  this.router.navigate(['/']) , 5000);
+      setTimeout(() =>  this.router.navigate(['/']) , 8000);
       // this.router.navigate(['/']);
     }
 });
@@ -276,6 +280,7 @@ getFirstContest(collection) {
   this.selectedCollection = collection;
 }
 getLobbyMatches(league) {
+  // console.log(league);
   this.posting = true;
   this.selectedLeague = league;
   this.league_selected = league;
@@ -393,9 +398,32 @@ checkProfileComplete() {
   } else {
       return false;
   }
+} 
+getUserBalance() {
+  const param = {
+    'league_id': '',
+    'sub_amt': 0,
+    'user_id': this.currentUser.user_id
+   };
+  this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
+.subscribe(
+  (response) => {
+ if (response.response_code === 200) {
+  
+   // console.log(response);
+   this.user_balance =  response.data.user_balance;
+ }
+},
+error => {
+  if (error['error']['global_error'] === 'Session key has expired') {
+    this.tag = 'danger';
+    this.message = error['error']['global_error'];
+    setTimeout(() =>  this.router.navigate(['/']) , 8000);
+  }
+});
 }
 
-checkUserSubscription(contest, string, contestType) {
+checkUserSubscriptionssss(contest, string, contestType) {
   this.contestId = contest.contest_id;
   this.joinButtonclicked = true;
   this.joinButtonDisabled = true;
@@ -454,27 +482,127 @@ this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
    // console.log(response);
    const user_balance =  response.data.user_balance,
       point_balance = parseFloat(user_balance.point_balance),
-      etry_free     = parseFloat(contest.entry_fee);
-      this.utilityService.userBalance.emit( 'its working' );
+      etry_free     = parseFloat(contest.entry_fee),
+      token         = Number(contest.token);
+      // this.utilityService.userBalance.emit( 'its working' );
     if (!this.utilityService.isAbleToJoinContest(user_balance, contest.entry_fee) &&
-    (contest.prize_type === 0 || contest.prize_type === 1)) {
+    (contest.prize_type === '0' || contest.prize_type === '1') ) {
       this.tag = 'danger';
-      this.error = 'You dont have enough cash';
+      this.message = 'You dont have enough cash';
+      this.joinButtonDisabled = false;  this.contestId = '';
      // alert('You dont have enough cash');
          // this.notEnoughCashInit(contest.entry_fee, user_balance, contest);
     } else if ((etry_free > point_balance) &&
-    (contest.prize_type === 2 || contest.prize_type === 3)) {
+    (contest.prize_type === '2' || contest.prize_type === '3')) {
       this.tag = 'danger';
-      this.error ='You dont have enough cash';
+      this.message ='You dont have enough cash';
+      this.joinButtonDisabled = false;  this.contestId = '';
       // alert('You dont have enough cash');
          // this.notEnoughCashInit(contest.entry_fee, user_balance, contest);
-    } else if (contestType === 'normal_contest') {
-          this.joinContest(contest);
-       } else if (contestType === 'featured_contest') {
+    } else  {
+      this.joinContest(contest);
+   } 
+    if (contestType === 'featured_contest') {
          //  this.joinFeaturedGame(contest, lineupList);
        }
  } else { this.joinButtonDisabled = false;  this.contestId = '';}
 });
+ }
+  /*-----------*/
+ //  this.joinContest(contest);
+}
+checkUserSubscription(contest, string, contestType) {
+  this.contestId = contest.contest_id;
+  this.joinButtonclicked = true;
+  this.joinButtonDisabled = true;
+
+ // console.log(contest);
+  this.toJoinContest = contest;
+  const param = {
+    'league_id': '',
+    'sub_amt': 0,
+    'user_id': this.currentUser.user_id
+   };
+ 
+  // check if the user has enough cash to join OR if he paid the subscription
+   if (contest.contest_access_type === '2') {
+    console.log(contest);
+    param.league_id = contest.league_id;
+   this.service.api('user/finance/get_user_subscribed', param, 'POST', this.session)
+   .subscribe( (response) => {
+     console.log(response);
+      if (response.response_code === 200) {
+        const  subscribed_data = response.data;
+        this.joinContest(contest);
+        } else if (response.response_code === 'NOT SUBSCRIBED') {
+         param.sub_amt = 250;
+            const txt = "THE SUBSCRIPTION FEE WILL BE DEDUCTED FROM YOUR ACCOUNT BALANCE IF YOU HAVE ENOUGH CASH?";
+            // if (confirm(txt)) {
+            //   this.service.api('user/finance/get_user_balance_checker', param,'POST', this.session)
+            //    .subscribe((res) =>  {
+            //      if (res.response_code === 'NOBALANCE') {
+            //         // notSubscribedInit(contest);
+            //         console.log(res.response_code);
+            //      } else {
+            //       this.joinContest(contest);
+            //       }
+            //    },
+            //    (error) => {
+            //     this.joinButtonclicked = true;
+            //     this.joinButtonDisabled = true;
+            //      console.log(error);
+            //   });
+            //   } else {
+            //  // notSubscribedInit(contest);
+            //    }
+               this.subscriptionModal.show();
+       }
+   });
+  }
+//    // end of subscription check
+ else { 
+
+// this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
+// .subscribe(
+  // (response) => {
+ if (this.user_balance) {
+  
+   // console.log(response);
+  //  const user_balance =  response.data.user_balance,
+      const point_balance = parseFloat(this.user_balance.point_balance),
+      etry_free     = parseFloat(contest.entry_fee),
+      token         = Number(contest.token);
+      // this.utilityService.userBalance.emit( 'its working' );
+     if ((etry_free > point_balance) &&
+    (contest.prize_type === '2' || contest.prize_type === '3')) {
+      this.tag = 'danger';
+      this.message ='You dont have enough cash';
+      this.joinButtonDisabled = false;  this.contestId = '';
+      // alert('You dont have enough cash');
+         // this.notEnoughCashInit(contest.entry_fee, user_balance, contest);
+    }  else if(contest.contest_access_type === '3') {
+      if(etry_free > token){
+        this.tag = 'danger';
+        this.message ='You dont have enough token ';
+        this.joinButtonDisabled = false;  this.contestId = '';
+      } else{
+        this.joinContest(contest);
+      }
+   } else if (!this.utilityService.isAbleToJoinContest(this.user_balance, contest.entry_fee) &&
+   (contest.prize_type === '0' || contest.prize_type === '1') ) {
+     this.tag = 'danger';
+     this.message = 'You dont have enough cash';
+     this.joinButtonDisabled = false;  this.contestId = '';
+    // alert('You dont have enough cash');
+        // this.notEnoughCashInit(contest.entry_fee, user_balance, contest);
+   } else  {
+      this.joinContest(contest);
+   } 
+    if (contestType === 'featured_contest') {
+         //  this.joinFeaturedGame(contest, lineupList);
+       }
+ } else { this.joinButtonDisabled = false;  this.contestId = '';}
+// });
  }
   /*-----------*/
  //  this.joinContest(contest);
@@ -508,8 +636,8 @@ subscribe((response) => {
     // alert(error.global_error);
     if (error['error']['global_error'] === 'Session key has expired') {
       this.tag = 'danger';
-      this.error = error['error']['global_error'];
-      setTimeout(() =>  this.router.navigate(['/']) , 5000);
+      this.message = error['error']['global_error'];
+      setTimeout(() =>  this.router.navigate(['/']) , 8000);
     }
 });
 }
@@ -609,7 +737,7 @@ joinGameModals(contest, lineup, lineupList, isTurbo) {
       if (error['error']['global_error'] === 'Session key has expired') {
         this.message = error['error']['global_error'];
         this.tag = 'danger';
-        setTimeout(() =>  this.router.navigate(['/']) , 5000);
+        setTimeout(() =>  this.router.navigate(['/']) , 8000);
       }
     }
     );
@@ -672,7 +800,7 @@ this.service.api('fantasy/contest/join_game', param, 'POST', this.session)
       this.featuredContestList[featuredConIndex].total_user_joined+1;
   }
   this.tag ='success';
-  this.error = response.message;
+  this.message = response.message;
  // alert(response.message);
   this.router.navigate([
     "/" +
@@ -688,7 +816,7 @@ this.service.api('fantasy/contest/join_game', param, 'POST', this.session)
  if (error['error']['global_error'] === 'Session key has expired') {
   this.message = error['error']['global_error'];
   this.tag = 'danger';
-  setTimeout(() =>  this.router.navigate(['/']) , 5000);
+  setTimeout(() =>  this.router.navigate(['/']) , 8000);
 }
 //  this.tag = 'danger';
 //  this.message = error.error['global_error'];
@@ -732,4 +860,7 @@ subscribeNow(){
       // emitAlert.on(display, 'danger');
   });
 }
+closeAlert() {
+  this.message = null;
+  }
 }

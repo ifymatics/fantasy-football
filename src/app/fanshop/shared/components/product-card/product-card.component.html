@@ -31,12 +31,13 @@
       <mdb-card-title class='align-items-center d-flex justify-content-between'>
           <div>
                 <h6>{{ product?.title }}</h6>
-                <h5 class='font-weight-bold ml-auto'>{{ product?.price | currency: ' coin': 'symbol-narrow'}} </h5>
+                <h5 class='font-weight-bold ml-auto'><img src="assets/image/coin_img/Fancoin.png" style='height: 30px'> {{ product?.price }} </h5>
           </div>
 
-          <div>
-              <i *ngIf="!whishlistArray.includes(product?.id) &&  showActions"   class="far fa-heart emptyHeart" (click)="wishlist(product, 'add')"></i>
-              <i *ngIf="whishlistArray.includes(product?.id) &&  showActions " class="fas fa-heart red-text" (click)="wishlist(product, 'remove')"></i>
+          <div class="text-center">
+              <i *ngIf="!whishlistArray.includes(product?.id) &&  showActions"   class="far fa-heart emptyHeart d-block" (click)="wishlist(product, 'add')"></i>
+              <i *ngIf="whishlistArray.includes(product?.id) &&  showActions " class="fas fa-heart red-text d-block" (click)="wishlist(product, 'remove')"></i>
+              <span><small>{{!whishlistArray.includes(product?.id) &&  showActions?'wishlist':'wishlisted'}}</small> </span>
           </div>
           
       </mdb-card-title>
@@ -83,7 +84,7 @@
 
                     <div class="productDescription">
                         <span class="descriptionTitle">description</span>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt vel commodi est eveniet, deserunt accusantium atque neque nihil tempora excepturi?</p>
+                        <p>{{product?.description}}</p>
                         <div *ngIf="!read" class='readMore'(click) ="onRead()">
                             Read More
                         </div>
@@ -94,7 +95,10 @@
                         <!--End of alert widget-->
                     <!-- Confirm purchase button starts -->
                     <div class='purchaseBtnContainer'>
-                        <button (click)="buyNow(product)" mdbBtn mdbWavesEffect class="waves-light relative font-weight-bold mx-auto bg-primary">Confirm Purchase</button>
+                        <button (click)="buyNow(product)" mdbBtn mdbWavesEffect [disabled] = "disabled"
+                        class="waves-light relative font-weight-bold mx-auto bg-primary">
+                        Confirm Purchase
+                    </button>
                     </div>
                     <!-- Confirm purchase button ends -->
 

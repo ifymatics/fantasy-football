@@ -12,7 +12,8 @@ import {map, catchError} from 'rxjs/Operators';
 })
 export class AuthloginService {
   url: string ;
-  url1 =  'http://34.239.195.56/';   // 'http://localhost/fantastic/';
+  url1 =   'http://34.239.195.56/'; //'https://fantastic.ng/'; 'http://localhost/fantastic/';
+  
   isLoggedIn = false;
   session;
   componentData = null;

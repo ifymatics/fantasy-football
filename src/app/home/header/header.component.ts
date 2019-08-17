@@ -35,6 +35,7 @@ tokenObj = {price: 100, unit: 1};
 token = this.tokenObj.unit * this.tokenObj.price;
 disabled = false;
 @Input('condition')condition;
+@Input('status')status: boolean;
   constructor(private utilityservice: UtilityService, private utilityService: UtilityService,
      private service: AuthloginService, private router: Router, private route: ActivatedRoute,
      private dataservice: DataService, public deviceService: DeviceDetectorService) { }
@@ -70,7 +71,7 @@ disabled = false;
                   this.message = 'Token added successfully';
                   this.tag = 'success';
       } else if (this.paymentStatus.status === 'subscribed') {
-        this.message = 'You have successfully subscribed for a month premium access with a 5 token bonus';
+        this.message = 'You have successfully subscribed for 1 month premium access with a bonus of 8 tokens';
         this.tag = 'success';
      } else if (this.paymentStatus.status === 'failure') {
          // emitAlert.on("Payment failure. Try again !!", 'danger');
@@ -86,7 +87,7 @@ disabled = false;
       this.user = this.utilityService.getLocalStorage('user');
       this.currentUser = this.user.data.user_profile;
      this.session = this.user.data.session_key;
-     console.log(this.currentUser);
+    // console.log(this.currentUser);
      }
      this.getUserBalance () ;
   }
@@ -183,7 +184,7 @@ calculateToken(arg) {
 }
 buyToken(arg?) {
   this.disabled = true;
-  //console.log(this.token);
+  // console.log(this.token);
   if (this.token) {
     // console.log(this.router.url);
     const param = {
@@ -199,6 +200,7 @@ buyToken(arg?) {
   this.service.api(url , param, 'POST', this.session)
   .subscribe((response) =>{
       if (response.response_code === 200) {
+        this.disabled = false;
         // console.log(response);
           window.location.href = response.data.authorization_url;
       }

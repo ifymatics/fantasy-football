@@ -42,6 +42,28 @@
                     </li>
 
               </ul>
+            
+
+              <!-- predict and win Admin links starts -->
+              <ul class="navbar-navs {{menuHeader}} " *ngIf="status">
+                  <li>
+                      <a [routerLink]="['/predict-win']"  class="dropdown-item"  id="nav-links">HOME</a>
+                    </li>
+                  <li>
+                      <a [routerLink]="['admin']" routerLinkActive="active"  class="dropdown-item"  id="nav-links">ADMIN</a>
+                    </li>
+                <!-- <li>
+                    <a class="dropdown-item"  id="nav-links">MANAGE GAMES</a>
+                  </li>
+                  <li>
+                      <a class="dropdown-item"   id="nav-links">MANAGE LEAGUES</a>
+                  </li>
+                  <li>
+                      <a  id="nav-links"  class="dropdown-item">CREATE GAME</a>
+                  </li> -->
+
+            </ul>
+              <!-- predict and win Admin links ends -->
           </div>
     </div>
 
@@ -91,8 +113,8 @@
                   <span class="font-weight-bold">{{currentUser?.first_name && currentUser?.last_name ? currentUser?.first_name+' '+currentUser?.last_name : currentUser?.user_name}}</span>
                 </div>
                 <div>
-                  <span class="font-weight-bold"> <i class="fas fa-coins pr-2"></i>{{user_balance?.point_balance}} / </span>
-                  <span class="green-text">{{user_balance?.real_amount | currency: 'NGN':'symbol-narrow'}}</span>
+                  <span class="font-weight-bold"> <img src="assets/image/coin_img/Fancoin.png" style='height: 30px'>{{user_balance?.point_balance}} / </span>
+                  <span class="green-text"><img src="assets/image/coin_img/Token_small.png" style='height: 30px; margin-top: -5px'>{{user_balance?.token }}</span>
                 </div>
               </div>
               <div
@@ -114,7 +136,7 @@
                 <div class="d-flex">
                   <div class="pr-3 mr-2 ml-3">
                     <span class="d-block small">Token</span>
-                    <span class="green-text">{{user_balance?.token }}</span>
+                    <span class="green-text"><img src="assets/image/coin_img/Token_small.png" style='height: 30px; margin-top: -5px'>{{user_balance?.token }}</span>
                   </div>
                   <button
                     class="green mb-3 ml-auto mr-3 mt-2 p-2 px-3 btn-in-user-dropdown"
@@ -125,7 +147,7 @@
                    
                   >
                    <!-- routerLink="/5/finance/deposit" -->
-                    GET TOKEN
+                    GET TOKENS
                   </button>
                 </div>
 
@@ -133,7 +155,7 @@
                   <div class="pr-1 mr-2 ml-3">
                     <span class="d-block small">Coins</span>
 
-                    <i class="fas fa-coins mr-2"></i>
+                    <img src="assets/image/coin_img/Fancoin.png" style='height: 30px'>
                     <span class="font-weight-bold green-text">{{user_balance?.point_balance}}</span>
                   </div>
 
@@ -325,9 +347,10 @@
                       <div (click)="calculateToken('increase')" class='tokenAmountControllers'><i class="fas fa-plus"></i></div>
                   </div>
 
-                  <button [disable]= "disabled" type="button" (click)="buyToken()" class="waves-light relative w-100 mt-5"
+                  <button [disabled]= "disabled" type="button" (click)="buyToken()" class="waves-light relative w-100 mt-5 d-flex justify-content-center"
                    mdbBtn mdbWavesEffect style="background-color: #22C61E">
                     Pay N{{tokenObj.price*tokenObj.unit}}
+                    <div class=" ml-3"  [ngClass]="{spinner1: disabled}"></div>
                   </button>
               <!-- </form> -->
               <div class="col-md-9 text-right mt-3 ">

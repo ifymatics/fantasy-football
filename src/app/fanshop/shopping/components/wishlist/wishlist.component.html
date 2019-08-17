@@ -95,10 +95,11 @@
     
                         <!-- Confirm purchase button starts -->
                         <div class='purchaseBtnContainer'>
-                            <button  mdbBtn mdbWavesEffect 
+                            <button  mdbBtn mdbWavesEffect [disabled] = 'disabled'
                             class="waves-light relative font-weight-bold mx-auto" 
                             style="background-color: #D90000" (click)="confirmPurchase(product)"> 
-                            Confirm Purchase</button>
+                            Confirm Purchase
+                           </button>
                             <button  mdbBtn mdbWavesEffect
                              class="waves-light relative font-weight-bold mx-auto grey"
                              >Remove Item</button>

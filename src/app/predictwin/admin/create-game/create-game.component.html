@@ -1,0 +1,28 @@
+<div class='main'>
+    <div class="pageTitle">
+        <div class="containers">
+            <h4>Create Game</h4>
+        </div>
+    </div>
+
+    <!-- Section navigation starts -->
+    <div class="whiteContainer">
+        <div class="containers">
+            <ul class="sectionNav">
+                <li [routerLink]="['free']"   routerLinkActive="active">
+                    <a>Free</a>
+                </li>
+                <li [routerLink]="['token']" routerLinkActive="active">
+                    <a>Token</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Section navigation ends -->
+
+    <div class="body">
+        <!-- router outlet starts -->
+        <router-outlet></router-outlet>
+        <!-- router outlet ends -->
+    </div>
+</div>

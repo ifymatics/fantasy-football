@@ -1,0 +1,169 @@
+<app-header  [condition] = "true" [status] = "true"></app-header>
+
+<div class="main">
+    <div>
+        <!-- Breadcrumb starts -->
+
+        <div class="breadcrumbContainer">
+            <ul>
+                <li class="link">
+                    <a>Home</a>
+                </li>
+                <li>
+                    <a>Predict and Win</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Body section starts-->
+
+        <!-- Top ads section starts -->
+        <div class="px-4 topAdContainer">
+            <div class="containers">
+                <div class="d-flex justify-content-between py-3">
+                    <div class="adBox" style='background: url("assets/image/bg-1.jpg"); background-position: center; background-size: cover; background-repeat: no-repeat'>
+                        <!-- <img src="assets/image/budweiser logo/Budweiser_logo.svg" alt=""> -->
+                    </div>
+                    <div class="adBox" style='background: url("assets/image/bg-1.jpg"); background-position: center; background-size: cover; background-repeat: no-repeat'>
+                        <!-- <img src="assets/image/budweiser logo/Budweiser_logo.svg" alt=""> -->
+                    </div>
+                    <div class="adBox" style='background: url("assets/image/bg-1.jpg"); background-position: center; background-size: cover; background-repeat: no-repeat'>
+                        <!-- <img src="assets/image/budweiser logo/Budweiser_logo.svg" alt=""> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Top ads section ends -->
+
+        <!-- Black league section dropdown starts -->
+        <div class="blackSectionContainer" (click)="leagueSelectionModal.show()">
+            <div class="containers">
+                <div class="white-text dropdown-toggle">
+                    Premier League <i class="fas fa-caret"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Black league section dropdown ends -->
+
+        <div class="row containers body">
+            <div class='col-lg-3 leftAdContainer'>
+                <div class="" style="height: 100%">
+                    <div class="rightSideAd" style="background-image: url('assets/image/bg-1.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; border-top-left-radius: 8px; border-top-right-radius: 8px;"></div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 middleContainer">
+                <!-- Section navigation starts -->
+                <div class="whiteContainer">
+                    <div class="containers">
+                        <ul class="sectionNav">
+                            <li [routerLink]="['free']" routerLinkActive="active"  class="active">
+                                <a>Free</a>
+                            </li>
+                            <li [routerLink]="['token']" routerLinkActive="active" >
+                                <a>Token</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Section navigation ends -->
+
+                <div class="gameListContainer">
+                    <!-- <router-outlet></router-outlet> -->
+                   <!-- <app-free></app-free> -->
+                      <router-outlet></router-outlet>
+                   <!-- <app-token></app-token> -->
+                </div>
+            </div>
+
+            <div class="col-lg-3 rightSideAdContainer">
+                <div class="row" style="height: 16%">
+                    <div class="col">
+                        <!-- Desktop Submit prediction container starts -->
+                        <div class="desktopPredictionSubmitContainer">
+                            <div class="containers">
+                                <div class="predictionCount" style="margin-bottom: 15px; font-size: 21px; font-weight: 700; color: #464646;">
+                                    Total predictions: 2
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button style="background-color: #D90000; border: none; height: 39px; color: #fff; border-radius: 4px;">
+                  Clear All
+                </button>
+                                    <button class='predictionSubmitBtn'>
+                  Submit
+                </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Desktop Submit prediction container ends -->
+                    </div>
+                </div>
+
+                <div class="" style="height: 80%; margin-top: 15px">
+                    <div class="" style="height: 100%">
+                        <div class="rightSideAd" style="background-image: url('assets/image/bg-1.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body section ends-->
+    </div>
+
+    <!--mobile Submit prediction container starts -->
+    <div class="mobilePredictionSubmitContainer">
+        <div class="containers">
+            <div class="predictionCount" style="margin-bottom: 10px;">
+                Total predictions: 2
+            </div>
+            <div class="d-flex justify-content-between">
+                <button style="background-color: #D90000; border: none; height: 39px; width: 159px; color: #fff; border-radius: 4px;">
+        Clear All
+      </button>
+                <button class='predictionSubmitBtn' style='width: 159px;'>
+        Submit
+      </button>
+            </div>
+        </div>
+    </div>
+    <!-- mobile Submit prediction container ends -->
+</div>
+
+<!-- League selection modal starts -->
+<div class="modal fade" tab-index='-1' mdbModal #leagueSelectionModal='mdbModal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header d-flex">
+                <h4>Select League</h4>
+                <span class="close ml-auto" (click)='leagueSelectionModal.hide()'>&times;</span>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <div>
+                            <img src="assets/image/premier-league-logo-png-transparent.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div>
+                            <img src="assets/image/Laliga-logo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div>
+                            <img src="assets/image/Ligue_1_Logo.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- League selection modal ends -->
+
+<!-- Footer starts -->
+<app-footer></app-footer>
+<!-- Footer ends -->
+

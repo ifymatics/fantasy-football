@@ -100,11 +100,11 @@
               <div class="" dropdownToggle id="dropdownBtn">
                   <div class="user-info">
                       <div class="d-block" style='white-space: nowrap;'>
-                          <span class="font-weight-bold">Arinze Okorji</span>
+                          <span class="font-weight-bold">{{currentUser?.first_name && currentUser?.last_name ? currentUser?.first_name+' '+currentUser?.last_name : currentUser?.user_name}}</span>
                       </div>
                       <div>
-                          <span class='font-weight-bold'> <i class="fas fa-coins pr-2"></i>60 / </span>
-                          <span class="green-text">{{userbalance.point_balance}}</span>
+                          <span class='font-weight-bold'> <img src="assets/image/coin_img/Fancoin.png" style='height: 30px'>{{userbalance.point_balance}}  /</span>
+                          <span class="green-text"><img src="assets/image/coin_img/Token_small.png" style='height: 30px; margin-top: -5px'>{{userbalance.token}}</span>
                       </div>
                   </div>
                   <div class="align-self-center ml-2 justify-content-center" id="user-icon-border">
@@ -117,20 +117,20 @@
                   <section class="dropdown-menu-top grey lighten-4">
                       <div class="d-flex">
                           <div class="pr-3 mr-2 ml-3">
-                              <span class="d-block small">Balance</span>
-                              <span class="green-text">{{userbalance.point_balance}}</span>
+                              <span class="d-block small">Token</span>
+                              <span class="green-text"><img src="assets/image/coin_img/Token_small.png" style='height: 30px; margin-top: -5px;'>{{userbalance?.token }}</span>
                           </div>
-                          <button class="green mb-3 ml-auto mr-3 mt-2 p-2 px-3 btn-in-user-dropdown" size="sm" mdbBtn>
-                    ADD FUNDS
+                          <button class="green mb-3 ml-auto mr-3 mt-2 p-2 px-3 btn-in-user-dropdown" size="sm" mdbBtn (click)='getToken.show()'>
+                    GET TOKENS
                   </button>
                       </div>
 
                       <div class="d-flex">
                           <div class="pr-1 mr-2 ml-3">
-                              <span class="d-block small">Buy Coins</span>
+                              <span class="d-block small">Coins</span>
 
-                              <i class="fas fa-coins mr-2"></i>
-                              <span class="font-weight-bold green-text">53</span>
+                              
+                              <span class="font-weight-bold green-text"><img src="assets/image/coin_img/Fancoin.png" style='height: 30px'>{{userbalance?.point_balance}}</span>
                           </div>
 
                           <button routerLink='../how-to-earn-coins' class="green mb-4 ml-auto mr-3 mt-2 p-2 px-2 btn-in-user-dropdown" size="sm" mdbBtn>
@@ -141,15 +141,29 @@
                   <div class="dropdown-divider"></div>
                   <section class="dropdown-menu-bottom">
                       <div class="list-group list-group-flush ">
-                    
-                  <a routerLink='../profile' class="list-group-item py-2" id="dropdownlink">Profile</a>
-                          <a href="" class="list-group-item py-2 d-flex justify-content-between" id="dropdownlink">Notification
+                  <a class="list-group-item pb-2 pt-0 d-flex justify-content-between" id="dropdownlink">
+                    Subscription <span class='badge badge-primary badge-pill align-self-center'>P</span></a
+                  >
+                  <a 
+                  
+                  class="list-group-item pb-2 pt-0" id="dropdownlink">
+                    Request Withdrawal</a
+                  >
+                  <a  (click)="onNavigate('finance')"  class="list-group-item py-2" id="dropdownlink"
+                    >My Account</a
+                  >
+                  <a routerLink="/5/user/profile"   class="list-group-item py-2" id="dropdownlink">Profile</a>
+                  <a
+                   
+                    class="list-group-item py-2 d-flex justify-content-between"
+                    id="dropdownlink"
+                    >Notification
                     <span class="badge badge-success badge-pill align-self-center"
                       >1</span
                     >
                   </a>
-                          <a (click)="logout()" class="list-group-item pt-2 pb-0" id="dropdownlink" routerLink=''>Logout</a>
-                      </div>
+                  <a (click)="logout()" class="list-group-item pt-2 pb-0" id="dropdownlink">Logout</a>
+                </div>
                   </section>
               </div>
           </div>
@@ -179,9 +193,12 @@
                       <div (click)="calculateToken('increase')" class='tokenAmountControllers'><i class="fas fa-plus"></i></div>
                   </div>
 
-                  <button type="button" (click)="buyToken()" class="waves-light relative w-100 mt-5"
-                   mdbBtn mdbWavesEffect style="background-color: #22C61E">
+                  <button type="button" (click)="buyToken()" class="waves-light relative w-100 mt-5 d-flex justify-content-center"
+                   mdbBtn mdbWavesEffect style="background-color: #22C61E" [disabled] = "disabled">
                     Pay N{{tokenObj.price*tokenObj.unit}}
+
+                    <div class="ml-3 spinner1" [ngClass]="{spinner1: disabled}" ></div>
+                    <!-- [ngClass]="{spinner1: disabled}" -->
                   </button>
               <!-- </form> -->
               <div class="col-md-9 text-right mt-3 ">

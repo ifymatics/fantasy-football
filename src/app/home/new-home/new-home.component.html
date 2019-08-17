@@ -1,4 +1,4 @@
-<app-header [condition] = "homeRoute"></app-header>
+<app-header [condition] = "true" [status]="false"></app-header>
 
 <div class='main'>
 
@@ -9,7 +9,7 @@
             <div style='background-image: url("assets/image/Homepage-images/football-manager.png"); background-repeat: no-repeat; background-size: contain;'  [routerLink]="['/5/league']"></div>
         </a>
         <a>
-            <div style='background-image: url("assets/image/Homepage-images/predict-and-win.png"); background-repeat: no-repeat; background-size: contain;'></div>
+            <div style='background-image: url("assets/image/Homepage-images/predict-and-win.png"); background-repeat: no-repeat; background-size: contain;' [routerLink]="['/predictw-win']"></div>
         </a>
         <a>
             <div style='background-image: url("assets/image/Homepage-images/fan-shop.png"); background-repeat: no-repeat; background-size: contain;' [routerLink]="['/fanshop/products']"></div>
@@ -52,7 +52,7 @@
                 </div>
                 <!-- Single card ends -->
                 <!-- Single Card starts-->
-                <div class="col-md-6 col-lg-4 singleCard">
+                <div class="col-md-6 col-lg-4 singleCard" [routerLink]="['/predict-win']" [style.cursor]="pointer">
                     <mdb-card class=''>
 
                         <div class="singleSection">

@@ -66,28 +66,28 @@
 /* Player Positions */
 
 /* Forward */
-$forwardPosition-portrait-phone: -5.5%;
+$forwardPosition-portrait-phone: -2.5%;
 $forwardPosition-landscape-phone: -3.5%;
 $forwardPosition-portrait-tablet-and-ipad: -2.5%;
 $forwardPosition-lg: -2.5%;
 
 /* Midfield */
-$midfieldPosition-xs-phone: 20.5%;
-$midfieldPosition-portrait-phone: 22.5%;
+$midfieldPosition-xs-phone: 26.5%;
+$midfieldPosition-portrait-phone: 27.5%;
 $midfieldPosition-landscape-phone: 21%;
 $midfieldPosition-portrait-tablet-and-ipad: 24.5%;
 $midfieldPosition-lg: 25%;
 
 /* Defence */
-$defencePosition-xs-phone: 45%;
-$defencePosition-portrait-phone: 46%;
+$defencePosition-xs-phone: 50%;
+$defencePosition-portrait-phone: 49%;
 $defencePosition-landscape-phone: 49%;
 $defencePosition-portrait-tablet-and-ipad: 49%;
 $defencePosition-lg: 48%;
 
 /* Goalie */
-$goaliePosition-xs-phone: 67%;
-$goaliePosition-portrait-phone: 68.5%;
+$goaliePosition-xs-phone: 71.5%;
+$goaliePosition-portrait-phone: 71.5%;
 $goaliePosition-landscape-phone: 72%;
 $goaliePosition-portrait-tablet-and-ipad: 71%;
 $goaliePosition-lg: 71%;
@@ -823,7 +823,7 @@ a#dropdownlink {
     margin-left: 0;
     padding-left: 0;
     width: 100%;
-    max-height: 500px;
+    max-height: 527px;
 
   }
   @include for-landscape-phone-only {
@@ -893,7 +893,7 @@ a#dropdownlink {
   height: 15px;
 }
 .besideBlackBox {
-  width: 76px;
+  width: 68px;
   height: 15px;
 }
 
@@ -902,10 +902,10 @@ a#dropdownlink {
 .pitchadscontainer {
   background: $lightGreen;
   width: 100%;
-  height: 70px;
+  height: 43px;
 
   @include for-xs {
-    height: 70px;
+    height: 43px;
   }
 
   > div {
@@ -924,7 +924,7 @@ a#dropdownlink {
   top: 7px;
   @include for-portrait-phone-only {
     left: 0;
-    top: 20px;
+    top: 8px;
   }
   @include for-landscape-phone-only {
     left: 0px;
@@ -1047,7 +1047,7 @@ clip-path: polygon(100% -5%, 100% 66%, 0% 98%, 0% 28%);
   @include for-portrait-phone-only {
     /* right: 35px; */
     right: 0;
-    top: 20px;
+    top: 8px;
   }
   @include for-landscape-phone-only {
     right: 0px;
@@ -1187,6 +1187,7 @@ clip-path: polygon(100% 65%, 100% -5%, 0% 28%, 5% 98%);
   opacity: 0.5;
   width: 80%;
   height: 60%;
+  z-index: 0;
 }
 
 .sponsorLogo.mdScreen {
@@ -1229,8 +1230,9 @@ ul.goalie {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   margin: 0 auto;
-  padding-right: 40px;
+ // padding-right: 40px;
   justify-items: center;
+  padding: 0;
 
   /* @include for-laptop-and-desktop-only {
     padding-right: 70px;
@@ -1238,9 +1240,18 @@ ul.goalie {
 
   li {
     display: inline-block;
-    padding: 0 5px;
+    //padding: 0 5px;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 .newGrid {
@@ -1460,9 +1471,17 @@ ul.FW-5-4-1 {
 
   li {
     display: inline-block;
-    padding: 0 25px;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 
@@ -1481,6 +1500,15 @@ ul.Mid-5-4-1 {
     position: relative;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 
@@ -1498,6 +1526,15 @@ ul.Def-5-4-1 {
     display: inline-block;
     position: relative;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 
@@ -1506,12 +1543,16 @@ ul.FW-5-3-2 {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 5px;
+  grid-gap: 19px;
   /* margin: 0 auto 43px; */
   justify-items: center;
   /* margin-right: 20px;
   margin-left: -20px; */
   padding-left: 0;
+
+  @include for-lg {
+    grid-gap: 45px;
+  }
 
   /* @include for-lg {
     margin-right: 70px;
@@ -1522,35 +1563,25 @@ ul.FW-5-3-2 {
 
   li {
     display: inline-block;
-    padding: 0 35px;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 
 
   li:first-child {
     justify-self: flex-end;
-    padding-right: 8%;
-
-    @include for-md {
-      padding-right: 16%;
-    }
-
-    @include for-lg {
-      padding-right: 16.5%;
-    }
   }
   li:last-child {
     justify-self: flex-start;
-    padding-left: 8%;
-
-    @include for-md {
-      padding-left: 16%;
-    }
-
-    @include for-lg {
-      padding-left: 15%;
-    }
   }
 
 
@@ -1565,10 +1596,18 @@ ul.Mid-5-3-2 {
 
   li {
     display: inline-block;
-    padding: 0 5px;
     vertical-align: center;
     text-align: center;
     z-index: 1;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 ul.Def-5-3-2 {
@@ -1585,6 +1624,15 @@ ul.Def-5-3-2 {
     display: inline-block;
     position: relative;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 
@@ -1602,60 +1650,57 @@ ul.FW-5-2-3 {
 
   li {
     display: inline-block;
-    padding: 0 5px;
     vertical-align: center;
     text-align: center;
     z-index: 1;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 ul.Mid-5-2-3 {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 5px;
+  grid-gap: 19px;
   /* margin: 0 auto 43px; */
   justify-items: center;
   /* margin-right: 20px;
   margin-left: -20px; */
   padding-left: 0;
 
-  /* @include for-lg {
-    margin-right: 70px;
-    margin-left: 30px;
-  } */
+  @include for-lg {
+    grid-gap: 45px;
+  }
 
 
 
   li {
     display: inline-block;
-    padding: 0 35px;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 
   li:first-child {
     justify-self: flex-end;
-    padding-right: 8%;
-
-    @include for-md {
-      padding-right: 16%;
-    }
-
-    @include for-lg {
-      padding-right: 16.5%;
-    }
   }
   li:last-child {
     justify-self: flex-start;
-    padding-left: 8%;
-
-    @include for-md {
-      padding-left: 16%;
-    }
-
-    @include for-lg {
-      padding-left: 15%;
-    }
   }
 
 
@@ -1674,6 +1719,15 @@ ul.Def-5-2-3 {
     display: inline-block;
     position: relative;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 
@@ -1684,50 +1738,39 @@ ul.FW-4-4-2 {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 5px;
+  grid-gap: 19px;
   /* margin: 0 auto 43px; */
   justify-items: center;
   /* margin-right: 20px;
   margin-left: -20px; */
   padding-left: 0;
 
-  /* @include for-lg {
-    margin-right: 70px;
-    margin-left: 30px;
-  } */
+  @include for-lg {
+    grid-gap: 45px;
+  }
 
 
 
   li {
     display: inline-block;
-    padding: 0 35px;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 
   li:first-child {
     justify-self: flex-end;
-    padding-right: 8%;
-
-    @include for-md {
-      padding-right: 16%;
-    }
-
-    @include for-lg {
-      padding-right: 16.5%;
-    }
   }
   li:last-child {
     justify-self: flex-start;
-    padding-left: 8%;
-
-    @include for-md {
-      padding-left: 16%;
-    }
-
-    @include for-lg {
-      padding-left: 15%;
-    }
   }
 }
 
@@ -1746,6 +1789,15 @@ ul.Mid-4-4-2 {
     display: inline-block;
     position: relative;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 ul.Def-4-4-2 {
@@ -1761,6 +1813,15 @@ ul.Def-4-4-2 {
     position: relative;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 
@@ -1777,10 +1838,18 @@ ul.FW-4-3-3 {
  padding-left: 0;
   li {
     display: inline-block;
-    padding: 0 5px;
     vertical-align: center;
     text-align: center;
     z-index: 1;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 ul.Mid-4-3-3 {
@@ -1795,10 +1864,18 @@ ul.Mid-4-3-3 {
 
   li {
     display: inline-block;
-    padding: 0 5px;
     vertical-align: center;
     text-align: center;
     z-index: 1;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 ul.Def-4-3-3 {
@@ -1814,6 +1891,15 @@ ul.Def-4-3-3 {
     position: relative;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 /*
@@ -1831,10 +1917,18 @@ ul.FW-3-4-3 {
 
   li {
     display: inline-block;
-    padding: 0 5px;
     vertical-align: center;
     text-align: center;
     z-index: 1;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 ul.Mid-3-4-3 {
@@ -1852,6 +1946,15 @@ ul.Mid-3-4-3 {
     position: relative;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 ul.Def-3-4-3 {
@@ -1866,10 +1969,18 @@ ul.Def-3-4-3 {
 
   li {
     display: inline-block;
-    padding: 0 5px;
     vertical-align: center;
     text-align: center;
     z-index: 1;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 
@@ -1878,50 +1989,39 @@ ul.FW-3-5-2 {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 5px;
+  grid-gap: 19px;
   /* margin: 0 auto 43px; */
   justify-items: center;
   /* margin-right: 20px;
   margin-left: -20px; */
   padding-left: 0;
 
-  /* @include for-lg {
-    margin-right: 70px;
-    margin-left: 30px;
-  } */
+  @include for-lg {
+    grid-gap: 45px;
+  }
 
 
 
   li {
     display: inline-block;
-    padding: 0 35px;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 
   li:first-child {
     justify-self: flex-end;
-    padding-right: 8%;
-
-    @include for-md {
-      padding-right: 16%;
-    }
-
-    @include for-lg {
-      padding-right: 16.5%;
-    }
   }
   li:last-child {
     justify-self: flex-start;
-    padding-left: 8%;
-
-    @include for-md {
-      padding-left: 16%;
-    }
-
-    @include for-lg {
-      padding-left: 15%;
-    }
   }
 }
 
@@ -1939,6 +2039,15 @@ ul.Mid-3-5-2 {
     display: inline-block;
     position: relative;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 
 }
@@ -1954,10 +2063,18 @@ ul.Def-3-5-2 {
 
   li {
     display: inline-block;
-    padding: 0 5px;
     vertical-align: center;
     text-align: center;
     z-index: 1;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 /*
@@ -1976,9 +2093,17 @@ ul.FW-4-5-1 {
 
   li {
     display: inline-block;
-    padding: 0 25px;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 ul.Mid-4-5-1 {
@@ -1995,6 +2120,15 @@ ul.Mid-4-5-1 {
     display: inline-block;
     position: relative;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 ul.Def-4-5-1 {
@@ -2002,8 +2136,8 @@ ul.Def-4-5-1 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 5px;
-  /* justify-items: center;
-  margin-right: 25px;
+  justify-items: center;
+  /* margin-right: 25px;
   margin-left: -20px; */
   padding-left: 0;
 
@@ -2012,6 +2146,15 @@ ul.Def-4-5-1 {
     position: relative;
     vertical-align: center;
     text-align: center;
+    width: 68px;
+
+    @include for-md {
+      width: 140px;
+    }
+
+    @include for-lg {
+      width: 129px;
+    }
   }
 }
 
@@ -2436,6 +2579,9 @@ ul li .block .jersy .player-remove:after {
 .playerName, .playerSalary {
   height: 15px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @include for-xs {
     height: 15px;
@@ -2456,6 +2602,9 @@ ul li .block .jersy .player-remove:after {
   background-color: rgba(0, 0, 0, 0.349);
   color: white;
   font-size: 11px;
+  font-variant: small-caps;
+  font-weight: 700;
+  text-transform: lowercase;
 
   @include for-md {
     font-size: 16px;
@@ -2809,7 +2958,7 @@ label {
     border-width: 8px;
     width: 40px;
     height: 40px;
-    margin: -20px 0 0 -20px;
+    // margin: -20px 0 0 -20px;
   }
   @include for-landscape-phone-only {
     border-width: 8px;
@@ -2855,7 +3004,7 @@ button.spinnerBtn {
   border-radius: 50%;
   width: 15px;
   height: 15px;
-  animation: spin 700ms linear infinite;
+  animation: spin 1000ms linear infinite;
   margin-left: 5px;
 }
 
@@ -3119,6 +3268,9 @@ button.spinnerBtn {
     display: inline-block !important;
     vertical-align: middle;
     line-height: 1;
+  }
+  .viewPort{
+    width:100vw;
   }
   /* /Individual participant */
   

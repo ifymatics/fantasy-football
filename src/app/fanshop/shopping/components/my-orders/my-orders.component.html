@@ -147,7 +147,8 @@
         
                             <!-- Confirm purchase button starts -->
                             <div class='purchaseBtnContainer'>
-                                <button  mdbBtn mdbWavesEffect (click)="confirmPurchase (order)"
+                                <button  mdbBtn mdbWavesEffect [disabled]='disabled'
+                                (click)="confirmPurchase (order)"
                                 class="waves-light relative font-weight-bold mx-auto bg-primary">
                                     Confirm Purchase
                                 </button>

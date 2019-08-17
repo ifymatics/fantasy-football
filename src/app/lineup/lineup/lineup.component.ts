@@ -13,7 +13,7 @@ import {
 import { CollectionDetails } from "./collection-details.model";
 import { LobbyService } from "./../../lobby/lobby.service";
 import { ModalDirective } from "angular-bootstrap-md";
-import { Router, ActivatedRoute, Params, Data, NavigationEnd } from "@angular/router";
+import { Router, ActivatedRoute, Params, Data, NavigationEnd, NavigationStart } from "@angular/router";
 import { UtilityService } from "./../../utility.service";
 import { Component, OnInit, ViewChild, ElementRef, ɵConsole, OnDestroy } from "@angular/core";
 import { AuthloginService } from "src/app/user/authlogin.service";
@@ -379,11 +379,12 @@ export class LineupComponent implements OnInit,OnDestroy{
   datas = {
     league_id: "",
     sports_id: 5,
-    collection_master_id: ""
+    collection_master_id: "",
+    lineup_master_id: ''
   };
   ngOnInit() {
     this.subscription = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
+      filter(event => event instanceof NavigationStart)
     ) .subscribe(
       () => window.scrollTo(0,0)
     );
@@ -525,10 +526,10 @@ export class LineupComponent implements OnInit,OnDestroy{
             response = response["data"];
             // console.log(response);
             // console.log(reqParams);
-            this.allRosterslist = this.allRosterslist.concat(
-              response["result"]
-            );
-            // this.allRosterslist =  response["result"];
+            // this.allRosterslist = this.allRosterslist.concat(
+            //   response["result"]
+            // );
+             this.allRosterslist =  response["result"];
             // console.log(this.allRosterslist);
             this.emptyScreen = this.allRosterslist.length ? false : true;
             this.loadMorePosting = false;
@@ -714,7 +715,7 @@ export class LineupComponent implements OnInit,OnDestroy{
           this.utilityService.userBalance.emit( response.data.user_balance);
           if (
             !this.utilityService.isAbleToJoinContest(user_balance, entryFee) &&
-            (contest.prize_type === 0 || contest.prize_type === 1)
+            (contest.prize_type === '0' || contest.prize_type === '1')
           ) {
             // Condition for entry fee system
             // show notEnoughCashModal \\
@@ -973,6 +974,8 @@ export class LineupComponent implements OnInit,OnDestroy{
 
   // Add player
   addPlayer(player, playerType) {
+   // console.log(player.player_id);
+    // console.log(this.btnAddRoster[player.player_id]);
     // if (this.defLi !== '') {
     let maxPlayers = 0;
     const playerIndex = this.utilityService.findObjPosition(
@@ -1027,7 +1030,7 @@ export class LineupComponent implements OnInit,OnDestroy{
    * Remove selected players
    */
   removePlayer(playerId, playerType, removeFrom, formationtype?) {
-    console.log(removeFrom);
+   // console.log(removeFrom);
     // console.log(playerId, playerType, removeFrom);
     const playerIndex = this.utilityService.findObjPosition(
         this.playersArr,
@@ -2730,8 +2733,8 @@ export class LineupComponent implements OnInit,OnDestroy{
   setPlayersAddBtnStatus() {
     for (const playerObj of this.playersArr) {
       if (playerObj.position) {
-        this.btnRemoveRoster[playerObj.player_id] = false;
-        this.btnAddRoster[playerObj.player_id] = false;
+        this.btnRemoveRoster[playerObj.player_id] = true;
+        this.btnAddRoster[playerObj.player_id] = true;
       }
     }
   }
@@ -2758,7 +2761,10 @@ export class LineupComponent implements OnInit,OnDestroy{
     // console.log(this.lineupDetails);
     // this.selectedPlayersCount = { 'All': 0, 'WK': 0, 'BAT': 0, 'AR': 0, 'BOW': 0 };
     for (const player of this.lineupDetails) {
-      // let count = 0;
+      // // let count = 0;
+      // this.btnAddRoster[player.player_id] = true;
+      // this.btnRemoveRoster[player.player_id] = true;
+      // console.log(player.player_id);
       const maxPlayers = this.playersMinMaxData[player.position][
         "max_player_per_position"
       ];
@@ -2768,12 +2774,13 @@ export class LineupComponent implements OnInit,OnDestroy{
           : player.player_role === "2"
           ? "vice-captain"
           : "";
-
       // Condition for set players position in map for soccer
       if (this.sports_id === 5) {
         // console.log(this.datas.sports_id);
         if (player.position === "GK") {
           this.fillKeeper(player);
+          this.btnAddRoster[player.player_id] = true;
+         // this.btnRemoveRoster[player.player_id] = true;
           this.playersArr[0] = player;
           this.selectedPlayersCount.GK++;
           this.playerActive[0] = "active";
@@ -2788,25 +2795,25 @@ export class LineupComponent implements OnInit,OnDestroy{
               this.playerObj.fourThreeThree.def.def1 = player;
               defP.push(player.player_id);
               countDef = 1;
+              // this.btnAddRoster[player.player_id] = false;
               // console.log(defP);
               // console.log(countDef);
               // defP[player.player_id] = player;
             } else if (!defP.includes(player.player_id) && countDef === 1) {
-              // console.log(countDef);
+               // console.log(player);
               this.playerObj.fourThreeThree.def.def2 = player;
               defP.push(player.player_id);
-              // defP[player.player_id] = player;
-              // console.log(defP);
               countDef++;
+              
             } else if (!defP.includes(player.player_id) && countDef === 2) {
               this.playerObj.fourThreeThree.def.def3 = player;
               defP.push(player.player_id);
-              // defP[player.player_id] = player;
               countDef++;
+      
             } else if (!defP.includes(player.player_id) && countDef === 3) {
               this.playerObj.fourThreeThree.def.def4 = player;
               defP.push(player.player_id);
-              // defP[player.player_id] = player;
+
               countDef++;
             }
             // this.playerObj.fourThreeThree.gk = player;
@@ -3024,15 +3031,18 @@ export class LineupComponent implements OnInit,OnDestroy{
               this.playerObj.fourThreeThree.mid.mid1 = player;
               midP.push(player.player_id);
               countMid++;
+              this.btnAddRoster[player.player_id] = true;
             }
             if (!midP.includes(player.player_id) && countMid === 1) {
               this.playerObj.fourThreeThree.mid.mid2 = player;
               midP.push(player.player_id);
               countMid++;
+              this.btnAddRoster[player.player_id] = true;
             } else if (!midP.includes(player.player_id) && countMid === 2) {
               this.playerObj.fourThreeThree.mid.mid3 = player;
               midP.push(player.player_id);
               countMid++;
+              this.btnAddRoster[player.player_id] = true;
             }
             // this.playerObj.fourThreeThree.gk = player;
           } else if (this.formationSelected === "5-4-1") {
@@ -3041,19 +3051,23 @@ export class LineupComponent implements OnInit,OnDestroy{
               this.playerObj.fiveFourOne.mid.mid1 = player;
               midP.push(player.player_id);
               countMid++;
+              this.btnAddRoster[player.player_id] = true;
             }
             if (!midP.includes(player.player_id) && countMid === 1) {
               this.playerObj.fiveFourOne.mid.mid2 = player;
               midP.push(player.player_id);
               countMid++;
+              this.btnAddRoster[player.player_id] = true;
             } else if (!midP.includes(player.player_id) && countMid === 2) {
               this.playerObj.fiveFourOne.mid.mid3 = player;
               midP.push(player.player_id);
               countMid++;
+              this.btnAddRoster[player.player_id] = true;
             } else if (!midP.includes(player.player_id) && countMid === 3) {
               this.playerObj.fiveFourOne.mid.mid4 = player;
               midP.push(player.player_id);
               countMid++;
+              this.btnAddRoster[player.player_id] = true;
             }
             // this.playerObj.fiveFourOne.gk = player;
           } else if (this.formationSelected === "4-4-2") {
@@ -3192,15 +3206,18 @@ export class LineupComponent implements OnInit,OnDestroy{
               // defP[player.player_id] = player;
               this.playerObj.fourThreeThree.fwd.fwd1 = player;
               countFwd++;
+               this.btnAddRoster[player.player_id] = true;
             }
             if (!fwdP.includes(player.player_id) && countFwd === 1) {
               this.playerObj.fourThreeThree.fwd.fwd2 = player;
               fwdP.push(player.player_id);
               countFwd++;
+              // this.btnAddRoster[player.player_id] = false;
             } else if (!fwdP.includes(player.player_id) && countFwd === 2) {
               this.playerObj.fourThreeThree.fwd.fwd3 = player;
               fwdP.push(player.player_id);
               countFwd++;
+               this.btnAddRoster[player.player_id] = true;
             }
             // this.playerObj.fourThreeThree.gk = player;
           } else if (this.formationSelected === "5-4-1") {
@@ -3208,6 +3225,7 @@ export class LineupComponent implements OnInit,OnDestroy{
               fwdP.push(player.player_id);
               // defP[player.player_id] = player;
               this.playerObj.fiveFourOne.fwd.fwd1 = player;
+              this.btnAddRoster[player.player_id] = true;
               countFwd++;
             }
             // this.playerObj.fiveFourOne.gk = player;
@@ -3216,10 +3234,12 @@ export class LineupComponent implements OnInit,OnDestroy{
               fwdP.push(player.player_id);
               // defP[player.player_id] = player;
               this.playerObj.fourFourTwo.fwd.fwd1 = player;
+              this.btnAddRoster[player.player_id] = true;
               countFwd++;
             }
             if (!fwdP.includes(player.player_id) && countFwd === 1) {
               this.playerObj.fourFourTwo.fwd.fwd2 = player;
+              this.btnAddRoster[player.player_id] = true;
               fwdP.push(player.player_id);
               countFwd++;
             }
@@ -3229,6 +3249,7 @@ export class LineupComponent implements OnInit,OnDestroy{
               fwdP.push(player.player_id);
               // defP[player.player_id] = player;
               this.playerObj.fourFiveOne.fwd.fwd1 = player;
+              this.btnAddRoster[player.player_id] = true;
               countFwd++;
             }
             // this.playerObj.fourFiveOne.gk = player;
@@ -3237,10 +3258,12 @@ export class LineupComponent implements OnInit,OnDestroy{
               fwdP.push(player.player_id);
               // defP[player.player_id] = player;
               this.playerObj.fiveThreeTwo.fwd.fwd1 = player;
+              this.btnAddRoster[player.player_id] = true;
               countFwd++;
             }
             if (!fwdP.includes(player.player_id) && countFwd === 1) {
               this.playerObj.fiveThreeTwo.fwd.fwd2 = player;
+              this.btnAddRoster[player.player_id] = true;
               fwdP.push(player.player_id);
               countFwd++;
             }
@@ -3250,10 +3273,12 @@ export class LineupComponent implements OnInit,OnDestroy{
               fwdP.push(player.player_id);
               // defP[player.player_id] = player;
               this.playerObj.threeFiveTwo.fwd.fwd1 = player;
+              this.btnAddRoster[player.player_id] = true;
               countFwd++;
             }
             if (!fwdP.includes(player.player_id) && countFwd === 1) {
               this.playerObj.threeFiveTwo.fwd.fwd2 = player;
+              this.btnAddRoster[player.player_id] = true;
               fwdP.push(player.player_id);
               countFwd++;
             }
@@ -3263,14 +3288,17 @@ export class LineupComponent implements OnInit,OnDestroy{
               fwdP.push(player.player_id);
               // defP[player.player_id] = player;
               this.playerObj.fiveTwoThree.fwd.fwd1 = player;
+              this.btnAddRoster[player.player_id] = true;
               countFwd++;
             }
             if (!fwdP.includes(player.player_id) && countFwd === 1) {
               this.playerObj.fiveTwoThree.fwd.fwd2 = player;
+              this.btnAddRoster[player.player_id] = true;
               fwdP.push(player.player_id);
               countFwd++;
             } else if (!fwdP.includes(player.player_id) && countFwd === 2) {
               this.playerObj.fiveTwoThree.fwd.fwd3 = player;
+              this.btnAddRoster[player.player_id] = true;
               fwdP.push(player.player_id);
               countFwd++;
             }
@@ -3280,13 +3308,16 @@ export class LineupComponent implements OnInit,OnDestroy{
               fwdP.push(player.player_id);
               // defP[player.player_id] = player;
               this.playerObj.threeFourThree.fwd.fwd1 = player;
+              this.btnAddRoster[player.player_id] = true;
               countFwd++;
             } else if (!fwdP.includes(player.player_id) && countFwd === 1) {
               this.playerObj.threeFourThree.fwd.fwd2 = player;
+              this.btnAddRoster[player.player_id] = true;
               fwdP.push(player.player_id);
               countFwd++;
             } else if (!fwdP.includes(player.player_id) && countFwd === 2) {
               this.playerObj.threeFourThree.fwd.fwd3 = player;
+              this.btnAddRoster[player.player_id] = true;
               fwdP.push(player.player_id);
               countFwd++;
             }
@@ -3316,11 +3347,11 @@ export class LineupComponent implements OnInit,OnDestroy{
     // console.log(this.selectedPlayerData);
     // console.log(this.finalSelectedPlayersArr);
     this.setPlayersAddBtnStatus(); // Set players add remove button status
-    this.getAllRosters();
+    // this.getAllRosters();
 
     this.calculateSalaryCap(used_salary_cap, "editOnload"); // Calculate salary cap
   }
-  getAutoPickData = function() {
+  getAutoPickData = () => {
     this.autodisabled = true;
     this.isLoading = true;
     // if add lineup and all players are selected then blank selected players for random records.
@@ -3624,7 +3655,7 @@ export class LineupComponent implements OnInit,OnDestroy{
         currentUser["data"]["user_profile"].user_name +
         " " +
         captainObj.team_name;
-       console.log(this.captainObj);
+      // console.log(this.captainObj);
     }
     this.is_disable_selection = false;
     // console.log("selected collection",this.collection_detail);
@@ -3660,7 +3691,9 @@ export class LineupComponent implements OnInit,OnDestroy{
     this.submitLineUp(team_data);
   }
   submitLineUp(formValidation) {
+    this.isLoading = true;
     if (this.captainObj.captain === this.captainObj.viceCaptain) {
+      this.isLoading = false;
       // tslint:disable-next-line:quotemark
       this.tag = 'danger';
       this.error ="Your Captain and vice-captain can't be same";
@@ -3684,11 +3717,14 @@ export class LineupComponent implements OnInit,OnDestroy{
           )
           .subscribe(
             response => {
+            
               if (response.response_code === 200) {
+                this.isLoading = false;
                 this.isPosting = false;
                 this.tag = 'success';
                 this.error = response.message;
                 // this.messageCss = this.utilityService.alertHandler();
+                setTimeout(() =>  this.router.navigate([this.sports_id + "/my-league/upcoming"]), 8000 );
                 this.router.navigate([this.sports_id + "/my-league/upcoming"]);
                 // $uibModalInstance.dismiss('cancel');
                 if (
@@ -3712,7 +3748,7 @@ export class LineupComponent implements OnInit,OnDestroy{
               if (error['error']['global_error'] === 'Session key has expired') {
                 this.error = error['error']['global_error'];
                 this.tag = 'danger';
-                setTimeout(() =>  this.router.navigate(['/']) , 5000);
+                setTimeout(() =>  this.router.navigate(['/']) , 8000);
                // this.router.navigate(['/']);
               }
             }
@@ -3777,6 +3813,7 @@ export class LineupComponent implements OnInit,OnDestroy{
       .api("fantasy/contest/join_game", param, "POST", this.session)
       .subscribe(
         response => {
+          this.isLoading = false;
           // console.warn(response);
           const idx = this.contestList.indexOf(this.joinGameInitObj.contest);
           this.joinGameInitObj.contest.total_user_joined =
@@ -3810,17 +3847,15 @@ export class LineupComponent implements OnInit,OnDestroy{
             this.featuredContestList[featuredConIndex].user_joined_count++;
             this.featuredContestList[featuredConIndex].total_user_joined + 1;
           }
-          this.tag = 'danger';
+          this.tag = 'success';
           this.error =response.message;
         // this.messageCss = this.utilityService.alertHandler();
          this.isLoading = false;
-          this.router.navigate([
-            "/" +
-              this.datas.sports_id +
-              "/" +
-              this.datas.league_id +
-              "/my-league/upcoming"
-          ]);
+         setTimeout(()=>this.router.navigate([  "/" 
+         +this.datas.sports_id +"/" 
+         +this.datas.league_id +
+            "/my-league/upcoming"
+        ]) , 8000);
           //  $rootScope.joinContestSuccessModalInit(response.message); //Success modal init
         },
         error => {

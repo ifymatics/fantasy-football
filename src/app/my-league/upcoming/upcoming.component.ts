@@ -2,13 +2,14 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { LeagueService } from './../league.service';
 import { LobbyService } from './../../lobby/lobby.service';
 import { Player } from './../../lineup/lineup/player.model';
-import { Router, ActivatedRoute, RouterState, Params, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, RouterState, Params, ParamMap, NavigationStart } from '@angular/router';
 import { UtilityService } from './../../utility.service';
 import { Component, OnInit, Output, Input,  ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { AuthloginService } from 'src/app/user/authlogin.service';
 import { PlayersUtilityService } from 'src/app/players-utility.service';
 import { EventEmitter } from 'events';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { filter } from 'rxjs/Operators';
 
 @Component({
   selector: 'app-upcoming',
@@ -83,6 +84,7 @@ export class UpcomingComponent implements OnInit, AfterViewInit {
    teamName = '';
    isMobile;
    mobileDevice;
+   subscription;
   constructor(private service: AuthloginService,
                private playerservice: PlayersUtilityService,
                 private utilityservice: UtilityService,
@@ -101,6 +103,13 @@ export class UpcomingComponent implements OnInit, AfterViewInit {
                  }
 
   ngOnInit() {
+    this.subscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationStart)
+    ) .subscribe(
+      () => {window.scrollTo({ top: 0, behavior: 'smooth' });
+      console.log(window.scrollY);
+    }
+    );
   this.isLoading = true;
   this.route.params.subscribe(
     (params:  ParamMap) => {

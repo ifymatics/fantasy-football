@@ -9,6 +9,7 @@ import { UtilityService } from 'src/app/utility.service';
 import { FanshopService } from 'src/app/fanshop/fanshop.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthloginService } from 'src/app/user/authlogin.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 // import { longStackSupport } from 'q';
 
 @Component({
@@ -36,7 +37,7 @@ export class BsNavbarComponent implements OnInit {
   session;
   tokenObj = {price: 100, unit: 1};
   token = this.tokenObj.unit * this.tokenObj.price;
-  userbalance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0};
+  userbalance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0, token: 0};
   cart$: Observable<ShoppingCart>;
   disabled = false;
 
@@ -45,7 +46,8 @@ export class BsNavbarComponent implements OnInit {
       private utilityservice: UtilityService,
       private fanservice: FanshopService,
       private router: Router,private route: ActivatedRoute,
-      private service: AuthloginService) {
+      private service: AuthloginService,
+      public deviceService: DeviceDetectorService) {
   }
 
   async ngOnInit() {
@@ -81,6 +83,7 @@ export class BsNavbarComponent implements OnInit {
       this.user = this.utilityservice.getLocalStorage('user');
       this.currentUser = this.user.data.user_profile;
      this.session = this.user.data.session_key;
+     this. getUserBalance ();
      // console.log(this.currentUser);
      }
     // this.utilityservice.userBalance.subscribe(
@@ -131,6 +134,10 @@ export class BsNavbarComponent implements OnInit {
       this.router.navigate(['/fanshop/products']);
     } else if(arg === 'wishlist') {
       this.router.navigate(['/fanshop/wishlist']);
+    } else if(arg === 'finance') {
+      this.router.navigate(['/5/finance']);
+    } else if(arg === 'profile') {
+      this.router.navigate(['/5/user/profile']);
     }
   }
   logout() {
@@ -170,6 +177,7 @@ export class BsNavbarComponent implements OnInit {
     this.service.api(url , param, 'POST', this.session)
     .subscribe((response) =>{
         if (response.response_code === 200) {
+          this.disabled = false;
           // console.log(response);
             window.location.href = response.data.authorization_url;
         }
@@ -182,5 +190,30 @@ export class BsNavbarComponent implements OnInit {
   }
   closeAlert() {
     this.message = null;
+    }
+    getUserBalance () {
+      const param = {
+        'user_id': this.currentUser.user_id
+       };
+    this.service.api('user/finance/get_user_balance', param, 'POST', this.session)
+    .subscribe(
+      (response) => {
+       console.log(response.data);
+       const  currentBalance = response.data.user_balance.real_amount;
+        this.userbalance =  response.data.user_balance;
+      //   this.point_balance  = parseFloat(this.user_balance.point_balance);
+      //   this.currentBalance = Number(currentBalance);
+      //  this.dataservice.userBalance.emit(this.user_balance);
+      },
+      (error) => {
+        if (error['error']['global_error'] === 'Session key has expired') {
+          this.message = error['error']['global_error'];
+          this.tag = 'danger';
+          setTimeout(() =>  this.router.navigate(['/']) , 5000);
+        // this.router.navigate(['/']);
+        }
+      }
+    );
+  
     }
 }

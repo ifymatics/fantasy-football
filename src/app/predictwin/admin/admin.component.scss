@@ -1,0 +1,78 @@
+@mixin for-lg {
+    @media screen and (min-width: 996px) {
+        @content;
+    }
+}
+
+.main {
+    height: 100%;
+}
+
+.admin-navbar {
+    background-color: #fff;
+    i {
+        @include for-lg {
+            display: none;
+        }
+    }
+    img {
+        margin-left: 53px;
+        @include for-lg {
+            margin-left: auto;
+        }
+    }
+}
+
+.row {
+    height: 100%;
+}
+
+.leftColumn {
+    display: none;
+    background: #f7f7f7;
+    @include for-lg {
+        display: unset;
+    }
+}
+
+.sidebar {
+    height: 100%;
+    ul {
+        list-style: none;
+        padding: 0;
+        @include for-lg {
+            display: grid;
+            height: 100%;
+            align-content: center;
+        }
+        li {
+            margin-bottom: 20px;
+            @include for-lg {
+                display: flex;
+                margin-bottom: 30px;
+                justify-content: center;
+                a {
+                    text-decoration: none;
+                    height: 56px;
+                    text-align: center;
+                    display: flex;
+                    width: 150px;
+                    justify-content: center;
+                    color: #d90000;
+                    align-items: center;
+                    border-radius: 4px;
+                    border: 1px solid #d90000;
+                    background-color: white;
+                }
+            }
+        }
+        li.active {
+            @include for-lg {
+                a {
+                    background-color: #d90000;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

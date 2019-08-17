@@ -1,11 +1,12 @@
 import { DeviceDetectorService } from "ngx-device-detector";
 import { LobbyService } from "./../../lobby/lobby.service";
 import { LeagueService } from "./../league.service";
-import { ActivatedRoute, Router, ParamMap } from "@angular/router";
+import { ActivatedRoute, Router, ParamMap, NavigationStart } from "@angular/router";
 import { UtilityService } from "./../../utility.service";
 import { AuthloginService } from "src/app/user/authlogin.service";
 import { Component, OnInit } from "@angular/core";
 import { PlayersUtilityService } from "src/app/players-utility.service";
+import { filter } from "rxjs/Operators";
 
 @Component({
   selector: "app-completed",
@@ -94,7 +95,7 @@ export class CompletedComponent implements OnInit {
   status;
   match = [];
   teamName;
-
+  subscription;
   constructor(
     private service: AuthloginService,
     private playerservice: PlayersUtilityService,
@@ -107,6 +108,13 @@ export class CompletedComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.subscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationStart)
+    ) .subscribe(
+      () => {window.scrollTo({ top: 0, behavior: 'smooth' });
+      console.log(window.scrollY);
+    }
+    );
     this.mobileDevice = this.deviceService.isMobile();
     this.route.parent.params.subscribe((params: ParamMap) => {
       this.league_id = params["league_id"];
@@ -222,13 +230,14 @@ export class CompletedComponent implements OnInit {
           if (response.response_code === 200) {
             this.isLoading = false;
             this.lineupDetails = response.data.lineup;
-            // console.log(this.lineupDetails);
+            console.log( response.data.lineup);
             this.teamInfo = response.data.team_info;
-            this.teamInfo.collection_master_id =
-              response.data.lineup[0].collection_master_id;
-            this.teamInfo.league_id = response.data.lineup[0].league_id;
-            this.teamInfo.lineup_master_id =
-              response.data.lineup[0].lineup_master_id;
+            this.teamInfo.collection_master_id = response.data.lineup[0]?
+              response.data.lineup[0].collection_master_id: '';
+            this.teamInfo.league_id =  response.data.lineup[0]? 
+            response.data.lineup[0].league_id :'';
+            this.teamInfo.lineup_master_id = response.data.lineup[0]?
+              response.data.lineup[0].lineup_master_id : '';
             this.teamInfo.rank = this.router.isActive("livecontest", true)
               ? lineup.current_rank
               : lineup.game_rank; // New Changes

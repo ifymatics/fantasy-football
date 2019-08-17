@@ -1,0 +1,77 @@
+<div class="main">
+
+    <div class="pageTitle">
+        <div class="containers">
+            <h4>Manage Games</h4>
+        </div>
+    </div>
+
+    <div style='margin-bottom: 20px; padding: 13px 0; background-color: #f3f3f3;'>
+        <button mdbBtn mdbWavesEffect class='waves-light relative bg-primary' (click)='leagueCreationModal.show()'>Create League</button>
+    </div>
+
+    <!-- Game list section starts -->
+    <div class="gameList">
+        <ul>
+            <li>
+
+                <div class="containers">
+                    <!-- Single game body starts -->
+                    <div class='singleGameBody'>
+                        <div *ngFor="let league of leagues">
+                             <!-- Single game teams starts -->
+                        <div class="singleGameTeams" >
+                                <span class="leageName">{{league.name}}</span>
+                            </div>
+                            <!-- Single game teams ends -->
+                        </div>
+                       
+
+                        <!-- Action buttons starts -->
+                        <div class="actionBtnsContainer">
+                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash"></i>
+                        </div>
+                        <!-- Action buttons ends -->
+                    </div>
+                    <!-- Single game body ends -->
+                </div>
+
+            </li>
+        </ul>
+    </div>
+    <!-- Game list section ends -->
+
+    <!-- League creation modal starts -->
+    <div class="modal fade" tabindex="-1" mdbModal #leagueCreationModal='mdbModal'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header d-flex">
+                    <h4>Create League</h4>
+                    <span class="close ml-auto" (click)='leagueCreationModal.hide()'>&times;</span>
+                </div>
+
+                <div class="modal-body">
+                    <form  [formGroup]="leagueForm" (ngSubmit)=" cleateLeage()">
+                        <!-- <div class="form-controls">
+                            <label for="leagueName">League Name</label>
+                            <input type="text" placeholder="e.g 'EPL'">
+                        </div> -->
+                        <div class="form-controls">
+                            <label for="leagueID">League ID</label>
+                            <input formControlName="id" type="text" placeholder="e.g 'EPL'">
+                        </div>
+                        <div class="form-controls">
+                            <label for="leagueName">League Name</label>
+                            <input  formControlName="name" type="text" placeholder="e.g 'EPL'">
+                        </div>
+
+                        <button [disabled]="!leagueForm.valid" mdbBtn mdbWavesEffect class='waves-light relative bg-primary'>Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- League creation modal ends -->
+</div>

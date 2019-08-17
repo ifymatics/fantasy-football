@@ -416,3 +416,58 @@ a#dropdownlink {
 }
 
 /* Header ends */
+
+/* Get token modal starts */
+
+.tokenAmountInput {
+    background-color: #e9ecef;
+    border: none;
+    text-align: center;
+    font-size: 23px;
+    border-radius: 8px;
+    font-size: 23px;
+  }
+  
+  .tokenAmountControllers {
+    border: 1px solid #585858;
+    padding: 10px 15px;
+    border-radius: 8px;
+  }
+  
+  .modal-dialog {
+    position: absolute;
+    bottom: 0;
+  }
+   .desktop {
+     top:10vh;
+    left:30vw;
+    width: 40vw;
+   }
+   .desktopModal {
+    top:5vh;
+  // left:20vw;
+  //  width: 50vw;
+  }
+
+  /* Small spinner in token button starts */
+  .spinner1 {
+    border: 3px solid #fff;
+    border-top: 3px solid #387ab7;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    animation: spin 700ms linear infinite;
+    margin-left: 5px;
+  }
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  /* Small spinner in token button ends */
+  
+  
+  /* Get token modal ends */

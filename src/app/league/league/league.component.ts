@@ -2,7 +2,8 @@
 import { UtilityService } from './../../utility.service';
 import { AuthloginService } from './../../user/authlogin.service';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { filter } from 'rxjs/Operators';
+import { Router, ActivatedRoute, Params, NavigationStart, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-league',
@@ -19,13 +20,20 @@ export class LeagueComponent implements OnInit {
   isLoading = false;
   showReload = false;
   onAnimate = false;
-
+  subscription;
 // data = {sports_id: 5};
 data: {sports_id: number};
   constructor(private router: Router, private service: AuthloginService, private utilityService: UtilityService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.subscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationStart)
+    ) .subscribe(
+      () => {window.scrollTo({ top: 0, behavior: 'smooth' });
+      console.log(window.scrollY);
+    }
+    );
     this.isLoading = true;
    // this.service.isLoggedIn = this.utilityService.checkLocalStorageStatus('user');
     /*this.data = {

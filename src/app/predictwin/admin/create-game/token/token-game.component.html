@@ -1,0 +1,104 @@
+<div class="main">
+    <form class='containers' [formGroup]="tokenGameForm">
+
+
+
+        <div class="innerContainer">
+            <div class='form-controls'>
+                <label for="homeTeam">Game Name</label>
+                <input formControlName="title" type="text" placeholder="e.g 'Arsenal'" name="homeTeam">
+            </div>
+
+            <div class='form-controls'>
+                <label for="league">League</label>
+                <select formControlName="league_id" name="league" id="league">
+            <option [ngValue]="null" disabled>Select League</option>
+            <option *ngFor="let league of leagues" [ngValue]="league.id">{{league.name}}</option>
+          </select>
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-6">
+                    <div class='form-controls'>
+                        <label for="date">Date</label>
+                        <input type='date' name="date" id="">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class='form-controls'>
+                        <label for="time">Time</label>
+                        <input type="text" name='time' placeholder="e.g '21:30'">
+                    </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-6">
+                    <div class='form-controls'>
+                        <label for="entryFee">Entry Fee</label>
+                        <input formControlName="entry_fee" type="text" placeholder="e.g 'Free'" name='entryFee'>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class='form-controls'>
+                        <label for="prize">Prize</label>
+                        <input formControlName="prize" type="text" placeholder="e.g '10'">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class='mb-3'>
+
+            <div class=''>
+                
+                <!-- Single added game ends -->
+                 <div formArrayName="games">
+                <div class="addGameContainer innerContainer" *ngFor="let game of tokenGameForm.get('games').controls; let i =index">
+                    <span (click)="destroyFormArray(i)" class="close" style='display: block; text-align: right; float: none;'>&times;</span>
+                    <div class="row" [formGroupName]="i">
+                        <div class="col-6" >
+                            <div class='form-controls'>
+                                <label>Home Team</label>
+                                <input formControlName="home" type="text" placeholder="e.g 'Arsenal'">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class='form-controls'>
+                                <label>Away Team</label>
+                                <input formControlName="away" type="text" placeholder="e.g 'Man Utd'">
+                            </div>
+                        </div>
+                        <!--just added-->
+                        <div class='form-controls'>
+                                <label>Date</label>
+                                <input formControlName="date" type="datetime-local" placeholder="e.g 'Man Utd'">
+                            </div>
+                        <!--just added-->
+                    </div>
+                </div>
+              </div>
+                <span (click) ="createFormArray()" class='addGameButton'>Add Game + </span>
+            </div>
+
+
+
+            <!-- Add game container starts -->
+
+            <!-- <div class="addGameContainer innerContainer">
+
+
+
+                <div class='d-flex justify-content-around'>
+                    <button mdbBtn mdbWavesEffect class='waves-light relative bg-danger'>Cancel</button>
+                    <button mdbBtn mdbWavesEffect class='waves-light relative bg-primary'>Submit</button>
+                </div>
+            </div> -->
+            <!-- Add game container ends -->
+        </div>
+
+        <button (click)="createGame()" [disabled]="!tokenGameForm.valid || isLoading" class="relative bg-primary waves-light " mdbBtn mdbWavesEffect style='width: 100%; margin: 0 auto;'> Create </button>
+
+    </form>
+</div>

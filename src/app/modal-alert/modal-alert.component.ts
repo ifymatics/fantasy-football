@@ -14,6 +14,7 @@ export class ModalAlertComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.message);
   }
   onClose() {
   this.close.emit();

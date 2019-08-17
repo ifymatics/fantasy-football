@@ -21,6 +21,7 @@ wishListProducts;
 readMore = true;
 message;
 tag;
+disabled = false;
 user_balance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0};
   constructor(private fanshopservice: FanshopService,
     private db: AngularFirestore, private utils: UtilityService,
@@ -51,14 +52,14 @@ onReadMore(){
   this.readMore = !this.readMore;
 }
 confirmPurchase (prod) {
-
+   this.disabled = true;
     this.fanshopservice.buyNow(prod,this.session, this.userId);
-  this.productModal.hide();
   this.fanshopservice.error.subscribe(
     data => {
       this.message = data.message;
       this.tag = data.tag;
      // console.log(data);
+     setTimeout(() => this.productModal.hide(), 6000);
     }
   );
 }

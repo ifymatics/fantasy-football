@@ -10,6 +10,7 @@ import { AuthloginService } from 'src/app/user/authlogin.service';
 import {  ModalDirective } from 'angular-bootstrap-md';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { timeout } from 'q';
 
 @Component({
   selector: 'product-card',
@@ -19,8 +20,9 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class ProductCardComponent implements OnInit {
   read = false;
+  disabled = false;
   rating: Rating;
-  user_balance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0};
+  user_balance = {real_amount : 0, winning_amount : 0, bonus_amount : 0, point_balance : 0, token: 0};
   userId;
   color = '';
   rArray = [];
@@ -105,12 +107,13 @@ export class ProductCardComponent implements OnInit {
     this.message = null;
     }
   buyNow(product) {
+    this.disabled = true;
     this.ratingservice.buyNow(product,this.session, this.userId);
     this.ratingservice.error.subscribe(
       data => {
         this.message = data.message;
         this.tag = data.tag;
-        console.log(data);
+        setTimeout(() => this.productModal.hide(), 6000);
       }
     );
   //  if(result === undefined) {
