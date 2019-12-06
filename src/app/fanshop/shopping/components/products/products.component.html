@@ -1,0 +1,34 @@
+ <!--<app-header></app-header>-->
+ <div class="" style="margin-bottom: 35px;">
+    <bs-navbar></bs-navbar>
+   <app-token-modal></app-token-modal>
+ </div>
+ <div class="container">
+    <div class="row" >
+        <div class="col-md-3 categories " style="margin-top: 45px;z-index: 50px;" >
+            <div *ngIf="!mobile" class=' navbarProductSearchBox'>
+                <input type="text" placeholder="Search product" class='' style = "">
+                <i class="fas fa-search"></i>
+            </div>
+      
+          <product-filter [category]="category" style='width: 51%;'></product-filter>
+              <!-- Search bar starts -->
+       <div *ngIf="mobile" class=' navbarProductSearchBox'>
+        <input type="text" placeholder="Search product" class='' style = "">
+        <i class="fas fa-search"></i>
+    </div>
+  <!-- Search bar ends -->
+        </div>
+        <div class="col" style="margin-top: 45px;z-index: 50px;">
+          <div class="row" >
+              <ng-container *ngFor="let p of filteredProducts; let i = index">
+                <div class="col-md-6 col-lg-4 singleCard">
+                  <product-card [product]="p" [shoppingCart]="cart" [ratingArray] = "rating" [showActions]="true"></product-card>
+                </div>
+                <!-- <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div> -->
+              </ng-container>
+            </div>
+        </div>
+      </div>
+ </div>
+

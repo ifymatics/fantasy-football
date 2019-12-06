@@ -1,0 +1,166 @@
+<app-header  [condition] = "true" [status] = "true"></app-header>
+<!-- <app-modal-get-token></app-modal-get-token> -->
+<app-spinner [isLoading]="isLoading"></app-spinner>
+<div class="main">
+    <div>
+        <!-- Breadcrumb starts -->
+
+        <!-- <div class="breadcrumbContainer">
+            <ul>
+                <li class="link">
+                    <a>Home</a>
+                </li>
+                <li>
+                    <a>Predict and Win</a>
+                </li>
+            </ul>
+        </div> -->
+
+        <!-- Body section starts-->
+
+        <!-- Top ads section starts -->
+        <div class="px-4 py-2" style='background-color: #d90000;'>
+            <div class="containers px-0">
+                <div class='topAdContainer'>
+                        <div class="d-flex justify-content-between py-3">
+                                <div class="adBox" style='background: url("assets/image/Predict-and-win-ads/desktop/top/predict-and-win-desktop-top-image-1.jpg"); background-position: center; background-size: cover; background-repeat: no-repeat'>
+                                    <!-- <img src="assets/image/budweiser logo/Budweiser_logo.svg" alt=""> -->
+                                </div>
+                                <div class="adBox" style='background: url("assets/image/Predict-and-win-ads/desktop/top/predict-and-win-desktop-top-image-2.jpg"); background-position: center; background-size: cover; background-repeat: no-repeat'>
+                                    <!-- <img src="assets/image/budweiser logo/Budweiser_logo.svg" alt=""> -->
+                                </div>
+                                <div class="adBox" style='background: url("assets/image/Predict-and-win-ads/desktop/top/predict-and-win-desktop-top-image-3.jpg"); background-position: center; background-size: cover; background-repeat: no-repeat'>
+                                    <!-- <img src="assets/image/budweiser logo/Budweiser_logo.svg" alt=""> -->
+                                </div>
+                            </div>
+                </div>
+
+                <div class="row" id="carousel">
+                        <mdb-carousel
+                          [isControls]="true"
+                          [animation]="'slide'"
+                          class="align-items-center"
+                        >
+                          <mdb-carousel-item>
+                            <img
+                              src="assets/image/Predict-and-win-ads/mobile/predict-and-win-mobile-mobile-carousel-1.jpg"
+                              alt="bg-1"
+                              class="rounded carousel_pix d-block w-75 mx-auto"
+                            />
+                          </mdb-carousel-item>
+                          <mdb-carousel-item>
+                            <img
+                              src="assets/image/Predict-and-win-ads/mobile/predict-and-win-mobile-mobile-carousel-2.jpg"
+                              alt="bg-2"
+                              class="rounded carousel_pix d-block w-75 mx-auto"
+                            />
+                          </mdb-carousel-item>
+                          <mdb-carousel-item>
+                            <img
+                              src="assets/image/Predict-and-win-ads/mobile/predict-and-win-mobile-mobile-carousel-3.jpg"
+                              alt="bg-3"
+                              class="rounded carousel_pix d-block w-75 mx-auto"
+                            />
+                          </mdb-carousel-item>
+                        </mdb-carousel>
+                      </div>
+            </div>
+        </div>
+        <!-- Top ads section ends -->
+
+        <!-- Black league section dropdown starts -->
+        <div class="blackSectionContainer" >
+            <div class="containers">
+                <div class="white-text d-flex"  [formGroup]="leagueForm" >
+                    <span class='small mr-2 grey-text'>League:</span>
+                    <!-- Select league <i class="fas fa-caret"></i> -->
+                    <select  formControlName="league"  (change)="onSelectLeague()" id="leagueDropdown">
+                       <option  [value] = "null" selected>All Leagues</option>
+                        <option   *ngFor="let league of leagues" [value]="league.id">{{league.name }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- #league (change)="onSelectLeague(league.value)" -->
+        <!-- Black league section dropdown ends -->
+
+        <div class="body">
+            <div class="row containers bodyInner noRow">
+                    <div class='col-lg-3 leftAdContainer'>
+                            <div class="" style="height: 100%">
+                                <div class="rightSideAd" style="background-image: url('assets/image/Predict-and-win-ads/desktop/left/predict-and-win-desktop-left-image-1.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; border-top-left-radius: 8px; border-top-right-radius: 8px;"></div>
+                            </div>
+                        </div>
+            
+                        <div class="col-12 col-lg-6 middleContainer">
+                            <!-- Section navigation starts -->
+                            <div class="whiteContainer">
+                                <div class="">
+                                    <ul class="sectionNav">
+                                        <li (click)="onnavigate('tofree')" [routerLink]="['free']" routerLinkActive="active" class="font-weight-bold">
+                                            <a>Free</a>
+                                        </li>
+                                        <li (click)="onnavigate('totoken')" [routerLink]="['token']" routerLinkActive="active" class="font-weight-bold">
+                                            <a>Premium</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Section navigation ends -->
+            
+                            <div class="gameListContainer">
+                                <!-- <router-outlet></router-outlet> -->
+                               <!-- <app-free></app-free> -->
+                                  <router-outlet></router-outlet>
+                               <!-- <app-token></app-token> -->
+                            </div>
+                        </div>
+            
+                        <div class="col-lg-3 col-12 rightColumn">
+                            <!-- <div class="row" style="height: 16%">
+                                <div class="col">
+                                    
+                                </div>
+                            </div> -->
+                            <!-- Desktop Submit prediction container starts -->
+                                    <div class="predictionSubmitContainer">
+                                        <div class="containers">
+                                            <div class="predictionCount" style="margin-bottom: 10px; font-size: 16px; font-weight: 700; color: #464646;">
+                                                Total predictions: {{predictedGames.length}}
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                             <button (click)="onClear()" [disabled] = "predictedGames.length <= 0 " class = "gamesArray"
+                                                [ngClass]="{clearbtn: predictedGames.length>0 }">
+                              Clear All
+                            </button>
+                             <button (click)="submitPrediction()" class='predictionSubmitBtn'  [disabled] = "(router.url === '/predict-win/free')?(predictedGames.length <= 0 || isLoading): predictedTokenGameObj.length !== gameNumber"
+                             [ngClass]="{submitbtn: (router.url === '/predict-win/free')?(predictedGames.length > 0 || isLoading): predictedTokenGameObj.length === gameNumber}">
+                              Submit
+                            </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Desktop Submit prediction container ends -->
+            
+            
+                            <div class="rightSideAdContainer" style="height: 81%; margin-top: 15px">
+                                <div class="" style="height: 100%">
+                                    <div class="rightSideAd" style="background-image: url('assets/image/Predict-and-win-ads/desktop/right/predict-and-win-desktop-right-image-1.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
+            
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+
+        <!-- Body section ends-->
+    </div>
+    <app-modal-alert (close)="closeAlert()" [message] = "error " [tag]="tag" *ngIf="error"></app-modal-alert>
+   
+    <!-- League selection modal ends -->
+
+</div>
+<!-- Footer starts -->
+<!-- <app-footer></app-footer> -->
+<!-- Footer ends -->
+

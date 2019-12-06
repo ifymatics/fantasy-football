@@ -1,0 +1,68 @@
+<!-- <h1>Orders</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+  </thead> 
+  <tbody>
+    <tr *ngFor="let order of orders$ | async">
+      <td>{{ order.shipping.name }}</td>
+      <td>{{ order.datePlaced | date}}</td>
+      <td>
+        <a href="#">View</a>
+      </td>
+    </tr>
+  </tbody> 
+</table> -->
+<div style="margin-bottom: 100px;">
+  <bs-navbar></bs-navbar>
+</div>
+
+<div class=' main'>
+  <div class='header container'>
+    <h3 class='page-title'>Users' Orders</h3>
+    <div>
+      <form>
+        <input type="text" placeholder="Search user">
+        <i class="fas fa-search"></i>
+      </form>
+    </div>
+  </div>
+
+
+  <div class='container mt-3 table-section'>
+    <!-- Table starts -->
+    <div class="tableContainer">
+      <table>
+        <thead>
+          <tr>
+            <th>User name</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Purchase Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let order of orders$  ">
+            <td>{{order.user.user_name}}</td>
+            <td>{{order.product.title}}</td>
+            <td>{{order.product.price}} coins</td>
+            <td>{{order.date | date:'dd/MM/yy  hh:mm a'}} </td>
+            <td>
+              <button *ngIf="order.status === 'pending'" (click)="updateStatus(order)" mdbBtn mdbWavesEffect
+                class='relative waves-light text-white btn-sm' style='background-color: #d90000;'>Pending</button>
+              <button mdbBtn mdbWavesEffect class='relative waves-light text-white btn-sm'
+                *ngIf="order.status ==='delivered'" style="background-color: #00D909;">Delivered</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Table ends -->
+  </div>
+</div>

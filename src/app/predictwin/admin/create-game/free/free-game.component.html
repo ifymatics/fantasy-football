@@ -1,0 +1,49 @@
+<div class="main">
+    <form class='containers' [formGroup]= "gameForm" (ngSubmit)=createGame()>
+
+        <div class='form-controls'>
+            <label for="homeTeam">Home Team</label>
+            <input formControlName="home" type="text" placeholder="e.g 'Arsenal'" name="homeTeam">
+        </div>
+
+        <div class='form-controls'>
+            <label for="awayTeam">Away Team</label>
+            <input formControlName="away" type="text" placeholder="e.g 'Chelsea'" name="awayTeam">
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class='form-controls'>
+                    <label for="league">League</label>
+                    <select formControlName="league_id" name="league" id="league">
+                            <option  [ngValue]="null" disabled>Select League</option>
+                <option *ngFor="let league of leagues" [ngValue]="league.id">{{league?.name}}</option>
+              </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class='form-controls'>
+                    <label for="time">Date</label>
+                    <input formControlName="date" type="datetime-local" placeholder="e.g '21:30'">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class='form-controls'>
+                    <label for="entryFee">Entry Fee</label>
+                    <input formControlName="entry_fee" type="text" placeholder="e.g 'Free'" name='entryFee'>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class='form-controls'>
+                    <label for="prize">Prize</label>
+                    <input formControlName="prize" type="text" placeholder="e.g '10'">
+                </div>
+            </div>
+        </div>
+
+        <button [disabled] = "!gameForm.valid || isLoading" class="relative bg-primary waves-relative" mdbBtn mdbWavesEffect style='width: 100%; margin: 0 auto;'> Create </button>
+
+    </form>
+</div>

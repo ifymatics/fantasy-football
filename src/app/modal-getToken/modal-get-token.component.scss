@@ -1,0 +1,78 @@
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 50;
+}
+
+.alert-box {
+  position: fixed;
+  top: 20vw;
+  margin-right: 15px;
+  z-index: 100;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+ // @include for-lg {
+      left: 30vw;
+      top: 20vh;
+      width: 40vw;
+      z-index: 100;
+      margin: unset;
+  //}
+}
+
+.tokenAmountInput {
+  background-color: #e9ecef;
+  border: none;
+  text-align: center;
+  font-size: 23px;
+  border-radius: 8px;
+  font-size: 23px;
+}
+
+.tokenAmountControllers {
+  border: 1px solid #585858;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+.alert-head {
+  display: flex;
+  padding: 16px;
+  border-bottom: 1px solid #9c9c9c;
+  justify-content: space-between;
+  padding-bottom: 8px;
+}
+
+.alert-body {
+  
+  height: 45vh;
+  background-color: #fff;
+  padding-top: 30px;
+  margin: 0 15px;
+  // @include for-lg {
+  //     height: 50vh;
+  // }
+}
+
+.alert-box-actions {
+  text-align: right;
+}
+
+.mobile {
+  width: 90vw;
+  left: 5vw;
+}
+.spinner1 {
+      border: 3px solid #fff;
+      border-top: 3px solid #387ab7;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      animation: spin 700ms linear infinite;
+      margin-left: 5px;
+    }

@@ -1,0 +1,53 @@
+<app-header></app-header>
+<!-- <app-modal-get-token></app-modal-get-token> -->
+<div class="main my-3">
+    <div class="container">
+      <mdb-card>
+        <mdb-card-body class="mdbCard py-1">
+          <div class="row pr-0 align-items-center">
+            <mdb-card-title class="mb-0 col-md-3 col-lg-4 col-12">
+              <h4 class="mb-0">My Account</h4>
+            </mdb-card-title>
+            <div class="accountInfo">
+              <div class="coinsAndBalance">
+                <div>
+                  <span class="d-block small"><img src="assets/image/coin_img/Fancoin.png" style='height: 30px'> Coins</span>
+                  <span> {{user_balance.point_balance}}</span>
+                </div>
+                <div class="ml-3">
+                  <span class="d-block small"><img src="assets/image/coin_img/Token_small.png" style='height: 30px'>Token</span>
+                  <span>{{user_balance.token}}</span>
+                </div>
+              </div>
+              <!-- <div class="col-12 btnRow">
+                <button mdbBtn mdbWavesEffect class=" btn-sm green waves-light relative px-2"  [routerLink]="['./deposit']">ADD FUNDS</button>
+                <a mdbBtn mdbWaveEffect class="btn-sm font-weight-bold green-text px-2">Request Withdrawal</a>
+              </div> -->
+
+            </div>
+
+          </div>
+        </mdb-card-body>
+      </mdb-card>
+
+      <!-- Sectiion navigation starts -->
+      <div>
+        <ul class="nav nav-tabs">
+          <!-- <li routerLinkActive='active'><a [routerLink]="['./buy-coins']" >Buy Coins</a></li>
+          <li routerLinkActive='active'><a [routerLink]="['./deposit']">Deposit</a></li> -->
+          <li routerLinkActive='active'><a [routerLink]="['./history']">History</a></li>
+        </ul>
+      </div>
+      <!-- Sectiion navigation ends -->
+      <mdb-card>
+        <div class="">
+
+          <router-outlet></router-outlet>
+
+        </div>
+
+
+      </mdb-card>
+    </div>
+  </div>
+<app-footer></app-footer>

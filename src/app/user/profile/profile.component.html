@@ -1,0 +1,115 @@
+<app-header></app-header>
+<div class="main">
+  <div class="container">
+    <div>
+    <!-- <div class="banner-container " style="background: url('assets/image/user-profile-banner.png')">
+      <div class="text-right mr-2 pt-3">
+        <span>Available Balance</span>
+        <h4 class="font-weight-bold">{{profileDetail?.balance}}</h4>
+        <button routerLink="/5/finance/deposit" class="waves-light relative btn-sm"  mdbBtn mdbWavesEffect>ADD FUND</button>
+      </div>
+
+      
+    </div> -->
+
+    <div id='profilePictureHolder' class="text-center" >
+        <img src="{{profileDetail?.image || 'assets/image/default_user.png'}}" alt="">
+      </div>
+
+
+
+    <div class="bottom grey lighten-4 pb-2">
+      <div class="bottom-top text-center">
+          <h3 class="font-weight-bold">{{(profileDetail?.first_name || profileDetail?.last_name) ? profileDetail?.first_name +' '+ profileDetail?.last_name : ''}}</h3>
+          <ul class="username">
+            <li>
+                <span><span class="details">Username:</span> {{profileDetail?.user_name || '-'}}</span>
+            </li>
+            <li>
+              <span><span class="details">Member Since: </span> {{profileDetail?.added_date | date: 'yyyy'}}</span>
+            </li>
+          </ul>
+
+
+
+
+      </div>
+
+      <div class="bottom-middle">
+        <div class="col-sm-12 text-center">
+
+            <a [routerLink]="['edit']" routerLinkActive="router-link-active"  mdbBtn mdbWavesEffect class=" waves-light relative blue btn-sm">Edit</a>
+
+            <button (click)='changePassword.show()' mdbBtn mdbWavesEffect class="waves-light relative blue btn-sm">Change Password</button>
+
+        </div>
+
+        <!-- <div class="d-flex justify-content-between justify-content-around">
+            <button mdbBtn mdbWavesEffect class="waves-light relative blue btn-sm">Edit</button>
+            <button mdbBtn mdbWavesEffect class="waves-light relative blue btn-sm">Change Password</button>
+        </div> -->
+      </div>
+
+      <div class="bottom-bottom container mt-3 formsection">
+        <div class="md-form mx-auto">
+    <input type="text" id="emailAddress" value="{{profileDetail?.email}}" class="form-control" disabled mdbInputDirective>
+        <label for="emailAddress">Email</label>
+      </div>
+        <div class="md-form">
+        <label for="dob">Date of Birth</label>
+        <input type="text" class="form-control" id="dob" value="{{profileDetail?.dob | date}} (age {{getOnlyYear}} years)" disabled mdbInputDirective>
+      </div>
+        <div class="md-form">
+        <label for="gender">Gender</label>
+        <input type="text" class="form-control" id="gender" value="{{profileDetail?.gender || '-'}}" disabled mdbInputDirective>
+      </div>
+        <div class="md-form">
+        <label for="mobileNumber">Mobile Number</label>
+        <input type="text" class="form-control" id="mobileNumber" value="{{profileDetail?.phone_no || '-'}}" disabled mdbInputDirective>
+      </div>
+        <div class="md-form">
+        <label for="address">Address</label>
+         <input type="text" class="form-control" id="address" value="{{profileDetail?.address || '-'}}" disabled mdbInputDirective>
+      </div>
+    </div>
+
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="modal fade" tabindex="-1" mdbModal #changePassword = 'mdbModal' aria-labelledby="changePassword" aria-hidden="true">
+    <div class="modal-dialog" role="dialog">
+      <div class="modal-content">
+        <div class="modal-header d-flex" style='background: #F4F4F4; border-bottom: 1px solid #e5e5e5; padding:15px;'>
+          <h4 style='font-size: 16px; color:#333;' class='font-weight-bold'>CHANGE PASSWORD</h4>
+          <span class="close ml-auto" (click)='changePassword.hide()'>&times;</span>
+        </div>
+
+        <div class="modal-body">
+          <form class="container" [formGroup]="changePasswordForm" (ngSubmit) = "onChangePassword()">
+            <div class="md-form">
+              <label for="currentPassword">Current Password</label>
+              <input  [mdbValidate]= "false" formControlName="old_password" type="text" id="CurrentPassword" class="form-control" mdbInputDirective>
+
+            </div>
+            <div class="md-form">
+              <label for="newPassword">New Password</label>
+              <input   formControlName="password" [mdbValidate]= "false" type="text" id="newPassword" class="form-control" mdbInputDirective>
+            </div>
+            <div class="md-form">
+              <label for="confirmNewPassword">Confirm New Password</label>
+              <input formControlName="confirmpassword" type="text" id='confirmNewPassword' [mdbValidate]= "false" class="form-control" mdbInputDirective>
+              <span *ngIf=" changePasswordForm.get('password').value
+              !== changePasswordForm.get('confirmpassword').value "
+              style="color:red; border-color: rgb(112, 5, 5);">The new passwords must match</span>
+            </div>
+            <div class="d-flex">
+              <button type="submit" [disabled]="!changePasswordForm.valid"
+              class="waves-light btn-primary relative ml-auto" style=" font-size: 12px;line-height: 1.5;border-radius: 3px;" mdbBtn mdbWavesEffect>CHANGE</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:10px; "><app-footer></app-footer></div>

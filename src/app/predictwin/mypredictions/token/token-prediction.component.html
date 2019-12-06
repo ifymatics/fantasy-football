@@ -1,0 +1,104 @@
+<div class="main">
+
+    <!-- Games category container starts -->
+    <div   class="gamesContainer" *ngIf="userTokenPredictions.length>0;else empty">
+
+        <!-- Single game dropdown starts -->
+        <div  style = "margin-bottom: 10px;" class="singleGameDropdown"  *ngFor="let userToken of userTokenPredictions; let gameArrayIndex = index"  >
+
+            <!-- Single game header starts -->
+            <div class="containers dropdownhHeader d-flex align-items-center" (click)='toggleDropdown(userToken.id,gameArrayIndex)'  [ngClass]='{active: toggledIdArray.includes(userToken.id)}'>
+                <div>
+                    <h3 class='gameTitle mb-0'>{{userToken.title}}</h3>
+                    <div>
+                <span class="entryFee small"><b>Entry:</b> <b>{{userToken.entry_fee}}</b> <img src="assets/image/coin_img/Token_small.png" alt="" style="height: 20px"></span>
+                <span class="prize small ml-3"><b>Prize:</b> <b>{{userToken.prize}}</b> <img src="assets/image/coin_img/Fancoin.png" style="height: 20px"></span>
+                <span class="prize small ml-3"> <b>{{userToken?.date | date:'dd/MM/yy  hh:mm a'}}</b> </span>
+                    </div>
+                </div>
+                <i class="fas fa-caret-down"></i>
+            </div>
+            <!-- Single game header ends -->
+
+            <!-- Single game body starts -->
+            <div class="dropdownBody" [ngClass]='{active: toggledIdArray.includes(userToken.id)}'>
+                <div>
+                    <div class='d-flex containers predictionOrOutcomeContainer'>
+                        <span class='ml-auto mr-3'>Prediction</span>
+                        <span class=''>Outcome</span>
+                    </div>
+                </div>
+
+                <!-- Single game day section starts -->
+                <div class='singleGameDay'>
+
+                    <!-- Game date starts -->
+                    <div class="gameDate">
+                        <div class="containers">
+                            <span style='font-variant: small-caps;
+                            font-size: 14px;
+                            font-weight: 600;'>10/8</span>
+                        </div>
+
+                    </div>
+                    <!-- Game date ends -->
+
+                    <!-- Game list section starts -->
+                    <div class="gameList" *ngFor="let game of userToken.game">
+                        <ul>
+                            
+                            <li>
+                                
+                                <div class="containers">
+                                    <!-- Single game header starts -->
+                                    <div class='singleGameHeader d-flex justify-content-between'>
+                                        <span class="small gameTime"> {{game?.date  | date:'short'}}</span>
+                                        <span *ngIf="game.points;else zero"  class="small gamePrize">Point(s): {{game.points}}</span>
+                                        <!-- <span class="small gamePrize">Prize: 1 coin</span> -->
+                                        <ng-template #zero> <span class="small gamePrize">Point(s):  0</span></ng-template>
+                                    </div>
+                                    <!-- Single game header ends -->
+
+                                    <!-- Single game body starts -->
+                                    <div class='singleGameBody'>
+
+
+                                        <!-- Single game teams starts -->
+                                        <div class="singleGameTeams">
+                                            <span class="homeTeam">{{game.home}}</span>
+                                            <span class="awayTeam">{{game.away}}</span>
+                                        </div>
+                                        <!-- Single game teams ends -->
+
+                                        <!-- Action buttons starts -->
+                                        <div class="actionBtnsContainer">
+                                            <button class="actionBtn selectedBtn">{{game.button.name}}</button>
+                                            <button *ngIf="game.scored && game.result" class="actionBtn white-text successBtn" style='margin-right: 6px; margin-left: 2px;'><i class="fas fa-check"></i></button>
+                                            <button *ngIf="game.scored && !game.result" class="actionBtn white-text failureBtn" style='margin-right: 6px; margin-left: 2px;'><i class="fas fa-times"></i></button>
+                                            <div *ngIf="!game.scored && !game.result" class='noResult'></div>
+                                        </div>
+                                        <!-- Action buttons ends -->
+                                    </div>
+                                    <!-- Single game body ends -->
+                                </div>
+
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    <!-- Game list section ends -->
+                </div>
+                <!-- Single game day section ends -->
+
+
+            </div>
+            <!-- Single game body ends -->
+
+
+        </div>
+      
+        <!-- Single game ends -->
+    </div>
+    <ng-template #empty> No token Game Predicted</ng-template>
+    <!-- Games category container ends -->
+</div>

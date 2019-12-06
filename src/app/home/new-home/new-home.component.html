@@ -1,0 +1,158 @@
+<app-header [condition] = "true" [status]="false"></app-header>
+<app-modal-get-token></app-modal-get-token>
+<div class='main'>
+
+    <!-- MObile starts -->
+
+    <!-- <div id='forMobile'>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/football-manager.png"); background-repeat: no-repeat; background-size: contain;'  [routerLink]="['/5/league']"></div>
+        </a>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/predict-and-win.png"); background-repeat: no-repeat; background-size: contain;' [routerLink]="['/predictw-win']"></div>
+        </a>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/fan-shop.png"); background-repeat: no-repeat; background-size: contain;' [routerLink]="['/fanshop/products']"></div>
+        </a>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/fantasy-quiz.png"); background-repeat: no-repeat; background-size: contain;'></div>
+        </a>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/news.png"); background-repeat: no-repeat; background-size: contain;'></div>
+        </a>
+        <a>
+            <div style='background-image: url("assets/image/Homepage-images/social.png"); background-repeat: no-repeat; background-size: contain;'></div>
+        </a>
+    </div> -->
+
+    <!-- Mobile ends -->
+
+    
+
+    <div id="forDesktop">
+        <div class="containers">
+            <div class="row">
+                
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard" [routerLink]="['/fanshop/products']" style ="cursor: pointer;" (click)='indicateSelectedCard("fanshop")'>
+                    <mdb-card class=''>
+
+                        <div class="singleSection">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/fanshop.jpg" alt="">
+                            </div>
+                            <div class='sectionTitleContainer'>
+                                <div class='sectionTitle'>
+                                    <h3 [style.color]='cardId === "fanshop" ? "#d90000" : "#242a31"'>FANshop</h3>
+                                </div>
+                                <div class='sectionInfo'>Put your coins to use on the things you love</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard" [routerLink]="['/5/league']"  routerLinkActive="" style ="cursor: pointer;" (click)='indicateSelectedCard("football-manager")'>
+                    <mdb-card class=''>
+
+                        <div class="singleSection">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/footballManager.png" alt="">
+                            </div>
+                            <div class='sectionTitleContainer'>
+                                <div class='sectionTitle'>
+                                    <h3 [style.color]='cardId === "football-manager" ? "#d90000" : "#242a31"'>Football Manager</h3>
+                                </div>
+                                <div class='sectionInfo'> Build your team, top the league and win great prizes</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard" [routerLink]="['/predict-win']" style ="cursor: pointer;" (click)='indicateSelectedCard("predict-and-win")'>
+                    <mdb-card class=''>
+
+                        <div class="singleSection">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/predict_n_win_icon.png" alt="">
+                            </div>
+                            <div class='sectionTitleContainer'>
+                                <div class='sectionTitle'>
+                                    <h3 [style.color]='cardId === "predict-and-win" ? "#d90000" : "#242a31"'>Predict and Win</h3>
+                                </div>
+                                <div class='sectionInfo'>Predict the winner of a match to win prizes</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard" style ="cursor: pointer;" (click)='indicateSelectedCard("American-pickem")'>
+                    <mdb-card class=''>
+
+                            <span class='comingSoon'>Coming Soon</span>
+                        <div class="singleSection comingSoonCategory">
+                            <div class="sectionImage americanPickem">
+                                <img src="assets/image/Homepage-images/American-pickem-logo.png" alt="" class=''>
+                            </div>
+                            <div class='sectionTitleContainer'>
+                                <div class='sectionTitle'>
+                                    <h3 [style.color]='cardId === "American-pickem" ? "#d90000" : "#242a31"'>American Pick'em</h3>
+                                </div>
+                                <!-- <div class='sectionInfo'>Put your coins to use on the things you love</div> -->
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard" style ="cursor: pointer;" (click)='indicateSelectedCard("quiz")'>
+                    <mdb-card class=''>
+
+                            <span class='comingSoon'>Coming Soon</span>
+                        <div class="singleSection comingSoonCategory">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/quiz.png" alt="">
+                            </div>
+                            <div class='sectionTitleContainer'>
+                                <div class='sectionTitle'>
+                                    <h3 [style.color]='cardId === "quiz" ? "#d90000" : "#242a31"'>Quiz</h3>
+                                </div>
+                                <div class='sectionInfo'>Test your knowledge of football</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+                <!-- Single Card starts-->
+                <div class="col-md-6 col-lg-4 singleCard" style ="cursor: pointer;">
+                    <mdb-card class=''>
+
+                            <span class='comingSoon'>Coming Soon</span>
+                        <div class="singleSection comingSoonCategory">
+                            <div class="sectionImage">
+                                <img src="assets/image/Homepage-images/social.jpg" alt="" (click)='indicateSelectedCard("social")'>
+                            </div>
+                            <div class='sectionTitleContainer'>
+                                <div class='sectionTitle'>
+                                    <h3 [style.color]='cardId === "social" ? "#d90000" : "#242a31"'>Social</h3>
+                                </div>
+                                <div class='sectionInfo'>Connect through your passion</div>
+                            </div>
+                        </div>
+
+                    </mdb-card>
+                </div>
+                <!-- Single card ends -->
+            </div>
+        </div>
+    </div>
+</div>

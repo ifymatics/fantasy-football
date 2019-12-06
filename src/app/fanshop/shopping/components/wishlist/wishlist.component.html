@@ -1,0 +1,115 @@
+<!-- <app-header></app-header> -->
+<bs-navbar></bs-navbar>
+<div class="main">
+ <!--alert Widget-->
+ <app-token-modal></app-token-modal>
+ <app-modal-alert (close)="closeAlert()" [deviceType] ="deviceService.isMobile()" [message] = "message" [tag]="tag" *ngIf="message" ></app-modal-alert>
+ <!--End of alert widget-->
+
+  <!-- Page title starts -->
+  <div class='orderHistory'>
+      <h3>Wishlist</h3>
+  </div>
+  <div class="orderList">
+      <!-- Page title ends -->
+
+      <!-- Order list White background starts -->
+      <div class="orderWhiteBackground">
+            
+          <div class="row" *ngFor="let product of wishListProducts$ | async">
+              <div class='orderDay'>
+
+                  <!-- Single order starts -->
+                  <div class="col-sm-12 col-lg-12 singleProductCard" >
+                      <div class=' d-flex orderDetails'>
+                          <div class="productImageContainer">
+                              <img [src]="product.imageUrl" alt="Product Image">
+                          </div>
+
+                          <div class="productInfoContainer">
+                              <div class="productName">{{product.title}}</div>
+                              <div class="productPrice">Price: {{product.price}} coins</div>
+                              <div class="d-flex justify-content-between">
+                                    <div class="productQuantity">Qty: 1</div>
+                                    <button class="m-0 px-3 py-2 waves-light relative btn-sm"
+                                     mdbBtn mdbWavesEffect 
+                                     style='white-space: nowrap; background-color: #D90000;'
+                                     (click)='show(product)' >Buy Now</button>
+                              </div>
+                              
+
+                          </div>
+                      </div>
+                  </div>
+                  <!-- Single order ends -->
+
+              </div>
+
+          </div>
+        
+      </div>
+
+  </div>
+</div>
+
+<div class='modal fade' tabindex="-1" mdbModal #productModal='mdbModal'>
+        <div class="modal-dialogue modal-md">
+            <div class="modal-content">
+                <div class="modal-header d-flex">
+                    <h5>Buy product</h5>
+                    <span class='ml-auto close' (click)='productModal.hide()'>&times;</span>
+                </div>
+    
+                <div class="modal-body">
+                    <div>
+                        <div class='productInfoTop'>
+                            <img [src]="product?.imageUrl" alt="Product Info">
+    
+                            <!-- Product brief info starts -->
+                            <div>
+                                <div class="productName">{{product?.title}}</div>
+                                <div class="productRatingsContainer">
+                                    <div class='productStars'>
+                                  
+                                          <i style = "color: #ffd439;"  class="fa fa-star" aria-hidden="true"></i>
+                                          <i style = "color: #ffd439;"  class="fa fa-star" aria-hidden="true"></i>
+                                          <i style = "color: #ffd439;"  class="fa fa-star" aria-hidden="true"></i>
+                                          <i style = "color: #ffd439;"  class="fa fa-star" aria-hidden="true"></i>
+                                          <i style = "color: #ffd439;"  class="fa fa-star" aria-hidden="true"></i>
+                                    </div>
+                                    <span class="productRatings">(5/5)</span>
+                                    
+                                </div>
+                                <div class="productPrice">{{product?.price}} coins</div>
+                            </div>
+                            <!-- Product brief info ends -->
+                        </div>
+    
+                        <div class="productDescription">
+                            <span class="descriptionTitle">description</span>
+                            <p>{{product?.description}}</p>
+                            <div (click)="onReadMore()" class="readMore" *ngIf="readMore">
+                                Read More
+                            </div>
+                        </div>
+    
+                        <!-- Confirm purchase button starts -->
+                        <div class='purchaseBtnContainer'>
+                            <button  mdbBtn mdbWavesEffect [disabled] = 'disabled'
+                            class="waves-light relative font-weight-bold mx-auto" 
+                            style="background-color: #D90000" (click)="confirmPurchase(product)"> 
+                            Confirm Purchase
+                           </button>
+                            <button  mdbBtn mdbWavesEffect
+                             class="waves-light relative font-weight-bold mx-auto grey"
+                             >Remove Item</button>
+                        </div>
+                        <!-- Confirm purchase button ends -->
+    
+                        
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>

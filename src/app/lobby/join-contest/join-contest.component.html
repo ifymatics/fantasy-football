@@ -1,0 +1,1883 @@
+<app-header></app-header>
+<!-- <app-modal-get-token></app-modal-get-token> -->
+<!--alertModal widget-->
+<app-modal-alert
+  (close)="closeAlert()"
+  [message]="message"
+  [tag]="tag"
+  [deviceType]="!deviceService.isDesktop()"
+  *ngIf="message"
+></app-modal-alert>
+<!--end of alertModal widget-->
+<!--NEW JOIN CONTEST-->
+<!-- BODY STARTS HERE -->
+
+<!-- Black section starts -->
+<div class="black">
+  <div class="container">
+    <div class="black d-flex py-2">
+      <div class="d-flex align-items-center">
+        <span class="small d-block grey-text mr-2">League:</span>
+
+        <div class="dropdown ml-auto" dropdown id="leaguesDropdown">
+          <div dropdownToggle>
+            <span class="white-text">
+              {{ selectedFilterObj.league.league_name || "ALL" }}</span
+            >
+            <i
+              class="fas fa-chevron-down white-text align-self-center ml-4"
+            ></i>
+          </div>
+
+          <div
+            class="dropdown-menu dropdown"
+            *dropdownMenu
+            id="leaguesDropdownMenu"
+          >
+            <!--<div class="text-center ">
+              <h5 class="font-weight-bold">Switch Leagues</h5>
+            </div>-->
+            <div class="list-group">
+              <a
+                class="list-group-item d-flex"
+                *ngFor="let list of leagueListFilter"
+                (click)="setFilterLabel(list, 'league'); getLobbyMatches(list)"
+                >{{ list.league_name }}
+                <i class="fas fa-chevron-right align-self-center ml-auto"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Black section ends -->
+
+<!-- Blue section starts -->
+
+<div class="py-2" id="blueSection" style="background: #d90000">
+  <div class="container">
+    <!-- Desktop top-section ads starts -->
+    <div id="main_pix">
+      <div alt="bg-5" class="rounded">
+        <img
+          src="assets/image/Football-manager-ads/desktop/top/football-manager-desktop-top-image-1.jpg"
+          alt=""
+          height="150px"
+          width="100%"
+        />
+      </div>
+
+      <div alt="bg-2" class="rounded">
+        <img
+          src="assets/image/Football-manager-ads/desktop/top/football-manager-desktop-top-image-2.jpg"
+          alt=""
+          height="150px"
+          width="100%"
+        />
+      </div>
+
+      <div alt="bg-3" class="rounded">
+        <img
+          src="assets/image/Football-manager-ads/desktop/top/football-manager-desktop-top-image-3.jpg"
+          alt=""
+          height="150px"
+          width="100%"
+        />
+      </div>
+    </div>
+    <!-- Desktop top-section ads ends -->
+
+    <!-- Mobile carousel starts -->
+    <div class="row" id="carousel">
+      <mdb-carousel
+        [isControls]="true"
+        [animation]="'slide'"
+        class="align-items-center"
+      >
+        <mdb-carousel-item>
+          <img
+            src="{{
+              mobileCarouselImage.length > 0
+                ? mobileCarouselImage[0]
+                : 'assets/image/Football-manager-ads/mobile/football-manager-mobile-mobile-carousel-1.jpg'
+            }}"
+            alt="bg-1"
+            class="rounded carousel_pix d-block w-75 mx-auto"
+          />
+        </mdb-carousel-item>
+        <mdb-carousel-item>
+          <img
+            src="{{
+              mobileCarouselImage.length > 0
+                ? mobileCarouselImage[1]
+                : 'assets/image/Football-manager-ads/mobile/football-manager-mobile-mobile-carousel-2.jpg'
+            }}"
+            alt="bg-2"
+            class="rounded carousel_pix d-block w-75 mx-auto"
+          />
+        </mdb-carousel-item>
+        <mdb-carousel-item>
+          <img
+            src="{{
+              mobileCarouselImage.length > 0
+                ? mobileCarouselImage[2]
+                : 'assets/image/Football-manager-ads/mobile/football-manager-mobile-mobile-carousel-3.jpg'
+            }}"
+            alt="bg-3"
+            class="rounded carousel_pix d-block w-75 mx-auto"
+          />
+        </mdb-carousel-item>
+      </mdb-carousel>
+    </div>
+    <!-- Mobile carousel ends -->
+  </div>
+</div>
+
+<!-- Blue section ends -->
+
+<!-- Red section starts -->
+
+<div
+  class=" pt-3 pb-2"
+  id="redSection"
+  style="background: url('assets/image/bg-3.jpg')"
+>
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-md-12 col-lg-9 col-xs-12">
+        <!-- Contest table   -->
+
+        <div class="white rounded table-container">
+          <div class="container" style="position: sticky;  top: 0;">
+            <div class="row midwayBtns pb-3">
+              <!-- <div class="filterBtnContainer">
+                    <div class="col-sm-12 ml-auto px-0" mdbDropdown>
+                      <button
+                        class="btn btn-sm blue darken-3 dropdown-toggle ml-0 white-text"
+                        mdbDropdownToggle
+                      >
+                        <i class="fas fa-filter"></i>
+                      </button>
+                      <div class="dropdown-menu text-center" id="filter-dropdown">
+                        <h4 class="text-center font-weight-bold pt-2">Filter by</h4>
+      
+                        <div class="dropdown-divider"></div>
+      
+                        <h5 class="text-center font-weight-bold">Contest</h5>
+                        <a href="#" class="dropdown-item py-2">All Contests</a>
+                        <a href="#" class="dropdown-item py-2">Multiple Contest</a>
+                        <a href="#" class="dropdown-item py-2">Premium Contest</a>
+                        <div class="dropdown-divider"></div>
+                        <h5 class="text-center font-weight-bold">Entry fee</h5>
+                        <a href="#" class="dropdown-item py-2">All</a>
+                        <a href="#" class="dropdown-item py-2">Low to high</a>
+                        <a href="#" class="dropdown-item py-2">High to low</a>
+                        <div class="dropdown-divider"></div>
+                        <h5 class="text-center font-weight-bold">Prizes</h5>
+                        <a href="#" class="dropdown-item py-2">All</a>
+                        <a href="#" class="dropdown-item py-2">Low to high</a>
+                        <a href="#" class="dropdown-item py-2">High to low</a>
+                      </div>
+                    </div>
+                  </div> -->
+
+              <!-- Entry badges for desktop -->
+
+              <div id="desktop_buttons" class="align-self-center">
+                <div class=" ml-auto align-self-center px-2 badgesContainer">
+                  <span class=" small mr-5 " style="white-space: nowrap;">
+                    <span
+                      class="badge badge-pill py-1 amber darken-3 mr-2 white-text"
+                    >
+                      F
+                    </span>
+                    Free Contest
+                  </span>
+                  <span class=" small mr-2 " style="white-space: nowrap;">
+                    <span
+                      class="badge badge-pill py-1 amber darken-3 mr-2 white-text"
+                      >P</span
+                    >
+                    Premium Contest
+                  </span>
+                  <span
+                    class=" small mr-3"
+                    id="firstBadge"
+                    style="white-space: nowrap;"
+                  >
+                    <span class="badge badge-pill mr-2 py-1 badge-info">M</span>
+                    Multiple Entry
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Game type Badges section  -->
+
+          <table class="table white align-items-center pr-0 rounded" id="table">
+            <thead>
+              <tr>
+                <th class="p-0 pb-1">
+                  <img
+                    src="assets/image/Premier_League-Mascot.png"
+                    class=""
+                    alt="EPL Mascot"
+                    id="EPL_Mascot"
+                  /><span class=" font-weight-bold text-dark "
+                    >ALL CONTESTS</span
+                  >
+                </th>
+                <th class="p-2 pb-3 table-contest small text-center">
+                  <a>Entry Coin <i></i></a>
+                </th>
+                <th class="p-2 pb-3 table-contest small text-center">
+                  <a>Participants<i></i></a>
+                </th>
+                <th class="p-2 pb-3 table-contest small text-center">
+                  <a>Prize Pool<i></i></a>
+                </th>
+                <th class="p-2 pb-3 table-contest small text-center">
+                  Starts In (PST)
+                </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="contestList.length > 0">
+              <tr *ngFor="let contest of contestList; let i = index">
+                <td
+                  class="font-weight-bold contest table-item"
+                  id="contest_name_desktop"
+                >
+                  <div class="d-flex align-items-center">
+                    <!-- Mobile dropdown button starts -->
+                    <button
+                      class="waves-dark relative dropdown-toggle mobileContestInfoBtn p-0 black-text"
+                      mdbBtn
+                      mdbWavesEffect
+                      mdbDropdownToggle
+                      (click)="toggleContestInfo(i)"
+                    ></button>
+
+                    <!-- Mobile dropdown button ends -->
+
+                    <div (click)="getContestDetail(contest)">
+                      <span
+                        mdbTooltip="{{ contest.contest_name }}"
+                        position="top"
+                        class="d-block"
+                      >
+                        {{ contest.contest_name }}
+                        <span
+                          *ngIf="contest.contest_access_type === '2'"
+                          class="badge badge-pill amber darken-3 py-1 align-self-center"
+                          >P</span
+                        >
+                        <span
+                          *ngIf="contest.multiple_lineup != '0'"
+                          class="badge badge-pill mr-2 py-1 badge-info"
+                        >
+                          M</span
+                        >
+                        <span
+                          *ngIf="contest.contest_access_type === '3'"
+                          class="badge badge-pill mr-2 py-1 badge-info"
+                        >
+                          T</span
+                        >
+                      </span>
+                      <small>{{ contest.collection_name }}</small>
+                    </div>
+                  </div>
+
+                  <!--  DROPDOWN FOR CONTEST INFO ON MOBILE -->
+                  <div
+                    class=" ml-3 px-2 mt-2"
+                    id="contestinfomobile"
+                    [ngClass]="{ display: mobile && i === clickedIndex }"
+                  >
+                    <div class="d-flex small my-2">
+                      <div
+                        *ngIf="
+                          contest.prize_type == 0 || contest.prize_type == 1
+                        "
+                      >
+                        <span>Entry Coin:</span>
+                        <span
+                          class="ml-auto"
+                          style="padding-left: 100px; margin-left: 40px; font-size: 1em;"
+                          >{{
+                            contest.entry_fee == 0 ? "Free" : contest.entry_fee
+                          }}</span
+                        >
+                      </div>
+                      <div
+                        *ngIf="
+                          contest.prize_type == 2 || contest.prize_type == 3
+                        "
+                      >
+                        <span>Entry Coin:</span>
+                        <span
+                          class="ml-auto"
+                          style="padding-left: 80px; margin-left: 40px; font-size: 1em;"
+                        >
+                          <!-- <i class="fas fa-coins" style="font-size: 1em;"></i> -->
+                          <img
+                            src="assets/image/coin_img/Fancoin.png"
+                            style="height: 22px;"
+                          />
+                          {{
+                            contest.entry_fee == 0 ? "Free" : contest.entry_fee
+                          }}</span
+                        >
+                      </div>
+                    </div>
+
+                    <div class="d-flex small my-2">
+                      <div>
+                        <span>Prize Pool:</span>
+                        <div
+                          class="ml-auto"
+                          mdbDropdown
+                          id="mobileContestInfodropdown"
+                        >
+                          <span
+                            class="d-block small"
+                            *ngIf="contest.prize_type == 2"
+                            style="padding-left: 100px;margin-left: 40px;"
+                          >
+                            <!-- <i class="fas fa-coins"></i> -->
+                            <img
+                              src="assets/image/coin_img/Fancoin.png"
+                              style="height: 22px;"
+                            />
+                            {{ contest.prize_pool }}
+                          </span>
+                          <span
+                            class="d-block small"
+                            *ngIf="contest.prize_type == 3"
+                            style="padding-left: 110px;margin-left: 40px;"
+                          >
+                            <i class="fas fa-gift"> </i>
+                          </span>
+                          <span
+                            class="d-block small"
+                            *ngIf="
+                              contest.prize_type == 0 || contest.prize_type == 1
+                            "
+                            style="padding-left: 100px; margin-left: 40px;"
+                          >
+                            {{ contest.prize_pool }}
+                          </span>
+                          <span
+                            *ngIf="
+                              (contest.prize_distibution_detail &&
+                                contest.prize_pool != 0) ||
+                              contest.prize_type == 3
+                            "
+                          >
+                            <a
+                              mdbDropdownToggle
+                              class="dropdown-toggle"
+                              style="padding-left: 60px;margin-left: 40px;"
+                            >
+                              {{
+                                getPriceDistributionWinner(
+                                  contest.prize_distibution_detail
+                                )
+                              }}
+                              Winner(s)
+                            </a>
+                          </span>
+
+                          <div class="dropdown-menu" id="priceDetailsMobile">
+                            <table>
+                              <thead class="">
+                                <tr>
+                                  <th class="">
+                                    Rank
+                                  </th>
+                                  <th class="">
+                                    Prize
+                                  </th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                <tr
+                                  *ngFor="
+                                    let prize of contest.prize_distibution_detail
+                                  "
+                                >
+                                  <td>
+                                    <span>
+                                      {{ prize.min }}
+                                      {{
+                                        prize.max != prize.min
+                                          ? " - " + prize.max
+                                          : ""
+                                      }}</span
+                                    >
+                                  </td>
+                                  <td
+                                    *ngIf="
+                                      contest.prize_type == 0 ||
+                                      contest.prize_type == 1
+                                    "
+                                  >
+                                    <span>{{ prize.amount }}</span>
+                                  </td>
+                                  <td *ngIf="contest.prize_type == 2">
+                                    <span>{{ prize.amount }}</span>
+                                  </td>
+                                  <td
+                                    class="text-center"
+                                    *ngIf="contest.prize_type == 3"
+                                  >
+                                    <img
+                                      src="{{ prize.image }}"
+                                      title="{{ prize.description }}"
+                                      width="25px"
+                                      height="40px"
+                                      alt=""
+                                    />
+                                    <span title="{{ prize.description }}">{{
+                                      prize.description
+                                    }}</span>
+                                  </td>
+                                  <td></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="d-flex small my-2">
+                      <span>Participants:</span>
+                      <div
+                        class="remaining-progress justify-content-center d-flex align-items-center ml-auto"
+                        mdbTooltip="{{
+                          contest.total_user_joined
+                        }} users joined"
+                        placement="top"
+                      >
+                        <div class="small min-amount">0</div>
+                        <div class=" progress-alt mx-2">
+                          <div
+                            class="progress-bar progress-bar-danger "
+                            [ngClass]="{
+                              crossed:
+                                +contest.total_user_joined >=
+                                contest.minimum_size
+                            }"
+                            role="progressbar"
+                            [style.width.%]="
+                              (contest.total_user_joined / contest.size) * 100
+                            "
+                          ></div>
+                          <span
+                            class="threshold-value"
+                            [style.left.%]="
+                              (contest.minimum_size / contest.size) * 100
+                            "
+                          >
+                            <span class="">{{ contest.minimum_size }}</span>
+                          </span>
+                        </div>
+
+                        <div class="small" *ngIf="contest.is_uncapped != 1">
+                          {{
+                            contest.size < 10
+                              ? "0" + contest.size
+                              : contest.size
+                          }}
+                        </div>
+                        <div class="small" *ngIf="contest.is_uncapped == 1">
+                          ∞
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="d-flex small my-2">
+                      <span>Starts In (PST):</span>
+                      <span class="ml-auto"
+                        >{{ contest.season_scheduled_date | date }}
+                        <small class="contest_date">{{
+                          contest.season_scheduled_date | date: "shortTime"
+                        }}</small>
+                      </span>
+                    </div>
+                  </div>
+
+                  <!--  END OF DROPDOWN FOR CONTEST INFO ON MOBILE -->
+                </td>
+                <td
+                  class="table-item text-center "
+                  *ngIf="contest.is_referral != 1"
+                >
+                  <!--<span class='small'> coins</span>-->
+                  <span
+                    *ngIf="contest.prize_type == 0 || contest.prize_type == 1"
+                    style="font-size:1em;"
+                  >
+                    {{ contest.entry_fee == 0 ? "Free" : contest.entry_fee }}
+                  </span>
+                  <!--/Condition for account balance-->
+                  <!--Condition for coin balance-->
+                  <span
+                    *ngIf="
+                      (contest.prize_type == 2 || contest.prize_type == 3) &&
+                      contest.entry_fee == 0
+                    "
+                    style="font-size:1em;"
+                  >
+                    {{ "Free" }}
+                  </span>
+                  <span
+                    *ngIf="
+                      (contest.prize_type == 2 || contest.prize_type == 3) &&
+                      contest.entry_fee != 0
+                    "
+                    style="font-size:1em;"
+                  >
+                    <!-- <i class="fas fa-coins" [style.font-size.em]="1"></i> -->
+                    <img
+                      src="assets/image/coin_img/Fancoin.png"
+                      style="height: 22px;"
+                    />
+                    {{ contest.entry_fee }}
+                  </span>
+                </td>
+                <td class="table-item text-center ">
+                  <div
+                    class="remaining-progress justify-content-center d-flex align-items-center"
+                    mdbTooltip="{{ contest.total_user_joined }}users joined"
+                    placement="top"
+                  >
+                    <div class="small min-amount">0</div>
+                    <div class=" progress-alt mx-2">
+                      <div
+                        class="progress-bar progress-bar-danger "
+                        [ngClass]="{
+                          crossed:
+                            +contest.total_user_joined >= contest.minimum_size
+                        }"
+                        role="progressbar"
+                        [style.width.%]="
+                          (contest.total_user_joined / contest.size) * 100
+                        "
+                      ></div>
+                      <span
+                        class="threshold-value"
+                        [style.left.%]="
+                          (contest.minimum_size / contest.size) * 100
+                        "
+                      >
+                        <span class="">{{ contest.minimum_size }}</span>
+                      </span>
+                    </div>
+
+                    <div class="small">{{ contest.size }}</div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div
+                    class="ml-auto"
+                    mdbDropdown
+                    id="mobileContestInfodropdown"
+                  >
+                    <a mdbDropdownToggle class="dropdown-toggle">
+                      <span
+                        class="d-block small"
+                        *ngIf="contest.prize_type == 2"
+                        [style.font-size.em]="1"
+                      >
+                        <!-- <i class="fas fa-coins" style="font-size: 1em;"></i> -->
+                        <img
+                          src="assets/image/coin_img/Fancoin.png"
+                          style="height: 22px;"
+                        />
+                        {{ contest.prize_pool }}
+                      </span>
+                      <span
+                        class="d-block small"
+                        *ngIf="contest.prize_type == 3"
+                      >
+                        <i class="fas fa-gift" style="font-size: 1em;"> </i>
+                      </span>
+                      <span
+                        class="d-block small"
+                        *ngIf="
+                          contest.prize_type == 0 || contest.prize_type == 1
+                        "
+                        [style.font-size.em]="1"
+                      >
+                        {{ contest.prize_pool }}
+                      </span>
+                      <small>
+                        {{
+                          getPriceDistributionWinner(
+                            contest.prize_distibution_detail
+                          )
+                        }}
+                        Winner(s)</small
+                      >
+                    </a>
+                    <div class="dropdown-menu" id="priceDetails">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th class="text-center">
+                              <span class="prizeListRank">Rank</span>
+                            </th>
+                            <th class="text-center">
+                              <span class="prizeListPrize">Prize</span>
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr
+                            *ngFor="
+                              let prize of contest.prize_distibution_detail
+                            "
+                          >
+                            <td>
+                              <span>
+                                {{ prize.min }}
+                                {{
+                                  prize.max != prize.min
+                                    ? " - " + prize.max
+                                    : ""
+                                }}</span
+                              >
+                            </td>
+                            <td
+                              *ngIf="
+                                'contest.prize_type==0 || contest.prize_type==1'
+                              "
+                            >
+                              <span>{{ prize.amount }}</span>
+                            </td>
+                            <td *ngIf="contest.prize_type == 2">
+                              <span>{{ prize.amount }}</span>
+                            </td>
+                            <td
+                              class="text-center"
+                              *ngIf="'contest.prize_type==3'"
+                            >
+                              <img
+                                src="{{ prize.image }}"
+                                title="{{ prize.description }}"
+                                width="25px"
+                                height="40px"
+                                alt=""
+                              />
+                              <span title="{{ prize.description }}">{{
+                                prize.description
+                              }}</span>
+                            </td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </td>
+                <td class=" text-center">
+                  <span class="d-block small" [style.font-size.em]="1">{{
+                    contest.season_scheduled_date | date
+                  }}</span>
+                  <small class="contest_date">{{
+                    contest.season_scheduled_date | date: "shortTime"
+                  }}</small>
+                </td>
+                <td
+                  class="text-center tableBtn"
+                  *ngIf="contest.is_referral != 1"
+                >
+                  <button
+                    [disabled]="
+                      joinButtonDisabled && contest.contest_id === contestId
+                    "
+                    *ngIf="
+                      (contest.multiple_lineup == 0 ||
+                        contest.user_joined_count == 0) &&
+                      contest.is_quick_contest == 0 &&
+                      contest.contest_access_type == 0
+                    "
+                    mdbBtn
+                    [ngClass]="{
+                      'animated bounceIn':
+                        onAnimate &&
+                        (contest.multiple_lineup == 0 ||
+                          contest.user_joined_count == 0) &&
+                        contest.is_quick_contest == 0 &&
+                        contest.contest_access_type == 0
+                    }"
+                    class="blue white-text mdbWavesEffect waves-light relative joinBtn mx-auto"
+                    (click)="
+                      checkUserSubscription(contest, '', 'normal_contest')
+                    "
+                  >
+                    {{ contest.user_join_count > 0 ? "REJOIN" : "JOIN" }}
+
+                    <div
+                      *ngIf="
+                        joinButtonclicked && contest.contest_id === contestId
+                      "
+                      class="spinner1"
+                    ></div>
+                  </button>
+                  <button
+                    *ngIf="
+                      (contest.multiple_lineup == 0 ||
+                        contest.user_joined_count == 0) &&
+                      contest.contest_access_type == 2
+                    "
+                    [ngClass]="{
+                      'animated bounceIn':
+                        onAnimate &&
+                        (contest.multiple_lineup == 0 ||
+                          contest.user_joined_count == 0) &&
+                        contest.contest_access_type == 2
+                    }"
+                    mdbBtn
+                    class="blue white-text mdbWavesEffect waves-light relative joinBtn mx-auto btn"
+                    (click)="
+                      checkUserSubscription(contest, '', 'premium_contest')
+                    "
+                  >
+                    {{ contest.user_join_count > 0 ? "REJOIN" : "JOIN" }}
+                    <div
+                      *ngIf="
+                        joinButtonclicked && contest.contest_id === contestId
+                      "
+                      class="spinner1"
+                    ></div>
+                  </button>
+                  <button
+                    *ngIf="
+                      (contest.multiple_lineup == 0 ||
+                        contest.user_joined_count == 0) &&
+                      contest.contest_access_type == 3
+                    "
+                    [ngClass]="{
+                      'animated bounceIn':
+                        onAnimate &&
+                        (contest.multiple_lineup == 0 ||
+                          contest.user_joined_count == 0) &&
+                        contest.contest_access_type == 3
+                    }"
+                    mdbBtn
+                    class="blue white-text mdbWavesEffect waves-light relative joinBtn mx-auto btn"
+                    (click)="
+                      checkUserSubscription(contest, '', 'token_contest')
+                    "
+                  >
+                    {{ contest.user_join_count > 0 ? "REJOIN" : "JOIN" }}
+                    <div
+                      *ngIf="
+                        joinButtonclicked && contest.contest_id === contestId
+                      "
+                      class="spinner1"
+                    ></div>
+                  </button>
+                  <button
+                    *ngIf="
+                      contest.multiple_lineup > 0 &&
+                      contest.user_joined_count > 0 &&
+                      contest.is_quick_contest == 0
+                    "
+                    [ngClass]="{
+                      'animated bounceIn':
+                        onAnimate &&
+                        contest.multiple_lineup > 0 &&
+                        contest.user_joined_count > 0 &&
+                        contest.is_quick_contest == 0
+                    }"
+                    mdbBtn
+                    class="blue white-text mdbWavesEffect waves-light relative joinBtn mx-auto btn"
+                    (click)="
+                      checkUserSubscription(contest, '', 'normal_contest')
+                    "
+                  >
+                    <div
+                      *ngIf="
+                        joinButtonclicked && contest.contest_id === contestId
+                      "
+                      class="spinner1"
+                    ></div>
+                    +
+                  </button>
+                  <button
+                    [ngClass]="{
+                      'animated bounceIn':
+                        onAnimate && contest.is_quick_contest == 1
+                    }"
+                    *ngIf="contest.is_quick_contest == 1"
+                    (click)="
+                      checkUserSubscription(contest, '', 'normal_contest')
+                    "
+                  >
+                    {{ "JOIN" }}
+                    <div
+                      *ngIf="
+                        joinButtonclicked && contest.contest_id === contestId
+                      "
+                      class="spinner1"
+                    ></div>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <!--<ng-template #Nab *ngIf="">-->
+            <tbody *ngIf="!isLoading && contestList.length === 0">
+              <h5 class="container text-center">
+                There is no available contest on this league yet
+              </h5>
+            </tbody>
+            <!--</ng-template>-->
+          </table>
+
+          <div class="spinner" *ngIf="isLoading"></div>
+          <div
+            class=""
+            *ngIf="showReload"
+            style="margin-top:50%;
+     margin-left: 45%;"
+            (click)="getContestSeason({}, 0)"
+          >
+            ...Reload? Click here
+          </div>
+
+          <!-- /Contest table  -->
+
+          <!-- Join Contest Modal -->
+
+          <div
+            class="modal fade"
+            mdbModal
+            #firstThingsModal="mdbModal"
+            tabindex="-1"
+            id="joinContestModal"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header d-flex grey lighten-3">
+                  <h4 class=" modal-title">First Thing First</h4>
+                  <span class="close ml-auto" (click)="firstThingsModal.hide()"
+                    >&times;</span
+                  >
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    <div
+                      class=" d-flex justify-content-between justify-content-around"
+                    >
+                      <div class="table-cell">
+                        <span>Step 1</span>
+                        <p>Pick your team</p>
+                      </div>
+
+                      <div class="table-cell"><i></i></div>
+
+                      <div class="table-cell">
+                        <span>Step 2</span>
+                        <p>Join a contest!</p>
+                      </div>
+                    </div>
+                    <button
+                      [ngClass]="{ 'animated bounceIn': onCreateTeamAnimate }"
+                      mdbBtn
+                      mdbWavesEffect
+                      (click)="fromFirstThingsModal()"
+                      class="relative waves-light primary-color py-1 px-3 float-right d-flex white-text"
+                    >
+                      Start
+
+                      <div *ngIf="firstThingClicked" class="spinner1"></div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Join Contest Modal -->
+
+          <!-- Contest info modal for desktop -->
+
+          <div
+            class="modal fade right "
+            tabindex="-1"
+            #contestinfo="mdbModal"
+            mdbModal
+          >
+            <div
+              class="modal-dialog modal-full-height modal-right "
+              id="contest_modal"
+            >
+              <div class="modal-content ">
+                <div class="modal-header d-flex align-items-center">
+                  <img
+                    src="assets/image/Premier_League-Mascot.png"
+                    alt="EPL_Mascot"
+                    srcset=""
+                    id="EPL_Mascot"
+                  />
+                  <span class="mr-auto  small" *ngIf="currentContest">{{
+                    currentContest.contest_name
+                  }}</span>
+                  <span class="close black-text" (click)="contestinfo.hide()"
+                    >&times;</span
+                  >
+                </div>
+
+                <div class="content-detail-tab">
+                  <nav id="contest_modal_nav">
+                    <ul class="nav ">
+                      <li class="nav-item col font-weight-bold">
+                        <a href="#" class="nav-link text-center"
+                          ><i
+                            class=" fas fa-info-circle contest_modal_icons"
+                          ></i
+                          >INFO</a
+                        >
+                      </li>
+                      <li class="nav-item col font-weight-bold">
+                        <a href="#" class="nav-link "
+                          ><i class=" fas fa-coins contest_modal_icons"></i
+                          >PRIZES</a
+                        >
+                      </li>
+                      <li class="nav-item col font-weight-bold">
+                        <a href="#" class="nav-link "
+                          ><i class=" fas fa-users contest_modal_icons"></i
+                          >PARTICIPANTS</a
+                        >
+                      </li>
+                    </ul>
+                  </nav>
+                  <div class="tab-content">
+                    <div class="tab-pane active">
+                      <div class="modal-body">
+                        <!-- Info modal section -->
+                        <div class="pick_11_players_from_count">
+                          <span
+                            *ngIf="currentContest"
+                            class="pick_11_players_from font-weight-bold white-text"
+                            >{{ currentContest?.contest_description }}</span
+                          >
+
+                          <div class="gray-bg-box mT20">
+                            <ul
+                              class="horizontal_scroll_list"
+                              *ngIf="currentContest"
+                            >
+                              <li
+                                *ngFor="
+                                  let matchData of currentContest?.match_list
+                                "
+                              >
+                                <div class="content-team-detail">
+                                  <span class="team">{{ matchData.home }}</span>
+                                  <span class="team"><small>vs</small></span>
+                                  <span class="team">{{ matchData.away }}</span>
+
+                                  <!-- Contest start date -->
+                                  <span class="timer">{{
+                                    matchData.season_scheduled_date
+                                      | date: "medium"
+                                  }}</span>
+
+                                  <!-- /Contest start date -->
+                                </div>
+                              </li>
+                            </ul>
+
+                            <div class="league-detail-info">
+                              <ul class="list-unstyled text-center">
+                                <li class="text-center px-0">
+                                  <span
+                                    class="_head text-muted "
+                                    translate="COMMON_ENTRY_FEE"
+                                    >Entry Fee</span
+                                  >
+                                  <span
+                                    class="_value d-block font-18"
+                                    *ngIf="currentContest"
+                                  >
+                                    <span
+                                      class="white-text text-center"
+                                      *ngIf="
+                                        currentContest.prize_type == 0 ||
+                                        currentContest.prize_type == 1
+                                      "
+                                    >
+                                      {{
+                                        currentContest.entry_fee == 0
+                                          ? "FREE"
+                                          : currentContest.entry_fee
+                                      }}
+                                    </span>
+                                    <span
+                                      class="white-text text-center"
+                                      *ngIf="
+                                        (currentContest.prize_type == 2 ||
+                                          currentContest.prize_type == 3) &&
+                                        currentContest.entry_fee == 0
+                                      "
+                                    >
+                                      {{ "FREE" }}
+                                    </span>
+                                    <span
+                                      class="white-text text-center"
+                                      *ngIf="
+                                        (currentContest.prize_type == 2 ||
+                                          currentContest.prize_type == 3) &&
+                                        currentContest.entry_fee != 0
+                                      "
+                                    >
+                                      {{
+                                        currentContest
+                                          ? currentContest.entry_fee
+                                          : ""
+                                      }}
+                                    </span>
+                                  </span>
+                                </li>
+                                <li class="text-center px-0">
+                                  <span class="_head text-muted">
+                                    <span translate="COMMON_START_AT" class=""
+                                      >Starts At</span
+                                    >
+                                  </span>
+                                  <span class="_value" *ngIf="currentContest">
+                                    <span></span>
+
+                                    <div class="small font-18 ">
+                                      <span class="white-text text-center">{{
+                                        currentContest?.season_scheduled_date
+                                          | date: "medium"
+                                      }}</span>
+                                    </div>
+                                    <div class="small">
+                                      <span class="label label-danger"> </span>
+                                    </div>
+                                  </span>
+                                </li>
+                                <li class="text-center px-0">
+                                  <span
+                                    class="_head text-muted "
+                                    translate="COMMON_PARTICIPANTS"
+                                    >PARTICIPANTS</span
+                                  >
+                                  <span class="_value d-block font-18">
+                                    <div class="remaning-progress">
+                                      <div class="remaning-amount">
+                                        <span
+                                          class="white-text text-center"
+                                          *ngIf="currentContest"
+                                          >{{
+                                            currentContest?.total_user_joined +
+                                              " / " +
+                                              (currentContest?.is_uncapped == 1
+                                                ? "∞"
+                                                : currentContest?.size)
+                                          }}</span
+                                        >
+                                      </div>
+                                    </div>
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div class="salary-cap-scoring">
+                            <div class="title text-center">
+                              <span class="salary-cap ">Salary Cap - 100</span>
+                              <span
+                                class="d-block text-muted "
+                                translate="COMMON_POINT_SYSTEM"
+                                >Points System</span
+                              >
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <span class="salary-cap-list-title"
+                                  >NORMAL</span
+                                >
+                                <ul class=" m-0 p-0">
+                                  <li>
+                                    <span class="float-left">Goal</span>
+                                    <span class="float-right mR10 ">8</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left">Assist</span>
+                                    <span class="float-right mR10 ">4</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left">Own Goal</span>
+                                    <span class="float-right mR10 ">-4</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left">Yellow Card</span>
+                                    <span class="float-right mR10 ">-2</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left">Red Card</span>
+                                    <span class="float-right mR10 ">-5</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Two Yellow Card</span
+                                    >
+                                    <span class="float-right mR10 ">-4</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Shot on Target</span
+                                    >
+                                    <span class="float-right mR10 ">2</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Penalty Kick Miss</span
+                                    >
+                                    <span class="float-right mR10 ">-4</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Penalty save by Goalkeeper</span
+                                    >
+                                    <span class="float-right mR10 ">5</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Saves by a Goalkeeper</span
+                                    >
+                                    <span class="float-right mR10 ">2</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Goal conceded by GK</span
+                                    >
+                                    <span class="float-right mR10 ">-2</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Clean sheet by Defender</span
+                                    >
+                                    <span class="float-right mR10 ">5</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Clean sheet by a Midfielder</span
+                                    >
+                                    <span class="float-right mR10 ">3</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Clean sheet by a Goalkepper</span
+                                    >
+                                    <span class="float-right mR10 ">7</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Successful Pass</span
+                                    >
+                                    <span class="float-right mR10 ">0.05</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Successful Cross</span
+                                    >
+                                    <span class="float-right mR10 ">0.5</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left">Corner Won</span>
+                                    <span class="float-right mR10 ">0.5</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left">Foul Won</span>
+                                    <span class="float-right mR10 ">0.5</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left">Tackle Won</span>
+                                    <span class="float-right mR10 ">0.5</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Pass Intercepted</span
+                                    >
+                                    <span class="float-right mR10 ">0.5</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left">Block</span>
+                                    <span class="float-right mR10 ">1</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Penalty Kick Conceded</span
+                                    >
+                                    <span class="float-right mR10 ">-1</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left">Win</span>
+                                    <span class="float-right mR10 ">4</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left">DRAW</span>
+                                    <span class="float-right mR10 ">2</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Foul Conceded</span
+                                    >
+                                    <span class="float-right mR10 ">-0.5</span>
+                                  </li>
+                                  <li class="">
+                                    <span class="float-left"
+                                      >Every 2 goals conceded by Defender</span
+                                    >
+                                    <span class="float-right mR10 ">-2</span>
+                                  </li>
+                                </ul>
+                              </div>
+
+                              <div class="col-sm-12">
+                                <div class="the-contest-is-guara">
+                                  <div class="gray-bg-box p35">
+                                    <span
+                                      class="d-block "
+                                      ng-if="$ctrl.Contest.multiple_lineup > 0"
+                                    >
+                                      The contest allows you to submit up to 2
+                                      teams.
+                                    </span>
+                                    <span class="d-block">
+                                      The contest is guaranteed to run when it’s
+                                      reached at least 10 entries.
+                                    </span>
+                                    <span
+                                      class="d-block "
+                                      translate="COMMON_CONTEST_INFO_DETAIL_BLOCK2"
+                                      >For more details regarding the rules see
+                                      Rules &amp; FAQ.</span
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div></div>
+                        <div></div>
+
+                        <!-- /Info modal section -->
+
+                        <!-- Prizes section of modal -->
+                        <div class="price-type-cont">
+                          <div class="price-type">
+                            <div class="price-box">
+                              <span class="text-muted">Prize</span>
+                              <span class="d-block price white-text">
+                                <span class="">
+                                  <i class="fas fa-coins mR5"></i> 300
+                                </span>
+                              </span>
+                            </div>
+                            <div class="price-box">
+                              <span class="text-muted">Prize Type</span>
+                              <span class="d-block price white-text"
+                                >Top 10</span
+                              >
+                            </div>
+                          </div>
+                          ::after
+                        </div>
+
+                        <div class="row">
+                          ::before
+                          <div class="col-sm-12">
+                            <div
+                              class="prize-distribution mL10 text-center "
+                              translate="COMMON_PRIZE_DISTRIBUTION"
+                            >
+                              PRIZE DISTRIBUTION
+                            </div>
+                          </div>
+                          <div class="clearfix">::before ::after</div>
+
+                          <table class="price-list-distribution">
+                            <tr class="price-distribute-position-cont">
+                              <td>
+                                <span class="price-distribute-position "
+                                  >1st</span
+                                >
+                              </td>
+                              <td><span class="price-amount ml-5">90</span></td>
+                            </tr>
+                            <tr class="price-distribute-position-cont">
+                              <td>
+                                <span class="price-distribute-position "
+                                  >2nd</span
+                                >
+                              </td>
+                              <td><span class="price-amount ml-5">68</span></td>
+                            </tr>
+                            <tr class="price-distribute-position-cont">
+                              <td>
+                                <span class="price-distribute-position "
+                                  >3rd</span
+                                >
+                              </td>
+                              <td><span class="price-amount ml-5">46</span></td>
+                            </tr>
+                            <tr class="price-distribute-position-cont">
+                              <td>
+                                <span class="price-distribute-position "
+                                  >4th</span
+                                >
+                              </td>
+                              <td><span class="price-amount ml-5">28</span></td>
+                            </tr>
+                            <tr class="price-distribute-position-cont">
+                              <td>
+                                <span class="price-distribute-position "
+                                  >5th</span
+                                >
+                              </td>
+                              <td><span class="price-amount ml-5">18</span></td>
+                            </tr>
+                            <tr class="price-distribute-position-cont">
+                              <td>
+                                <span class="price-distribute-position "
+                                  >6th</span
+                                >
+                              </td>
+                              <td><span class="price-amount ml-5">12</span></td>
+                            </tr>
+                            <tr class="price-distribute-position-cont">
+                              <td>
+                                <span class="price-distribute-position "
+                                  >7th</span
+                                >
+                              </td>
+                              <td><span class="price-amount ml-5">18</span></td>
+                            </tr>
+                            <tr class="price-distribute-position-cont">
+                              <td>
+                                <span class="price-distribute-position "
+                                  >8th</span
+                                >
+                              </td>
+                              <td><span class="price-amount ml-5">8</span></td>
+                            </tr>
+                            <tr class="price-distribute-position-cont">
+                              <td>
+                                <span class="price-distribute-position "
+                                  >9th</span
+                                >
+                              </td>
+                              <td><span class="price-amount ml-5">7</span></td>
+                            </tr>
+                            <tr class="price-distribute-position-cont">
+                              <td>
+                                <span class="price-distribute-position "
+                                  >10th</span
+                                >
+                              </td>
+                              <td><span class="price-amount ml-5">5</span></td>
+                            </tr>
+                          </table>
+
+                          <div class="col-sm-12"></div>
+                          <div class="col-sm-12"></div>
+                        </div>
+
+                        <!-- /Prizes section of modal -->
+
+                        <!-- Participants modal section -->
+                        <div class="participants-detail-cont">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <span class="total-participants"
+                                >Total Participants:
+                                <font class="white-text">7</font>/100</span
+                              >
+                            </div>
+                            <div class="clearfix">::before ::after</div>
+                          </div>
+                          <div class="row">
+                            <div class="col col-sm-6">
+                              <div class="participants-detail">
+                                <div class="participants-pic">
+                                  <img
+                                    alt="User's profile picture"
+                                    src="assets/image/default_user.png"
+                                  />
+                                </div>
+                                <div class="participants-name">kehinde</div>
+                              </div>
+                            </div>
+                            <div class="col col-sm-6 ">
+                              <div class="participants-detail">
+                                <div class="participants-pic">
+                                  <img
+                                    alt="User's profile picture"
+                                    src="assets/image/default_user.png"
+                                  />
+                                </div>
+                                <div class="participants-name">Oluwadare</div>
+                              </div>
+                            </div>
+                            <div class="col col-sm-6 ">
+                              <div class="participants-detail">
+                                <div class="participants-pic">
+                                  <img
+                                    alt="User's profile picture"
+                                    src="assets/image/default_user.png"
+                                  />
+                                </div>
+                                <div class="participants-name">Jerry (T1)</div>
+                              </div>
+                            </div>
+                            <div class="col col-sm-6 ">
+                              <div class="participants-detail">
+                                <div class="participants-pic">
+                                  <img
+                                    alt="User's profile picture"
+                                    src="assets/image/default_user.png"
+                                  />
+                                </div>
+                                <div class="participants-name">Jerry (T2)</div>
+                              </div>
+                            </div>
+                            <div class="col col-sm-6 ">
+                              <div class="participants-detail">
+                                <div class="participants-pic">
+                                  <img
+                                    alt="User's profile picture"
+                                    src="assets/image/default_user.png"
+                                  />
+                                </div>
+                                <div class="participants-name">Agu (T1)</div>
+                              </div>
+                            </div>
+                            <div class="col col-sm-6 ">
+                              <div class="participants-detail">
+                                <div class="participants-pic">
+                                  <img
+                                    alt="User's profile picture"
+                                    src="assets/image/default_user.png"
+                                  />
+                                </div>
+                                <div class="participants-name">Agu (T2)</div>
+                              </div>
+                            </div>
+                            <div class="col col-sm-6 ">
+                              <div class="participants-detail">
+                                <div class="participants-pic">
+                                  <img
+                                    alt="User's profile picture"
+                                    src="assets/image/default_user.png"
+                                  />
+                                </div>
+                                <div class="participants-name">Martins</div>
+                              </div>
+                            </div>
+                            <div class="col-sm-12 mT10"></div>
+                          </div>
+                        </div>
+                        <!-- /Participants modal section -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- /Contest info modal for desktop -->
+        </div>
+
+        <!-- Side Ad for desktop -->
+
+        <div class="row">
+          <div class="col-md-12 " id="adsContainer2">
+            <div class="col-sm-6 mt-4" id="table1">
+              <!--
+              <div id="img4" class="Desktop_sideAd1">
+
+              </div>
+            -->
+              <img
+                src="assets/image/bg-5.jpg"
+                alt=""
+                height="50%"
+                width="100%"
+              />
+            </div>
+            <div class="col-sm-6 mt-4" id="table1">
+              <!--
+              <div id="img4" class="Desktop_sideAd2">
+
+              </div>
+            -->
+              <img
+                src="assets/image/bg-5.jpg"
+                alt=""
+                height="50%"
+                width="100%"
+                class="Desktop_sideAd2"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- /Side Ad for desktop -->
+      </div>
+
+      <div class="col-sm-3" id="adsContainer1">
+        <div class=" " id="table1">
+          <!-- Desktop right-top carousel starts -->
+          <mdb-carousel>
+            <mdb-carousel-item>
+              <img
+                class="rounded"
+                src="assets/image/Football-manager-ads/desktop/right/right-top/football-manager-desktop-right-top-carousel-1.jpg"
+                alt=""
+                height="210px"
+                width="100%"
+              />
+            </mdb-carousel-item>
+            <mdb-carousel-item>
+              <img
+                class="rounded"
+                src="assets/image/Football-manager-ads/desktop/right/right-top/football-manager-desktop-right-top-carousel-2.jpg"
+                alt=""
+                height="210px"
+                width="100%"
+              />
+            </mdb-carousel-item>
+            <mdb-carousel-item>
+              <img
+                class="rounded"
+                src="assets/image/Football-manager-ads/desktop/right/right-top/football-manager-desktop-right-top-carousel-3.jpg"
+                alt=""
+                height="210px"
+                width="100%"
+              />
+            </mdb-carousel-item>
+          </mdb-carousel>
+          <!-- Desktop right-top carousel ends -->
+        </div>
+        <div class="" id="table1">
+          <!-- Desktop right-bottom carousel starts -->
+          <mdb-carousel>
+            <mdb-carousel-item>
+              <img
+                src="assets/image/Football-manager-ads/desktop/right/right-bottom/football-manager-desktop-right-bottom-carousel-1.jpg"
+                alt=""
+                height="455px"
+                width="100%"
+                class="Desktop_sideAd2"
+              />
+            </mdb-carousel-item>
+            <mdb-carousel-item>
+              <img
+                src="assets/image/Football-manager-ads/desktop/right/right-bottom/football-manager-desktop-right-bottom-carousel-2.jpg"
+                alt=""
+                height="455px"
+                width="100%"
+                class="Desktop_sideAd2"
+              />
+            </mdb-carousel-item>
+            <mdb-carousel-item>
+              <img
+                src="assets/image/Football-manager-ads/desktop/right/right-bottom/football-manager-desktop-right-bottom-carousel-3.jpg"
+                alt=""
+                height="455px"
+                width="100%"
+                class="Desktop_sideAd2"
+              />
+            </mdb-carousel-item>
+          </mdb-carousel>
+          <!-- Desktop right-bottom carousel ends -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Red section ends -->
+
+  <!--END OF NEW JOIN CONTEST-->
+
+  <!-- BODY ENDS  -->
+  <!-- Confirmation modal starts -->
+  <div
+    class="modal fade"
+    tabindex="-1"
+    #joinGameConfirmModal="mdbModal"
+    mdbModal
+    role="dialog"
+    aria-labelledby="confirmationModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-flex" style="background: #f4f4f4">
+          <span>CONFIRM AND YOU'RE IN!</span>
+          <span
+            class="close"
+            (click)="
+              joinGameConfirmModal.hide();
+              joinButtonclicked = false;
+              joinButtonDisabled = false
+            "
+            >&times;</span
+          >
+        </div>
+
+        <div class="modal-body">
+          <div class="container">
+            <div>
+              <!---------for Token games---------->
+              <div
+                *ngIf="joinGameInitObj?.contest?.contest_access_type == 3"
+                class="confirmation-not-enough-cash"
+              >
+                <span class="confirmationCoinBalance">Token Balance</span>
+                <span class="coinAmount">
+                  <i class="fas fa-coins"></i>
+                  {{ joinGameInitObj?.currentbalance.token }}</span
+                >
+              </div>
+              <!---------end of Token games---------->
+              <!-----------for coin games---------->
+              <div
+                *ngIf="joinGameInitObj?.contest?.contest_access_type == 0"
+                class="confirmation-not-enough-cash"
+              >
+                <span class="confirmationCoinBalance">Coins Balance</span>
+                <span class="coinAmount">
+                  <i class="fas fa-coins"></i>
+                  {{ joinGameInitObj?.currentbalance.point_balance }}</span
+                >
+              </div>
+
+              <!-----------end of coin games----------->
+              <div class="clearfix mt-2"></div>
+
+              <div class="mt-2 clearfix"></div>
+              <div
+                class="confirmation-not-enough-cash"
+                *ngIf="
+                  joinGameInitObj?.contest?.prize_type == 0 ||
+                  joinGameInitObj?.contest?.prize_type == 1
+                "
+              >
+                <span class="confirmationCoinBalance">Entry Fee</span>
+                <span class="coinAmount">
+                  {{ joinGameInitObj?.contest?.entry_fee }}</span
+                >
+              </div>
+              <div
+                class="confirmation-not-enough-cash"
+                *ngIf="
+                  joinGameInitObj?.contest?.prize_type == 2 ||
+                  joinGameInitObj?.contest?.prize_type == 3
+                "
+              >
+                <span class="confirmationCoinBalance">Entry Fee</span>
+                <span class="coinAmount">
+                  {{ joinGameInitObj?.contest?.entry_fee }}</span
+                >
+              </div>
+
+              <!--  <div class='mt-2 clearfix'></div>
+
+            <div class="confirmation-not-enough-cash">
+                <span class="confirmationCoinBalance">Edit Fee</span>
+                <span class="coinAmount"
+                  ><i class="fas fa-coins"></i> 0</span>
+
+              </div>-->
+            </div>
+
+            <form
+              [formGroup]="confirmJoinForm"
+              (ngSubmit)="confirmJoinContest('lineup', isTokenGame)"
+            >
+              <div class="md-form">
+                <select
+                  class="form-control confirm-selection"
+                  tabindex="-1"
+                  formControlName="lineup"
+                  #mySelect
+                  (change)="onSelectOption(mySelect.value)"
+                >
+                  <option [value]="null" selected>Select or Create team</option>
+
+                  <option value="create" selected> Create team</option>
+                  <ng-container
+                    *ngFor="let lineup of joinGameInitObj?.lineuplist"
+                  >
+                    <option [value]="lineup.lineup_master_id">{{
+                      lineup.team_name
+                    }}</option>
+                  </ng-container>
+                </select>
+              </div>
+
+              <div class="d-flex">
+                <button
+                  (click)="
+                    joinGameConfirmModal.hide();
+                    joinButtonclicked = false;
+                    joinButtonDisabled = false
+                  "
+                  class="waves-light relative btn-sm ml-auto"
+                  style="background: linear-gradient(to bottom, #f8f8f8 0%, #e9e9e9 100%); color:black;"
+                  mdbBtn
+                  mdbWavesEffect
+                >
+                  Cancel
+                </button>
+                <button
+                  [disabled]="!confirmJoinForm.valid"
+                  class="waves-light relative btn-sm "
+                  [style.background-color]="
+                    confirmJoinForm.value.lineup && mySelect.value !== 'create'
+                      ? '#2196f3'
+                      : 'grey'
+                  "
+                  mdbBtn
+                  mdbWavesEffect
+                >
+                  CONFIRM
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Red section ends -->
+    </div>
+  </div>
+  <!-- Confirmation modal ends -->
+
+  <!-- Subcription to premium modal starts -->
+  <div class="modal fade" tab-index="-1" mdbModal #subscriptionModal="mdbModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-flex">
+          <h5 class="alert alert-info">Subscribe to premium</h5>
+          <span class="close ml-auto" (click)="subscriptionModal.hide()"
+            >&times;</span
+          >
+        </div>
+        <div class="modal-body">
+          <div class="tab-pane text-center">
+            <h4 class="mx-auto">Gain exclusive access to special content</h4>
+            <div class="panel-body">
+              <div class="account-section">
+                <!-- <div class="my-3">
+                                <div class="mx-auto text-center">
+                                    <h4>Buy tokens in account through your wallet balance.</h4>
+                                </div>
+                            </div> -->
+
+                <div class="clear-fix my-2"></div>
+
+                <div class="row">
+                  <div class="" style="width: 100%;">
+                    <div class="row">
+                      <div class="col-sm-3 col-6 col-lg-6 offset-lg-3">
+                        <div class="form-group clearfix">
+                          <div class="not-enough-cash">
+                            <label for="" class="radio-inline">
+                              <span class="label-text">
+                                <span class="">30 days</span>
+                              </span>
+                            </label>
+
+                            <span class="converted-amount">
+                              N{{ subscriptionObj.amount }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-8 offset-md-2">
+                    <form action="" class="">
+                      <!-- <div class="col-sm-8 offset-sm-2">
+                                            <div class="md-form coin-total">
+                                                <label for="customCoins" class="control-label">Enter Custom Tokens</label>
+                                                <input type="number" class="form-control" name="" id="customCoins" value="1" placeholder="100" mdbInputDirective>
+                                                <span class="typo">100</span>
+
+                                                <span class="helper-block"></span>
+                                            </div>
+                                        </div> -->
+                      <div class="mt-2">
+                        <div class="text-center">
+                          <p>By paying you agree to Fantasy Sports'</p>
+                          <p>
+                            <a href="#" target="_blank">Terms of Use</a> and
+                            <a href="#" target="_blank">Privacy Policy</a>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="mt-2">
+                        <div class="">
+                          <br />
+                          <button
+                            (click)="subscribeNow()"
+                            mdbBtn
+                            mdbWavesEffect
+                            class="waves-light relative mx-auto blue d-block"
+                          >
+                            PAY NOW
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-md-9 text-right mt-3 ">
+                  <label for="paystacklogo" class="mr-2 small"
+                    >Secured by:</label
+                  >
+                  <img
+                    id="paystacklogo"
+                    src="https://paystack.com/assets/website/images/logo.svg"
+                    alt=""
+                    style="background-color: lightgray;padding: 0px 10px;padding-top: 10px; padding-bottom: 10px;"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Subcription to premium modal ends -->
+</div>
+
+<!-- ************* Footer starts **************** -->
+<app-footer></app-footer>
+<!-- ************* Footer ends **************** -->

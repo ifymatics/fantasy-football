@@ -1,0 +1,83 @@
+<div class="main">
+
+    <div style="height: 100%">
+    <!-- Single game day section starts -->
+    <div class='singleGameDay'>
+
+            <!-- Game date starts -->
+            <div class="gameDate">
+                <div class="containers">
+                    <span style='font-variant: small-caps;
+                  font-size: 14px;
+                  font-weight: 600;'>10/8</span>
+                </div>
+    
+            </div>
+            <!-- Game date ends -->
+    
+            <!-- Game list section starts -->
+            <div class="gameList">
+                <!-- <span>{{freeGames|json}}</span> -->
+                <ul>
+                    <!-- <ng-container *ngIf=" freeGames.length  > 0 ;else empty"> -->
+                    <li *ngFor="let game of freeGames; let gameIndex=index;" >
+    
+                        <div class="containers">
+                            <!-- Single game header starts -->
+                            <div class='singleGameHeader d-flex justify-content-between'>
+                                <span class="small gameTime">{{game.date  | date:'dd/MM/yy  hh:mm a'}}</span>
+                                <span class="small gamePrize">Prize:{{game.prize}}coins</span>
+                            </div>
+                            <!-- Single game header ends -->
+    
+                            <!-- Single game body starts -->
+                            <div class='singleGameBody'>
+    
+    
+                                <!-- Single game teams starts -->
+                                <div class="singleGameTeams">
+                                    <span class="homeTeam">{{game.home}}</span>
+                                    <span class="awayTeam">{{game.away}}</span>
+                                </div>
+                                <!-- Single game teams ends -->
+    
+                                <!-- Action buttons starts -->
+                                <div class="actionBtnsContainer">
+                                    <button (click)="disable(game) " class='enableBtn selectedBtn' *ngIf="game.status" >Enabled</button>
+                                    <button (click)="enable(game)" class='disableBtn'*ngIf="!game.status">Disabled</button>
+                                  
+                                    <button class="actionBtn " (click)="onSelectResult(gameIndex,i, button)" 
+                                    *ngFor="let button of buttons; let i= index;"
+                                    [ngClass]="{selectedBtn: gamesWithResults[gameIndex]?.button === buttons[i] || 
+                                        (filteredFreeGame[gameIndex]?.button.name=== buttons[i].name &&
+                                         filteredFreeGame[gameIndex]?.button.marked===true)}"
+                                    >{{button.name}}</button>
+                                  
+                                    
+                                    <!-- selectedBtn -->
+                                </div>
+                                <!-- Action buttons ends -->
+                            </div>
+                            <!-- Single game body ends -->
+                        </div>
+    
+                    </li>
+                    <!-- </ng-container> -->
+                    <!-- <ng-template #empty>
+                        <h4 style="text-align: center; margin-top: 20vh;">No games on this league yet!</h4>
+                    </ng-template> -->
+                </ul>
+            </div>
+            <!-- Game list section ends -->
+        </div>
+        <!-- Single game day section ends --></div>
+
+    
+
+    <!-- Update button section starts -->
+    <div class="text-center py-3 bg-white updateBtnContainer">
+        <button  *ngIf="gamesWithResults.length>0" (click)="submitGameResults()"
+            class="relative waves-light bg-success" mdbBtn mdbWavesEffect>Update</button>
+    </div>
+    <!-- Update button section ends -->
+</div>

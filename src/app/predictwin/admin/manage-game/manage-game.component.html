@@ -1,0 +1,43 @@
+<div class='main'>
+    <div class="pageTitle">
+        <div class="containers">
+            <h4>Manage Games</h4>
+        </div>
+    </div>
+    <app-spinner [isLoading]='isLoading'></app-spinner>
+    <div>
+        <select #id name="leagueSelector" class="leageSelector" (change)="onSelectLeague(id.value)">
+        <option value="">Select League</option>
+        <option *ngFor="let league of leagues" [value]="league.id">{{league.name}}</option>
+      </select>
+    </div>
+    <button (click)="predictedGamesScorer()" [ngClass]="{spinner1: isLoading}"> score predictions <span></span></button>
+   
+     <!-- <div class="spinner"  *ngIf="isLoading" style ="top:50%;
+    left: 45%;"></div> -->
+    <!-- Section navigation starts -->
+    <div class="whiteContainer">
+        <div class="containers">
+            <ul class="sectionNav">
+                    <!-- [routerLink]="['free']" -->
+                    <!-- (click)="onNavigate('free')" -->
+                <li [routerLink]="['free']" routerLinkActive="active">
+                    <a>Free</a>
+                </li>
+                <li [routerLink]="['token']"  routerLinkActive="active">
+                    <a>Token</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Section navigation ends -->
+
+    <div class="body">
+        <!-- Router outlet starts -->
+       
+        <!-- <app-manage-free></app-manage-free> 
+         <app-manage-token></app-manage-token> -->
+         <router-outlet></router-outlet> 
+        <!-- Router outlet ends -->
+    </div>
+</div>

@@ -1,0 +1,123 @@
+@mixin for-sm {
+    @media (min-width: 576px) {
+        @content;
+    }
+}
+
+@mixin for-md {
+    @media screen and (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin for-lg {
+    @media screen and (min-width: 996px) {
+        @content;
+    }
+}
+
+//Media query Laptops, Desktops
+@mixin for-laptop-and-desktop-only {
+    @media (min-width: 1025px) {
+        @content;
+    }
+}
+
+.main {
+    height: 100%;
+    background: white;
+    margin: 0 auto;
+    @include for-lg {
+        padding-bottom: 30px;
+        width: 80%;
+    }
+}
+
+//Custom container starts
+.containers {
+    padding: 0 10px;
+}
+
+//custom container ends
+.pageTitle {
+    text-align: center;
+    height: 49px;
+    padding-top: 11px;
+    border-bottom: 1px solid #888;
+    @include for-lg {
+        height: 66px;
+        padding-top: 24px;
+    }
+    h4 {
+        font-weight: 600;
+    }
+}
+
+.whiteContainer {
+    padding-bottom: 9px;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-bottom: 1px solid #c4c4c4;
+    z-index: 1;
+    @include for-lg {
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+    }
+}
+
+.sectionNav {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    padding-top: 9px;
+    li {
+        a {
+            color: #000;
+            font-size: 14px;
+            text-decoration: none;
+            border-bottom: 4px solid transparent;
+            padding-bottom: 8px;
+            padding-left: 14px;
+            padding-right: 14px;
+        }
+    }
+    li.active {
+        a {
+            color: #d90000;
+            font-size: 16px;
+            border-bottom-color: #d90000;
+            font-weight: 700;
+        }
+    }
+}
+
+.leageSelector {
+    height: 45px;
+    width: 94%;
+    margin: 20px auto;
+    margin-left: 10px;
+    @include for-lg {
+        width: 50%;
+        //margin-left: 30px;
+    }
+}
+
+.body {
+    height: 100%;
+    @include for-lg {
+        height: 75%;
+        overflow-y: scroll;
+    }
+}
+.spinner1 {
+    border: 3px solid #fff;
+    border-top: 3px solid #387ab7;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    animation: spin 700ms linear infinite;
+    margin-left: 5px;
+  }

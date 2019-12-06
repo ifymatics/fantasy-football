@@ -1,0 +1,342 @@
+<!-- Header starts -->
+
+<nav class="navbars {{navbars }} " style='height: 60px;'>
+  <div class="containers">
+
+    <div>
+      <div class='menu-logo-navlinks-container'>
+        <div class="menu-label-container">
+          <span class="fas fa-bars" (click)='showMenu()'></span>
+          <div class="nav-logo">
+            <a>
+              <img [routerLink]="['/home']" src="assets/image/logo/logo.png" style="" alt="Fantastic.ng logo" />
+            </a>
+          </div>
+        </div>
+
+
+        <ul class="navbar-navs {{menuHeader}} " *ngIf="!condition">
+          <li [routerLink]="['/home']" routerLinkActive="active" *ngIf="!condition">
+            <a class="" id="nav-links">HOME</a>
+          </li>
+          <li *ngIf="!condition" routerLinkActive="active" [ngClass]="{active: isActive.includes('lobby')}">
+            <a (click)="onRoute('lobby')" routerLinkActive="active" class="" id="nav-links">LOBBY</a>
+          </li>
+          <li routerLinkActive="active" [ngClass]="{active: isActive.includes('mycontest')}">
+            <a (click)="onRoute('mycontest')" routerLinkActive="active" class="" id="nav-links">MY CONTEST</a>
+          </li>
+          <li (click)="onRoute('leaderboard')" routerLinkActive="active"
+            [ngClass]="{active: isActive.includes('leaderboard')}">
+            <a id="nav-links" class="" routerLinkActive="active">LEADERBOARD</a>
+          </li>
+          <li routerLinkActive="active">
+            <a class="" id="nav-links">EARN COINS</a>
+          </li>
+          <!-- <li  routerLinkActive="active">
+                        <a class=""  id="nav-links">HOW TO PLAY</a>
+                    </li> -->
+          <li routerLinkActive="active">
+            <a class="" id="nav-links">CONTACT</a>
+          </li>
+
+        </ul>
+
+        <ul class="navbar-navs {{menuHeader}}">
+          <li>
+            <a href="http://kb.fantastic.ng/" target="_blank" id="nav-links">HOW TO PLAY</a>
+          </li>
+        </ul>
+
+        <!-- predict and win Admin links starts -->
+        <ul class="navbar-navs {{menuHeader}} " *ngIf="status">
+          <li [routerLink]="['/home']">
+            <a class="" id="nav-links">HOME</a>
+          </li>
+          <li (click)="onRoute('plobby')" [ngClass]="{active: isActive.includes('plobby')}">
+            <a class="" id="nav-links">LOBBY</a>
+          </li>
+          <!-- <li (click) = "onRoute('predictwin-admin')" *ngIf="adminIds.includes(userId)"> -->
+          <li (click)="onRoute('predictwin-admin')" *ngIf="adminIds.includes(userId)"
+            [ngClass]="{active: isActive.includes('predictwin-admin')}">
+            <a routerLinkActive="active" class="" id="nav-links">ADMIN</a>
+          </li>
+          <li routerLinkActive="active" (click)="onRoute('my-predictions')"
+            [ngClass]="{active: isActive.includes('my-predictions')}">
+            <a class="" id="nav-links">MY PREDICTIONS</a>
+          </li>
+          <li (click)="onRoute('predictwin-leaderboard')"
+            [ngClass]="{active: isActive.includes('predictwin-leaderboard')}">
+            <a routerLinkActive="active" class="" id="nav-links">LEADERBOARD</a>
+          </li>
+          <li *ngIf="deviceService.isMobile() && router.url.split('/')[2]==='admin'">
+            <a [routerLink]="['create-game']" routerLinkActive="active" class="" id="nav-links">CREATE GAME</a>
+          </li>
+          <li *ngIf="deviceService.isMobile() && router.url.split('/')[2]==='admin'">
+            <a [routerLink]="['manage-game']" routerLinkActive="active" class="" id="nav-links">MANAGE GAME</a>
+          </li>
+          <li [routerLink]="['manage-leagues']" routerLinkActive="active"
+            *ngIf="deviceService.isMobile() && router.url.split('/')[2]==='admin' ">
+            <a class="" id="nav-links">MANAGE LEAGUE</a>
+          </li>
+          <!-- <li>
+                    <a class=""  id="nav-links">MANAGE GAMES</a>
+                  </li>
+                  <li>
+                      <a class=""   id="nav-links">MANAGE LEAGUES</a>
+                  </li>
+                  <li>
+                      <a  id="nav-links"  class="">CREATE GAME</a>
+                  </li> -->
+
+        </ul>
+        <!-- predict and win Admin links ends -->
+      </div>
+    </div>
+
+
+    <div class='column-2 ml-auto'>
+      <ul id="notfication-friends-list">
+
+        <!-- Notification starts -->
+        <li mdbDropdown class='notificationBell'>
+          <i class="far fa-bell" (click)='blue = true' [ngClass]="{'makeBlue' : blue}" mdbDropdownToggle></i>
+
+          <div class="dropdown-menu dropdown-menu-right dropdown-primary" style="max-width: 800px; z-index: 2000">
+            <a class="" href="#">
+              <h5 class='font-weight-bold'>Action lorem</h5>
+              <p>Lorem ipsum dolor sit amet khgjgf jhfuy tudu6du kigif mhv hjvjh </p>
+            </a>
+            <a class="" href="#">
+              <h5 class='font-weight-bold'>Action lorem</h5>
+              <p>Lorem ipsum dolor sit amet </p>
+            </a>
+            <a class="" href="#">
+              <h5 class='font-weight-bold'>Action lorem</h5>
+              <p>Lorem ipsum dolor sit amet </p>
+            </a>
+            <a class="" href="#">
+              <h5 class='font-weight-bold'>Action lorem</h5>
+              <p>Lorem ipsum dolor sit amet </p>
+            </a>
+
+          </div>
+        </li>
+        <!-- Notification ends -->
+
+        <!-- Refer friend starts -->
+
+        <li><a id='blueBorderBottom'><i class="fas fa-user-friends"></i></a></li>
+
+        <!-- Refer friend ends -->
+      </ul>
+      <!-- Dropdown for navbar in mobile view starts -->
+      <!-------------------------------------------->
+      <!--USER PROFILE STARTS-->
+      <div class="dropdown  ml-auto" id="Mobiledropdown" dropdown>
+        <div class="d-flex" dropdownToggle id="dropdownBtn">
+          <div class="user-info">
+            <div class="d-block" style='width: max-content'>
+              <span
+                class="font-weight-bold">{{currentUser?.first_name && currentUser?.last_name ? currentUser?.first_name+' '+currentUser?.last_name : currentUser?.user_name}}</span>
+            </div>
+            <div>
+              <span class="font-weight-bold"> <img src="assets/image/coin_img/Fancoin.png"
+                  style='height: 30px'>{{user_balance?.point_balance}} / </span>
+              <span class="green-text"><img src="assets/image/coin_img/Token_small.png"
+                  style='height: 30px; margin-top: -5px'>{{user_balance?.token }}</span>
+            </div>
+          </div>
+          <div class="align-self-center ml-2 justify-content-center" id="user-icon-border">
+            <!-- <i class="fas fa-user" id="user-icon"></i> -->
+            <img src="{{ currentUser.image ||' assets/image/default_user.png'}}" alt="" id="user-icon" />
+          </div>
+        </div>
+
+        <div class="dropdown dropdown-menu dropdown-primary" id="dropdown-menu" *dropdownMenu style="z-index: 2000;">
+          <section class="dropdown-menu-top grey lighten-4">
+            <div class="tokenGrid">
+              <div class="pr-3 ml-3">
+                <span class="d-block small">Token</span>
+                <span class="d-flex green-text font-weight-bold"><img src="assets/image/coin_img/Token_small.png"
+                    style='height: 30px; margin-top: -5px'>{{user_balance?.token }}</span>
+              </div>
+              <button class="green mb-3 ml-auto mr-3 mt-2 p-2 px-3 btn-in-user-dropdown white-text font-weight-bold"
+                size="sm" mdbBtn (click)='onclick()'>
+                <!-- routerLink="/5/finance/deposit" -->
+                GET TOKENS
+              </button>
+            </div>
+
+            <div class="d-flex ">
+              <div class="pr-1 mr-2 ml-3">
+                <span class="d-block small">Coins</span>
+
+                <img src="assets/image/coin_img/Fancoin.png" style='height: 30px'>
+                <span class="font-weight-bold green-text">{{user_balance?.point_balance}}</span>
+              </div>
+
+              <!-- <button routerLink='/5/finance/how-to-earn-coins'
+                    class="green mb-4 ml-auto mr-3 mt-2 p-2 px-2 btn-in-user-dropdown"
+                    size="sm"
+                    mdbBtn
+                  >
+                    COIN DETAILS
+                  </button> -->
+            </div>
+          </section>
+          <div class="dropdown-divider"></div>
+          <section class="dropdown-menu-bottom">
+            <div class="list-group list-group-flush ">
+              <!-- <a (click)='subscriptionModal.show()' class="list-group-item pb-2 pt-0 d-flex justify-content-between" id="dropdownlink">
+                    Subscription <span class='badge badge-primary badge-pill align-self-center'>P</span></a
+                  >
+                  <a 
+                  
+                  class="list-group-item pb-2 pt-0" id="dropdownlink">
+                    Request Withdrawal</a
+                  > -->
+              <a [routerLink]="['/5/finance']" class="list-group-item py-2" id="dropdownlink">My Account</a>
+              <a [routerLink]="['/5/user/profile']" routerLinkActive="router-link-active" class="list-group-item py-2"
+                id="dropdownlink">Profile</a>
+              <a href="" class="list-group-item py-2 d-flex justify-content-between" id="dropdownlink">Notification
+                <span class="badge badge-success badge-pill align-self-center">1</span>
+              </a>
+              <a (click)="logout()" class="list-group-item pt-2 pb-0" id="dropdownlink">Logout</a>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!--USER PROFILE ENDS-->
+      <!-------------------------------------------->
+      <!-- Dropdown for navbar in mobile view ends -->
+    </div>
+
+  </div>
+
+
+</nav>
+<!-- Header ends -->
+
+
+
+
+
+<!-- Subcription to premium modal starts -->
+<div class="modal fade" tab-index="-1" mdbModal #subscriptionModal="mdbModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-flex">
+        <span>Subscribe to premium</span>
+        <span class="close ml-auto" (click)="subscriptionModal.hide()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="tab-pane">
+          <div class="panel-body">
+            <div class="account-section">
+              <!-- <div class="my-3">
+                                <div class="mx-auto text-center">
+                                    <h4>Buy tokens in account through your wallet balance.</h4>
+                                </div>
+                            </div> -->
+
+              <div class="clear-fix my-2"></div>
+
+              <div class="row">
+                <div class="" style="width: 100%;">
+                  <div class="row">
+                    <div class="col-sm-3 col-6 col-lg-6">
+                      <div class="form-group clearfix">
+                        <div class="not-enough-cash">
+                          <label for="" class="radio-inline">
+                            <input type="radio" name="inlineRadioOption" id="" />
+                            <i></i>
+                            <span class="label-text">
+                              <span class="">30 days</span>
+                            </span>
+                          </label>
+
+                          <span class="converted-amount">
+                            N1000
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3 col-6 col-lg-6">
+                      <div class="form-group clear">
+                        <div class="not-enough-cash">
+                          <label for="" class="radio-inline">
+                            <input type="radio" name="inlineRadioOption" id="" />
+                            <i></i>
+                            <span class="label-text">
+                              <span class="">60 days</span>
+                            </span>
+                          </label>
+
+                          <span class="converted-amount">
+                            N2000
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8 offset-md-2">
+                  <form action="" class="">
+                    <!-- <div class="col-sm-8 offset-sm-2">
+                                            <div class="md-form coin-total">
+                                                <label for="customCoins" class="control-label">Enter Custom Tokens</label>
+                                                <input type="number" class="form-control" name="" id="customCoins" value="1" placeholder="100" mdbInputDirective>
+                                                <span class="typo">100</span>
+
+                                                <span class="helper-block"></span>
+                                            </div>
+                                        </div> -->
+                    <div class="mt-2">
+                      <div class="text-center">
+                        <p>By paying you agree to Fantasy Sports'</p>
+                        <p>
+                          <a href="#" target="_blank">Terms of Use</a> and
+                          <a href="#" target="_blank">Privacy Policy</a>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mt-2">
+                      <div class="">
+                        <br />
+                        <button mdbBtn mdbWavesEffect class="waves-light relative mx-auto blue d-block"
+                          (click)="onclick()">
+                          PAY NOW
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="col-md-9 text-right mt-3 ">
+                <label for="paystacklogo" class="mr-2 small">Secured by:</label>
+                <img id="paystacklogo" src="https://paystack.com/assets/website/images/logo.svg" alt=""
+                  style="background-color: lightgray;padding: 0px 10px;padding-top: 10px; padding-bottom: 10px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Subcription to premium modal ends -->
+
+
+
+
+<!-- Get token modal starts -->
+<app-modal-get-token></app-modal-get-token>
+
+<!-- Get token modal ends -->
+<!-- Alert modal ends -->
+<app-modal-alert (close)="closeAlert()" [deviceType]="deviceService.isMobile()" [message]="message" [tag]="tag"
+  *ngIf="message"></app-modal-alert>
+<!-- End of Alert modal ends -->

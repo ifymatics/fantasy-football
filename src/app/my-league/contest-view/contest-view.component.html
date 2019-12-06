@@ -1,0 +1,965 @@
+<app-header></app-header>
+<div class="main">
+  <!-- Black section starts -->
+  <div class="black-section black white-text">
+    <div class="text-center showdownLabelContainer">
+      <span class="yellow small black-text font-weight-bold showdownLabel"
+        >{{contestData.collection_name}}</span
+      >
+    </div>
+
+    <div class="topInfo container align-items-end">
+      <div>
+        <span (click)="goBack()"  class="d-block blue-text my-2">Back</span>
+        <div class="gameInfoOnDesktop ">
+          <div class="white playerAvatar text-center">
+            <img
+              src="assets/image/logo/logo_F.png"
+              class="white text-center"
+              alt=""
+              style="position: relative; top: 50%; margin-top: -25px"
+            />
+          </div>
+
+          <div class="ml-2">
+            <h4 class="mb-0">{{contestData.contest_name}}</h4>
+            <span class="small blue-text" (click)="getContestDetail(contest)">View Contest Detail</span>
+          </div>
+
+          <i class="fas fa-caret-down white-text ml-auto"></i>
+        </div>
+      </div>
+
+      <div class="ml-auto makeDropdown">
+        <div class="contest-details">
+          <div class="contest-details-block">
+            <span class="contest-detail-title">Prize</span>
+            <span class="contest-detail-title">Rank</span>
+            <span class="contest-detail-title">Points</span>
+            <span class="contest-detail-title">Start In</span>
+          </div>
+          <div class="contest-details-block">
+            <span class="contest-detail-body"  *ngIf="userRank[0]?.prize_type==2">
+              <i class="fas fa-coins ml-2"></i>{{userRank[0]?.prize_pool == 0 ? 'Skill Game' : (userRank[0]?.prize_pool)}}
+            </span>
+            <span class="contest-detail-body">
+             <span class="font-weight-bold"> {{userRank[0]?.current_rank }} </span>/{{userRank[0]?.total_user_joined}}
+              </span 
+            >
+            <span class="contest-detail-body"> {{userRank[0]?.total_score}}</span>
+            <span class="contest-detail-body"> {{is_live=='true'?'Live': 'Completed'}}</span>
+          </div>
+          <div class="contest-details-block"></div>
+          <div class="contest-details-block"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop fixtures table starts -->
+
+    <div class="container makeDropdown mt-3">
+        <section class="fixturesTable">
+          <!-- Fixtures Label starts -->
+          <div class="fixtureLabel">
+            Fixtures
+          </div>
+          <!-- Fixtures Label ends -->
+  
+          <div>
+            <div class="match-slidder-navigation">
+              <a (click)="showMoreFixtures()" [ngClass]='{disabled: showMoreFixturesBtn}'>
+                <i class="fas fa-angle-right"></i>
+              </a>
+              <a class='disabled' (click)="showLessFixtures()" [ngClass]='{disabled: showLessFixturesBtn}' >
+                <i class="fas fa-angle-left"></i>
+              </a>
+            </div>
+  
+            <div class="match-fixture-container">
+              <div class="match-slider match-slider-onload">
+                <div class="match-slider-outer">
+                  <div
+                    #owlStage
+                    class="owl-stage"
+                    style="transform: translate3d(0px, 0px, 0px); transition: all 0.3s ease 0s; width: max-content;"
+                  >
+                    <!-- Match fixture item starts-->
+                    <div #owlItem class="owl-item" *ngFor='let game of collection_detail?.match_list'>
+                      <div class="match-slide pointer">
+                        <div class="fixture">
+                          <div class="participants-name">
+                            <span
+                              class="participant participant-one font-weight-bold"
+                              >{{game.home}}</span
+                            >
+                            <span class="vs">vs</span>
+                            <span class="participant participant-two">{{game.away}}</span>
+                          </div>
+  
+                          <div class="font-weight-bold small">
+                            {{game.time}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Match fixture item ends-->
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+    <!-- Desktop fixtures table ends -->
+  </div>
+  <!-- Black section ends -->
+
+  <!-- white section starts -->
+  <div class="whiteSection mt-3">
+    <div class="row">
+      <div class="col-sm-12 col-lg-7 ">
+        <div class="container">
+          <!-- player list table starts-->
+          <div class="card" >
+            <table class="theTable" width="100%">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="font-weight-bold">Rank</th>
+                  <th class="font-weight-bold">Username</th>
+                  <th class="font-weight-bold">Points</th>
+                  <th  class="font-weight-bold" *ngIf="contest.status > 1">Won</th>
+                  <th class="font-weight-bold"></th>
+                </tr>
+              </thead>
+
+              <tbody >
+                <tr [ngClass]="{userRankRow: checkContest_id.includes(userDetail.user_id)}" class="{{selected}}" 
+                *ngFor="let userDetail of (userRankCopy?userRankCopy:userRank); first as isFirst" >
+                  <td></td>
+                  <td>
+                    <span class="rankTag">{{((userDetail.current_rank) ? userDetail.current_rank : '--')}}</span>
+                  </td>
+                  <td>
+                    <span
+                      ><div class="d-flex"  >
+                        <div
+                          class="player-image"
+                          width="50px"
+                          height="50px"
+                          style="border-radius: 50%"
+                        >
+                      
+
+                          <img
+                           [src]="userDetail.image ? userDetail.image : 'assets/image/default_user.png'"
+                            alt="Player's avatar"
+                            width="50px"
+                            height="50px"
+                          />
+                        </div>
+                        <div class="player-details">
+                          <a  (click) ="getTeamLineup(userDetail)">
+                          <span class="userName font-weight-bold d-block"
+                           >YOU</span
+                          >
+                          <span class="teamName"> {{userDetail.team_name}}</span>
+                        </a>
+                        </div>
+                      </div></span
+                    >
+                  </td>
+                  <td><span>{{((userDetail.total_score) ? userDetail.total_score : '--')}}</span></td>
+                  <td *ngIf="contest.status > 1">
+                    <span *ngIf="userDetail.won_prize ">{{userDetail.won_prize }}</span>
+                    <span *ngIf="!userDetail.won_prize">--</span></td>
+
+                  <td></td>
+                  <!-- <td *ngIf="isFirst ? getTeamLineup(userDetail, selectedContest) : null"></td> -->
+                </tr>
+                <tr [ngClass]="{userRankRow: checkContest_id.includes(contestRankList.user_id)}" *ngFor = "let contestRankList of (contestListRankCopy.length>0?contestListRankCopy:contestListRank)">
+                  <td></td>
+                  <td>
+                    <span class="rankTag">{{((contestRankList.current_rank) ? contestRankList.current_rank : '--')}}</span>
+                  </td>
+                  <td>
+                    <span (click) = "getTeamLineup(contestRankList)"
+                      ><div class="d-flex">
+                        <div
+                          class="player-image"
+                          width="50px"
+                          height="50px"
+                          style="border-radius: 50%"
+                        >
+                          <img
+                            [src]="contestRankList.image ? contestRankList.image : 'assets/image/default_user.png'"
+                            alt="Player's avatar"
+                            width="50px"
+                            height="50px"
+                          />
+                        </div>
+                        <div class="player-details">
+                          <a>
+                          <span class="userName font-weight-bold d-block"
+                            >{{(contestRankList.user_name) ?  contestRankList.user_name   :contestRankList.first_name  + ' ' +  contestRankList.last_name}}</span
+                          >
+                          <span class="teamName"> {{contestRankList.team_name}}</span>
+                        </a>
+                        </div>
+                      </div></span
+                    >
+                  </td>
+                  <td><span>{{((contestRankList.total_score) ? contestRankList.total_score : '--')}}</span></td>
+                  <td *ngIf="contest.status > 1">
+                    <span *ngIf="!contestRankList.won_priz">--</span>
+                    <span *ngIf="contestRankList.won_prize">{{contestRankList.won_prize}}</span>
+                  </td>
+
+                  <td></td>
+                </tr>
+                <!-- <tr>
+                  <td></td>
+                  <td>
+                    <span class="rankTag">2</span>
+                  </td>
+                  <td>
+                    <span
+                      ><div class="d-flex">
+                        <div
+                          class="player-image"
+                          width="50px"
+                          height="50px"
+                          style="border-radius: 50%"
+                        >
+                          <img
+                            src="assets/image/default_user.png"
+                            alt="Player's avatar"
+                            width="50px"
+                            height="50px"
+                          />
+                        </div>
+                        <div class="player-details">
+                          <a>
+                          <span class="userName font-weight-bold d-block"
+                            >Arinze Okorji</span
+                          >
+                          <span class="teamName"> arinzeokorji Team 1</span>
+                        </a>
+                        </div>
+                      </div></span
+                    >
+                  </td>
+                  <td><span>53.27</span></td>
+                  <td><span>--</span></td>
+
+                  <td></td>
+                </tr> --> 
+              </tbody>
+            </table>
+          </div>
+
+          <!-- player list table ends-->
+        </div>
+      </div>
+
+      <!-- Pitch container starts -->
+      <div class="col-sm-12 col-lg-5">
+          <div class="customContainer">
+              <div id="{{ device }}" *ngIf="isPopulated" class='pitchContainer'>
+            
+            
+      
+                  <div class="pitchadscontainer ">
+                    <div class="" id="teamName">
+                      <div
+                        class="border-bottom teamName px-2"
+                        style="display: grid; grid-template-columns: 0.5fr 1fr;"
+                      >
+                        <div style="display: inline-block;">
+                          <a
+                            class="white-text font-weight-bold"
+                            (click)="backToDetails()"
+                            *ngIf="isDisabled"
+                            ><i class="fas fa-arrow-left mr-2 "></i> Back</a
+                          >
+                        </div>
+                        <!--<div>-->
+                        <span class="text-right">{{ teamInfo.team_name }}</span>
+                        <!--</div>-->
+                      </div>
+                      <div class="row rank">
+                        <div class="ml-auto mr-3">Rank</div>
+                        <div class="mr-4">
+                          {{((teamInfo.rank)?(teamInfo.rank):(userRank[0]?.current_rank)) + "/" + totalUserJoined }}
+                        </div>
+                      </div>
+                    </div>
+            
+                    <div>
+                      <div class="px-3 mt-1">
+                        <span *ngIf="!is_live" class="d-flex align-items-center completed white-text">
+                          Completed
+                        </span>
+                        <span *ngIf="is_live" class="d-flex align-items-center completed white-text">
+                          Live
+                        </span>
+                      </div>
+                    </div>
+                    <div class="d-flex pt-0">
+                      <div class="d-flex" id="leftAdContainer">
+                        <div id="leftAdShadow" style="background: #DD1731;"></div>
+                        <div id="leftAdBox">
+                            <div class='leftAd {{promoClasss}}' style='background-image: url("assets/image/logo/logo.png")' alt='Fantastic logo'></div>
+                        </div>
+                      </div>
+            
+                      <div class="d-flex " id="rightAdContainer">
+                        <div id="rightAdBox">
+                            <div class='rightAd {{promoClasss}}' style='background-image: url("assets/image/logo/logo.png")' alt='Fantastic logo'></div>
+                        </div>
+                        <div id="rightAdShadow" style="background: #DD1731;"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 5-4-1 formation -->
+                  <div class=" pr-0 mr-0">
+                    <div
+                      id="pitchBorder"
+                      class="col-lg-12 px-0 mx-0"
+                      style="background: url('assets/image/formation_images/mainPitch.png');background-repeat: no-repeat; background-size: 100% 100%; width: 100%; margin-right: 0; padding-right: 0;"
+                    >
+                      <!-- Formation 5-4-1 Forward -->
+                      <div id="FW">
+                        <ul [ngClass]="fwclass">
+                          <ng-container *ngFor="let fwdplayer of fwdPlayers; let fwdIndex = index" >
+                          <li *ngIf="!fwdPlayers[fwdIndex]['allow_substitution']==1">
+                            <div
+                              *ngIf="
+                                fwdPlayers[fwdIndex]['captain'] === '1' ||
+                                fwdPlayers[fwdIndex]['captain'] === '2'
+                              "
+                              class="captainBadge"
+                            >
+                              {{ fwdPlayers[fwdIndex]["captain"] === "1" ? "C" : "VC" }}
+                            </div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  style="width:45px;height: 45px;"
+                                  src="{{ fwdPlayers[fwdIndex]['jersey'] }}"
+                                  alt=""
+                                />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  *ngIf="fwdPlayers[fwdIndex]"
+                                  >{{
+                                    fwdPlayers[fwdIndex]["nick_name"]
+                                      ? fwdPlayers[fwdIndex]["nick_name"]
+                                      : "FW"
+                                  }}</span
+                                >
+                                <span  class="white-text small d-block playerSalary">
+                                   {{(fwdPlayers[fwdIndex]['score']) ? fwdPlayers[fwdIndex]['score']+'pts' : ''}}
+
+                                </span>
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  *ngIf="currentMatch === 'Upcoming'"
+                                >
+                                  {{
+                                    fwdPlayers[fwdIndex]["salary"]
+                                      ? fwdPlayers[fwdIndex]["salary"]
+                                      : ""
+                                  }}
+                                </span>
+                              </div>
+            
+                              <!--<span hidden class="white-text small">DEF</span>-->
+                            </a>
+                          </li>
+                        </ng-container>
+                        </ul>
+                      </div>
+                      <!-- /Formation 4-4-2 Forward -->
+            
+                      <!-- Formation 5-4-1 Midfield -->
+                      <div id="Mid">
+                        <ul [ngClass]="midclass">
+                          <ng-container *ngFor="let mfplayer of midPlayers; let mfIndex = index">
+                          <li *ngIf="!midPlayers[mfIndex]['allow_substitution']==1"  >
+                            <div
+                              *ngIf="
+                                midPlayers[mfIndex]['captain'] === '1' ||
+                                midPlayers[mfIndex]['captain'] === '2'
+                              "
+                              class="captainBadge"
+                            >
+                              {{ midPlayers[mfIndex]["captain"] === "1" ? "C" : "VC" }}
+                            </div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  style="width:45px;height: 45px;"
+                                  src="{{ midPlayers[mfIndex]['jersey'] }}"
+                                  alt=""
+                                />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  *ngIf="midPlayers[mfIndex]"
+                                  >{{
+                                    midPlayers[mfIndex]["nick_name"]
+                                      ? midPlayers[mfIndex]["nick_name"]
+                                      : "MF"
+                                  }}</span
+                                >
+                                <span  class="white-text small d-block playerSalary">
+                                    {{( midPlayers[mfIndex]['score']) ?  midPlayers[mfIndex]['score']+'pts' : ''}}
+ 
+                                 </span>
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  *ngIf="currentMatch === 'Upcoming'"
+                                >
+                                  {{
+                                    midPlayers[mfIndex]["salary"]
+                                      ? midPlayers[mfIndex]["salary"]
+                                      : ""
+                                  }}
+                                </span>
+                              </div>
+            
+                              <!--<span hidden class="white-text small">DEF</span>-->
+                            </a>
+                          </li>
+                          
+                        </ng-container>
+                        </ul>
+                      </div>
+            
+                     <!--  <img
+                        src="assets/image/logo/logo_F.png"
+                        alt="Sponsor's Logo"
+                        width="80%"
+                        height="60%"
+                        style="position:absolute; top: 0; left: 10%; transform: rotateX(75deg); opacity: 0.7;"
+                      /> -->
+                      <!-- /Formation 5-4-1 Midfield -->
+            
+                      <!-- Formation 5-4-1 Defence -->
+                      <div id="Def">
+                        <ul [ngClass]="defclass">
+                          <ng-container *ngFor="let dfplayer of defPlayers; let dfIndex = index">
+                          <li *ngIf="!defPlayers[dfIndex]['allow_substitution']==1"  >
+                            
+                              <!-- <ng-container *ngIf="!is_live && defPlayers[dfIndex].status==1">  -->
+                            <div
+                              *ngIf="
+                                defPlayers[dfIndex]['captain'] === '1' ||
+                                defPlayers[dfIndex]['captain'] === '2'
+                              "
+                              class="captainBadge"
+                            >
+                              {{ defPlayers[dfIndex]["captain"] === "1" ? "C" : "VC" }}
+                            </div>
+                            <a *ngIf="defPlayers[dfIndex]">
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img
+                                  style="width:45px;height: 45px;"
+                                  src="{{ defPlayers[dfIndex]['jersey'] }}"
+                                  alt=""
+                                />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span
+                                  class="white-text small d-block playerName"
+                                  *ngIf="defPlayers[dfIndex]"
+                                  >{{
+                                    defPlayers[dfIndex]["nick_name"]
+                                      ? defPlayers[dfIndex]["nick_name"]
+                                      : "DEF"
+                                  }}</span
+                                >
+                                <span  class="white-text small d-block playerSalary">
+                                    {{(  defPlayers[dfIndex]['score']) ?   defPlayers[dfIndex]['score']+'pts' : ''}}
+ 
+                                 </span>
+                                <span
+                                  class="white-text small d-block playerSalary"
+                                  *ngIf="currentMatch === 'Upcoming'"
+                                >
+                                  {{
+                                    defPlayers[dfIndex]["salary"]
+                                      ? defPlayers[dfIndex]["salary"]
+                                      : ""
+                                  }}
+                                </span>
+                              </div>
+            
+                              <!--<span hidden class="white-text small">DEF</span>-->
+                            </a>
+                             <!-- </ng-container>   -->
+                          </li>
+                        </ng-container>
+                        </ul>
+                      </div>
+                      <!-- /Formation 5-4-1 Defence -->
+            
+                      <!-- Formation 5-4-1 Goalie -->
+                      <div id="goalie">
+                        <ul class="goalie" *ngFor="let gkplayer of gkPlayers; let gkIndex = index">
+                          <li *ngIf="gkPlayers[0] && !gkPlayers[0]['allow_substitution']==1" >
+                            <div
+                              *ngIf="
+                                gkPlayers[0]['captain'] === '1' ||
+                                gkPlayers[0]['captain'] === '2'
+                              "
+                              class="captainBadge"
+                            >
+                              {{ gkPlayers["captain"] === "1" ? "C" : "VC" }}
+                            </div>
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                                class=" my-0 py-0"
+                              >
+                                <img
+                                  style="width:45px;height: 45px;"
+                                  src="{{ gkPlayers[0]['jersey'] }}"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName">
+                                  {{
+                                    gkPlayers[0]["nick_name"]
+                                      ? gkPlayers[0]["nick_name"]
+                                      : gkPlayers[0]["full_name"]
+                                  }}</span
+                                >
+                                <span class="white-text small d-block playerSalary"> 
+                                  {{(gkPlayers[0]['score']) ? gkPlayers[0]['score']+'pts' : ''}}
+                                </span>
+                                <!-- <span class="white-text small d-block playerSalary">{{
+                                  gkPlayers[0]["salary"] ? playersArr[0]["salary"] : ""
+                                }}</span> -->
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /Formation 5-4-1 Goalie -->
+                    </div>
+                  </div>
+                </div>
+                <!-- Empty Pitch starts -->
+                <div id="{{ device }}" *ngIf="!mobileDevice && !isPopulated" class='pitchContainer'>
+                  <div class="unpopulatedPitchadscontainer ">
+                    <div class="d-flex pt-0">
+                      <div class="d-flex" id="leftAdContainer">
+                        <div id="leftAdShadow" style="background: #DD1731;"></div>
+                        <div id="leftAdBox">
+                            <div class='leftAd {{promoClasss}}' style='background-image: url("assets/image/logo/logo.png")' alt='Fantastic logo'></div>
+                        </div>
+                      </div>
+            
+                      <div class="d-flex " id="rightAdContainer">
+                        <div id="rightAdBox">
+                            <div class='rightAd {{promoClasss}}' style='background-image: url("assets/image/logo/logo.png")' alt='Fantastic logo'></div>
+                        </div>
+                        <div id="rightAdShadow" style="background: #DD1731;"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 4-4-2 formation -->
+                  <div class=" pr-0 mr-0">
+                    <div
+                      id="pitchBorder"
+                      class="col-lg-12 px-0 mx-0"
+                      style="background: url('assets/image/formation_images/mainPitch.png');background-repeat: no-repeat; background-size: 100% 100%; width: 100%; margin-right: 0; padding-right: 0;"
+                    >
+                      <!-- Formation 4-4-2 Forward -->
+                      <div id="FW">
+                        <ul class="FW-4-4-2">
+                          <li>
+                            <!-- <div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+            
+                              <span hidden class="white-text small">FW</span>
+                            </a>
+                          </li>
+                          <li>
+                            <!-- <div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+            
+                              <span hidden class="white-text small">FW</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /Formation 4-4-2 Forward -->
+            
+                      <!-- Formation 4-4-2 Midfield -->
+                      <div id="Mid">
+                        <ul class="Mid-4-4-2">
+                          <li class="">
+                            <!-- <div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+            
+                              <span hidden class="white-text small">MID</span>
+                            </a>
+                          </li>
+                          <li>
+                            <!-- <div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+            
+                              <span hidden class="white-text small">MID</span>
+                            </a>
+                          </li>
+                          <li>
+                            <!-- <div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+            
+                              <span hidden class="white-text small">MID</span>
+                            </a>
+                          </li>
+                          <li>
+                            <!-- <div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+            
+                              <span hidden class="white-text small">MID</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+            
+                      <!-- <img
+                        src="assets/image/logo/logo_F.png"
+                        alt="Sponsor's Logo"
+                        width="80%"
+                        height="60%"
+                        style="position:absolute; top: 0; left: 10%; transform: rotateX(75deg); opacity: 0.7;"
+                      /> -->
+                      <!-- /Formation 4-4-2 Midfield -->
+            
+                      <!-- Formation 4-4-2 Defence -->
+                      <div id="Def">
+                        <ul class="Def-4-4-2">
+                          <li>
+                            <!-- <div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+            
+                              <span hidden class="white-text small">DEF</span>
+                            </a>
+                          </li>
+                          <li>
+                            <!-- <div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+            
+                              <span hidden class="white-text small">DEF</span>
+                            </a>
+                          </li>
+                          <li>
+                            <!-- <div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+            
+                              <span hidden class="white-text small">DEF</span>
+                            </a>
+                          </li>
+                          <li>
+                            <!-- <div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+            
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+            
+                              <span hidden class="white-text small">DEF</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /Formation 4-4-2 Defence -->
+            
+                      <!-- Formation 4-4-2 Goalie -->
+                      <div id="goalie">
+                        <ul class="goalie">
+                          <li>
+                            <!--<div class="captainBadge">C</div>-->
+                            <a>
+                              <div
+                                id="player-body"
+                                mdbTooltip="M. Sallah"
+                                placement="bottom"
+                                class=" my-0 py-0"
+                              >
+                                <img src="assets/image/jersey_mockup.png" alt="" />
+                              </div>
+                              <div class="playerShadow"></div>
+                              <div class="my-0 py-0 playerDetails">
+                                <span class="white-text small d-block playerName"></span>
+                                <span class="white-text small d-block playerSalary"></span>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /Formation 4-4-2 Goalie -->
+                    </div>
+                  </div>
+                </div>
+                <!--Empty Pitch ends -->
+            </div>
+          
+        </div>
+      <!-- pitch container ends -->
+    </div>
+  <!--Chat module-->
+  <div>
+    <a class="chat-btn" (click)='showChatbox()'><i class="fas fa-users"></i></a>
+
+    <div id="firechat-wrapper" [hidden]= chatbox class="firechat-wrapper">
+      <div id="firechat">
+        <div id="firechat-header">
+          <div class="clearfix">
+            <div class="half firechat-dropdown all-rooms-dropdown" >
+              <a
+                id="firechat-btn-rooms"
+                class="dropdown-toggle"
+                data-toggle="firechat-dropdown"
+              >
+                <span class="icon user-chat"></span>
+                Chat Rooms
+                <span class="arw"></span>
+              </a>
+              <div class="dropdown-menu full" role="menu">
+                <ul id="firechat-room-list"></ul>
+                <div class="firechat-dropdown-footer">
+                  <button
+                    type="button"
+                    class="btn twothird center"
+                    id="firechat-btn-create-room-prompt"
+                  >
+                    Create Room
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="firechat-tabs">
+          <ul id="firechat-tab-list" class="nav nav-tabs">
+            <li class="active" style="width: 300px;">
+
+              <!-- Close chat box starts -->
+              <a title="Admin Use  Only"
+                >Admin Use Only<span class="close right" (click)='showChatbox()' title="Leave Room"
+                  ><i class="fas fa-close"></i></span
+              ></a>
+              <!-- Close chat box ends -->
+
+            </li>
+          </ul>
+        </div>
+
+        <div class="firechat-tab-content">
+          <div class="tab-pane">
+            <div class="tab-pane-menu"></div>
+            <div class="clearfix">
+              <div id="firechat-messages-L_MA7LdznNNFQCvuVwy" class="chat">
+                <div
+                  class="message message-default  message-self "
+                  data-message-id="-L_MAGPgj7tcVDxsSpDR"
+                  data-user-id="rYlK3yyTB8ZeEp8cFg2lL0pWwB92"
+                  data-user-name="arinzeokorji"
+                  data-class="firechat-message"
+                >
+                  <div class="user-info">
+                    <span
+                      class="name"
+                      title="arinzeokorji"
+                      data-part="a"
+                    ></span>
+                  </div>
+                  <div class="message-content">
+                    <span class="name">arinzeokorji</span
+                    ><span class="option"></span
+                    ><span class="message-text">Testing 1,2,3</span
+                    ><span class="time">9:02am</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix">
+              <label></label>
+
+              <textarea
+                id="textarea-L_MA7LdznNNFQCvuVwy"
+                class="form-control"
+                placeholder="Type your message here..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div id="firechat-footer" class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <!--Chat module-->
+</div>
+  <!-- white section ends -->
+
+<app-footer></app-footer>

@@ -1,0 +1,385 @@
+<app-header [condition]="true" [status]="true"></app-header>
+
+<div class="main" style="background: #fff 0px 0px fixed; ">
+    <div>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="top-banner leaderboard ">
+                        <h1>Leaderboard</h1>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div id="tableContainer">
+                        <div *ngIf="isLoading" class="spinner" style="top:50%;
+                            left: 41%;
+                            z-index: 999;"></div>
+                        <!-- <div id="leagueName">
+            <ul class="nav" >
+              <li routerLinkActive="active" *ngFor='let leagues of leagueTypes' [ngClass]='{active: this.leagueIdArr.includes(leagues.id)}' ><a (click)='active(leagues.id)'>{{leagues.league}}</a></li>
+            </ul>
+          </div> -->
+                        <div id="leaderboardTableContainer">
+                            <div>
+                                <div id="tableWrapper">
+                                    <table id="leaderboardTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="pl-2 py-2"><span>Rank</span></th>
+
+                                                <th class=" py-2">
+                                                    <span>Username</span>
+                                                </th>
+
+                                                <th class="px-3 py-2"><span>Points</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- User that logged in position starts -->
+                                            <tr *ngIf="user.length>0" (click)="showUserResult(user[0])">
+                                                <td class="pl-2 py-2"><span class='rankTag'>{{index+1}}</span></td>
+
+                                                <td width="50%" class="pr-3 py-2">
+                                                    <div class="d-flex align-items-center">
+                                                        <!-- <button class="waves-dark relative dropdown-toggle mobileContestInfoBtn p-0 black-text" mdbBtn mdbWavesEffect mdbDropdownToggle (click)="toggleContestInfo()"></button> -->
+                                                        <div class="username">
+                                                            <div class="player-image" width="40px" height="40px"
+                                                                style="border-radius: 50%">
+                                                                <img src="{{currentUser.data.user_profile.image || 'assets/image/default_user.png'}}"
+                                                                    alt="Player's avatar" />
+                                                            </div>
+                                                            <div class="font-weight-bold">
+                                                                <span>{{user[0].user_name}}</span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td class="px-3 py-2"><span>{{user[0].points}}</span></td>
+                                            </tr>
+                                            <!-- User that logged in position ends -->
+
+                                            <!-- Other players' position starts -->
+                                            <tr *ngFor="let user of Rank; let userIndex = index">
+                                                <ng-container *ngIf="userIndex !==index">
+                                                    <td class="pl-2 py-2"><span class='rankTag'>{{userIndex+1}}</span>
+                                                    </td>
+
+                                                    <td width="50%" class="pr-3 py-2">
+                                                        <div class="d-flex align-items-center">
+                                                            <!-- <button class="waves-dark relative dropdown-toggle mobileContestInfoBtn p-0 black-text" mdbBtn mdbWavesEffect mdbDropdownToggle (click)="toggleContestInfo()"></button> -->
+                                                            <div class="username" (click)="showUserResult(user)">
+                                                                <div class="player-image" width="40px" height="40px"
+                                                                    style="border-radius: 50%">
+                                                                    <img src="assets/image/default_user.png"
+                                                                        alt="Player's avatar" />
+                                                                </div>
+                                                                <div class="font-weight-bold">
+                                                                    <span>{{user?.user_name?user?.user_name: user?.first_name}}</span>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <!--  DROPDOWN FOR leaderboard info ON MOBILE -->
+                                                        <div class=" ml-3 px-2 mt-2" id="contestinfomobile"
+                                                            [ngClass]="{ display: mobile }">
+                                                            <div class="d-flex small my-2">
+                                                                <span>Points:</span>
+                                                                <span class="ml-auto">1M</span>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <!--  END OF DROPDOWN FOR leaderboard info ON MOBILE -->
+
+                                                    </td>
+
+                                                    <td class="px-3 py-2"><span>{{user.points}}</span></td>
+                                                </ng-container>
+                                            </tr>
+                                            <!-- Other players' position ends -->
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="col-sm-12 text-center advbanner">
+            <div class="bottom-add-banner">
+
+                <a>
+                    <img>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Scored Game Modal-->
+<!-- <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
+        (click)="showResult()" mdbWavesEffect>Launch Modal
+</button> -->
+
+<div class="modal fade" tabindex="-1" #userResult="mdbModal" mdbModal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between">
+                <h4 class="m-0">{{userr?.user_name}}'s History</h4>
+                <span class="close" (click)="cancel()">&times;</span>
+            </div>
+
+            <div class="modal-body p-0">
+                <!-- Section navigation starts -->
+                <div class="whiteContainer">
+                    <div class="">
+                        <ul class="sectionNav">
+                            <li (click)="onClickFree()" [ngClass]="{active: !token}">
+                                <a>Free</a>
+                            </li>
+                            <li (click)="onClickToken()" [ngClass]="{active: token}">
+                                <a>Premium</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Section navigation ends -->
+
+                <!-- Free games list starts -->
+
+                <!-- Game list starts -->
+                <div class='gameListContainer'>
+                    <div>
+                        <div class='d-flex containers predictionOrOutcomeContainer'>
+                            <span class='ml-auto mr-3'>Prediction</span>
+                            <span class=''>Outcome</span>
+                        </div>
+                    </div>
+
+                    <!-- Single game day section starts -->
+                    <div class='singleGameDay'>
+
+                        <!-- Game date starts -->
+                        <div class="gameDate">
+                            <div class="containers">
+                                <span style='font-variant: small-caps;
+                                    font-size: 14px;
+                                    font-weight: 600;'></span>
+                            </div>
+
+                        </div>
+                        <!-- Game date ends -->
+
+                        <!-- Game list section starts -->
+                        <div class="gameList">
+                            <ul>
+
+                                <ng-container *ngIf="userScoredFreeGame.length>0 && !token;">
+
+                                    <li *ngFor="let result of userScoredFreeGame">
+
+                                        <div class="containers">
+                                            <!-- Single game header starts -->
+                                            <div
+                                                class='singleGameHeader d-flex justify-content-between align-items-center'>
+                                                <span
+                                                    class="small gameTime">{{result.date | date:'dd/MM/yy  hh:mm a'}}</span>
+                                                <span *ngIf="result.points;else zero"
+                                                    class="small gamePoint">Point(s):{{result.points}}</span>
+                                                <ng-template #zero>
+                                                    <span class="small gamePrize">Point(s): 0</span>
+                                                </ng-template>
+                                                <span *ngIf="result.points;else zeroCoin" class="small gamePrize">Prize:
+                                                    <span>{{result.prize}}</span> <img
+                                                        src="assets/image/coin_img/Fancoin.png" class='fanCoinImg'
+                                                        alt='Fancoin Image'></span>
+                                                <ng-template #zeroCoin>
+                                                    <span class="small gamePrize">Prize: <b>0 </b> <img
+                                                            src="assets/image/coin_img/Fancoin.png"
+                                                            style="height: 20px"></span>
+                                                </ng-template>
+                                            </div>
+                                            <!-- Single game header ends -->
+
+                                            <!-- Single game body starts -->
+                                            <div class='singleGameBody'>
+
+
+                                                <!-- Single game teams starts -->
+                                                <div class="singleGameTeams">
+                                                    <span class="homeTeam">{{result.home}}</span>
+                                                    <span class="awayTeam">{{result.away}}</span>
+                                                </div>
+                                                <!-- Single game teams ends -->
+
+                                                <!-- Action buttons starts -->
+                                                <div class="actionBtnsContainer">
+                                                    <button
+                                                        class="actionBtn selectedBtn">{{result.button.name}}</button>
+                                                    <button *ngIf="result.result"
+                                                        class="actionBtn white-text successBtn"
+                                                        style='margin-right: 6px; margin-left: 2px;'>
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                    <button *ngIf="!result.result && result.scored"
+                                                        class="actionBtn white-text failureBtn"
+                                                        style='margin-right: 6px; margin-left: 2px;'><i
+                                                            class="fas fa-times"></i>
+                                                    </button>
+                                                    <div *ngIf="!result.scored " class='noResult'></div>
+                                                </div>
+                                                <!-- Action buttons ends -->
+                                            </div>
+                                            <!-- Single game body ends -->
+                                        </div>
+
+                                    </li>
+                                </ng-container>
+
+                            </ul>
+                        </div>
+                        <!-- Game list section ends -->
+                    </div>
+                    <!-- Single game day section ends -->
+
+                    <!-- Single game dropdown starts -->
+                    <ng-container *ngIf="token && userScoredTokenGame.length>0;else empty ">
+                        <div class="singleGameDropdown"
+                            *ngFor="let userToken of userScoredTokenGame; let gameArrayIndex = index">
+
+                            <!-- Single game header starts -->
+                            <div class="containers dropdownhHeader d-flex align-items-center"
+                                (click)='toggleDropdown(userToken.id,gameArrayIndex)'
+                                [ngClass]='{ active:toggledIdArray.includes(userToken.id)}'>
+                                <!-- (click)='toggleDropdown()' [class.active]='this.dropdownToggle' -->
+                                <h3 class='gameTitle mb-0'>{{userToken.title}}</h3>
+                                <span class="entryFee small"><b>Entry:</b>{{userToken.entry_fee}} <img
+                                        src="assets/image/coin_img/Token_small.png" class='tokenImg'
+                                        alt='Fancoin Image'></span>
+                                <span class="prize small"><b>Prize:</b> {{userToken.prize}}<img
+                                        src="assets/image/coin_img/Fancoin.png" class='fanCoinImg'
+                                        alt='Fancoin Image'></span>
+                                <span class="prize small ml-3"> <b>{{userToken?.date | date:'dd/MM/yy  hh:mm a'}}</b>
+                                </span>
+                                <i class="fas fa-caret-down"></i>
+                            </div>
+                            <!-- Single game header ends -->
+
+                            <!-- Single game body starts -->
+                            <div class="dropdownBody" [ngClass]='{active: toggledIdArray.includes(userToken.id)}'>
+                                <div>
+                                    <div class='d-flex containers predictionOrOutcomeContainer'>
+                                        <span class='ml-auto mr-3'>Prediction</span>
+                                        <span class=''>Outcome</span>
+                                    </div>
+                                </div>
+
+                                <!-- Single game day section starts -->
+                                <div class='singleGameDay'>
+
+                                    <!-- Game date starts -->
+                                    <div class="gameDate">
+                                        <div class="containers">
+                                            <span style='font-variant: small-caps;
+                                                font-size: 14px;
+                                                font-weight: 600;'></span>
+                                        </div>
+
+                                    </div>
+                                    <!-- Game date ends -->
+
+                                    <!-- Game list section starts -->
+                                    <div class="gameList" *ngFor="let game of userToken.game">
+                                        <ul>
+
+                                            <li>
+
+                                                <div class="containers">
+                                                    <!-- Single game header starts -->
+                                                    <div class='singleGameHeader d-flex justify-content-between'>
+                                                        <span class="small gameTime">
+                                                            {{game?.date  | date:'short'}}</span>
+                                                        <span *ngIf="game.points;else zero"
+                                                            class="small gamePrize">Point(s): {{game.points}}</span>
+                                                        <!-- <span class="small gamePrize">Prize: 1 coin</span> -->
+                                                        <ng-template #zero> <span class="small gamePrize">Point(s):
+                                                                0</span></ng-template>
+                                                    </div>
+                                                    <!-- Single game header ends -->
+
+                                                    <!-- Single game body starts -->
+                                                    <!-- Single game body starts -->
+                                                    <div class='singleGameBody'>
+
+
+                                                        <!-- Single game teams starts -->
+                                                        <div class="singleGameTeams">
+                                                            <span class="homeTeam">{{game.home}}</span>
+                                                            <span class="awayTeam">{{game.away}}</span>
+                                                        </div>
+                                                        <!-- Single game teams ends -->
+
+                                                        <!-- Action buttons starts -->
+                                                        <div class="actionBtnsContainer">
+                                                            <button
+                                                                class="actionBtn selectedBtn">{{game.button.name}}</button>
+                                                            <button *ngIf="game.scored && game.result"
+                                                                class="actionBtn white-text successBtn"
+                                                                style='margin-right: 6px; margin-left: 2px;'><i
+                                                                    class="fas fa-check"></i></button>
+                                                            <button *ngIf="game.scored && !game.result"
+                                                                class="actionBtn white-text failureBtn"
+                                                                style='margin-right: 6px; margin-left: 2px;'><i
+                                                                    class="fas fa-times"></i></button>
+                                                            <div *ngIf="!game.scored && !game.result" class='noResult'>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Action buttons ends -->
+                                                    </div>
+                                                    <!-- Single game body ends -->
+                                                    <!-- Single game body ends -->
+                                                </div>
+
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <!-- Game list section ends -->
+                                </div>
+                                <!-- Single game day section ends -->
+
+
+                            </div>
+                            <!-- Single game body ends -->
+
+
+                        </div>
+                    </ng-container>
+                    <ng-template #empty> No token Game results for {{userr?.user_name}} yet </ng-template>
+                    <!-- Single game ends -->
+                </div>
+                <!-- Game list ends -->
+
+                <!-- Free games list ends -->
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

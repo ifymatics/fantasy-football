@@ -1,0 +1,64 @@
+<app-header></app-header>
+<app-modal-get-token></app-modal-get-token>
+<!--<router-outlet></router-outlet>-->
+<div class="main mt-5 mb-5">
+  <div class="">
+    <div class="col-wrapper">
+      <div >
+        <div class="">
+          <div class="">
+            <div class="col-sm-12 col-lg-7">
+                <div class="secondary-tab container px-0">
+                    <ul
+                      class="nav nav-tabs justify-content-between justify-content-around"
+                    >
+                      <li>
+                        <a [routerLink]="['live']" routerLinkActive="active">Live</a>
+                      </li>
+                      <li>
+                        <a [routerLink]="['upcoming']" routerLinkActive="active"
+                          >Upcoming</a
+                        >
+                      </li>
+                      <li>
+                        <a [routerLink]="['completed']" routerLinkActive="active"
+                          >Completed</a
+                        >
+                      </li>
+                      <!--<li  [ngClass]="{'active': cssActive && myLeagueArray.includes(1)}" id="navTabs"><a (click) = "selectLeagueType(1)">Live</a></li>
+                      <li id="navTabs"  [ngClass]="{'active': cssActive && myLeagueArray.includes(0)}"><a (click)="selectLeagueType(0)" >Upcoming</a></li>
+                      <li  id="navTabs"   [ngClass]="{'active': cssActive && myLeagueArray.includes(2)}"><a (click)="selectLeagueType(2)" >Completed</a></li>
+                      -->
+                    </ul>
+                  </div>
+            </div>
+          </div>
+
+
+          <!-- leagueChildren container starts -->
+          <div>
+            <div class='body'>
+              <router-outlet></router-outlet>
+            </div>
+            <!--leagueChildren container ends -->
+
+            <div
+              class="spinner"
+              *ngIf="isLoading"
+              style="top:50%;
+          left: 45%;"
+            ></div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!--  -->
+</div>
+
+<app-footer></app-footer>

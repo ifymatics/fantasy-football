@@ -1,0 +1,68 @@
+.main {
+    height: 100%;
+}
+
+//Custom container starts
+.containers {
+    padding: 0 10px;
+}
+
+//custom container ends
+.innerContainer {
+    padding: 0 20px;
+}
+
+form {
+    height: 100%;
+    padding-top: 30px !important;
+    label {
+        display: block;
+    }
+    input {
+        width: 100%;
+        height: 39px;
+        padding-left: 10px;
+        border-radius: 4px;
+        border: solid 1px #A3A3A3;
+    }
+    select {
+        width: 100%;
+        height: 39px;
+        padding-left: 10px;
+    }
+}
+
+.form-controls {
+    margin-bottom: 33px;
+}
+
+.singleAddedGame {
+    border-bottom: 1px solid #C4C4C4;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    .teams {
+        color: #444444;
+        font-weight: 600;
+    }
+}
+
+.addGameButton {
+    color: #4285f4;
+    font-weight: 700;
+    margin-bottom: 30px;
+    margin-top: 15px;
+}
+
+.deleteGame {
+    font-size: 20px;
+    color: #444444;
+}
+
+.addGameContainer {
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding-top: 24px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}

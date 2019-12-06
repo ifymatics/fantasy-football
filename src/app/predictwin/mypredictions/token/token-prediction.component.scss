@@ -1,0 +1,150 @@
+@mixin for-md {
+    @media screen and (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin for-lg {
+    @media screen and (min-width: 996px) {
+        @content;
+    }
+}
+
+//Custom container starts
+.containers {
+    padding: 0 10px;
+}
+
+//custom container ends
+.singleGameDay {
+    .gameDate {
+        background-color: #DFDFDF;
+        padding: 5px 0px;
+    }
+}
+
+.dropdownhHeader {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 1px solid #C4C4C4;
+    background-color: #F9F9F9;
+    justify-content: space-between;
+    .gameTitle,
+    i {
+        font-weight: 700;
+        font-size: 19px;
+        color: #222222;
+    }
+    .entryFee b,
+    .prize b {
+        font-weight: bold
+    }
+}
+
+.dropdownhHeader.active {
+    background-color: #747774;
+    color: #fff;
+    border: none;
+
+    .gameTitle, i {
+        color: #fff;
+    }
+}
+
+.dropdownBody {
+    display: none;
+}
+
+.dropdownBody.active {
+    display: unset;
+}
+
+.gameList {
+    height: 100%;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        @include for-lg {
+            padding-bottom: 0;
+        }
+        li {
+            border-bottom: #C4C4C4 1px solid;
+            padding-bottom: 6px;
+            .singleGameHeader {
+                margin-bottom: 6px;
+            }
+            .singleGameBody {
+                display: flex;
+                justify-content: space-between;
+                .singleGameTeams {
+                    span {
+                        display: block;
+                        font-weight: 700;
+                        color: #3a3a3a;
+                    }
+                }
+                .actionBtnsContainer {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .actionBtn {
+                        background-color: #fff;
+                        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+                        border: 1px solid #a90101;
+                        color: #a90101;
+                        padding: 0px 13px;
+                        border-radius: 4px;
+                        height: 39px;
+                        transition: .3s ease all;
+                    }
+                    .actionBtn:not(:last-child) {
+                        margin-right: 21px;
+                    }
+                    .actionBtn.selectedBtn {
+                        color: #fff;
+                        /* border: none; */
+                        background-color: #a90101;
+                    }
+                    .actionBtn.successBtn {
+                        border: none;
+                        background-color: #22C61E;
+                        width: 63px;
+
+                        i {
+                            color: #fff;
+                            font-size: 24px;
+                        }
+                    }
+                    .actionBtn.failureBtn {
+                        border: none;
+                        background-color: red;
+                        width: 63px;
+
+                        i {
+                            color: #fff;
+                            font-size: 24px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.predictionOrOutcomeContainer {
+    padding: 10px;
+    font-variant: small-caps;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    color: #7d7d7d;
+}
+
+.noResult {
+    height: 4px;
+    width: 27px;
+    margin-left: 17px;
+    background-color: #7d7d7d;
+    margin-right: 26px;
+}

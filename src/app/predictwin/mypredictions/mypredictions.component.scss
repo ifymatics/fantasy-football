@@ -1,0 +1,235 @@
+@mixin for-sm {
+    @media (min-width: 576px) {
+        @content;
+    }
+}
+
+@mixin for-md {
+    @media screen and (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin for-lg {
+    @media screen and (min-width: 996px) {
+        @content;
+    }
+}
+
+.main {
+    height: 85%;
+    overflow-y: scroll;
+    @include for-md {
+        height: 88%;
+    }
+    @include for-lg {
+        height: 100%;
+        overflow: hidden;
+    }
+    /* >div {
+        height: 100%;
+        @include for-lg {
+            height: 115%;
+        }
+    } */
+}
+
+//Custom container starts
+.containers {
+    padding: 0 10px;
+}
+
+//custom container ends
+.pageTitle {
+    padding-top: 15px;
+    padding-bottom: 5px;
+    background-color: #fff;
+    h3 {
+        font-weight: 600;
+        color: #393939;
+        font-size: 20px;
+    }
+}
+
+.whiteContainer {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-bottom: 1px solid #c4c4c4;
+    @include for-lg {
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+    }
+}
+
+.sectionNav {
+    list-style: none;
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    height: 40px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    li {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        a {
+            color: #000;
+            font-size: 14px;
+            text-decoration: none;
+            padding-left: 14px;
+            padding-right: 14px;
+        }
+    }
+    li.active {
+        background-color: #ca0404;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.93);
+        a {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
+}
+
+.gameListContainer {
+    height: 93vh;
+    background-color: #fff;
+    overflow-y: scroll;
+    @include for-lg {
+        height: 92%;
+        overflow-y: scroll;
+    }
+}
+
+.leftAdContainer {
+    display: none;
+    @include for-lg {
+        display: block;
+        height: 93%;
+    }
+    div {
+        height: 100%;
+    }
+}
+
+.middleContainer {
+    padding: 0;
+    @include for-lg {
+        height: 102%;
+        padding: inherit;
+        padding-top: initial;
+    }
+}
+
+.rightSideAdContainer {
+    display: none;
+    @include for-lg {
+        display: block;
+        height: 93%;
+    }
+}
+
+.rightSideAd {
+    height: 100%;
+}
+
+.topAdContainer {
+    display: none;
+    @include for-lg {
+        display: block;
+    }
+}
+
+img {
+    height: 51px;
+    margin-bottom: 40px;
+    @include for-lg {
+        margin-bottom: unset;
+        height: 40px;
+    }
+}
+
+.predictionSubmitBtn {
+    border: none;
+    height: 39px;
+    color: #fff;
+    border-radius: 4px;
+    transition: .3s ease all;
+}
+
+.predictionSubmitBtn.active {
+    background-color: #22C61E;
+    width: 61px;
+    border: none;
+}
+
+.modal-dialog {
+    height: 100%;
+    .modal-content {
+        height: 94%;
+    }
+}
+
+.mobilePredictionSubmitContainer {
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    z-index: 10;
+    box-shadow: 0px -3px 4px hsla(0, 0%, 0%, 0.25);
+    width: 100%;
+    position: absolute;
+    bottom: 30px;
+    height: auto !important;
+    @include for-lg {
+        display: none;
+    }
+}
+
+.desktopPredictionSubmitContainer {
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    z-index: 10;
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    button {
+        width: 125px;
+    }
+}
+
+.adBox {
+    width: 31%;
+    background-color: #dd1731 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    border-radius: 8px;
+    img {
+        height: 100px;
+        margin-bottom: 40px;
+    }
+}
+
+.body {
+    background-color: #0D1023;
+    padding-top: 25px;
+    @include for-lg {
+        padding-top: 30px;
+        height: 94%;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-bottom: 4%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+}

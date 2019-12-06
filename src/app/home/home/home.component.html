@@ -1,0 +1,220 @@
+<div>
+    
+
+  <!--------------------------------------NEW HOME PAGE------------------------------------------------->
+  <!-- Navbar starts-->
+  <div class="sticky-top position-sticky" style='background-color: #fff ; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);'>
+    <div class="homePageNavbar">
+        <img src="assets/image/logo/logo.png" alt="" />
+        <div>
+            <!-- <button (click)="showModal('loginmodal')" class="loginBtn customBtn">LOG IN</button>
+            <button class='navbarSignupBtn navbarJoinBtn customBtn' (click)="showModal('signupmodal')">SIGN UP</button> -->
+            <button class='navbarSignupBtn navbarJoinBtn customBtn' (click)="showModal('loginmodal')">PLAY NOW</button>
+        </div>
+    </div>
+</div>
+
+<!-- Navbar ends-->
+<app-modal-alert (close)="closeAlert()" [message] = "message" [tag]="tag" [deviceType]= "!deviceService.isDesktop()" *ngIf="message"></app-modal-alert>
+    <!-- First section starts -->
+   
+    <!-- for desktop background-image: url("assets/image/bg-1-dark.png") -->
+    <div [ngStyle]="{'background-image': deviceService.isDesktop()?'url('+ ImageUrlDesktop+')':'url('+ ImageUrlMobile+')'}" class="firstSection"  >
+        <div class="gradientLayer">
+            
+
+            <div class="" style='height: 100%;'>
+                <!-- <div
+          class="phoneImage"
+          style='background-image: url("assets/image/Landing-page-icons/Lineup.png"); '
+        >
+        </div> -->
+
+                <mdb-carousel [animation]='"slide"'>
+                    <mdb-carousel-item class='carouselHeight'>
+                        <div class="innerContainer">
+                            <div class="phoneImage" style='background-image: url("assets/image/Landing-page-icons/carousel-images/Home.png"); '>
+                            </div>
+
+                            <div class="firstSectionContent">
+                                <h3 class='invisibles'>Pick a game <br> Play for free</h3>
+                                <!-- <button (click)="showModal('signupmodal')" class="joinBtn customBtn">
+                      Join <i class="fas fa-caret-right ml-3"></i>
+                    </button> -->
+
+                                <!-- carousel buttons starts -->
+                                <!-- <div class="d-flex justify-content-between mt-5 carouselBtnContainer">
+                                    <div class="carouselBtn">
+                                        <i class="fas fa-caret-left leftCaret"></i>
+                                    </div>
+                                    <div class="carouselBtn">
+                                        <i class="fas fa-caret-right rightCaret"></i>
+                                    </div>
+                                </div> -->
+                                <!-- carousel buttons ends -->
+                            </div>
+                        </div>
+                    </mdb-carousel-item>
+                    <mdb-carousel-item class='carouselHeight'>
+                        <div class="innerContainer">
+                            <div class="phoneImage" style='background-image: url("assets/image/Landing-page-icons/carousel-images/Lineup.png"); '>
+                            </div>
+
+                            <div (click)="showModal('signupmodal')" class="firstSectionContent">
+                                <h3 class='invisibles'>Build your team <br> Play for fancoins</h3>
+                                <!-- <button  class="joinBtn customBtn">
+                      Join <i class="fas fa-caret-right ml-3"></i>
+                    </button> -->
+
+                                <!-- carousel buttons starts -->
+                                <!-- <div class="d-flex justify-content-between mt-5 carouselBtnContainer">
+                                    <div class="carouselBtn">
+                                        <i class="fas fa-caret-left leftCaret"></i>
+                                    </div>
+                                    <div class="carouselBtn">
+                                        <i class="fas fa-caret-right rightCaret"></i>
+                                    </div>
+                                </div> -->
+                                <!-- carousel buttons ends -->
+                            </div>
+                        </div>
+                    </mdb-carousel-item>
+                    <mdb-carousel-item class='carouselHeight'>
+                        <div class="innerContainer">
+                            <div class="phoneImage" style='background-image: url("assets/image/Landing-page-icons/carousel-images/Predict-and-win.png"); '>
+                            </div>
+
+                            <div (click)="showModal('signupmodal')" class="firstSectionContent">
+                                <h3 class='invisibles'>Predict And Win</h3>
+                                <!-- <button (click)="showModal('signupmodal')" class="joinBtn customBtn">
+                      Join <i class="fas fa-caret-right ml-3"></i>
+                    </button> -->
+
+                                <!-- carousel buttons ends -->
+                            </div>
+                        </div>
+                    </mdb-carousel-item>
+                    <mdb-carousel-item class='carouselHeight'>
+                        <div class="innerContainer">
+                            <div class="phoneImage" style='background-image: url("assets/image/Landing-page-icons/carousel-images/Eshop.png"); '>
+                            </div>
+
+                            <div class="firstSectionContent">
+                                <h3 class='invisibles'>Grab prizes with your fancoins</h3>
+                                <!-- <button (click)="showModal('signupmodal')" class="joinBtn customBtn">
+                      Join <i class="fas fa-caret-right ml-3"></i>
+                    </button> -->
+
+                                <!-- carousel buttons starts -->
+                                <!-- <div class="d-flex justify-content-between mt-5 carouselBtnContainer">
+                                    <div class="carouselBtn">
+                                        <i class="fas fa-caret-left leftCaret"></i>
+                                    </div>
+                                    <div class="carouselBtn">
+                                        <i class="fas fa-caret-right rightCaret"></i>
+                                    </div>
+                                </div> -->
+                                <!-- carousel buttons ends -->
+                            </div>
+                        </div>
+                    </mdb-carousel-item>
+                </mdb-carousel>
+                <!-- section content starts -->
+
+                <!-- section content ends -->
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Leagues Section starts -->
+    <div class="leaguesContainer">
+        <div class="singleLogo">
+            <img src="assets/image/Landing-page-icons/premier-league-logo.png" alt="" />
+        </div>
+        <div class="singleLogo">
+            <img src="assets/image/Landing-page-icons/champions-league-logo.png" alt="" />
+        </div>
+        <div class="singleLogo">
+            <img src="assets/image/Landing-page-icons/Laliga-logo.png" alt="" />
+        </div>
+        <div class="singleLogo">
+            <img src="assets/image/Landing-page-icons/Serie-A.png" alt="" />
+        </div>
+        <div class="singleLogo">
+            <img src="assets/image/Landing-page-icons/Ligue_1_Logo.png" alt="" />
+        </div>
+        <div class="singleLogo">
+            <img src="assets/image/Landing-page-icons/bundesliga-logo.png" alt="" />
+        </div>
+        <div class="singleLogo">
+            <img src="assets/image/Landing-page-icons/nfl-logo.png" alt="" />
+        </div>
+        <div class="singleLogo">
+            <img src="assets/image/Landing-page-icons/nba-logo.png" alt="" />
+        </div>
+    </div>
+
+
+    <!-- Leagues Section ends -->
+
+    <!-- Free or premium tier section starts -->
+    <div class="thirdSection">
+        <div class="innerWhiteBackground">
+            <div class="freeTier">
+                <h3 class='invisible'><span>Free</span> Tier</h3>
+                <p>
+                    Compete against other managers for free <br>
+                    Make free predictions <br>
+                    Shop with your fancoins.
+                </p>
+            </div>
+
+            <hr />
+
+            <div class="premiumTier">
+                <h3 class='invisible'>Go <span>Premium</span></h3>
+                <p>
+                    Get tokens and boost your fancoins in our premium contests
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Free or premium tier section ends -->
+
+    <!-- Sponsors section starts -->
+    <div class="fourthSection">
+        <h3 class="partners">Partners</h3>
+        <div class="singlePartner">
+            <div class="partnerLogo">
+                <img src="assets/image/Landing-page-icons/opta-logo.png" alt="Opta Logo" />
+            </div>
+            <div class="partnerName">Official Data Partner</div>
+        </div>
+    </div>
+    <!-- Sponsors section ends -->
+
+    <!-- Join Now section starts -->
+    <div class="fifthSection">
+        <button class="joinBtn customBtn bottomJoinBtn">
+      Join <i class="fas fa-caret-right ml-3"></i>
+    </button>
+    </div>
+    <!-- Join Now section ends -->
+    <!-- First section ends -->
+      <!--login modal ends -->
+      <app-auth #loginmodal></app-auth>
+      <!--login modal ends -->
+
+
+  <!--signup modal ends -->
+  <app-signup #SignUpmodal></app-signup>
+  <!--signup modal ends -->
+
+  <app-footer></app-footer>
+
+
+  <!---------------------------------------END OF NEW HOME PAGE------------------------------------------------>
+
+</div>
+   

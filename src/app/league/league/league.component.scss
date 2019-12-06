@@ -1,0 +1,114 @@
+//Media query for large screens
+@mixin for-lg {
+  @media (min-width: 992px) {
+      @content;
+  }
+}
+
+.body-container {
+  min-height: 600px;
+
+
+}
+
+li:hover {
+  background: #4caf50;
+  color: white;
+  transition: 0.3s;
+}
+#user-icon {
+  font-size: 35px;
+}
+#dropdown-menu {
+  position: absolute;
+  left: -90px;
+}
+
+#card-text {
+  max-width: 400px;
+  min-height: 245px;
+}
+#league-image {
+  max-width: 349.33px;
+  height: 150px;
+  padding: 5px 10px 15px;
+}
+
+
+.text-info {
+  padding: 0px 20px 15px;
+}
+#sponsor-img {
+  max-width: 54px;
+  max-height: 40px;
+}
+#sponsor-box {
+  max-width: 349.33px;
+  max-height: 19px;
+  margin-top: 0;
+}
+#premLeague {
+  width: 180px;
+  height: 90px;
+}
+#laliga {
+  width: 190px;
+  height: 71px;
+}
+#bundesLiga {
+  width: 160px;
+  height: 62px;
+}
+#ligue1 {
+  width: 60px;
+  height: 100px;
+}
+#serieA {
+  width: 190px;
+  height: 150px;
+}
+/* CUSTOMISED SPINNER*/
+.spinner{
+  border: 16px solid silver;
+  border-top: 16px solid #387AB7;
+  border-radius: 50%;
+  width:60px;
+  height: 60px;
+  animation: spin 1000ms linear infinite;
+  top:120%;
+  left: 50%;
+  position:absolute;
+}
+@keyframes spin {
+  0% {transform: rotate(0deg)}
+  100% {transform: rotate(360deg)}
+}
+@media screen and (max-width: 480px) {
+
+.spinner{
+  border: 16px solid silver;
+  border-top: 16px solid #387AB7;
+  border-radius: 50%;
+  width:50px;
+  height: 50px;
+  animation: spin 1000ms linear infinite;
+  top:120%;
+  left: 50%;
+  position:absolute;
+}
+@keyframes spin {
+  0% {transform: rotate(0deg)}
+  100% {transform: rotate(360deg)}
+}
+}
+/* END OF CUSTOMISED SPINNER*/
+
+.btn {
+  padding: .5rem 1.6rem;
+    font-size: .64rem;
+
+    @include for-lg {
+      padding: .84rem 2.14rem;
+    font-size: .81rem;;
+    }
+}

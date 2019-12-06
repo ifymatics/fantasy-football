@@ -1,0 +1,103 @@
+<div class="main">
+        <ng-container *ngIf="tokenGames.length > 0 || isLoading;else empty">
+  <!-- Games category container starts -->
+  <div style = "margin-bottom: 10px;" class="gamesContainer" *ngFor="let game of tokenGames; let gameArrayIndex = index;">
+
+      <!-- Single game dropdown starts -->
+    <div class="singleGameDropdown"  *ngIf=" checkGameDate(game.date) &&   removeAlreadyPredictedGames(gameArrayIndex)">
+           
+          <!-- Single game header starts -->
+          <div class="containers active dropdownhHeader d-flex align-items-center"
+          [ngClass]='{dropdownHeaderOnClick:toggledId.includes(game.id), active:toggledId.includes(game.id)}' 
+           (click)='toggleDropdown(game.id,gameArrayIndex)'>
+              <div>
+                <h3 class='gameTitle mb-0'>{{game?.title}}</h3>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="entryFee small"><b>Entry:</b> <b>{{game?.entry_fee}}</b> <img src="assets/image/coin_img/Token_small.png" alt="" style="height: 20px"></span>
+                  <span class="prize small ml-3"><b>Prize:</b> <b>{{game?.prize}}</b> <img src="assets/image/coin_img/Fancoin.png" style="height: 20px"></span>
+                  <span class="prize small ml-3"> <b>{{game?.date | date:'dd/MM/yy  hh:mm a'}}</b> </span>
+                </div>
+              </div>
+              <i class="fas fa-caret-down"></i>
+          </div>
+          <!-- Single game header ends -->
+
+          <!-- Single game body starts -->
+          <div class="dropdownBody" [ngClass]='{active:toggledId.includes(game.id)}'>
+              <div class="containers gameInstructions small">
+                  Predict all {{game?.games.length}} games
+              </div>
+
+              <!-- Single game day section starts -->
+              <div class='singleGameDay'>
+
+                  <!-- Game list section starts -->
+                  <div class="gameList">
+                      <ul>
+                           
+                            <li  *ngFor="let g of game?.games; let gameIndex = index;">
+
+                                    <div class="containers">
+                                        <!-- Single game header starts -->
+                                        <div class='singleGameHeader d-flex justify-content-between'>
+                                            <span class="small gameTime">{{g?.date | date:'short'}}</span>
+                                            <!-- <span class="small gamePrize">Prize: {{game?.prize}}</span> -->
+                                        </div>
+                                        <!-- Single game header ends -->
+      
+                                        <!-- Single game body starts -->
+                                        <div class='singleGameBody'>
+      
+      
+                                            <!-- Single game teams starts -->
+                                            <div class="singleGameTeams">
+                                                <span class="homeTeam">{{g?.home}}</span>
+                                                <span class="awayTeam">{{g?.away}}</span>
+                                            </div>
+                                            <!-- Single game teams ends -->
+      
+                                            <!-- Action buttons starts -->
+                                            <div class="actionBtnsContainer">
+                                                <button (click)="onPredict(gameArrayIndex, gameIndex,button)" 
+                                                *ngFor="let button of buttons; let i = index;" 
+                                                class="actionBtn " [ngClass]="{selectedBtn: (predictedGames[gameIndex]?.button === buttons[i] && predictedGames[gameIndex].id ===game.id ||
+                                                    ((filteredTokenGame.length >0 && filteredTokenGame[gameArrayIndex] !== undefined && filteredTokenGame[gameArrayIndex][gameIndex] !== undefined 
+                                                     && filteredTokenGame[gameArrayIndex][gameIndex]?.id === game.id && filteredTokenGame[gameArrayIndex] !== undefined  
+                                                    && filteredTokenGame[gameArrayIndex][gameIndex]) ? filteredTokenGame[gameArrayIndex][gameIndex]?.button.name === buttons[i].name &&
+                                                    filteredTokenGame[gameArrayIndex][gameIndex]?.id === game.id &&  filteredTokenGame[gameArrayIndex][gameIndex]?.button.marked === true
+                                                  :''))
+                                                }" >{{button.name}}</button>
+                                                <!-- [ngClass]="{selectedBtn: predictedGames[gameIndex]?.button === buttons[i]}" -->
+                                               
+                                            </div>
+                                            <!-- Action buttons ends -->
+                                        </div>
+                                        <!-- Single game body ends -->
+                                    </div>
+      
+                                </li>
+                         
+                      </ul>
+                  </div>
+                  <!-- Game list section ends -->
+              </div>
+              <!-- Single game day section ends -->
+
+
+          </div>
+          <!-- Single game body ends -->
+
+
+      </div>
+      <!-- Single game ends -->
+      <!-- <app-modal-get-token></app-modal-get-token> -->
+    
+      <app-modal-alert (close)="closeAlert()" [message] = "error " [tag]="tag" *ngIf="error"></app-modal-alert>
+  </div>
+  <!-- Games category container ends -->
+</ng-container>
+<ng-template #empty>
+      <h4 style="text-align: center; margin-top: 20vh;">No token games on this league yet!</h4>
+</ng-template>
+</div>
+

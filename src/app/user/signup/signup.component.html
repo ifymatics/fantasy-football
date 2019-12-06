@@ -1,0 +1,254 @@
+<!-- sign up modal -->
+
+<div
+  class="modal fade"
+  #SignUpmodal="mdbModal"
+  tabindex="1"
+  mdbModal
+  style="overflow-y: scroll; "
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-flex">
+        <h6 class="mr-auto font-weight-bold">SIGN UP</h6>
+        <h6 class="ml-auto">
+          <span class="mr-5 small font-weight-bold"
+            >Already a member?
+            <span class="blue-text" style='font-size: 18px;'>
+              <a (click)="showlogin()">LOGIN</a>
+            </span>
+          </span>
+          <span class="close" (click)="SignUpmodal.hide()">&times;</span>
+        </h6>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <!-- Facebook and google buttons  starts -->
+          <button
+            class="waves-light relative  d-block mx-auto  socialLogin white-text font-weight-bold"
+            (click)="signInWithGoogle()"
+            mdbBtn
+            mdbWavesEffect
+            #googleBtn
+            id="btn"
+            style="background-color: #DB4437; padding: 15px;"
+          >
+            <i
+              class="fab fa-google-plus-g"
+              style="margin-right: 15px; font-size: 20px;"
+            ></i
+            >Log in with Google
+          </button>
+          <button
+            class="waves-light relative indigo mt-3  d-block mx-auto  socialLogin white-text font-weight-bold"
+            (click)="signInWithFB()"
+            mdbBtn
+            mdbWavesEffect
+            id="btn"
+            style="padding: 15px;"
+          >
+            <i
+              class="fab fa-facebook-f"
+              style="margin-right: 15px; font-size: 20px;"
+            ></i
+            >Log in with facebook
+          </button>
+
+          <!-- <app-social-login></app-social-login>-->
+          <!-- Facebook and google buttons end -->
+
+          <div class="d-flex align-items-center" style="margin-top: 8px;">
+            <span class="or"></span>
+            <span class="px-2">or</span>
+            <span class="or"></span>
+          </div>
+
+          <form
+            class="mt-3"
+            [formGroup]="signupForm"
+            (ngSubmit)="submitSignup()"
+          >
+            <div class="md-form m-0">
+              <input
+                formControlName="firstname"
+                type="text"
+                class="form-control mb-0 "
+                mdbInputDirective
+                id="firstname"
+                [mdbValidate]="false"
+              />
+              <span
+                style="color:red; border-color: black;"
+                class="small"
+                *ngIf="!signupForm.get('firstname').valid && signupForm.touched"
+                >Please enter a valid name</span
+              >
+              <label for="firstname">First Name</label>
+            </div>
+            <div class="md-form">
+              <input
+                formControlName="lastname"
+                type="text"
+                class="form-control mb-0 mt-0"
+                mdbInputDirective
+                id="lastname"
+                [mdbValidate]="false"
+              />
+              <span
+                style="color:red; border-color: black;"
+                class="small"
+                *ngIf="!signupForm.get('lastname').valid && signupForm.touched"
+                >Please enter a valid name</span
+              >
+              <label for="lastname">Last Name</label>
+            </div>
+            <div class="md-form">
+              <input
+                formControlName="email"
+                type="email"
+                class="form-control mb-0 mt-0"
+                mdbInputDirective
+                id="emailaddress"
+                [mdbValidate]="false"
+              />
+              <span
+                style="color:red; border-color: black;"
+                class="small"
+                *ngIf="!signupForm.get('email').valid && signupForm.touched"
+                >Please enter a valid email</span
+              >
+              <span
+                style="color:red; border-color: black;"
+                class="small"
+                *ngIf="signupError?.email"
+                >{{ signupError?.email }}</span
+              >
+              <label for="emailaddress">Email Address</label>
+            </div>
+            <div class="md-form">
+              <input
+                formControlName="password"
+                type="password"
+                class="form-control mb-0 mt-0"
+                mdbInputDirective
+                id="signuppassword"
+                [mdbValidate]="false"
+              />
+              <span
+                style="color:red; border-color: black;"
+                *ngIf="!signupForm.get('password').valid && signupForm.touched"
+                >Please enter a valid password</span
+              >
+              <label for="signuppassword">Password</label>
+            </div>
+            <div class="md-form">
+              <input
+                #date
+                formControlName="date"
+                type="date"
+                class="form-control mb-0 mt-0 datepicker"
+                mdbInputDirective
+                id="date"
+                placeholder="select Date"
+                [mdbValidate]="false"
+              />
+              <span
+                style="color:red; border-color: black;"
+                class="small"
+                *ngIf="!signupForm.get('date').valid && signupForm.touched"
+                >Please enter a valid date</span
+              >
+              <span
+                style="color:red; border-color: black;"
+                class="small"
+                *ngIf="signupError?.dob"
+                >{{ signupError?.dob }}</span
+              >
+              <label for="date">Date of birth</label>
+            </div>
+
+            <div class="pb-4">
+              <div class="form-check mr-auto pl-0  align-self-center small">
+                <mdb-checkbox
+                  formControlName="t&c"
+                  for="checkbox"
+                  [default]="false"
+                  >I agree to FANtastic Tech's
+                  <a class="text-info">T&amp;C</a>
+                </mdb-checkbox>
+                <span
+                  class="small"
+                  *ngIf="!signupForm.get('t&c').valid && signupForm.touched"
+                  style="color:red; border-color: black;"
+                  >You must agree with our T&C to proceed</span
+                >
+              </div>
+              <span style='font-size: 11px;font-weight: 600;
+              font-style: italic'>
+                  Having issues with email verification? <br /> SMS or whatsapp your email address to 09065016190</span>
+            </div>
+            <button
+              [disabled]="!signupForm.valid"
+              class="waves-light relative red  d-block mx-auto py-2 white-text font-weight-bold"
+              mdbBtn
+              mdbWavesEffect
+              id="bbtn"
+            >
+              Start playing
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- sign up modal -->
+<!--SUCCESS MODAL STARTS-->
+<div
+  class="modal fade"
+  #signupSuccessModal="mdbModal"
+  tabindex="-1"
+  role="dialog"
+  mdbModal
+  aria-labelledby="myBasicModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Modal header starts -->
+      <div class="modal-header d-flex" style="background-color: #f4f4f4;">
+        <span style="color: #333; font-size: 16px">THANK YOU</span>
+        <div class="ml-auto">
+          <span class="mr-5" style="font-size:14px;"
+            >Back to
+            <a
+              (click)="signupSuccessModal.hide()"
+              (click)="showlogin()"
+              class="blue-text"
+              >LOGIN</a
+            >
+          </span>
+          <span class="close" (click)="signupSuccessModal.hide()">&times;</span>
+        </div>
+        <!-- Modal header ends -->
+      </div>
+      <!-- Modal body starts -->
+      <div class="modal-body text-center">
+        <div class="container my-3">
+          <i
+            class="fas fa-envelope blue-text"
+            style="font-size: 94px; color: #419BF9;"
+          ></i>
+          <p>
+            To continue using FANtastic.ng, you'll need to confirm your email
+            address. Please check your email inbox (or junk mail) and confirm by
+            clicking on the link
+          </p>
+        </div>
+      </div>
+      <!-- Modal body ends -->
+    </div>
+  </div>
+</div>
+<!--SUCCESS MODAL ENDS-->

@@ -1,0 +1,14 @@
+<button class="waves-light relative  d-block mx-auto  socialLogin white-text font-weight-bold"
+  (click)="signInWithGoogle()" mdbBtn mdbWavesEffect #googleBtn id="btn"
+  style="background-color: #DB4437; padding: 15px;">
+  <i class="fab fa-google-plus-g" style="margin-right: 15px; font-size: 20px;"></i>Log in with Google
+</button>
+<button class="waves-light relative indigo mt-3  d-block mx-auto  socialLogin white-text font-weight-bold"
+  (click)="signInWithFB()" mdbBtn mdbWavesEffect id="btn" style="padding: 15px;">
+  <i class="fab fa-facebook-f" style="margin-right: 15px; font-size: 20px;"></i>Log in with facebook
+</button>
+
+<!-- Soinner  -->
+<div *ngIf="isLoading" class="spinner" style="top:50%;
+            left: 41%;
+    z-index: 999;"></div>

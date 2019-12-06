@@ -1,0 +1,153 @@
+<!-- <div *ngIf="product?.title" class="card">
+  <img *ngIf="product?.imageUrl" class="card-img-top" [src]="product?.imageUrl" alt="{{ product.title }}">
+  <div class="card-body">
+    <h4 class="card-title">{{ product?.title }}</h4>
+    <p class="card-text">{{ product?.price | currency:'NGN':true }}</p>
+ <div class="card-footer">
+   <button class="btn btn-secondary "  (click)="addToCart(product)" >Add to wishlist</button>
+   <button class="btn btn-primary ">Buy Now</button>
+ </div>
+    </div>  -->
+<!--<div *ngIf="showActions && shoppingCart" class="card-footer">
+    <button 
+      *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
+      (click)="addToCart()"
+      class="btn btn-secondary btn-block">Add to Cart</button>
+    <ng-template #updateQuantity>
+      
+      <product-quantity [product]="product" [shoppingCart]="shoppingCart">
+      </product-quantity>
+    </ng-template>
+  </div> 
+</div>     -->
+<!--alert Widget-->
+
+<app-modal-alert (close)="closeAlert()" [deviceType]="deviceService.isMobile()" [message]="message" [tag]="tag"
+    *ngIf="message"></app-modal-alert>
+<!--End of alert widget-->
+<!--THE NEW CARD-->
+<mdb-card>
+
+    <div class='productImage'>
+        <img [src]="product?.imageUrl" alt="{{ product?.title }}">
+    </div>
+
+    <mdb-card-body>
+
+        <mdb-card-title class='align-items-center d-flex justify-content-between'>
+            <div>
+                <h6>{{ product?.title }}</h6>
+                <h5 class='font-weight-bold ml-auto'><img src="assets/image/coin_img/Fancoin.png" style='height: 30px'>
+                    {{ product?.price }} </h5>
+            </div>
+
+            <div class="text-center">
+                <i *ngIf="!whishlistArray.includes(product?.id) &&  showActions" class="far fa-heart emptyHeart d-block"
+                    (click)="wishlist(product, 'add')"></i>
+                <i *ngIf="whishlistArray.includes(product?.id) &&  showActions " class="fas fa-heart red-text d-block"
+                    (click)="wishlist(product, 'remove')"></i>
+                <span><small>{{!whishlistArray.includes(product?.id) &&  showActions?'wishlist':'wishlisted'}}</small>
+                </span>
+            </div>
+
+        </mdb-card-title>
+
+        <hr class='my-2'>
+
+        <div class='d-flex text-center'>
+            <!-- <button *ngIf="!whishlistArray.includes(product.id)" mdbBtn class='ml-0 waves-light relative btn-sm grey' mdbWavesEffect (click)="wishlist(product, 'add')">Add to wishlist</button>
+          <button *ngIf="whishlistArray.includes(product.id) " mdbBtn class='ml-0 waves-light relative btn-sm grey' mdbWavesEffect (click)="wishlist(product, 'remove')">Remove from wishlist</button> -->
+            <button *ngIf="showActions" mdbBtn
+                class='mx-auto waves-light relative btn-sm bg-primary white-text font-weight-bold' mdbWavesEffect
+                (click)='productModal.show(product)'>Buy now</button>
+        </div>
+    </mdb-card-body>
+
+</mdb-card>
+<!--<END OF THE NEW CARD>-->
+<div class='modal fade' tabindex="-1" mdbModal #productModal='mdbModal'>
+    <div class="modal-dialogue modal-md">
+        <div class="modal-content">
+            <div class="modal-header d-flex">
+                <h5>Buy product</h5>
+                <span class='ml-auto close' (click)='productModal.hide()'>&times;</span>
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    <div class='productInfoTop'>
+                        <img [src]="product?.imageUrl" alt="{{product?.title}}">
+
+                        <!-- Product brief info starts -->
+                        <div>
+                            <div class="productName">{{product?.title}}</div>
+                            <div class="productRatingsContainer">
+                                <div class='productStars'>
+
+                                    <i style="color: #ffd439;" class="fa fa-star" aria-hidden="true"
+                                        *ngFor="let item of [1,2,3,4,5]; let i = index;"></i>
+                                </div>
+
+                                <app-rating [prodRating]='rating'></app-rating>
+                            </div>
+                            <div class="productPrice">{{product?.price}} coins</div>
+                        </div>
+                        <!-- Product brief info ends -->
+                    </div>
+
+                    <div class="productDescription">
+                        <span class="descriptionTitle">description</span>
+                        <p>{{product?.description}}</p>
+                        <div *ngIf="!read" class='readMore' (click)="onRead()">
+                            Read More
+                        </div>
+                    </div>
+
+                    <!-- Confirm purchase button starts -->
+                    <div class='purchaseBtnContainer'>
+                        <button (click)="buyNow(product)" mdbBtn mdbWavesEffect
+                            *ngIf=" !(product?.qty ===0 || product?.qty<0)"
+                            [disabled]="disabled || (product?.qty ===0 || product?.qty<0)"
+                            class="waves-light relative font-weight-bold mx-auto bg-primary white-text font-weight-bold">
+                            Confirm Purchase
+                        </button>
+                        <button
+                            class="waves-light relative font-weight-bold mx-auto bg-danger white-text font-weight-bold"
+                            *ngIf=" (product?.qty ===0 || product?.qty<0)">Out of Stock</button>
+                    </div>
+                    <!-- Confirm purchase button ends -->
+
+                    <div class='ratingsContainer'>
+                        <span>Rate this product</span>
+
+                        <div class="starsContainer">
+
+
+                            <i (click)="onClickRating(i,product.id, $event)" style="font-size: 2.5em; "
+                                *ngFor="let item of [1,2,3,4,5]; let i = index;"
+                                [ngStyle]="{'color': (rArray.includes(item))?'#ffd439':'black'}" class="fa fa-star-o"
+                                aria-hidden="true"></i>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Purchase confirmation modal starts -->
+    <div class='modal fade' tab-index='-1' mdbModal #addedToWishlistModal='mdbModal'>
+        <div class='modal-dialogue'>
+            <div class='modal-content'>
+                <div class="modal-header d-flex">
+                    <h3>Success</h3>
+                    <span class="close ml-auto" (click)='addedToWishlistModal.hide()'>&times;</span>
+                </div>
+
+                <div class="modal-body">
+                    <p>{{message}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Purchase confirmation modal ends -->

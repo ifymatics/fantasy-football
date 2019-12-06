@@ -1,0 +1,152 @@
+<!-- History starts -->
+<div class="tab-pane" >
+    <div class="panel-body">
+      <table>
+        <thead>
+          <tr>
+            <th class="hiddenOnMobile" style="color: #666666; font-size: 12px; font-display: RobotoRegular;">
+              Transaction (#)
+            </th>
+            <th class="hiddenOnMobile" style="color: #666666;">
+              Date & Time
+            </th>
+            <th style="color: #666666;">
+              Description
+            </th>
+            <th class="hiddenOnMobile" style="color: #666666; font-size: 12px;">Credit</th>
+            <th class="hiddenOnMobile" style="color: #666666;">Debit</th>
+            <th class="hiddenOnMobile" style="color: #666666;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let userAccHistory of userAccHistories; let i = index;">
+            <td class="hiddenOnMobile">{{userAccHistory.order_id}}</td>
+            <td class="hiddenOnMobile">{{getTimestamp(userAccHistory.date_added_timestamp)}}</td>
+            <td class=" contest table-item" id="historydesktop">
+              <div class="d-flex align-items-center">
+                <button class="waves-dark relative dropdown-toggle mobileHistoryInfoBtn p-0 black-text" mdbBtn
+                  mdbWavesEffect mdbDropdownToggle (click)="toggleHistoryInfo(i)"></button>
+
+                <div>
+
+
+                          {{userAccHistory.trans_desc}}
+
+
+                </div>
+              </div>
+
+
+
+              <!--  DROPDOWN FOR CONTEST INFO ON MOBILE -->
+              <div class=" ml-3 px-2 mt-2" id="historyinfomobile" [ngClass]="{display: mobile && clickedIndex === i}">
+                <div class="d-flex small my-2">
+                  <span>Transaction (#):</span> <span class="ml-auto">
+                    {{userAccHistory.order_id}}</span>
+                </div>
+                <div class="d-flex small my-2">
+                  <span>Date & Time:</span>
+                  <span class="ml-auto">{{getTimestamp(userAccHistory.date_added)}}</span>
+                </div>
+                <div class="d-flex small my-2">
+                  <span>Credit:</span>
+                  <span class="d-flex ml-auto"
+                  *ngIf="userAccHistory.source!=10 && userAccHistory.source!=11">
+                    <span>
+                       {{(userAccHistory.type == 0) ? (userAccHistory.credit_amnt ) : '--'}}</span>
+                  </span>
+                  <span class="d-flex ml-auto" *ngIf="userAccHistory.source==10 && userAccHistory.source==11">
+                   <span *ngIf="userAccHistory.type == 0">
+                      <i class="fas fa-coins" ></i>
+                     {{userAccHistory.points}}
+                    </span>
+                    <span>
+                       </span>
+                  </span>
+                  <span *ngIf="userAccHistory.type != 1">--</span>
+                </div>
+
+                <div class="d-flex small my-2">
+                  <span>Debit:</span>
+                  <span class="ml-auto" *ngIf="userAccHistory.source!=10 && userAccHistory.source!=11 && userAccHistory.points==0" >{{(userAccHistory.type == 1) ? (userAccHistory.debit_amnt ) : '--'}}</span>
+                  <span class="ml-auto" *ngIf="userAccHistory.source==10 || userAccHistory.source==11 || userAccHistory.points > 0">
+                    <span *ngIf="userAccHistory.type == 1">
+                        <i class="fas fa-coins" >
+                        {{userAccHistory.points}}
+                      </i>
+                    </span>
+                    <span *ngIf="userAccHistory.type != 1">--</span>
+                  </span>
+                </div>
+                <div class="d-flex small my-2">
+                  <span>Status</span>
+                  <span class="ml-auto" *ngIf="userAccHistory.status == 0">
+                   Pending
+                  </span>
+                  <span class="ml-auto" *ngIf="userAccHistory.status == 1">
+                    Completed
+                  </span>
+                  <span class="ml-auto" *ngIf="userAccHistory.status == 2">
+                    Cancelled
+                  </span>
+                </div>
+              </div>
+
+              <!--  END OF DROPDOWN FOR CONTEST INFO ON MOBILE -->
+
+            </td>
+            <td class="hiddenOnMobile" >
+              <span *ngIf="userAccHistory.source!=10 && userAccHistory.source!=11">
+                  {{(userAccHistory.type == 0) ? (userAccHistory.credit_amnt) : '--'}}
+              </span>
+
+              <span class="bold" *ngIf="userAccHistory.source==10 || userAccHistory.source==11">
+                  <span *ngIf="userAccHistory.type == 0">
+                      <i class="fas fa-coins"> {{userAccHistory.points}}</i>
+                  </span>
+                  <span *ngIf="userAccHistory.type != 0">--</span>
+              </span>
+            </td>
+
+            <td class="hiddenOnMobile">
+                <span class="bold" *ngIf="userAccHistory.source!=10 && userAccHistory.source!=11 && userAccHistory.points==0">
+                    {{(userAccHistory.type == 1) ? (userAccHistory.debit_amnt) : '--'}}
+                </span>
+                <span class="bold" *ngIf="userAccHistory.source==10 || userAccHistory.source==11 || userAccHistory.points > 0">
+                    <span *ngIf="userAccHistory.type == 1">
+                      <i class="fas fa-coins"> {{userAccHistory.points}}</i>
+                    </span>
+                    <span ng-if="userAccHistory.type !== 1">--</span>
+               </span>
+            </td>
+            <td class="hiddenOnMobile" style="color: #333333;" >
+                <span class="ml-auto" *ngIf="userAccHistory.status == 0">
+
+                <i class='fas fa-ellipsis-h p-1 pendingBadge' >
+                </i>
+                Pending
+                   </span>
+                   <span class="ml-auto" *ngIf="userAccHistory.status == 1">
+                    <i class='fas fa-check completedBadge'>
+                    </i>
+                    Completed
+                   </span>
+                   <span class="ml-auto" *ngIf="userAccHistory.status == 2">
+                    <span class='cancelBadge' >
+                      <i class='fas fa-times'></i>
+                  </span>
+                    Cancelled
+                   </span>
+            </td>
+          </tr>
+             <tr *ngIf="isLoading">
+                <div class="spinne"></div>
+             </tr>
+        </tbody>
+
+        <div class="spinner" *ngIf="isLoading"></div>
+      </table>
+      <!--<div *ngIf="isLoading" class="spinner"></div>-->
+    </div>
+  </div>
+  <!-- History ends -->

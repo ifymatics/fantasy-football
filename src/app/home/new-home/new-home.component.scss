@@ -1,0 +1,222 @@
+@mixin for-md {
+    @media screen and (min-width: 768px) {
+        @content;
+    }
+}
+@mixin for-lg {
+    @media screen and (min-width: 992px) {
+        @content;
+    }
+}
+
+.main {
+    height: 100%;
+    @include for-md {
+        margin-top: 20px;
+    }
+    @include for-lg {
+        height: 120vh;
+    }
+    >div {
+        height: inherit;
+    }
+}
+
+#forMobile {
+    display: none;
+    @include for-md {
+        display: none;
+    }
+}
+
+#forDesktop {
+    /* display: none;
+    @include for-md {
+        display: unset;
+    } */
+}
+
+a {
+    height: 20%;
+    width: 100%;
+    display: block;
+    div {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.singleCard {
+    outline: none;
+    .card {
+        box-shadow: none;
+        border-bottom: 1px solid #c3c3c3;
+        @include for-md {
+            box-shadow: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+            border-radius: 0px;
+        }
+    }
+    @include for-md {
+        margin-top: 20px;
+    }
+}
+
+.singleSection {
+    padding: 0 25px;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    transition: .2s ease;
+    cursor: pointer;
+    outline: none;
+    @include for-md {
+        padding: 0 25px;
+        padding-bottom: 33px;
+        padding-top: 15px;
+        display: grid;
+        min-height: 303px
+    }
+}
+
+.singleSection:hover {
+    @include for-lg {
+        box-shadow: 0 2px 10px 0 rgba(0,0,0, 0.36), 0 2px 15px 0 rgba(0, 0, 0, 0.32);
+    }
+}
+
+.sectionImage {
+    //padding: 40px 0;
+    text-align: center;
+    max-height: 114px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    @include for-md {
+        max-height: 127px;
+        max-width: 156px;
+        margin: 0 auto;
+    }
+    img {
+        align-self: center;
+        max-width: 75px;
+        @include for-md {
+            width: 100%;
+            max-width: unset;
+        }
+    }
+}
+
+
+/* .americanPickem {
+    img {
+        height: 50px;
+    }
+    img:last-child {
+        margin-top: 10px;
+    }
+} */
+
+.singleCard:nth-child(2) {
+    img {
+        max-width: 49px;
+        /* height: 85px; */
+        @include for-md {
+            max-width: 88px;
+        }
+    }
+}
+
+.sectionTitleContainer {
+    @include for-md {
+        align-self: end;
+    }
+}
+
+.sectionTitle {
+    text-align: center;
+    color: #242A31;
+    margin-left: 28px;
+    @include for-md {
+        margin-left: unset;
+    }
+    h3 {
+        font-weight: 700;
+        font-size: 1.5em;
+        @include for-md {
+            font-size: 1.75em;
+        }
+    }
+}
+
+
+/* .sectionTitle:first-child {
+    margin-left: 40px;
+} */
+
+.singleCard:nth-child(2) .sectionTitle {
+    margin-left: 53px;
+    @include for-md {
+        margin-left: unset;
+    }
+}
+
+.sectionInfo {
+    font-size: 14px;
+    text-align: center;
+    display: none;
+    @include for-md {
+        display: block;
+    }
+}
+
+.containers {
+    width: 100%;
+    @include for-md {
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+.singleCard {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+
+    @include for-md {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}
+
+.row {
+    margin: 0 !important;
+
+    @include for-md {
+        margin: initial;
+    }
+}
+
+.comingSoon {
+    text-align: right;
+    margin-right: 20px;
+    position: relative;
+    top: 20px;
+    font-weight: bold;
+    color: #d90000;
+    @include for-lg {
+        top: 25px;
+    }
+}
+
+.comingSoonCategory {
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    @include for-lg {
+        padding-bottom: 33px;
+        padding-top: 15px;
+    }
+}

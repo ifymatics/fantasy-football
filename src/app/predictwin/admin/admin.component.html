@@ -1,0 +1,38 @@
+<app-header  [condition] = "true" [status] = "true"></app-header>
+<div class="main">
+  <!-- <div class="admin-navbar container py-3">
+      <i class="fas fa-bars"></i>
+
+      <img src="assets/image/logo/logo.png" alt="" height="30px">
+  </div> -->
+
+  <div class="row">
+      <div class="col-lg-3 col-sm-12 leftColumn">
+          <!-- side navbar starts -->
+          <div class='sidebar'>
+              <ul>
+                  <li routerLinkActive='active' [routerLink]="['manage-game']">
+                      <a>Manage Games</a>
+                  </li>
+                  <li routerLinkActive='active' [routerLink]="['manage-leagues']">
+                      <a>Manage League</a>
+                  </li>
+                  <li routerLinkActive='active' [routerLink]="['create-game']"   >
+                      <a>Create Game</a>
+                  </li>
+              </ul>
+          </div>
+          <!-- side navbar ends -->
+      </div>
+
+      <div class="col-lg-9 col-sm-12" style='padding-top: 20px; background: #ddd; padding-bottom: 70px; padding-right: 0; width: 100vw;'>
+          <!-- Router outlet starts -->
+          <!-- <app-create-game></app-create-game> -->
+          <router-outlet></router-outlet>
+          <!-- <app-manage-game></app-manage-game> -->
+          <!-- Router outlet ends -->
+      </div>
+
+  </div>
+</div>
+

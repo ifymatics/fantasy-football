@@ -1,0 +1,73 @@
+
+
+<app-header></app-header>
+
+<!-- <app-modal-get-token></app-modal-get-token> -->
+
+<div class="body-container">
+<div class="container mb-3" style="margin-bottom: 90%;">
+  <!--alert Widget-->
+  <div *ngIf="message.length" #alert class="alert alert-{{messageCss}} alert-dismissible fade  show" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+  <!--End of alert widget-->
+  <!-- <div class="row">
+    <div class="col-12 w-100 mt-3">
+      <div class="col-sm-4">
+        <div class="btn-group">
+          <button class="waves-light  btn-primary" mdbBtn mdbWavesEffect>HOME</button>
+          <button class="waves-light btn-primary" mdbBtn mdbWavesEffect>NEWS</button>
+          <button class="waves-light  btn-primary" mdbBtn mdbWavesEffect>HELP</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+<div class="row">
+  <app-spinner [isLoading]='isLoading'></app-spinner>
+    <!-- <div class="spinner" *ngIf="isLoading" style ="top:50%;
+    left: 45%;"></div> -->
+     <div class="" *ngIf="showReload" style ="margin-top:50%;
+     margin-left: 45%;" (click)="getSportsLeagues('fromdom')">...Reload? Click here</div>
+    <div class="col-sm-6 col-lg-4 col-xs-12 col-md-6" *ngFor="let league of leagueList, let i = index" >
+      <mdb-card class="mt-3">
+        <mdb-card-body class="text-center">
+          <mdb-card-title class="d-flex">
+            <div class="ml-auto">
+              <span class="small d-block">League sponsor</span>
+              <img style = "margin-top: 9px; height: 30px; width: 30px;" src="{{league.sponsor_logo}}" alt="">
+            </div>
+          </mdb-card-title>
+          <mdb-card-text>
+            <div class="row my-4">
+              <div class="mx-auto pb-3 pt-2">
+            <img id='League' class="mx-auto" height="85px" display="block"  src="assets/image/leagues/{{league.league_logo}}" alt="waiting">
+              </div>
+            </div>
+
+            <button
+            class="relative waves-light btn-primary btn"
+             mdbBtn mdbWavesEffect
+             [ngClass]="{'animated bounceIn': onaAnimate && i}"
+              (click)="playNow(league,i)">Play Now</button>
+          </mdb-card-text>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<div ><app-footer></app-footer></div>
+
+
+
+
+
+
+

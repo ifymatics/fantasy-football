@@ -1,0 +1,194 @@
+<app-header></app-header>
+<app-modal-get-token></app-modal-get-token>
+<!-- <div class="main" [ngStyle]="{'background': 'url('+League?.background_image+') 0px 0px fixed'}"  -->
+<div class="main" [ngStyle]="{'background': '#fff 0px 0px fixed'}" 
+>
+
+
+  <div >
+    <div class="container">
+      <div class="row">
+
+          <div class="col-12">
+            <div class="top-banner leaderboard ">
+              <h1>Leaderboard</h1>
+            </div>
+          </div>
+
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="tableContainer">
+            <div id="leagueName">
+              <ul class="nav"  >
+                <li *ngFor="let league of LeagueList; let leagueIndex = index;" class= "{{leagueIndex == arrayIndex?active:''}}" >
+                  <a *ngIf="league.show_global_leaderboard == 1" (click)=" onClick(leagueIndex)">{{league.league_abbr}} </a>
+                 <!--<span *ngIf="league.show_global_leaderboard == 1 ? getLeaderboardList(league, '', true) : null"></span>-->
+                  <form ><input [(ngModel)]="League" [ngModelOptions]="{standalone: true}" type="text" [value] = "league" hidden></form>
+                </li>
+              
+                   <!--<app-single-leaderboard *ngFor="let league of LeagueList" [leag] = "league"></app-single-leaderboard>-->
+             
+
+              </ul>
+            </div>
+            <div id="leaderboardTableContainer">
+              <div>
+                <div id="tableWrapper">
+              <table id="leaderboardTable">
+                <thead>
+                  <tr>
+                    <th class="px-3"><span>Position</span></th>
+
+                    <th  class="px-3">
+                      <span >Username</span>
+                    </th>
+
+                    <th class="px-3"><a (click)="sortEvent('total_score', selectedLeague, 'DurationID')">Fantasy Points</a></th>
+
+                    <th class="px-3"><a (click)="sortEvent('winning_avg', selectedLeague,' DurationID')">Winnings</a></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr id="userRankRow" *ngIf="OwnLeaderboard">
+                    <td class="pl-3 py-2"><span class='rankTag'>{{OwnLeaderboard.position}}</span></td>
+
+                    <td width="50%" class="pr-3 py-2">
+                      <div class="d-flex align-items-center">
+                          <button
+                          class="waves-dark relative dropdown-toggle mobileContestInfoBtn p-0 black-text"
+                          mdbBtn
+                          mdbWavesEffect
+                          mdbDropdownToggle
+                          (click)="toggleContestInfo(OwnLeaderboard)"
+                        ></button>
+                        <div class="username">
+                            <div
+                              class="player-image"
+                              width="40px"
+                              height="40px"
+                              style="border-radius: 50%"
+                            >
+                              <img
+                                src="{{OwnLeaderboard.user_image?'OwnLeaderboard.user_image':'assets/image/default_user.png'}}"
+                                alt="Player's avatar"
+                              />
+                            </div>
+                            <div class="font-weight-bold">
+                                <span>{{OwnLeaderboard.user_name ? OwnLeaderboard.user_name  :  OwnLeaderboard.first_name +' '+OwnLeaderboard.last_name}}</span>
+                               
+                            </div>
+
+                        </div>
+                      </div>
+
+                      <!--  DROPDOWN FOR leaderboard info ON MOBILE -->
+                    <div
+                    class=" ml-3 px-2 mt-2"
+                    id="contestinfomobile"
+                    [ngClass]="{ display: mobile && OwnLeaderboard.user_id === managerId}"
+                  >
+                    <div class="d-flex small my-2">
+                      <span>Fantasy Points:</span>
+                      <span class="ml-auto">{{OwnLeaderboard.total_score}}</span>
+                    </div>
+                    <div class="d-flex small my-2">
+                      <span>Winnings:</span>
+                      <span class="ml-auto">{{OwnLeaderboard.winning_avg}}</span>
+                    </div>
+
+                  </div>
+
+                  <!--  END OF DROPDOWN FOR leaderboard info ON MOBILE -->
+
+                    </td>
+
+                    <td class="px-3 py-2"><span>{{OwnLeaderboard.total_score}}</span></td>
+
+                    <td class="px-3 py-2"><span>{{OwnLeaderboard.winning_avg}}{{OwnLeaderboard.winning_avg ? '%' : null}}</span></td>
+                  </tr>
+                  
+                  <tr id="" *ngFor="let List of leaderboardList; let listKey = index;">
+                      <td class="pl-3 py-2"><span class='rankTag'>{{List.position}}</span></td>
+  
+                      <td width="50%" class="pr-3 py-2">
+                        <div class="d-flex align-items-center">
+                            <button
+                            class="waves-dark relative dropdown-toggle mobileContestInfoBtn p-0 black-text"
+                            mdbBtn
+                            mdbWavesEffect
+                            mdbDropdownToggle
+                            (click)="toggleContestInfo(List)"
+                          ></button>
+                          <div class="username">
+                              <div
+                                class="player-image"
+                                width="40px"
+                                height="40px"
+                                style="border-radius: 50%"
+                              >
+                                <img
+                                  src="{{List.user_image?List.user_image:'assets/image/default_user.png'}}"
+                                  alt="Player's avatar"
+                                />
+                              </div>
+                              <div class="font-weight-bold">
+                                  <span> {{ List.user_name ?
+                                      List.user_name :  List.first_name
+                                      +' '+List.last_name}}</span>
+                              </div>
+                             
+                          </div>
+                        </div>
+  
+                        <!--  DROPDOWN FOR leaderboard info ON MOBILE -->
+                      <div
+                      class=" ml-3 px-2 mt-2"
+                      id="contestinfomobile"
+                      [ngClass]="{ display: mobile && List.user_id === managerId }"
+                    >
+                      <div class="d-flex small my-2">
+                        <span>Fantasy Points:</span>
+                        <span class="ml-auto">{{List.total_score}}</span>
+                      </div>
+                      <div class="d-flex small my-2">
+                        <span>Winnings:</span>
+                        <span class="ml-auto">{{List.winning_avg}}</span>
+                      </div>
+  
+                    </div>
+  
+                    <!--  END OF DROPDOWN FOR leaderboard info ON MOBILE -->
+  
+                      </td>
+  
+                      <td class="px-3 py-2"><span>{{List.total_score}}</span></td>
+  
+                      <td class="px-3 py-2"><span>{{List.winning_avg}}{{List.winning_avg ? '%' : null}}</span></td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div  class="">
+      <div class="col-sm-12 text-center advbanner" >
+        <div class="bottom-add-banner" >
+
+            <a >
+              <img>
+            </a>
+        </div>
+    </div>
+    </div>
+  </div>
+
+
+
+  <app-footer></app-footer>

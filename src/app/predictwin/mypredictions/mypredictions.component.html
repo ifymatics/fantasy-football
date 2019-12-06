@@ -1,0 +1,56 @@
+<app-header  [condition] = "true" [status] = "true"></app-header>
+<!-- <app-modal-get-token></app-modal-get-token> -->
+<div class="main">
+
+    <div class="containers">
+        <div class='pageTitle'>
+            <h3>My Prediction</h3>
+        </div>
+    </div>
+
+    <div class="body">
+        <div class='col-lg-3 leftAdContainer'>
+            <div class="" style="height: 100%">
+                <div class="rightSideAd" style="background-image: url('assets/image/bg-1.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; border-top-left-radius: 8px; border-top-right-radius: 8px;"></div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6 middleContainer">
+            <!-- Section navigation starts -->
+            <div class="whiteContainer">
+                <div class="">
+                    <ul class="sectionNav">
+                        <li  [routerLink]="['free-predictions']" routerLinkActive="active" class="font-weight-bold">
+                            <a>Free</a>
+                        </li>
+                        <li [routerLink]="['token-predictions']" routerLinkActive="active" class="font-weight-bold">
+                            <a>Premium</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Section navigation ends -->
+
+            <div class="gameListContainer">
+                <!-- Router Outlet starts -->
+                <router-outlet></router-outlet>
+               <!-- // <app-free-prediction></app-free-prediction> -->
+                <!-- Router Outlet ends -->
+            </div>
+        </div>
+
+        <div class="col-lg-3 rightSideAdContainer">
+            <div class="" style="height: 100%;">
+                <div class="" style="height: 100%">
+                    <div class="rightSideAd" style="background-image: url('assets/image/bg-1.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; border-top-left-radius: 8px; border-top-right-radius: 8px;"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<app-footer></app-footer>

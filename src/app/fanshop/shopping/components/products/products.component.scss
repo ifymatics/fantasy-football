@@ -1,0 +1,62 @@
+@mixin for-md {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+@mixin for-lg {
+    @media (min-width: 992px) {
+        @content;
+    }
+}
+
+.singleCard {
+    margin-top: 20px;
+}
+.singleCard:first-child, .singleCard:nth-child(2) {
+    @include for-md {
+        margin-top: 0;
+    }
+}
+.singleCard:first-child, .singleCard:nth-child(2), .singleCard:nth-child(3) {
+    @include for-lg {
+        margin-top: 0;
+    }
+}
+
+.navbarProductSearchBox {
+    display: inline-flex;
+    border-radius: 4px;
+    border: 1px solid #c5c5c5;
+    align-items: center;
+    width: 49%;
+    margin-bottom: 15px;
+
+    @include for-md {
+        width: 100%;
+    }
+    
+    input {
+        width: 85%;
+        padding: 6px 7px;
+        border: none;
+        outline: none;
+
+        @include for-md {
+            padding: 9px 7px;
+        }
+    }
+
+    i {
+        color: #8c8c8c;
+    }
+  }
+
+  .categories {
+      display: flex;
+      justify-content: space-between;
+
+      @include for-md {
+          display: unset;
+      }
+
+  }

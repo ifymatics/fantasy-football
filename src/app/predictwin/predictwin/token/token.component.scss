@@ -1,0 +1,131 @@
+@mixin for-md {
+    @media screen and (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin for-lg {
+    @media screen and (min-width: 996px) {
+        @content;
+    }
+}
+
+.main {
+    padding-bottom: 106px;
+
+    @include for-lg {
+        padding-bottom: auto;
+    }
+}
+
+//Custom container starts
+.containers {
+    padding: 0 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+//custom container ends
+.dropdownhHeader {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 1px solid #C4C4C4;
+    background-color: #F9F9F9;
+    justify-content: space-between;
+    .gameTitle,
+    i {
+        font-weight: 700;
+        font-size: 19px;
+        color: #222222;
+    }
+    .entryFee b,
+    .prize b {
+        font-weight: bold
+    }
+}
+
+.dropdownhHeader.active {
+    background-color: #747774;
+    color: #fff;
+    border: none;
+
+    .gameTitle, i {
+        color: #fff;
+    }
+}
+
+.dropdownBody {
+    display: none;
+}
+
+.dropdownBody.active {
+    display: unset;
+  
+}
+.dropdownHeaderOnClick{
+    background-color: #fff;
+    border: 1px solid  #D90000;
+}
+
+
+
+
+/* Game day starts */
+.gameInstructions {
+    background-color: #eee;
+}
+
+.gameList {
+    height: 100%;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+            border-bottom: #C4C4C4 1px solid;
+            padding-bottom: 6px;
+            .singleGameHeader {
+                margin-bottom: 6px;
+            }
+            .singleGameBody {
+                display: flex;
+                justify-content: space-between;
+                .singleGameTeams {
+                    span {
+                        display: block;
+                        font-weight: 700;
+                        color: #3a3a3a;
+                    }
+                }
+                .actionBtnsContainer {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .actionBtn {
+                        background-color: #fff;
+                        border: 1px solid #ca0404;
+                        color: #ca0404;
+                        padding: 0px 7px;
+                        border-radius: 4px;
+                        height: 39px;
+
+                        @include for-lg {
+                            padding: 0px 13px;
+                        }
+                    }
+                    .actionBtn:not(:last-child) {
+                        margin-right: 10px;
+                    }
+                    .actionBtn.selectedBtn {
+                        color: #fff;
+                        border: none;
+                        background-color: #ca0404;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/* Game day ends */

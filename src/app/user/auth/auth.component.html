@@ -1,0 +1,209 @@
+<!-- Login modal -->
+<div class="modal fade" #loginmodal="mdbModal" tabindex="-1" mdbModal>
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex font-weight-bold"
+        style="background-color: #f4f4f4"
+      >
+        <span>LOGIN</span>
+        <div class="ml-auto">
+          <span class="mr-5 small font-weight-bold"
+            >Not a member?
+            <a class="blue-text" style='font-size: 18px;' (click)="showSignup()">Sign Up</a>
+          </span>
+          <span class="close" (click)=" onCut() ">&times;</span>
+        </div>
+      </div>
+      <div class="modal-body pb-3">
+        <div class="container">
+          <!-- Facebook and google buttons  starts -->
+          <!-- <button
+            class="waves-light relative  d-block mx-auto  socialLogin"
+            (click)="signInWithGoogle()"
+            mdbBtn
+            mdbWavesEffect
+            #googleBtn
+            id="btn"
+            style="background-color: #DB4437; padding: 15px;"
+          >
+            <i
+              class="fab fa-google-plus-g"
+              style="margin-right: 15px; font-size: 20px;"
+            ></i
+            >Log in with Google
+          </button>
+          <button
+            class="waves-light relative indigo mt-3  d-block mx-auto  socialLogin"
+            (click)="signInWithFB()"
+            mdbBtn
+            mdbWavesEffect
+            id="btn"
+            style="padding: 15px;"
+          >
+            <i
+              class="fab fa-facebook-f"
+              style="margin-right: 15px; font-size: 20px;"
+            ></i
+            >Log in with facebook
+          </button> -->
+
+          <app-social-login></app-social-login>
+          <!-- Facebook and google buttons end -->
+
+          <div class="d-flex align-items-center" style="margin-top: 26px;">
+            <span class="or"></span>
+            <span class="px-2">or</span>
+            <span class="or"></span>
+          </div>
+
+          <!-- Input form starts -->
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="md-form ">
+              <input
+                formControlName="email"
+                type="email"
+                id="loginemail"
+                class="form-control"
+                [mdbValidate]="false"
+                mdbInputDirective
+              />
+              <span
+                style="color:red; border-color: black;"
+                class="small"
+                *ngIf="
+                  !loginForm?.get('email').valid &&
+                  loginForm?.get('email').touched
+                "
+                >Please enter a valid email</span
+              >
+              <span
+                style="color:red; border-color: black;"
+                class="small"
+                *ngIf="loginError?.email"
+                >{{ loginError?.email }}</span
+              >
+              <label for="loginemail">Your Email</label>
+            </div>
+
+            <div class="md-form ">
+              <input
+                formControlName="password"
+                [type]="text"
+                id="password"
+                class="    form-control "
+                [mdbValidate]="false"
+                mdbInputDirective
+              />
+              <label for="password">Your Password</label>
+              <span
+                style="color:red; border-color: black;"
+                class="small"
+                *ngIf="!loginForm.get('password').valid && loginForm.touched"
+                >Please enter a valid password</span
+              >
+              <span
+                style="color:red; border-color: black;"
+                class="small"
+                *ngIf="loginError?.password"
+                >{{ loginError?.password }}</span
+              >
+            </div>
+            <div
+              class="spinner"
+              *ngIf="isLoading"
+              style="top:50%;
+            left: 45%;"
+            ></div>
+            <div
+              class=""
+              *ngIf="
+                noNetwork &&
+                (this.loginError?.email === '' ||
+                  this.loginError?.password === '') &&
+                !isLoading
+              "
+              style="top:50%;
+            left: 45%;text-emphasis-color: red"
+            >
+              ...Check your network connection!!
+            </div>
+             <span *ngIf="text==='password'" (click)="showPassword(true)">show Password</span>
+             <span  *ngIf="text==='text'" (click)="showPassword(false)">hide password</span>
+            <div>
+
+              <div class="d-flex">
+                <a (click)="forgotPasswordModal.show(); loginmodal.hide()" class=" blue-text mt-3 ml-auto font-weight-bold"
+                  >Forgot password?</a
+                >
+              </div>
+              <div class="d-flex mt-3">
+                <mdb-checkbox
+                  [default]="false"
+                  formControlName="rememberMe"
+                  class="pt-3"
+                  >Remember me</mdb-checkbox
+                >
+
+                <button
+                  class="waves-light relative red  d-block ml-auto py-2 white-text font-weight-bold"
+                  [disabled]="!loginForm.valid"
+                  mdbBtn
+                  mdbWavesEffect
+                  id="btn"
+                >
+                  Log in
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Input form ends -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- login modal ends -->
+<!-- Forgot Password modal starts -->
+<div class="modal fade" tabindex="-1" role="dialog" #forgotPasswordModal='mdbModal' mdbModal aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role='document'>
+      <div class="modal-content">
+          <!-- Modal header starts -->
+          <div class="modal-header d-flex" style='background-color: #f4f4f4;'>
+
+              <span style='color: #333; font-size: 16px'>FORGOT PASSWORD</span>
+              <div class="ml-auto">
+                  <span class='mr-5' style='font-size:14px;'>Back to <a href="#" class='blue-text'>LOGIN</a> </span>
+                  <span class="close" (click)='forgotPasswordModal.hide()'>&times;</span>
+
+
+              </div>
+              <!-- Modal header ends -->
+          </div>
+          <!-- Modal body starts -->
+          <div class="modal-body text-center">
+              <div class="container my-3">
+
+                  <p class='text-left'>Just enter the email address used when registering your account and we’ll send a reset link. If it doesn’t appear in a few moments, please check your spam folder.</p>
+
+                  <form  [formGroup]="usermail" (ngSubmit)="forgotPassword()" >
+                      <div class="md-form">
+                          <label for="forgotpassword">Email Address</label>
+                          <input type="email" class='form-control' id="forgotpassword"  [mdbValidate]="false"  formControlName="email" mdbInputDirective>
+                        </div>
+
+                      <div class="d-flex">
+                          <button type="submit" mdbBtn mdbWavesEffect class="waves-light relative ml-auto text-white" style="background: #4F5659;">Send Request</button>
+                      </div>
+
+                  </form>
+              </div>
+
+          </div>
+          <!-- Modal body ends -->
+      </div>
+  </div>
+</div>
+<!-- Forgot Password modal ends -->
