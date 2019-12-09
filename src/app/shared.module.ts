@@ -11,15 +11,17 @@ import { RouterModule } from '@angular/router';
 import { ModalAlertComponent } from './modal-alert/modal-alert.component';
 import { ModalGetTokenComponent } from './modal-getToken/modal-get-token.component';
 import { SpinnerComponent } from './spinner/spinner/spinner.component';
+import { SplashMessageComponent } from './splash-message/splash-message.component';
 
 @NgModule({
   declarations: [
-HeaderComponent,
-NewlobbyComponent,
-FooterComponent,
-ModalAlertComponent,
-ModalGetTokenComponent,
-SpinnerComponent
+    HeaderComponent,
+    NewlobbyComponent,
+    FooterComponent,
+    ModalAlertComponent,
+    ModalGetTokenComponent,
+    SpinnerComponent,
+    SplashMessageComponent
   ],
   exports: [
     CommonModule,
@@ -27,13 +29,14 @@ SpinnerComponent
     NewlobbyComponent,
     MDBBootstrapModule,
     FooterComponent,
-     ModalAlertComponent,
-     ModalGetTokenComponent,
-     SpinnerComponent,
+    ModalAlertComponent,
+    ModalGetTokenComponent,
+    SpinnerComponent,
+    SplashMessageComponent,
     RouterModule,
 
   ],
-  schemas: [ NO_ERRORS_SCHEMA ],
-  imports: [MDBBootstrapModule,  RouterModule, CommonModule]
+  schemas: [NO_ERRORS_SCHEMA],
+  imports: [MDBBootstrapModule, RouterModule, CommonModule]
 })
-export class SharedModule {}
+export class SharedModule { }

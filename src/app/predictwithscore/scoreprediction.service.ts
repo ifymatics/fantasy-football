@@ -1,8 +1,8 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Subject, Observable } from 'rxjs';
-import { PointObj } from './predictwin/predictwin.component';
-import { Game } from './mypredictions/free/free-prediction.component';
+import { Observable } from 'rxjs';
+import { Game } from '../predictwin/mypredictions/free/free-prediction.component';
 export class League {
   name?: string;
   id?: string;
@@ -14,8 +14,10 @@ class PointsObj {
 @Injectable({
   providedIn: 'root'
 })
-export class LeaguesService {
-
+export class ScorepredictionService {
+  tokenEmitter = new EventEmitter<any>();
+  freeEmitter = new EventEmitter<any>();
+  gamesEmitter = new EventEmitter<any>()
   leagues = new EventEmitter<League[]>();
   freeGamesArray = new EventEmitter<any[]>();
   tokenGamesObj = new EventEmitter<any[]>();
@@ -41,7 +43,7 @@ export class LeaguesService {
     this.nowTimeStamp = 10 * 24 * 60 * 60 * 1000;
   }
   checkForGameIdAndPlayerId(id, userId) {
-    return this.db.collection<any>('predictionsForAdminScoring', ref =>
+    return this.db.collection<any>('scorePredictionsForAdminScoring', ref =>
       ref.where('ID', '==', id).where('user.userId', '==', userId))
       .valueChanges({ idField: 'id' });
   }
@@ -63,12 +65,12 @@ export class LeaguesService {
   }
   fetchFree(arg?, status?) {
     if (arg === 'front-end') {
-      return this.db.collection<any>('free-games', ref => {
+      return this.db.collection<any>('freescore-games', ref => {
         return ref.where('status', '==', true).where('date', '>=', status).orderBy('date', 'asc');
       }
       ).valueChanges({ idField: 'id' });
     }
-    return this.db.collection<any>('free-games', ref => {
+    return this.db.collection<any>('freescore-games', ref => {
       return ref.where('date', '>=', status).orderBy('date', 'desc');;
     }
     ).valueChanges({ idField: 'id' });
@@ -79,22 +81,22 @@ export class LeaguesService {
     if (status === undefined) {
       status = this.nowTimeStamp;
     }
-    if (arg === 'front-end') return this.db.collection<any>('token-games', ref => {
+    if (arg === 'front-end') return this.db.collection<any>('tokenscore-games', ref => {
       return ref.where('status', '==', true).where('date', '>=', status).orderBy('date', 'asc');
     }
     ).valueChanges({ idField: 'id' });
     // console.log(status, 'debugging')
-    return this.db.collection<any>('token-games', ref => {
+    return this.db.collection<any>('tokenscore-games', ref => {
       return ref.where('date', '>=', status).orderBy('date', 'asc');
     }
     ).valueChanges({ idField: 'id' });
 
   }
   updateForAdmin(data) {
-    if (data.id) { console.log(data); return this.db.collection<any>('predictionsForAdminScoring').doc(data.id).set(data); }
+    if (data.id) { console.log(data); return this.db.collection<any>('scorePredictionsForAdminScoring').doc(data.id).set(data); }
   }
   createForAdmin(data) {
-    return this.db.collection<any>('predictionsForAdminScoring').add(data)
+    return this.db.collection<any>('scorePredictionsForAdminScoring').add(data)
   }
   createMyPredictions(data, userId, arg?) {
     if (arg === 'token') {
@@ -105,34 +107,7 @@ export class LeaguesService {
     return this.db.collection<any>('mypredictions').doc(userId).collection('free').doc(data.id).set(data);
 
   }
-  /************For UserPoint**************** */
-  updateUserPoint(userId, data) {
 
-    // return this.db.collection<any>('points').doc(userId).update(data);
-    return this.db.collection<PointObj>('points').doc(userId).set(data);
-  }
-  getUserPoint(userId?) {
-
-    return this.db.collection<PointsObj>('points', ref => {
-      return ref.orderBy('point', 'desc')
-    }).valueChanges({ idField: 'id' });
-  }
-  getMyPoints(userId) {
-    // return this.db.collection<any>('points', ref=>ref.where('id','==',userId)).doc(userId).valueChanges();
-    return this.db.collection<any>('points').doc(userId).valueChanges();
-  }
-  /************ End of For UserPoint**************** */
-
-
-
-  /************  updateUserPrize For test**************** */
-  updatePrize(userId, data) {
-    return this.db.collection<any>('prizes', ref => ref.where('id', '==', userId)).doc(userId).set(data);
-  }
-  getPrize(userId) {
-    return this.db.collection<any>('prizes').doc(userId).valueChanges();
-  }
-  /************ End of updateUserPrize For test**************** */
   getAllPredictions() {
     return this.db.collection('mypredictions').ref.id
     //.snapshotChanges();
@@ -162,43 +137,43 @@ export class LeaguesService {
 
   //    }
   fetchFreeGameResults() {
-    return this.db.collection<any>('freeGamesResults').valueChanges({ idField: 'id' });
+    return this.db.collection<any>('freescoreGamesResults').valueChanges({ idField: 'id' });
 
   }
   getUserScoredGames(userId) {
-    return this.db.collection<any>('predictionsForAdminScoring', ref => ref.where('user.userId', '==', userId)
+    return this.db.collection<any>('scorePredictionsForAdminScoring', ref => ref.where('user.userId', '==', userId)
       .where('scored', '==', true).where('free', '==', true).orderBy('datePredicted', 'desc')).valueChanges({ idField: 'id' });
   }
   getUserTokenScoredGames(userId) {
     let now = Date.now();
-    return this.db.collection<any>('predictionsForAdminScoring', ref => ref.where('user.userId', '==', userId)
+    return this.db.collection<any>('scorePredictionsForAdminScoring', ref => ref.where('user.userId', '==', userId)
       .where('date', '<', now).where('token', '==', true).orderBy('date', 'desc')).valueChanges({ idField: 'id' });
   }
   getUserFreePredictionsForScoring(userId): Observable<Game[]> {
-    return this.db.collection<any>('predictionsForAdminScoring', ref => ref.where('free', '==', true)
+    return this.db.collection<any>('scorePredictionsForAdminScoring', ref => ref.where('free', '==', true)
       .where('user.userId', '==', userId).orderBy('datePredicted', 'desc')).valueChanges({ idField: 'id' });
   }
   getUserTokenPredictionsForScoring(userId) {
 
-    return this.db.collection<any>('predictionsForAdminScoring', ref => ref.where('token', '==', true)
+    return this.db.collection<any>('scorePredictionsForAdminScoring', ref => ref.where('token', '==', true)
       .where('user.userId', '==', userId).orderBy('datePredicted', 'desc')).valueChanges({ idField: 'id' });
   }
   fetchPredictedGameResults() {
-    return this.db.collection<any>('predictionsForAdminScoring', ref => ref.where('scored', '==', false)).valueChanges({ idField: 'id' });
+    return this.db.collection<any>('scorePredictionsForAdminScoring', ref => ref.where('scored', '==', false)).valueChanges({ idField: 'id' });
 
   }
 
   fetchTokenGameResults() {
 
-    return this.db.collection('tokenGamesResults').valueChanges({ idField: 'id' });
+    return this.db.collection('tokenscoreGamesResults').valueChanges({ idField: 'id' });
 
   }
   submitGameResults(game, type?) {
     if (type === 'token') {
       console.log(game);
-      return this.db.collection('tokenGamesResults').doc(game.id).set(game);
+      return this.db.collection('tokenscoreGamesResults').doc(game.id).set(game);
     }
-    return this.db.collection('freeGamesResults').doc(game.id).set(game);
+    return this.db.collection('freescoreGamesResults').doc(game.id).set(game);
 
 
   }
@@ -217,5 +192,36 @@ export class LeaguesService {
   getInfoMessage(arg) {
     //console.log('loooooooo')
     return this.db.collection('infoMessage').doc('homePage').valueChanges();
+  }
+  fetchGame(id, type?, status?, nowTimeStamp?) {
+    if (nowTimeStamp === undefined) {
+      nowTimeStamp = this.nowTimeStamp;
+    }
+    //console.log(nowTimeStamp)
+    if (type === 'token' && status === 'front-end') {
+      // console.log(id)
+      return this.db.collection<any>('tokenscore-games', ref => {
+        return ref.where('league_id', '==', id).where('status', '==', true).where('date', '>=', nowTimeStamp).orderBy('date', 'asc');
+      }
+      ).valueChanges({ idField: 'id' });
+    }
+
+    if (type === 'free' && status === 'front-end') {
+
+      return this.db.collection<any>('freescore-games', ref => {
+        return ref.where('league_id', '==', id).where('status', '==', true).where('date', '>=', nowTimeStamp).orderBy('date', 'asc');
+      }
+      ).valueChanges({ idField: 'id' });
+    }
+    if (type === 'token') {
+      return this.db.collection<any>('tokenscore-games', ref => {
+        return ref.where('league_id', '==', id).where('date', '>=', nowTimeStamp).orderBy('date', 'asc');
+      }
+      ).valueChanges({ idField: 'id' });
+    }
+    return this.db.collection<any>('freescore-games', ref => {
+      return ref.where('league_id', '==', id).where('date', '>=', nowTimeStamp).orderBy('date', 'asc');
+    }
+    ).valueChanges({ idField: 'id' });
   }
 }

@@ -22,27 +22,29 @@ import { FreePredictionComponent } from './mypredictions/free/free-prediction.co
 import { TokenPredictionComponent } from './mypredictions/token/token-prediction.component';
 import { PredictboardComponent } from './predictboard/predictboard.component';
 
+
 // import { PredictwinRoutingModule } from './predictwin-routing.module';
 
 @NgModule({
   declarations: [
-    ManageTokenComponent, 
-     FreeComponent,
-     TokenComponent,
-     TokenGameComponent,
-     FreeGameComponent,
-    PredictwinComponent, 
+    ManageTokenComponent,
+    FreeComponent,
+    TokenComponent,
+    TokenGameComponent,
+    FreeGameComponent,
+    PredictwinComponent,
     AdminComponent,
-     ManageGameComponent, 
-     CreateGameComponent,
-     ManageTeamFreeComponent,
-     ManageLeaguesComponent,
-     MypredictionsComponent,
-     FreePredictionComponent,
-     TokenPredictionComponent,
-     PredictboardComponent,
-    
-    ],
+    ManageGameComponent,
+    CreateGameComponent,
+    ManageTeamFreeComponent,
+    ManageLeaguesComponent,
+    MypredictionsComponent,
+    FreePredictionComponent,
+    TokenPredictionComponent,
+    PredictboardComponent,
+
+
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -50,9 +52,9 @@ import { PredictboardComponent } from './predictboard/predictboard.component';
     ReactiveFormsModule,
     PredictwinRoutingModule,
     SharedModule,
-   
-   // AdminModule
+
+    // AdminModule
   ],
- // providers: [PredictwinService]
+  // providers: [PredictwinService]
 })
 export class PredictwinModule { }

@@ -18,50 +18,57 @@ import { FreePredictionComponent } from './mypredictions/free/free-prediction.co
 import { TokenPredictionComponent } from './mypredictions/token/token-prediction.component';
 import { PredictboardComponent } from './predictboard/predictboard.component';
 
+
 const predictwinRoutes: Routes =
-[
-  {path: '', canActivate: [AuthGuard], component: PredictwinComponent,
-  children: [
-              {path: '', redirectTo: 'free', pathMatch: 'full'},
-              {path:'free', component: FreeComponent},
-              {path:'token', component: TokenComponent},
-            
-             ]
-  },
-  {path: 'predictwin-leaderboard', component: PredictboardComponent},
-  {path: 'my-predictions', canActivate: [AuthGuard], component: MypredictionsComponent,
-  children: [
-              {path: '', redirectTo: 'free-predictions', pathMatch: 'full'},
-              {path:'free-predictions', component: FreePredictionComponent},
-              {path:'token-predictions', component: TokenPredictionComponent}
-             ]
-  },
+  [
+    {
+      path: '', canActivate: [AuthGuard], component: PredictwinComponent,
+      children: [
+        { path: '', redirectTo: 'free', pathMatch: 'full' },
+        { path: 'free', component: FreeComponent },
+        { path: 'token', component: TokenComponent },
 
-  {path: 'admin', canActivate: [AuthGuard], component: AdminComponent, children:
-    [
-      {path: '', redirectTo: 'create-game', pathMatch: 'full'},
-      {path: 'create-game', canActivate: [AuthGuard], component: CreateGameComponent, children:
-         [
-                     {path: '', redirectTo: 'free', pathMatch: 'full'},
-                     {path:'free', component: FreeGameComponent},
-                     {path:'token', component: TokenGameComponent}
-                   ]
-       },
-       {path: 'manage-game', canActivate: [AuthGuard], component: ManageGameComponent,
-         children: [
-                  {path: '', redirectTo: 'free', pathMatch: 'full'},
-                  {path:'free', component: ManageTeamFreeComponent },
-                  {path:'token', component: ManageTokenComponent }
-                   ]
-       },
+      ]
+    },
 
-       {path: 'manage-leagues', canActivate: [AuthGuard], component: ManageLeaguesComponent}
-     ]
-   },
-  
-];
+    { path: 'predictwin-leaderboard', component: PredictboardComponent },
+    {
+      path: 'my-predictions', canActivate: [AuthGuard], component: MypredictionsComponent,
+      children: [
+        { path: '', redirectTo: 'free-predictions', pathMatch: 'full' },
+        { path: 'free-predictions', component: FreePredictionComponent },
+        { path: 'token-predictions', component: TokenPredictionComponent }
+      ]
+    },
+
+    {
+      path: 'admin', canActivate: [AuthGuard], component: AdminComponent, children:
+        [
+          { path: '', redirectTo: 'create-game', pathMatch: 'full' },
+          {
+            path: 'create-game', canActivate: [AuthGuard], component: CreateGameComponent, children:
+              [
+                { path: '', redirectTo: 'free', pathMatch: 'full' },
+                { path: 'free', component: FreeGameComponent },
+                { path: 'token', component: TokenGameComponent }
+              ]
+          },
+          {
+            path: 'manage-game', canActivate: [AuthGuard], component: ManageGameComponent,
+            children: [
+              { path: '', redirectTo: 'free', pathMatch: 'full' },
+              { path: 'free', component: ManageTeamFreeComponent },
+              { path: 'token', component: ManageTokenComponent }
+            ]
+          },
+
+          { path: 'manage-leagues', canActivate: [AuthGuard], component: ManageLeaguesComponent }
+        ]
+    },
+
+  ];
 @NgModule({
-  declarations:  [],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild(predictwinRoutes)

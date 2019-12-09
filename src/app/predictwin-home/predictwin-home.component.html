@@ -1,0 +1,100 @@
+<app-header>
+</app-header>
+
+<div class='main'>
+
+    <!-- Desktop starts -->
+    <div id='body-container'>
+        <div class="container">
+
+            <div class="row mt-3">
+                <!-- <div class="col-sm-6 col-xs-12  col-md-4 offset-lg-2">
+                    <mdb-card class="text-center mt-3 " id="card">
+                        <mdb-card-title class="d-flex">
+                        </mdb-card-title>
+                        <mdb-card-text id="card-text">
+                            <div id="league-image">
+                                <h3 class='font-weight-bold'>Predict Score</h3>
+                            </div>
+                            <div class="text-info">
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2 mx-auto">
+                                        <button routerLink='scores-predict-and-win/free'
+                                            class="waves-light relative  btn-primary btn-sm" mdbBtn mdbWavesEffect>
+                                            Play Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mdb-card-text>
+
+                    </mdb-card>
+                </div> -->
+
+
+                <div class="col-sm-6 col-xs-12  col-md-4">
+                    <mdb-card class="text-center mt-3" id="card">
+                        <mdb-card-title class="d-flex">
+                            <div class="ml-auto mr-2">
+                                <span class="small ml-auto mr-2">
+                                    <!-- <small class="d-block">League sponsor</small>
+                                    <img src="assets/image/logo/logo_F.png" alt="" id="sponsor-box"> -->
+                                </span>
+                            </div>
+                        </mdb-card-title>
+                        <mdb-card-text id="card-text">
+                            <div id="league-image">
+                                <h3 class='font-weight-bold'>Predict Score</h3>
+                            </div>
+                            <div class="text-info">
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2 mx-auto">
+                                        <button [routerLink]="['/predictwin-score']"
+                                            routerLinkActive="router-link-active"
+                                            class="waves-light relative  btn-primary btn-sm" mdbBtn mdbWavesEffect
+                                            routerLink='outcome-prediction'>
+                                            Play Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mdb-card-text>
+                    </mdb-card>
+                </div>
+
+
+                <div class="col-sm-6 col-xs-12  col-md-4">
+                    <mdb-card class="text-center mt-3" id="card">
+                        <mdb-card-title class="d-flex">
+                            <div class="ml-auto mr-2">
+                                <span class="small ml-auto mr-2">
+                                    <!-- <small class="d-block">League sponsor</small>
+                                        <img src="assets/image/logo/logo_F.png" alt="" id="sponsor-box"> -->
+                                </span>
+                            </div>
+                        </mdb-card-title>
+                        <mdb-card-text id="card-text">
+                            <div id="league-image">
+                                <h3 class='font-weight-bold'>Predict Outcome</h3>
+                            </div>
+                            <div class="text-info">
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2 mx-auto">
+                                        <button [routerLink]="['/predict-win']" routerLinkActive="router-link-active"
+                                            class="waves-light relative  btn-primary btn-sm" mdbBtn mdbWavesEffect
+                                            routerLink='outcome-prediction'>
+                                            Play Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mdb-card-text>
+                    </mdb-card>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- <app-footer></app-footer> -->

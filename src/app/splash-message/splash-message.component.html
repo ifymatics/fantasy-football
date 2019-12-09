@@ -1,0 +1,19 @@
+<div class="backdrop" *ngIf="!close">
+
+
+</div>
+<div class="alert-box mobile" *ngIf="!close">
+    <div class="alert-head">
+        <div class="alert-box-actions">
+            <span (click)="onClose()" class="close">&times;</span>
+        </div>
+    </div>
+
+    <div class="alert-body">
+        <div class='splash-screen-image' [style.backgroundImage]="getBackgroundImageUrl() || image"></div>
+        <div class="splash-screen-message">
+            <strong>{{infoObj.msg || message}}</strong>
+        </div>
+    </div>
+</div>
+<!-- New get token modal ends -->

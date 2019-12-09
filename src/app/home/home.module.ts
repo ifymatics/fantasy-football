@@ -14,13 +14,14 @@ import { SharedModule } from "../shared.module";
 import { FooterComponent } from "./footer/footer.component";
 import { NewHomeComponent } from './new-home/new-home.component';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from "@angular/platform-browser";
+import { PredictwinHomeComponent } from "../predictwin-home/predictwin-home.component";
 
 
 declare var Hammer: any;
 export class MyHammerConfig extends HammerGestureConfig {
-  overrides = <any> {
-    'pan': {direction: Hammer.DIRECTION_ALL},
-    'swipe': {direction: Hammer.DIRECTION_VERTICAL}
+  overrides = <any>{
+    'pan': { direction: Hammer.DIRECTION_ALL },
+    'swipe': { direction: Hammer.DIRECTION_VERTICAL }
   };
 
   buildHammer(element: HTMLElement) {
@@ -57,7 +58,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     AuthComponent,
     SignupComponent,
     SocialLoginComponent,
-    NewHomeComponent
+    NewHomeComponent,
+    PredictwinHomeComponent
   ],
   providers: [
     {
@@ -66,4 +68,4 @@ export class MyHammerConfig extends HammerGestureConfig {
     }
   ]
 })
-export class HomeModule {}
+export class HomeModule { }

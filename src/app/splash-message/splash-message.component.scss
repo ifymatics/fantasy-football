@@ -1,0 +1,101 @@
+@mixin for-lg {
+    @media (min-width: 992px) {
+        @content;
+    }
+}
+
+.close {
+    color: #000;
+    font-size: 25px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    padding: 5px 10px;
+    margin-right: 0.2rem;
+    margin-top: -10px;
+    margin-left: auto;
+}
+
+.splash-screen-image {
+    background-position: center;
+    background-size: cover;
+    height: 40vh;
+    background-repeat: no-repeat;
+    margin-bottom: 50px;
+}
+
+.splash-screen-message {
+    text-align: justify;
+}
+
+//////////////////CSSS///////////////////////////
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 50;
+    z-index: 999;
+}
+
+.alert-box {
+    position: fixed;
+    top: 17vw;
+    margin-right: 15px;
+    width: 30vw;
+    left: 35vw;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    @include for-lg {
+        top: 9vh;
+    }
+}
+
+.tokenAmountInput {
+    background-color: #e9ecef;
+    border: none;
+    text-align: center;
+    font-size: 23px;
+    border-radius: 8px;
+    font-size: 23px;
+}
+
+.tokenAmountControllers {
+    border: 1px solid #585858;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.alert-head {
+    display: flex;
+    padding: 16px;
+    border-bottom: 1px solid #9c9c9c;
+    justify-content: space-between;
+    padding-bottom: 8px;
+}
+
+.alert-body {
+    background-color: #fff;
+    padding-top: 30px;
+    padding-bottom: 15px;
+    margin: 0 15px;
+    overflow-y: auto;
+    max-height: 75vh;
+    @include for-lg {
+        max-height: 65vh;
+    }
+}
+
+.alert-box-actions {
+    text-align: right;
+    margin-left: auto;
+}
+
+.mobile {
+    width: 90vw;
+    left: 5vw;
+}
+
+/////////////////END OF CSS

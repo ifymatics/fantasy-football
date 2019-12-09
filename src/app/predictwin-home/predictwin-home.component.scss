@@ -1,0 +1,363 @@
+@mixin for-lg {
+    @media screen and (min-width: 996px) {
+        @content;
+    }
+}
+
+@mixin for-portrait-phone-only {
+    @media (min-width: 320px) and (max-width: 480px) {
+        @content;
+    }
+}
+
+// Media query size for low Resolution Tablets, Mobiles (Landscape)
+@mixin for-landscape-phone-only {
+    @media (min-width: 481px) and (max-width: 767px) {
+        @content;
+    }
+}
+
+//Media query for Tablets, Ipads (portraits)
+@mixin for-portrait-tablet-and-ipad-only {
+    @media (min-width: 768px) and (max-width: 1024px) {
+        @content;
+    }
+}
+
+//Media query for Tablets, Ipads (landscape)
+@mixin for-landscape-tablet-and-ipads-only {
+    @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+        @content;
+    }
+}
+
+//Media query Laptops, Desktops
+@mixin for-laptop-and-desktop-only {
+    @media (min-width: 1025px) {
+        @content;
+    }
+}
+
+/////======BODY STARTS=======/////
+#body-container {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+}
+
+//card text height and width
+#card-text {
+    max-width: 400px;
+    min-height: 245px;
+    @include for-landscape-phone-only {
+        min-height: 220px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        min-height: 180px;
+    }
+}
+
+//card league images starts
+#league-image {
+    max-width: 349.33px;
+    height: 150px;
+    padding: 5px 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include for-landscape-phone-only {
+        padding-bottom: 7.5px;
+        height: 120px;
+    }
+}
+
+//container that holds the card button starts
+.text-info {
+    padding: 0px 20px 15px;
+    @include for-landscape-phone-only {
+        padding: 0px 0px 15px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        padding: 0px 0px 15px;
+    }
+    @include for-landscape-tablet-and-ipads-only {
+        padding: 0px 0px 15px;
+    }
+}
+
+//container for sponsor thumbnail starts
+#sponsor-box {
+    max-width: 349.33px;
+    max-height: 19px;
+    margin-top: 0;
+}
+
+//premier league image starts
+#premLeague {
+    width: 180px;
+    height: 90px;
+    @include for-landscape-phone-only {
+        width: 140px;
+        height: 70px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        width: 140px;
+        height: 70px;
+    }
+}
+
+//la liga image starts
+#laliga {
+    width: 190px;
+    height: 71px;
+    @include for-landscape-phone-only {
+        width: 150px;
+        height: 61px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        width: 150px;
+        height: 61px;
+    }
+}
+
+//bundes liga image starts
+#bundesLiga {
+    width: 160px;
+    height: 62px;
+    @include for-landscape-phone-only {
+        width: 120px;
+        height: 51px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        width: 120px;
+        height: 51px;
+    }
+}
+
+//ligue 1 image starts
+#ligue1 {
+    width: 60px;
+    height: 100px;
+    @include for-landscape-phone-only {
+        width: 50px;
+        height: 80px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        width: 50px;
+        height: 80px;
+    }
+}
+
+//SerieA image starts
+#serieA {
+    width: 190px;
+    height: 150px;
+    @include for-landscape-phone-only {
+        width: 150px;
+        height: 110px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        width: 150px;
+        height: 110px;
+    }
+}
+
+.bottom-add-banner {
+    margin: 22px 0px;
+    display: inline-block;
+}
+
+.clearfix {
+    display: block;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+
+
+/* CUSTOMISED SPINNER*/
+
+.spinner {
+    border: 16px solid silver;
+    border-top: 16px solid #387ab7;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 700ms linear infinite;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin: -40px 0 0 -40px;
+    @include for-portrait-phone-only {
+        border-width: 8px;
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+    }
+    @include for-landscape-phone-only {
+        border-width: 8px;
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+    }
+    @include for-portrait-tablet-and-ipad-only {
+        border-width: 8px;
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/*@media screen and (max-width: 480px) {
+
+     .spinner{
+    border: 16px solid silver;
+    border-top: 16px solid #387AB7;
+    border-radius: 50%;
+    width:50px;
+    height: 50px;
+    animation: spin 700ms linear infinite;
+    top:120%;
+    left: 50%;
+    position:absolute;
+    }
+    @keyframes spin {
+    0% {transform: rotate(0deg)}
+    100% {transform: rotate(360deg)}
+    }
+    } */
+
+
+/* END OF CUSTOMISED SPINNER*/
+
+/////======BODY ENDS=======/////
+//******************FOOTER STARTS*********************
+//Social media icons at footer starts
+footer {
+    position: relative;
+    background: #4f4f4f;
+    z-index: 1000;
+    .footer-nav {
+        padding: 0;
+        margin: 0;
+        li {
+            list-style: none;
+            color: #9c9c9c;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 5px 8px;
+        }
+        li a {
+            color: #fff;
+        }
+        li a:hover {
+            color: #419BF9;
+        }
+    }
+    .visible-sm,
+    .visible-xs {
+        display: none;
+        @include for-portrait-phone-only {
+            display: block;
+        }
+    }
+}
+
+.footer-section {
+    clear: both;
+    background-color: #4F4F4F;
+    padding-top: 20px;
+    color: #fff;
+    font-size: 14px;
+    width: 100%;
+}
+
+.footer-bottom {
+    background-color: #474747;
+    padding: 5px;
+    margin-top: 15px;
+    color: #9c9c9c;
+    padding-top: 15px;
+    .list-inline {
+        margin-bottom: 0;
+        display: inline-block;
+        margin-left: 20px;
+        vertical-align: middle;
+        li {
+            list-style: none;
+            display: inline-block;
+            img {
+                vertical-align: middle;
+            }
+        }
+        li:first-child {
+            a {
+                img {
+                    width: 13px;
+                    height: 23px;
+                }
+            }
+        }
+        li:nth-child(2) {
+            a {
+                img {
+                    width: 20px;
+                    height: 17px;
+                }
+            }
+        }
+        li:nth-child(3) {
+            a {
+                img {
+                    width: 19px;
+                    height: 19px;
+                }
+            }
+        }
+        li:last-child {
+            a {
+                img {
+                    width: 19px;
+                    height: 19px;
+                }
+            }
+        }
+    }
+}
+
+a {
+    img {
+        vertical-align: middle;
+    }
+    img:first-child {
+        width: 13px;
+        height: 23px;
+    }
+    img:nth-child(2) {
+        width: 20px;
+        height: 17px;
+    }
+    img:nth-child(3) {
+        width: 19px;
+        height: 19px;
+    }
+    img:nth-child(4) {
+        width: 19px;
+        height: 19px;
+    }
+}
+
+// Social media icons at footer ends
